@@ -1,0 +1,8 @@
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\bin\Debug\GOMAC.exe.config
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\bin\Debug\GOMAC.exe
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\bin\Debug\GOMAC.pdb
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.Properties.Resources.resources
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.csproj.GenerateResource.cache
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.csproj.CoreCompileInputs.cache
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.exe
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.pdb
