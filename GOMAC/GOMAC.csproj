@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,14 +47,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Data\ConexionAS400.cs" />
+    <Compile Include="Data\ConexionBD.cs" />
+    <Compile Include="Data\FuncionesBD.cs" />
+    <Compile Include="Views\Frm_NuevaSolicitud.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Views\Frm_NuevaSolicitud.Designer.cs">
+      <DependentUpon>Frm_NuevaSolicitud.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Frm_PantallaPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Frm_PantallaPrincipal.Designer.cs">
+      <DependentUpon>Frm_PantallaPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Encriptacion.cs" />
+    <Compile Include="Helpers\Funcion.cs" />
+    <Compile Include="Helpers\Log.cs" />
+    <Compile Include="Models\Map.cs" />
+    <Compile Include="Models\QueryParametro.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Views\Frm_PantallaPrincipal.resx">
+      <DependentUpon>Frm_PantallaPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -75,6 +93,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Processes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\bbva-logo-3.ico" />
+    <Content Include="Resources\bbva_logo.jpg" />
+    <Content Include="Resources\begin.png" />
+    <Content Include="Resources\contiene.png" />
+    <Content Include="Resources\empieza_con.png" />
+    <Content Include="Resources\eye.png" />
+    <Content Include="Resources\key.png" />
+    <Content Include="Resources\like.png" />
+    <Content Include="Resources\loading.gif" />
+    <Content Include="Resources\logout.png" />
+    <Content Include="Resources\mostrar.png" />
+    <Content Include="Resources\next-button.png" />
+    <Content Include="Resources\previous.png" />
+    <Content Include="Resources\printer.png" />
+    <Content Include="Resources\search.png" />
+    <Content Include="Resources\search_24px.png" />
+    <Content Include="Resources\search_begin.png" />
+    <Content Include="Resources\search_like.png" />
+    <Content Include="Resources\snippet-open-innovation.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

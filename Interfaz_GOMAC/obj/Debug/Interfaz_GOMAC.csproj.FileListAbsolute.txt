@@ -1,5 +1,0 @@
-C:\Users\MI05332\source\repos\GOMAC\Interfaz_GOMAC\obj\Debug\Interfaz_GOMAC.csproj.CoreCompileInputs.cache
-C:\Users\MI05332\source\repos\GOMAC\Interfaz_GOMAC\bin\Debug\Interfaz_GOMAC.dll
-C:\Users\MI05332\source\repos\GOMAC\Interfaz_GOMAC\bin\Debug\Interfaz_GOMAC.pdb
-C:\Users\MI05332\source\repos\GOMAC\Interfaz_GOMAC\obj\Debug\Interfaz_GOMAC.dll
-C:\Users\MI05332\source\repos\GOMAC\Interfaz_GOMAC\obj\Debug\Interfaz_GOMAC.pdb
