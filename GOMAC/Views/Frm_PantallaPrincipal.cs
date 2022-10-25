@@ -30,8 +30,21 @@ namespace GOMAC.Views
 
         private void nuevaSolicitudToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frm_nuevasolicitud = new Frm_NuevaSolicitud();
-            frm_nuevasolicitud.Show();
+            if(loggeado)
+            {
+                if(frm_nuevasolicitud != null)
+                {
+                    frm_nuevasolicitud.Close();
+                    frm_nuevasolicitud = null;
+                }
+               
+                frm_nuevasolicitud = new Frm_NuevaSolicitud(this);
+
+                frm_nuevasolicitud.MdiParent = this;
+                frm_nuevasolicitud.Show();
+            }
+
+            
         }
     }
 }

@@ -32,10 +32,10 @@ namespace GOMAC.Views
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_PantallaPrincipal));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.sistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nuevaSolicitudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.perfilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevaSolicitudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultaSolicitudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actualizarSolicitudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.administradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,30 +76,30 @@ namespace GOMAC.Views
             this.sistemaToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.sistemaToolStripMenuItem.Text = "Sistema";
             // 
+            // loginToolStripMenuItem
+            // 
+            this.loginToolStripMenuItem.Name = "loginToolStripMenuItem";
+            this.loginToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.loginToolStripMenuItem.Text = "Login";
+            // 
+            // perfilToolStripMenuItem
+            // 
+            this.perfilToolStripMenuItem.Name = "perfilToolStripMenuItem";
+            this.perfilToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.perfilToolStripMenuItem.Text = "Perfil";
+            // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.salirToolStripMenuItem.Text = "Salir";
+            // 
             // nuevaSolicitudToolStripMenuItem
             // 
             this.nuevaSolicitudToolStripMenuItem.Name = "nuevaSolicitudToolStripMenuItem";
             this.nuevaSolicitudToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
             this.nuevaSolicitudToolStripMenuItem.Text = "Nueva Solicitud";
             this.nuevaSolicitudToolStripMenuItem.Click += new System.EventHandler(this.nuevaSolicitudToolStripMenuItem_Click);
-            // 
-            // loginToolStripMenuItem
-            // 
-            this.loginToolStripMenuItem.Name = "loginToolStripMenuItem";
-            this.loginToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.loginToolStripMenuItem.Text = "Login";
-            // 
-            // perfilToolStripMenuItem
-            // 
-            this.perfilToolStripMenuItem.Name = "perfilToolStripMenuItem";
-            this.perfilToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.perfilToolStripMenuItem.Text = "Perfil";
-            // 
-            // salirToolStripMenuItem
-            // 
-            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.salirToolStripMenuItem.Text = "Salir";
             // 
             // consultaSolicitudToolStripMenuItem
             // 
@@ -129,19 +129,19 @@ namespace GOMAC.Views
             this.altaToolStripMenuItem,
             this.mantenimientoToolStripMenuItem});
             this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
-            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.usuarioToolStripMenuItem.Text = "Usuario";
             // 
             // altaToolStripMenuItem
             // 
             this.altaToolStripMenuItem.Name = "altaToolStripMenuItem";
-            this.altaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.altaToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.altaToolStripMenuItem.Text = "Alta";
             // 
             // mantenimientoToolStripMenuItem
             // 
             this.mantenimientoToolStripMenuItem.Name = "mantenimientoToolStripMenuItem";
-            this.mantenimientoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mantenimientoToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.mantenimientoToolStripMenuItem.Text = "Mantenimiento";
             // 
             // perfilesToolStripMenuItem
@@ -150,19 +150,19 @@ namespace GOMAC.Views
             this.altaToolStripMenuItem1,
             this.mantenimientoToolStripMenuItem1});
             this.perfilesToolStripMenuItem.Name = "perfilesToolStripMenuItem";
-            this.perfilesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.perfilesToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.perfilesToolStripMenuItem.Text = "Perfiles";
             // 
             // altaToolStripMenuItem1
             // 
             this.altaToolStripMenuItem1.Name = "altaToolStripMenuItem1";
-            this.altaToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.altaToolStripMenuItem1.Size = new System.Drawing.Size(156, 22);
             this.altaToolStripMenuItem1.Text = "Alta";
             // 
             // mantenimientoToolStripMenuItem1
             // 
             this.mantenimientoToolStripMenuItem1.Name = "mantenimientoToolStripMenuItem1";
-            this.mantenimientoToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.mantenimientoToolStripMenuItem1.Size = new System.Drawing.Size(156, 22);
             this.mantenimientoToolStripMenuItem1.Text = "Mantenimiento";
             // 
             // reporteToolStripMenuItem
@@ -172,37 +172,42 @@ namespace GOMAC.Views
             this.perfilesToolStripMenuItem1,
             this.conexionesToolStripMenuItem});
             this.reporteToolStripMenuItem.Name = "reporteToolStripMenuItem";
-            this.reporteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reporteToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.reporteToolStripMenuItem.Text = "Reporte";
             // 
             // usuariosToolStripMenuItem
             // 
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.usuariosToolStripMenuItem.Text = "Usuarios";
             // 
             // perfilesToolStripMenuItem1
             // 
             this.perfilesToolStripMenuItem1.Name = "perfilesToolStripMenuItem1";
-            this.perfilesToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.perfilesToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
             this.perfilesToolStripMenuItem1.Text = "Perfiles";
             // 
             // conexionesToolStripMenuItem
             // 
             this.conexionesToolStripMenuItem.Name = "conexionesToolStripMenuItem";
-            this.conexionesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.conexionesToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.conexionesToolStripMenuItem.Text = "Conexiones";
             // 
             // Frm_PantallaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::GOMAC.Properties.Resources.snippet_open_innovation;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Frm_PantallaPrincipal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GOMAC";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.PantallaPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
