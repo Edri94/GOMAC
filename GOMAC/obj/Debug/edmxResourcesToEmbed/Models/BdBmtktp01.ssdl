@@ -1,0 +1,972 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="bmtktp01Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CONECT">
+    <Key>
+      <PropertyRef Name="id_conect" />
+    </Key>
+    <Property Name="id_conect" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+    <Property Name="equipo" Type="varchar" MaxLength="400" Nullable="false" />
+    <Property Name="ip" Type="varchar" MaxLength="400" Nullable="false" />
+    <Property Name="fechaconect" Type="date" Nullable="false" />
+    <Property Name="horaconect" Type="time" Precision="0" />
+    <Property Name="fechadesconect" Type="date" />
+    <Property Name="horadesconect" Type="time" Precision="0" />
+  </EntityType>
+  <EntityType Name="CONSULTORES">
+    <Key>
+      <PropertyRef Name="Id_ConsultorMac" />
+    </Key>
+    <Property Name="Id_ConsultorMac" Type="int" Nullable="false" />
+    <Property Name="Iniciales_ConsultorMac" Type="char" MaxLength="3" Nullable="false" />
+    <Property Name="Nom_ConsultorMac" Type="varchar" MaxLength="40" />
+    <Property Name="Ap_ConsultorMac" Type="varchar" MaxLength="40" />
+    <Property Name="Am_ConsultorMac" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="dtproperties">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="property" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="objectid" Type="int" />
+    <Property Name="property" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="value" Type="varchar" MaxLength="255" />
+    <Property Name="uvalue" Type="nvarchar" MaxLength="255" />
+    <Property Name="lvalue" Type="image" />
+    <Property Name="version" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HISTORIALPWD">
+    <Key>
+      <PropertyRef Name="id_hpwd" />
+    </Key>
+    <Property Name="id_hpwd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+    <Property Name="oldpwd" Type="nvarchar" MaxLength="4000" />
+    <Property Name="newpwd" Type="nvarchar" MaxLength="4000" />
+    <Property Name="fechacambio" Type="date" />
+  </EntityType>
+  <EntityType Name="MOVIMIENTOS_PERFIL">
+    <Key>
+      <PropertyRef Name="id_movper" />
+    </Key>
+    <Property Name="id_movper" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_perfil" Type="int" Nullable="false" />
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+    <Property Name="id_mov" Type="int" Nullable="false" />
+    <Property Name="id_sector" Type="int" />
+    <Property Name="permisoanterio" Type="varchar" MaxLength="50" />
+    <Property Name="permisoactual" Type="varchar" MaxLength="50" />
+    <Property Name="fechamov" Type="date" Nullable="false" />
+    <Property Name="horamov" Type="time" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MOVIMIENTOS_USUARIO">
+    <Key>
+      <PropertyRef Name="id_movus" />
+    </Key>
+    <Property Name="id_movus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+    <Property Name="id_usuariomodificado" Type="int" Nullable="false" />
+    <Property Name="id_mov" Type="int" Nullable="false" />
+    <Property Name="datoanterior" Type="varchar" MaxLength="230" />
+    <Property Name="datosctual" Type="varchar" MaxLength="230" />
+    <Property Name="fechamov" Type="date" />
+    <Property Name="horamov" Type="time" Precision="0" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.OBSERVACIONES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="OBSERVACIONES">
+    <Key>
+      <PropertyRef Name="Num_Solicitud" />
+      <PropertyRef Name="Observaciones" />
+    </Key>
+    <Property Name="Num_Solicitud" Type="int" Nullable="false" />
+    <Property Name="Observaciones" Type="text" Nullable="false" />
+    <Property Name="Fecha_Observ" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OPERACION_PIU">
+    <Key>
+      <PropertyRef Name="operacion_piu" />
+    </Key>
+    <Property Name="operacion" Type="int" Nullable="false" />
+    <Property Name="operacion_piu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fecha_operacion" Type="smalldatetime" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.OPERACIONESPERFIL' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="OPERACIONESPERFIL">
+          <Property Name="id_usuario" Type="int" />
+          <Property Name="idperfil" Type="int" />
+          <Property Name="idsector" Type="int" />
+          <Property Name="operacion" Type="varchar" MaxLength="1024" />
+          <Property Name="fechaopera" Type="date" />
+        </EntityType>-->
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.OPERACIONESUSUARIO' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="OPERACIONESUSUARIO">
+          <Property Name="id_usuario" Type="int" />
+          <Property Name="operacion" Type="varchar" MaxLength="1024" />
+          <Property Name="fechaopera" Type="date" />
+        </EntityType>-->
+  <EntityType Name="PERFIL">
+    <Key>
+      <PropertyRef Name="id_perfil" />
+    </Key>
+    <Property Name="id_perfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.PERFIL_SECTOR' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="PERFIL_SECTOR">
+    <Key>
+      <PropertyRef Name="id_perfil" />
+      <PropertyRef Name="id_sector" />
+    </Key>
+    <Property Name="id_perfil" Type="int" Nullable="false" />
+    <Property Name="id_sector" Type="int" Nullable="false" />
+    <Property Name="permitido" Type="bit" />
+  </EntityType>
+  <EntityType Name="SECTORES">
+    <Key>
+      <PropertyRef Name="id_sector" />
+    </Key>
+    <Property Name="id_sector" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sector" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SEGUIMIENTO">
+    <Key>
+      <PropertyRef Name="Num_Solicitud" />
+    </Key>
+    <Property Name="Num_Solicitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha_Captura" Type="datetime" />
+    <Property Name="Id_ConsultorMac" Type="int" />
+    <Property Name="Id_Solicitud" Type="int" />
+    <Property Name="Id_Tramite" Type="int" />
+    <Property Name="ExisteTKT" Type="varchar" MaxLength="1" />
+    <Property Name="Puntos" Type="int" />
+    <Property Name="Circuito" Type="varchar" MaxLength="1" />
+    <Property Name="Cuenta_Cliente" Type="varchar" MaxLength="6" />
+    <Property Name="Sufijo_Kapiti" Type="varchar" MaxLength="3" />
+    <Property Name="Tipo_Persona" Type="tinyint" />
+    <Property Name="Nombre_Cliente" Type="varchar" MaxLength="40" />
+    <Property Name="Apellido_Paterno" Type="varchar" MaxLength="20" />
+    <Property Name="Apellido_Materno" Type="varchar" MaxLength="20" />
+    <Property Name="Deposito_InicialTKT" Type="money" />
+    <Property Name="Numero_Registro" Type="varchar" MaxLength="8" />
+    <Property Name="Nombre_Promotor" Type="varchar" MaxLength="80" />
+    <Property Name="Banca" Type="varchar" MaxLength="45" />
+    <Property Name="Division" Type="varchar" MaxLength="45" />
+    <Property Name="Plaza" Type="varchar" MaxLength="45" />
+    <Property Name="Sucursal" Type="varchar" MaxLength="45" />
+    <Property Name="Status" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="SEGUIMIENTO_DOCTOS">
+    <Key>
+      <PropertyRef Name="Num_Solicitud" />
+    </Key>
+    <Property Name="Num_Solicitud" Type="int" Nullable="false" />
+    <Property Name="Repc_Doc" Type="datetime" />
+    <Property Name="Analisis_Mac" Type="datetime" />
+    <Property Name="Formalizada" Type="datetime" />
+    <Property Name="Repc_Originales" Type="datetime" />
+    <Property Name="Aten_Originales" Type="datetime" />
+    <Property Name="Originales" Type="varchar" MaxLength="2" />
+    <Property Name="Nivel_Servicico" Type="varchar" MaxLength="5" />
+    <Property Name="Deposito_Inicial" Type="numeric" Precision="19" Scale="4" />
+    <Property Name="Desbloqueo_Sistemas" Type="datetime" />
+    <Property Name="Envio_Agencia" Type="datetime" />
+    <Property Name="Concluida" Type="datetime" />
+    <Property Name="Cancelacion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TIPO_MOV_PERFIL">
+    <Key>
+      <PropertyRef Name="id_mov" />
+    </Key>
+    <Property Name="id_mov" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="TIPO_MOV_USUARIO">
+    <Key>
+      <PropertyRef Name="id_mov" />
+    </Key>
+    <Property Name="id_mov" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="TIPO_SOLICITUD">
+    <Key>
+      <PropertyRef Name="Id_Solicitud" />
+    </Key>
+    <Property Name="Id_Solicitud" Type="int" Nullable="false" />
+    <Property Name="Descripcion_Solicitud" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TIPO_STATUS">
+    <Key>
+      <PropertyRef Name="Id_Status" />
+    </Key>
+    <Property Name="Id_Status" Type="int" Nullable="false" />
+    <Property Name="Descripcion_Status" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TIPO_TRAMITE">
+    <Key>
+      <PropertyRef Name="Id_Tramite" />
+    </Key>
+    <Property Name="Id_Tramite" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion_Tramite" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Puntos" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="USUARIO">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+    </Key>
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+    <Property Name="id_perfil" Type="int" Nullable="false" />
+    <Property Name="login" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="pwd" Type="nvarchar" MaxLength="4000" Nullable="false" />
+    <Property Name="fechaexpira" Type="bit" Nullable="false" />
+    <Property Name="fecha_de_expiracion" Type="date" />
+    <Property Name="habilitado" Type="bit" Nullable="false" />
+    <Property Name="bloqueado" Type="bit" Nullable="false" />
+    <Property Name="fechacreacion" Type="date" Nullable="false" />
+    <Property Name="conectado" Type="bit" Nullable="false" />
+    <Property Name="nuevoinicio" Type="bit" />
+    <Property Name="resetpwd" Type="bit" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.log_conect' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="log_conect">
+    <Key>
+      <PropertyRef Name="id_conect" />
+      <PropertyRef Name="login" />
+      <PropertyRef Name="conectado" />
+      <PropertyRef Name="equipo" />
+      <PropertyRef Name="ip" />
+      <PropertyRef Name="fecha_de_conexion" />
+    </Key>
+    <Property Name="id_conect" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="login" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="conectado" Type="bit" Nullable="false" />
+    <Property Name="equipo" Type="varchar" MaxLength="400" Nullable="false" />
+    <Property Name="ip" Type="varchar" MaxLength="400" Nullable="false" />
+    <Property Name="fecha_de_conexion" Type="date" Nullable="false" />
+    <Property Name="fecha_de_desconexion" Type="date" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.ver_banca' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="ver_banca">
+          <Property Name="BANCA" Type="varchar" MaxLength="75" />
+        </EntityType>-->
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_conect' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_conect">
+    <Key>
+      <PropertyRef Name="id_conect" />
+      <PropertyRef Name="id_usuario" />
+      <PropertyRef Name="equipo" />
+      <PropertyRef Name="ip" />
+      <PropertyRef Name="fechaconect" />
+    </Key>
+    <Property Name="id_conect" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+    <Property Name="equipo" Type="varchar" MaxLength="400" Nullable="false" />
+    <Property Name="ip" Type="varchar" MaxLength="400" Nullable="false" />
+    <Property Name="fechaconect" Type="date" Nullable="false" />
+    <Property Name="horaconect" Type="time" Precision="0" />
+    <Property Name="fechadesconect" Type="date" />
+    <Property Name="horadesconect" Type="time" Precision="0" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_conect2' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_conect2">
+    <Key>
+      <PropertyRef Name="#Conexion" />
+      <PropertyRef Name="Usuario" />
+      <PropertyRef Name="Equipo" />
+      <PropertyRef Name="Direccion_IP" />
+      <PropertyRef Name="Fecha_de_conexion" />
+    </Key>
+    <Property Name="#Conexion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usuario" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Equipo" Type="varchar" MaxLength="400" Nullable="false" />
+    <Property Name="Direccion_IP" Type="varchar" MaxLength="400" Nullable="false" />
+    <Property Name="Fecha_de_conexion" Type="date" Nullable="false" />
+    <Property Name="Hora_de_conexion" Type="varchar" MaxLength="8" />
+    <Property Name="Fecha_de_desconexion" Type="varchar" MaxLength="10" />
+    <Property Name="Hora_de_desconexion" Type="varchar" MaxLength="8" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_consultores' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_consultores">
+    <Key>
+      <PropertyRef Name="Id_ConsultorMac" />
+      <PropertyRef Name="Iniciales_ConsultorMac" />
+    </Key>
+    <Property Name="Id_ConsultorMac" Type="int" Nullable="false" />
+    <Property Name="Iniciales_ConsultorMac" Type="char" MaxLength="3" Nullable="false" />
+    <Property Name="Nom_ConsultorMac" Type="varchar" MaxLength="40" />
+    <Property Name="Ap_ConsultorMac" Type="varchar" MaxLength="40" />
+    <Property Name="Am_ConsultorMac" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.ver_division' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="ver_division">
+          <Property Name="DIVISION" Type="varchar" MaxLength="75" />
+        </EntityType>-->
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.VER_FUNCIONARIOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="VER_FUNCIONARIOS">
+    <Key>
+      <PropertyRef Name="NUMERO_FUNCIONARIO" />
+    </Key>
+    <Property Name="NUMERO_FUNCIONARIO" Type="char" MaxLength="8" Nullable="false" />
+    <Property Name="PROMOTOR" Type="varchar" MaxLength="77" />
+    <Property Name="BANCA" Type="varchar" MaxLength="75" />
+    <Property Name="DIVISION" Type="varchar" MaxLength="75" />
+    <Property Name="PLAZA" Type="varchar" MaxLength="75" />
+    <Property Name="SUCURSAL" Type="varchar" MaxLength="75" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_mov_perfil' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_mov_perfil">
+    <Key>
+      <PropertyRef Name="#Movimiento" />
+      <PropertyRef Name="Usuario" />
+      <PropertyRef Name="Perfil" />
+      <PropertyRef Name="Sector" />
+      <PropertyRef Name="Permiso_anterior" />
+      <PropertyRef Name="Permiso_actual" />
+      <PropertyRef Name="fecha_del_movimiento" />
+    </Key>
+    <Property Name="#Movimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usuario" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Perfil" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Movimiento" Type="varchar" MaxLength="10" />
+    <Property Name="Sector" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Permiso_anterior" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Permiso_actual" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fecha_del_movimiento" Type="date" Nullable="false" />
+    <Property Name="Hora_del_cambio" Type="nvarchar" MaxLength="8" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_mov_solicitudes' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_mov_solicitudes">
+    <Key>
+      <PropertyRef Name="Num_Solicitud" />
+      <PropertyRef Name="Descripcion_Status" />
+    </Key>
+    <Property Name="Num_Solicitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cuenta_Cliente" Type="varchar" MaxLength="6" />
+    <Property Name="Fecha_Captura" Type="datetime" />
+    <Property Name="Nombre_Cliente" Type="varchar" MaxLength="40" />
+    <Property Name="Apellido_Paterno" Type="varchar" MaxLength="20" />
+    <Property Name="Apellido_Materno" Type="varchar" MaxLength="20" />
+    <Property Name="Descripcion_Status" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_mov_usuario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_mov_usuario">
+    <Key>
+      <PropertyRef Name="#Movimiento" />
+      <PropertyRef Name="Usuario_que_realizo_el_movimiento" />
+      <PropertyRef Name="Usuario_modificado" />
+    </Key>
+    <Property Name="#Movimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usuario_que_realizo_el_movimiento" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Usuario_modificado" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Movimiento" Type="varchar" MaxLength="10" />
+    <Property Name="Dato_anterio" Type="varchar" MaxLength="230" />
+    <Property Name="Dato_actual" Type="varchar" MaxLength="230" />
+    <Property Name="Fecha_del_movimiento" Type="date" />
+    <Property Name="Hora_del_movimiento" Type="time" Precision="0" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_perfil_sector' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_perfil_sector">
+    <Key>
+      <PropertyRef Name="id_perfil" />
+      <PropertyRef Name="id_sector" />
+    </Key>
+    <Property Name="id_perfil" Type="int" Nullable="false" />
+    <Property Name="id_sector" Type="int" Nullable="false" />
+    <Property Name="permitido" Type="bit" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_perfiles' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_perfiles">
+    <Key>
+      <PropertyRef Name="id_perfil" />
+      <PropertyRef Name="nombre" />
+    </Key>
+    <Property Name="id_perfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.ver_plaza' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="ver_plaza">
+          <Property Name="PLAZA" Type="varchar" MaxLength="75" />
+        </EntityType>-->
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.ver_promotor' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="ver_promotor">
+          <Property Name="PROMOTOR" Type="varchar" MaxLength="77" />
+        </EntityType>-->
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_sectores' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_sectores">
+    <Key>
+      <PropertyRef Name="id_sector" />
+      <PropertyRef Name="sector" />
+    </Key>
+    <Property Name="id_sector" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sector" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.ver_sucursal' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="ver_sucursal">
+          <Property Name="SUCURSAL" Type="varchar" MaxLength="75" />
+        </EntityType>-->
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_Tipo_Solicitud' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_Tipo_Solicitud">
+    <Key>
+      <PropertyRef Name="Id_Solicitud" />
+      <PropertyRef Name="Descripcion_Solicitud" />
+    </Key>
+    <Property Name="Id_Solicitud" Type="int" Nullable="false" />
+    <Property Name="Descripcion_Solicitud" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_Tipo_Tramite' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_Tipo_Tramite">
+    <Key>
+      <PropertyRef Name="Id_Tramite" />
+      <PropertyRef Name="Descripcion_Tramite" />
+      <PropertyRef Name="Puntos" />
+    </Key>
+    <Property Name="Id_Tramite" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion_Tramite" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Puntos" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_usuarios">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+      <PropertyRef Name="id_perfil" />
+      <PropertyRef Name="login" />
+      <PropertyRef Name="pwd" />
+      <PropertyRef Name="fechaexpira" />
+      <PropertyRef Name="habilitado" />
+      <PropertyRef Name="bloqueado" />
+      <PropertyRef Name="fechacreacion" />
+      <PropertyRef Name="conectado" />
+    </Key>
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+    <Property Name="id_perfil" Type="int" Nullable="false" />
+    <Property Name="login" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="pwd" Type="nvarchar" MaxLength="4000" Nullable="false" />
+    <Property Name="fechaexpira" Type="bit" Nullable="false" />
+    <Property Name="fecha_de_expiracion" Type="date" />
+    <Property Name="habilitado" Type="bit" Nullable="false" />
+    <Property Name="bloqueado" Type="bit" Nullable="false" />
+    <Property Name="fechacreacion" Type="date" Nullable="false" />
+    <Property Name="conectado" Type="bit" Nullable="false" />
+    <Property Name="nuevoinicio" Type="bit" />
+    <Property Name="resetpwd" Type="bit" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ver_usuarios2">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+      <PropertyRef Name="id_perfil" />
+      <PropertyRef Name="login" />
+      <PropertyRef Name="pwd" />
+      <PropertyRef Name="fechaexpira" />
+      <PropertyRef Name="habilitado" />
+      <PropertyRef Name="bloqueado" />
+      <PropertyRef Name="conectado" />
+    </Key>
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+    <Property Name="id_perfil" Type="int" Nullable="false" />
+    <Property Name="login" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="pwd" Type="nvarchar" MaxLength="4000" Nullable="false" />
+    <Property Name="fechaexpira" Type="bit" Nullable="false" />
+    <Property Name="fecha_de_expiracion" Type="varchar" MaxLength="10" />
+    <Property Name="habilitado" Type="bit" Nullable="false" />
+    <Property Name="bloqueado" Type="bit" Nullable="false" />
+    <Property Name="fechacreacion" Type="varchar" MaxLength="10" />
+    <Property Name="conectado" Type="bit" Nullable="false" />
+    <Property Name="nuevoinicio" Type="bit" />
+    <Property Name="resetpwd" Type="bit" />
+  </EntityType>
+  <Association Name="fk_Consultmac">
+    <End Role="CONSULTORES" Type="Self.CONSULTORES" Multiplicity="1" />
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="CONSULTORES">
+        <PropertyRef Name="Id_ConsultorMac" />
+      </Principal>
+      <Dependent Role="USUARIO">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_idusuario">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="HISTORIALPWD" Type="Self.HISTORIALPWD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="HISTORIALPWD">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movimientoperfil">
+    <End Role="TIPO_MOV_PERFIL" Type="Self.TIPO_MOV_PERFIL" Multiplicity="1" />
+    <End Role="MOVIMIENTOS_PERFIL" Type="Self.MOVIMIENTOS_PERFIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_MOV_PERFIL">
+        <PropertyRef Name="id_mov" />
+      </Principal>
+      <Dependent Role="MOVIMIENTOS_PERFIL">
+        <PropertyRef Name="id_mov" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movimientousuario">
+    <End Role="TIPO_MOV_USUARIO" Type="Self.TIPO_MOV_USUARIO" Multiplicity="1" />
+    <End Role="MOVIMIENTOS_USUARIO" Type="Self.MOVIMIENTOS_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_MOV_USUARIO">
+        <PropertyRef Name="id_mov" />
+      </Principal>
+      <Dependent Role="MOVIMIENTOS_USUARIO">
+        <PropertyRef Name="id_mov" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OBSERVACIONES_SEGUIMIENTO">
+    <End Role="SEGUIMIENTO" Type="Self.SEGUIMIENTO" Multiplicity="1" />
+    <End Role="OBSERVACIONES" Type="Self.OBSERVACIONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SEGUIMIENTO">
+        <PropertyRef Name="Num_Solicitud" />
+      </Principal>
+      <Dependent Role="OBSERVACIONES">
+        <PropertyRef Name="Num_Solicitud" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_perfil">
+    <End Role="PERFIL" Type="Self.PERFIL" Multiplicity="1" />
+    <End Role="PERFIL_SECTOR" Type="Self.PERFIL_SECTOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERFIL">
+        <PropertyRef Name="id_perfil" />
+      </Principal>
+      <Dependent Role="PERFIL_SECTOR">
+        <PropertyRef Name="id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_perfil2">
+    <End Role="PERFIL" Type="Self.PERFIL" Multiplicity="1" />
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERFIL">
+        <PropertyRef Name="id_perfil" />
+      </Principal>
+      <Dependent Role="USUARIO">
+        <PropertyRef Name="id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_perfil7">
+    <End Role="PERFIL" Type="Self.PERFIL" Multiplicity="1" />
+    <End Role="MOVIMIENTOS_PERFIL" Type="Self.MOVIMIENTOS_PERFIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERFIL">
+        <PropertyRef Name="id_perfil" />
+      </Principal>
+      <Dependent Role="MOVIMIENTOS_PERFIL">
+        <PropertyRef Name="id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_sector7">
+    <End Role="SECTORES" Type="Self.SECTORES" Multiplicity="0..1" />
+    <End Role="MOVIMIENTOS_PERFIL" Type="Self.MOVIMIENTOS_PERFIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SECTORES">
+        <PropertyRef Name="id_sector" />
+      </Principal>
+      <Dependent Role="MOVIMIENTOS_PERFIL">
+        <PropertyRef Name="id_sector" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_sectores">
+    <End Role="SECTORES" Type="Self.SECTORES" Multiplicity="1" />
+    <End Role="PERFIL_SECTOR" Type="Self.PERFIL_SECTOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SECTORES">
+        <PropertyRef Name="id_sector" />
+      </Principal>
+      <Dependent Role="PERFIL_SECTOR">
+        <PropertyRef Name="id_sector" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SEGUIMIENTO_DOCTOS_SEGUIMIENTO">
+    <End Role="SEGUIMIENTO" Type="Self.SEGUIMIENTO" Multiplicity="1" />
+    <End Role="SEGUIMIENTO_DOCTOS" Type="Self.SEGUIMIENTO_DOCTOS" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="SEGUIMIENTO">
+        <PropertyRef Name="Num_Solicitud" />
+      </Principal>
+      <Dependent Role="SEGUIMIENTO_DOCTOS">
+        <PropertyRef Name="Num_Solicitud" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SEGUIMIENTO_TIPO_SOLICITUD">
+    <End Role="TIPO_SOLICITUD" Type="Self.TIPO_SOLICITUD" Multiplicity="0..1" />
+    <End Role="SEGUIMIENTO" Type="Self.SEGUIMIENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_SOLICITUD">
+        <PropertyRef Name="Id_Solicitud" />
+      </Principal>
+      <Dependent Role="SEGUIMIENTO">
+        <PropertyRef Name="Id_Solicitud" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SEGUIMIENTO_TIPO_TRAMITE">
+    <End Role="TIPO_TRAMITE" Type="Self.TIPO_TRAMITE" Multiplicity="0..1" />
+    <End Role="SEGUIMIENTO" Type="Self.SEGUIMIENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_TRAMITE">
+        <PropertyRef Name="Id_Tramite" />
+      </Principal>
+      <Dependent Role="SEGUIMIENTO">
+        <PropertyRef Name="Id_Tramite" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuario2">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="CONECT" Type="Self.CONECT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="CONECT">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuario5">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="MOVIMIENTOS_USUARIO" Type="Self.MOVIMIENTOS_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="MOVIMIENTOS_USUARIO">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuario6">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="MOVIMIENTOS_USUARIO" Type="Self.MOVIMIENTOS_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="MOVIMIENTOS_USUARIO">
+        <PropertyRef Name="id_usuariomodificado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuario7">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="MOVIMIENTOS_PERFIL" Type="Self.MOVIMIENTOS_PERFIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="MOVIMIENTOS_PERFIL">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="bmtktp01ModelStoreContainer">
+    <EntitySet Name="CONECT" EntityType="Self.CONECT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CONSULTORES" EntityType="Self.CONSULTORES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="dtproperties" EntityType="Self.dtproperties" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HISTORIALPWD" EntityType="Self.HISTORIALPWD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MOVIMIENTOS_PERFIL" EntityType="Self.MOVIMIENTOS_PERFIL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MOVIMIENTOS_USUARIO" EntityType="Self.MOVIMIENTOS_USUARIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OPERACION_PIU" EntityType="Self.OPERACION_PIU" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PERFIL" EntityType="Self.PERFIL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SECTORES" EntityType="Self.SECTORES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SEGUIMIENTO" EntityType="Self.SEGUIMIENTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SEGUIMIENTO_DOCTOS" EntityType="Self.SEGUIMIENTO_DOCTOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TIPO_MOV_PERFIL" EntityType="Self.TIPO_MOV_PERFIL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TIPO_MOV_USUARIO" EntityType="Self.TIPO_MOV_USUARIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TIPO_SOLICITUD" EntityType="Self.TIPO_SOLICITUD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TIPO_STATUS" EntityType="Self.TIPO_STATUS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TIPO_TRAMITE" EntityType="Self.TIPO_TRAMITE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OBSERVACIONES" EntityType="Self.OBSERVACIONES" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [OBSERVACIONES].[Num_Solicitud] AS [Num_Solicitud], 
+    [OBSERVACIONES].[Observaciones] AS [Observaciones], 
+    [OBSERVACIONES].[Fecha_Observ] AS [Fecha_Observ]
+    FROM [dbo].[OBSERVACIONES] AS [OBSERVACIONES]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="PERFIL_SECTOR" EntityType="Self.PERFIL_SECTOR" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [PERFIL_SECTOR].[id_perfil] AS [id_perfil], 
+    [PERFIL_SECTOR].[id_sector] AS [id_sector], 
+    [PERFIL_SECTOR].[permitido] AS [permitido]
+    FROM [dbo].[PERFIL_SECTOR] AS [PERFIL_SECTOR]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="log_conect" EntityType="Self.log_conect" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [log_conect].[id_conect] AS [id_conect], 
+    [log_conect].[login] AS [login], 
+    [log_conect].[conectado] AS [conectado], 
+    [log_conect].[equipo] AS [equipo], 
+    [log_conect].[ip] AS [ip], 
+    [log_conect].[fecha_de_conexion] AS [fecha_de_conexion], 
+    [log_conect].[fecha_de_desconexion] AS [fecha_de_desconexion]
+    FROM [dbo].[log_conect] AS [log_conect]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_conect" EntityType="Self.ver_conect" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_conect].[id_conect] AS [id_conect], 
+    [ver_conect].[id_usuario] AS [id_usuario], 
+    [ver_conect].[equipo] AS [equipo], 
+    [ver_conect].[ip] AS [ip], 
+    [ver_conect].[fechaconect] AS [fechaconect], 
+    [ver_conect].[horaconect] AS [horaconect], 
+    [ver_conect].[fechadesconect] AS [fechadesconect], 
+    [ver_conect].[horadesconect] AS [horadesconect]
+    FROM [dbo].[ver_conect] AS [ver_conect]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_conect2" EntityType="Self.ver_conect2" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_conect2].[#Conexion] AS [#Conexion], 
+    [ver_conect2].[Usuario] AS [Usuario], 
+    [ver_conect2].[Equipo] AS [Equipo], 
+    [ver_conect2].[Direccion_IP] AS [Direccion_IP], 
+    [ver_conect2].[Fecha_de_conexion] AS [Fecha_de_conexion], 
+    [ver_conect2].[Hora_de_conexion] AS [Hora_de_conexion], 
+    [ver_conect2].[Fecha_de_desconexion] AS [Fecha_de_desconexion], 
+    [ver_conect2].[Hora_de_desconexion] AS [Hora_de_desconexion]
+    FROM [dbo].[ver_conect2] AS [ver_conect2]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_consultores" EntityType="Self.ver_consultores" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_consultores].[Id_ConsultorMac] AS [Id_ConsultorMac], 
+    [ver_consultores].[Iniciales_ConsultorMac] AS [Iniciales_ConsultorMac], 
+    [ver_consultores].[Nom_ConsultorMac] AS [Nom_ConsultorMac], 
+    [ver_consultores].[Ap_ConsultorMac] AS [Ap_ConsultorMac], 
+    [ver_consultores].[Am_ConsultorMac] AS [Am_ConsultorMac]
+    FROM [dbo].[ver_consultores] AS [ver_consultores]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VER_FUNCIONARIOS" EntityType="Self.VER_FUNCIONARIOS" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VER_FUNCIONARIOS].[NUMERO_FUNCIONARIO] AS [NUMERO_FUNCIONARIO], 
+    [VER_FUNCIONARIOS].[PROMOTOR] AS [PROMOTOR], 
+    [VER_FUNCIONARIOS].[BANCA] AS [BANCA], 
+    [VER_FUNCIONARIOS].[DIVISION] AS [DIVISION], 
+    [VER_FUNCIONARIOS].[PLAZA] AS [PLAZA], 
+    [VER_FUNCIONARIOS].[SUCURSAL] AS [SUCURSAL]
+    FROM [dbo].[VER_FUNCIONARIOS] AS [VER_FUNCIONARIOS]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_mov_perfil" EntityType="Self.ver_mov_perfil" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_mov_perfil].[#Movimiento] AS [#Movimiento], 
+    [ver_mov_perfil].[Usuario] AS [Usuario], 
+    [ver_mov_perfil].[Perfil] AS [Perfil], 
+    [ver_mov_perfil].[Movimiento] AS [Movimiento], 
+    [ver_mov_perfil].[Sector] AS [Sector], 
+    [ver_mov_perfil].[Permiso_anterior] AS [Permiso_anterior], 
+    [ver_mov_perfil].[Permiso_actual] AS [Permiso_actual], 
+    [ver_mov_perfil].[fecha_del_movimiento] AS [fecha_del_movimiento], 
+    [ver_mov_perfil].[Hora_del_cambio] AS [Hora_del_cambio]
+    FROM [dbo].[ver_mov_perfil] AS [ver_mov_perfil]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_mov_solicitudes" EntityType="Self.ver_mov_solicitudes" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_mov_solicitudes].[Num_Solicitud] AS [Num_Solicitud], 
+    [ver_mov_solicitudes].[Cuenta_Cliente] AS [Cuenta_Cliente], 
+    [ver_mov_solicitudes].[Fecha_Captura] AS [Fecha_Captura], 
+    [ver_mov_solicitudes].[Nombre_Cliente] AS [Nombre_Cliente], 
+    [ver_mov_solicitudes].[Apellido_Paterno] AS [Apellido_Paterno], 
+    [ver_mov_solicitudes].[Apellido_Materno] AS [Apellido_Materno], 
+    [ver_mov_solicitudes].[Descripcion_Status] AS [Descripcion_Status]
+    FROM [dbo].[ver_mov_solicitudes] AS [ver_mov_solicitudes]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_mov_usuario" EntityType="Self.ver_mov_usuario" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_mov_usuario].[#Movimiento] AS [#Movimiento], 
+    [ver_mov_usuario].[Usuario_que_realizo_el_movimiento] AS [Usuario_que_realizo_el_movimiento], 
+    [ver_mov_usuario].[Usuario_modificado] AS [Usuario_modificado], 
+    [ver_mov_usuario].[Movimiento] AS [Movimiento], 
+    [ver_mov_usuario].[Dato_anterio] AS [Dato_anterio], 
+    [ver_mov_usuario].[Dato_actual] AS [Dato_actual], 
+    [ver_mov_usuario].[Fecha_del_movimiento] AS [Fecha_del_movimiento], 
+    [ver_mov_usuario].[Hora_del_movimiento] AS [Hora_del_movimiento]
+    FROM [dbo].[ver_mov_usuario] AS [ver_mov_usuario]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_perfil_sector" EntityType="Self.ver_perfil_sector" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_perfil_sector].[id_perfil] AS [id_perfil], 
+    [ver_perfil_sector].[id_sector] AS [id_sector], 
+    [ver_perfil_sector].[permitido] AS [permitido]
+    FROM [dbo].[ver_perfil_sector] AS [ver_perfil_sector]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_perfiles" EntityType="Self.ver_perfiles" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_perfiles].[id_perfil] AS [id_perfil], 
+    [ver_perfiles].[nombre] AS [nombre]
+    FROM [dbo].[ver_perfiles] AS [ver_perfiles]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_sectores" EntityType="Self.ver_sectores" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_sectores].[id_sector] AS [id_sector], 
+    [ver_sectores].[sector] AS [sector]
+    FROM [dbo].[ver_sectores] AS [ver_sectores]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_Tipo_Solicitud" EntityType="Self.ver_Tipo_Solicitud" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_Tipo_Solicitud].[Id_Solicitud] AS [Id_Solicitud], 
+    [ver_Tipo_Solicitud].[Descripcion_Solicitud] AS [Descripcion_Solicitud]
+    FROM [dbo].[ver_Tipo_Solicitud] AS [ver_Tipo_Solicitud]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_Tipo_Tramite" EntityType="Self.ver_Tipo_Tramite" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_Tipo_Tramite].[Id_Tramite] AS [Id_Tramite], 
+    [ver_Tipo_Tramite].[Descripcion_Tramite] AS [Descripcion_Tramite], 
+    [ver_Tipo_Tramite].[Puntos] AS [Puntos]
+    FROM [dbo].[ver_Tipo_Tramite] AS [ver_Tipo_Tramite]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_usuarios" EntityType="Self.ver_usuarios" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_usuarios].[id_usuario] AS [id_usuario], 
+    [ver_usuarios].[id_perfil] AS [id_perfil], 
+    [ver_usuarios].[login] AS [login], 
+    [ver_usuarios].[pwd] AS [pwd], 
+    [ver_usuarios].[fechaexpira] AS [fechaexpira], 
+    [ver_usuarios].[fecha_de_expiracion] AS [fecha_de_expiracion], 
+    [ver_usuarios].[habilitado] AS [habilitado], 
+    [ver_usuarios].[bloqueado] AS [bloqueado], 
+    [ver_usuarios].[fechacreacion] AS [fechacreacion], 
+    [ver_usuarios].[conectado] AS [conectado], 
+    [ver_usuarios].[nuevoinicio] AS [nuevoinicio], 
+    [ver_usuarios].[resetpwd] AS [resetpwd]
+    FROM [dbo].[ver_usuarios] AS [ver_usuarios]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ver_usuarios2" EntityType="Self.ver_usuarios2" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ver_usuarios2].[id_usuario] AS [id_usuario], 
+    [ver_usuarios2].[id_perfil] AS [id_perfil], 
+    [ver_usuarios2].[login] AS [login], 
+    [ver_usuarios2].[pwd] AS [pwd], 
+    [ver_usuarios2].[fechaexpira] AS [fechaexpira], 
+    [ver_usuarios2].[fecha_de_expiracion] AS [fecha_de_expiracion], 
+    [ver_usuarios2].[habilitado] AS [habilitado], 
+    [ver_usuarios2].[bloqueado] AS [bloqueado], 
+    [ver_usuarios2].[fechacreacion] AS [fechacreacion], 
+    [ver_usuarios2].[conectado] AS [conectado], 
+    [ver_usuarios2].[nuevoinicio] AS [nuevoinicio], 
+    [ver_usuarios2].[resetpwd] AS [resetpwd]
+    FROM [dbo].[ver_usuarios2] AS [ver_usuarios2]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="fk_Consultmac" Association="Self.fk_Consultmac">
+      <End Role="CONSULTORES" EntitySet="CONSULTORES" />
+      <End Role="USUARIO" EntitySet="USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="fk_idusuario" Association="Self.fk_idusuario">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="HISTORIALPWD" EntitySet="HISTORIALPWD" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movimientoperfil" Association="Self.fk_movimientoperfil">
+      <End Role="TIPO_MOV_PERFIL" EntitySet="TIPO_MOV_PERFIL" />
+      <End Role="MOVIMIENTOS_PERFIL" EntitySet="MOVIMIENTOS_PERFIL" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movimientousuario" Association="Self.fk_movimientousuario">
+      <End Role="TIPO_MOV_USUARIO" EntitySet="TIPO_MOV_USUARIO" />
+      <End Role="MOVIMIENTOS_USUARIO" EntitySet="MOVIMIENTOS_USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OBSERVACIONES_SEGUIMIENTO" Association="Self.FK_OBSERVACIONES_SEGUIMIENTO">
+      <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
+      <End Role="OBSERVACIONES" EntitySet="OBSERVACIONES" />
+    </AssociationSet>
+    <AssociationSet Name="fk_perfil" Association="Self.fk_perfil">
+      <End Role="PERFIL" EntitySet="PERFIL" />
+      <End Role="PERFIL_SECTOR" EntitySet="PERFIL_SECTOR" />
+    </AssociationSet>
+    <AssociationSet Name="fk_perfil2" Association="Self.fk_perfil2">
+      <End Role="PERFIL" EntitySet="PERFIL" />
+      <End Role="USUARIO" EntitySet="USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="fk_perfil7" Association="Self.fk_perfil7">
+      <End Role="PERFIL" EntitySet="PERFIL" />
+      <End Role="MOVIMIENTOS_PERFIL" EntitySet="MOVIMIENTOS_PERFIL" />
+    </AssociationSet>
+    <AssociationSet Name="fk_sector7" Association="Self.fk_sector7">
+      <End Role="SECTORES" EntitySet="SECTORES" />
+      <End Role="MOVIMIENTOS_PERFIL" EntitySet="MOVIMIENTOS_PERFIL" />
+    </AssociationSet>
+    <AssociationSet Name="fk_sectores" Association="Self.fk_sectores">
+      <End Role="SECTORES" EntitySet="SECTORES" />
+      <End Role="PERFIL_SECTOR" EntitySet="PERFIL_SECTOR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SEGUIMIENTO_DOCTOS_SEGUIMIENTO" Association="Self.FK_SEGUIMIENTO_DOCTOS_SEGUIMIENTO">
+      <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
+      <End Role="SEGUIMIENTO_DOCTOS" EntitySet="SEGUIMIENTO_DOCTOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SEGUIMIENTO_TIPO_SOLICITUD" Association="Self.FK_SEGUIMIENTO_TIPO_SOLICITUD">
+      <End Role="TIPO_SOLICITUD" EntitySet="TIPO_SOLICITUD" />
+      <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SEGUIMIENTO_TIPO_TRAMITE" Association="Self.FK_SEGUIMIENTO_TIPO_TRAMITE">
+      <End Role="TIPO_TRAMITE" EntitySet="TIPO_TRAMITE" />
+      <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuario2" Association="Self.fk_usuario2">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="CONECT" EntitySet="CONECT" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuario5" Association="Self.fk_usuario5">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="MOVIMIENTOS_USUARIO" EntitySet="MOVIMIENTOS_USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuario6" Association="Self.fk_usuario6">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="MOVIMIENTOS_USUARIO" EntitySet="MOVIMIENTOS_USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuario7" Association="Self.fk_usuario7">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="MOVIMIENTOS_PERFIL" EntitySet="MOVIMIENTOS_PERFIL" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

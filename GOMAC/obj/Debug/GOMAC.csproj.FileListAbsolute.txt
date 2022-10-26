@@ -7,5 +7,10 @@ C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.csproj.CoreCompileInpu
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.exe
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.pdb
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.Views.Frm_PantallaPrincipal.resources
-C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.csproj.AssemblyReference.cache
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.Views.Frm_NuevaSolicitud.resources
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\bin\Debug\EntityFramework.dll
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\bin\Debug\EntityFramework.xml
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.csproj.CopyComplete
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.Views.Frm_Login.resources

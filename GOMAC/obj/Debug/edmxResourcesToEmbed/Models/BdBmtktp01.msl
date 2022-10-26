@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="bmtktp01ModelStoreContainer" CdmEntityContainer="bmtktp01Entities">
+    <EntitySetMapping Name="CONECT">
+      <EntityTypeMapping TypeName="bmtktp01Model.CONECT">
+        <MappingFragment StoreEntitySet="CONECT">
+          <ScalarProperty Name="id_conect" ColumnName="id_conect" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="equipo" ColumnName="equipo" />
+          <ScalarProperty Name="ip" ColumnName="ip" />
+          <ScalarProperty Name="fechaconect" ColumnName="fechaconect" />
+          <ScalarProperty Name="horaconect" ColumnName="horaconect" />
+          <ScalarProperty Name="fechadesconect" ColumnName="fechadesconect" />
+          <ScalarProperty Name="horadesconect" ColumnName="horadesconect" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CONSULTORES">
+      <EntityTypeMapping TypeName="bmtktp01Model.CONSULTORES">
+        <MappingFragment StoreEntitySet="CONSULTORES">
+          <ScalarProperty Name="Id_ConsultorMac" ColumnName="Id_ConsultorMac" />
+          <ScalarProperty Name="Iniciales_ConsultorMac" ColumnName="Iniciales_ConsultorMac" />
+          <ScalarProperty Name="Nom_ConsultorMac" ColumnName="Nom_ConsultorMac" />
+          <ScalarProperty Name="Ap_ConsultorMac" ColumnName="Ap_ConsultorMac" />
+          <ScalarProperty Name="Am_ConsultorMac" ColumnName="Am_ConsultorMac" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dtproperties">
+      <EntityTypeMapping TypeName="bmtktp01Model.dtproperties">
+        <MappingFragment StoreEntitySet="dtproperties">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="objectid" ColumnName="objectid" />
+          <ScalarProperty Name="property" ColumnName="property" />
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="uvalue" ColumnName="uvalue" />
+          <ScalarProperty Name="lvalue" ColumnName="lvalue" />
+          <ScalarProperty Name="version" ColumnName="version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HISTORIALPWD">
+      <EntityTypeMapping TypeName="bmtktp01Model.HISTORIALPWD">
+        <MappingFragment StoreEntitySet="HISTORIALPWD">
+          <ScalarProperty Name="id_hpwd" ColumnName="id_hpwd" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="oldpwd" ColumnName="oldpwd" />
+          <ScalarProperty Name="newpwd" ColumnName="newpwd" />
+          <ScalarProperty Name="fechacambio" ColumnName="fechacambio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MOVIMIENTOS_PERFIL">
+      <EntityTypeMapping TypeName="bmtktp01Model.MOVIMIENTOS_PERFIL">
+        <MappingFragment StoreEntitySet="MOVIMIENTOS_PERFIL">
+          <ScalarProperty Name="id_movper" ColumnName="id_movper" />
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="id_mov" ColumnName="id_mov" />
+          <ScalarProperty Name="id_sector" ColumnName="id_sector" />
+          <ScalarProperty Name="permisoanterio" ColumnName="permisoanterio" />
+          <ScalarProperty Name="permisoactual" ColumnName="permisoactual" />
+          <ScalarProperty Name="fechamov" ColumnName="fechamov" />
+          <ScalarProperty Name="horamov" ColumnName="horamov" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MOVIMIENTOS_USUARIO">
+      <EntityTypeMapping TypeName="bmtktp01Model.MOVIMIENTOS_USUARIO">
+        <MappingFragment StoreEntitySet="MOVIMIENTOS_USUARIO">
+          <ScalarProperty Name="id_movus" ColumnName="id_movus" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="id_usuariomodificado" ColumnName="id_usuariomodificado" />
+          <ScalarProperty Name="id_mov" ColumnName="id_mov" />
+          <ScalarProperty Name="datoanterior" ColumnName="datoanterior" />
+          <ScalarProperty Name="datosctual" ColumnName="datosctual" />
+          <ScalarProperty Name="fechamov" ColumnName="fechamov" />
+          <ScalarProperty Name="horamov" ColumnName="horamov" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OPERACION_PIU">
+      <EntityTypeMapping TypeName="bmtktp01Model.OPERACION_PIU">
+        <MappingFragment StoreEntitySet="OPERACION_PIU">
+          <ScalarProperty Name="operacion" ColumnName="operacion" />
+          <ScalarProperty Name="operacion_piu1" ColumnName="operacion_piu" />
+          <ScalarProperty Name="fecha_operacion" ColumnName="fecha_operacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PERFIL">
+      <EntityTypeMapping TypeName="bmtktp01Model.PERFIL">
+        <MappingFragment StoreEntitySet="PERFIL">
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SECTORES">
+      <EntityTypeMapping TypeName="bmtktp01Model.SECTORES">
+        <MappingFragment StoreEntitySet="SECTORES">
+          <ScalarProperty Name="id_sector" ColumnName="id_sector" />
+          <ScalarProperty Name="sector" ColumnName="sector" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEGUIMIENTO">
+      <EntityTypeMapping TypeName="bmtktp01Model.SEGUIMIENTO">
+        <MappingFragment StoreEntitySet="SEGUIMIENTO">
+          <ScalarProperty Name="Num_Solicitud" ColumnName="Num_Solicitud" />
+          <ScalarProperty Name="Fecha_Captura" ColumnName="Fecha_Captura" />
+          <ScalarProperty Name="Id_ConsultorMac" ColumnName="Id_ConsultorMac" />
+          <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
+          <ScalarProperty Name="Id_Tramite" ColumnName="Id_Tramite" />
+          <ScalarProperty Name="ExisteTKT" ColumnName="ExisteTKT" />
+          <ScalarProperty Name="Puntos" ColumnName="Puntos" />
+          <ScalarProperty Name="Circuito" ColumnName="Circuito" />
+          <ScalarProperty Name="Cuenta_Cliente" ColumnName="Cuenta_Cliente" />
+          <ScalarProperty Name="Sufijo_Kapiti" ColumnName="Sufijo_Kapiti" />
+          <ScalarProperty Name="Tipo_Persona" ColumnName="Tipo_Persona" />
+          <ScalarProperty Name="Nombre_Cliente" ColumnName="Nombre_Cliente" />
+          <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
+          <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
+          <ScalarProperty Name="Deposito_InicialTKT" ColumnName="Deposito_InicialTKT" />
+          <ScalarProperty Name="Numero_Registro" ColumnName="Numero_Registro" />
+          <ScalarProperty Name="Nombre_Promotor" ColumnName="Nombre_Promotor" />
+          <ScalarProperty Name="Banca" ColumnName="Banca" />
+          <ScalarProperty Name="Division" ColumnName="Division" />
+          <ScalarProperty Name="Plaza" ColumnName="Plaza" />
+          <ScalarProperty Name="Sucursal" ColumnName="Sucursal" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEGUIMIENTO_DOCTOS">
+      <EntityTypeMapping TypeName="bmtktp01Model.SEGUIMIENTO_DOCTOS">
+        <MappingFragment StoreEntitySet="SEGUIMIENTO_DOCTOS">
+          <ScalarProperty Name="Num_Solicitud" ColumnName="Num_Solicitud" />
+          <ScalarProperty Name="Repc_Doc" ColumnName="Repc_Doc" />
+          <ScalarProperty Name="Analisis_Mac" ColumnName="Analisis_Mac" />
+          <ScalarProperty Name="Formalizada" ColumnName="Formalizada" />
+          <ScalarProperty Name="Repc_Originales" ColumnName="Repc_Originales" />
+          <ScalarProperty Name="Aten_Originales" ColumnName="Aten_Originales" />
+          <ScalarProperty Name="Originales" ColumnName="Originales" />
+          <ScalarProperty Name="Nivel_Servicico" ColumnName="Nivel_Servicico" />
+          <ScalarProperty Name="Deposito_Inicial" ColumnName="Deposito_Inicial" />
+          <ScalarProperty Name="Desbloqueo_Sistemas" ColumnName="Desbloqueo_Sistemas" />
+          <ScalarProperty Name="Envio_Agencia" ColumnName="Envio_Agencia" />
+          <ScalarProperty Name="Concluida" ColumnName="Concluida" />
+          <ScalarProperty Name="Cancelacion" ColumnName="Cancelacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="bmtktp01Model.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TIPO_MOV_PERFIL">
+      <EntityTypeMapping TypeName="bmtktp01Model.TIPO_MOV_PERFIL">
+        <MappingFragment StoreEntitySet="TIPO_MOV_PERFIL">
+          <ScalarProperty Name="id_mov" ColumnName="id_mov" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TIPO_MOV_USUARIO">
+      <EntityTypeMapping TypeName="bmtktp01Model.TIPO_MOV_USUARIO">
+        <MappingFragment StoreEntitySet="TIPO_MOV_USUARIO">
+          <ScalarProperty Name="id_mov" ColumnName="id_mov" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TIPO_SOLICITUD">
+      <EntityTypeMapping TypeName="bmtktp01Model.TIPO_SOLICITUD">
+        <MappingFragment StoreEntitySet="TIPO_SOLICITUD">
+          <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
+          <ScalarProperty Name="Descripcion_Solicitud" ColumnName="Descripcion_Solicitud" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TIPO_STATUS">
+      <EntityTypeMapping TypeName="bmtktp01Model.TIPO_STATUS">
+        <MappingFragment StoreEntitySet="TIPO_STATUS">
+          <ScalarProperty Name="Id_Status" ColumnName="Id_Status" />
+          <ScalarProperty Name="Descripcion_Status" ColumnName="Descripcion_Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TIPO_TRAMITE">
+      <EntityTypeMapping TypeName="bmtktp01Model.TIPO_TRAMITE">
+        <MappingFragment StoreEntitySet="TIPO_TRAMITE">
+          <ScalarProperty Name="Id_Tramite" ColumnName="Id_Tramite" />
+          <ScalarProperty Name="Descripcion_Tramite" ColumnName="Descripcion_Tramite" />
+          <ScalarProperty Name="Puntos" ColumnName="Puntos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIO">
+      <EntityTypeMapping TypeName="bmtktp01Model.USUARIO">
+        <MappingFragment StoreEntitySet="USUARIO">
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="pwd" ColumnName="pwd" />
+          <ScalarProperty Name="fechaexpira" ColumnName="fechaexpira" />
+          <ScalarProperty Name="fecha_de_expiracion" ColumnName="fecha_de_expiracion" />
+          <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+          <ScalarProperty Name="bloqueado" ColumnName="bloqueado" />
+          <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+          <ScalarProperty Name="conectado" ColumnName="conectado" />
+          <ScalarProperty Name="nuevoinicio" ColumnName="nuevoinicio" />
+          <ScalarProperty Name="resetpwd" ColumnName="resetpwd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OBSERVACIONES">
+      <EntityTypeMapping TypeName="bmtktp01Model.OBSERVACIONES">
+        <MappingFragment StoreEntitySet="OBSERVACIONES">
+          <ScalarProperty Name="Num_Solicitud" ColumnName="Num_Solicitud" />
+          <ScalarProperty Name="Observaciones1" ColumnName="Observaciones" />
+          <ScalarProperty Name="Fecha_Observ" ColumnName="Fecha_Observ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PERFIL_SECTOR">
+      <EntityTypeMapping TypeName="bmtktp01Model.PERFIL_SECTOR">
+        <MappingFragment StoreEntitySet="PERFIL_SECTOR">
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="id_sector" ColumnName="id_sector" />
+          <ScalarProperty Name="permitido" ColumnName="permitido" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="log_conect">
+      <EntityTypeMapping TypeName="bmtktp01Model.log_conect">
+        <MappingFragment StoreEntitySet="log_conect">
+          <ScalarProperty Name="fecha_de_desconexion" ColumnName="fecha_de_desconexion" />
+          <ScalarProperty Name="fecha_de_conexion" ColumnName="fecha_de_conexion" />
+          <ScalarProperty Name="ip" ColumnName="ip" />
+          <ScalarProperty Name="equipo" ColumnName="equipo" />
+          <ScalarProperty Name="conectado" ColumnName="conectado" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="id_conect" ColumnName="id_conect" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_conect">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_conect">
+        <MappingFragment StoreEntitySet="ver_conect">
+          <ScalarProperty Name="horadesconect" ColumnName="horadesconect" />
+          <ScalarProperty Name="fechadesconect" ColumnName="fechadesconect" />
+          <ScalarProperty Name="horaconect" ColumnName="horaconect" />
+          <ScalarProperty Name="fechaconect" ColumnName="fechaconect" />
+          <ScalarProperty Name="ip" ColumnName="ip" />
+          <ScalarProperty Name="equipo" ColumnName="equipo" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="id_conect" ColumnName="id_conect" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_conect2">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_conect2">
+        <MappingFragment StoreEntitySet="ver_conect2">
+          <ScalarProperty Name="Hora_de_desconexion" ColumnName="Hora_de_desconexion" />
+          <ScalarProperty Name="Fecha_de_desconexion" ColumnName="Fecha_de_desconexion" />
+          <ScalarProperty Name="Hora_de_conexion" ColumnName="Hora_de_conexion" />
+          <ScalarProperty Name="Fecha_de_conexion" ColumnName="Fecha_de_conexion" />
+          <ScalarProperty Name="Direccion_IP" ColumnName="Direccion_IP" />
+          <ScalarProperty Name="Equipo" ColumnName="Equipo" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="C_Conexion" ColumnName="#Conexion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_consultores">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_consultores">
+        <MappingFragment StoreEntitySet="ver_consultores">
+          <ScalarProperty Name="Am_ConsultorMac" ColumnName="Am_ConsultorMac" />
+          <ScalarProperty Name="Ap_ConsultorMac" ColumnName="Ap_ConsultorMac" />
+          <ScalarProperty Name="Nom_ConsultorMac" ColumnName="Nom_ConsultorMac" />
+          <ScalarProperty Name="Iniciales_ConsultorMac" ColumnName="Iniciales_ConsultorMac" />
+          <ScalarProperty Name="Id_ConsultorMac" ColumnName="Id_ConsultorMac" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VER_FUNCIONARIOS">
+      <EntityTypeMapping TypeName="bmtktp01Model.VER_FUNCIONARIOS">
+        <MappingFragment StoreEntitySet="VER_FUNCIONARIOS">
+          <ScalarProperty Name="SUCURSAL" ColumnName="SUCURSAL" />
+          <ScalarProperty Name="PLAZA" ColumnName="PLAZA" />
+          <ScalarProperty Name="DIVISION" ColumnName="DIVISION" />
+          <ScalarProperty Name="BANCA" ColumnName="BANCA" />
+          <ScalarProperty Name="PROMOTOR" ColumnName="PROMOTOR" />
+          <ScalarProperty Name="NUMERO_FUNCIONARIO" ColumnName="NUMERO_FUNCIONARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_mov_perfil">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_mov_perfil">
+        <MappingFragment StoreEntitySet="ver_mov_perfil">
+          <ScalarProperty Name="Hora_del_cambio" ColumnName="Hora_del_cambio" />
+          <ScalarProperty Name="fecha_del_movimiento" ColumnName="fecha_del_movimiento" />
+          <ScalarProperty Name="Permiso_actual" ColumnName="Permiso_actual" />
+          <ScalarProperty Name="Permiso_anterior" ColumnName="Permiso_anterior" />
+          <ScalarProperty Name="Sector" ColumnName="Sector" />
+          <ScalarProperty Name="Movimiento" ColumnName="Movimiento" />
+          <ScalarProperty Name="Perfil" ColumnName="Perfil" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="C_Movimiento" ColumnName="#Movimiento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_mov_solicitudes">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_mov_solicitudes">
+        <MappingFragment StoreEntitySet="ver_mov_solicitudes">
+          <ScalarProperty Name="Descripcion_Status" ColumnName="Descripcion_Status" />
+          <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
+          <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
+          <ScalarProperty Name="Nombre_Cliente" ColumnName="Nombre_Cliente" />
+          <ScalarProperty Name="Fecha_Captura" ColumnName="Fecha_Captura" />
+          <ScalarProperty Name="Cuenta_Cliente" ColumnName="Cuenta_Cliente" />
+          <ScalarProperty Name="Num_Solicitud" ColumnName="Num_Solicitud" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_mov_usuario">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_mov_usuario">
+        <MappingFragment StoreEntitySet="ver_mov_usuario">
+          <ScalarProperty Name="Hora_del_movimiento" ColumnName="Hora_del_movimiento" />
+          <ScalarProperty Name="Fecha_del_movimiento" ColumnName="Fecha_del_movimiento" />
+          <ScalarProperty Name="Dato_actual" ColumnName="Dato_actual" />
+          <ScalarProperty Name="Dato_anterio" ColumnName="Dato_anterio" />
+          <ScalarProperty Name="Movimiento" ColumnName="Movimiento" />
+          <ScalarProperty Name="Usuario_modificado" ColumnName="Usuario_modificado" />
+          <ScalarProperty Name="Usuario_que_realizo_el_movimiento" ColumnName="Usuario_que_realizo_el_movimiento" />
+          <ScalarProperty Name="C_Movimiento" ColumnName="#Movimiento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_perfil_sector">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_perfil_sector">
+        <MappingFragment StoreEntitySet="ver_perfil_sector">
+          <ScalarProperty Name="permitido" ColumnName="permitido" />
+          <ScalarProperty Name="id_sector" ColumnName="id_sector" />
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_perfiles">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_perfiles">
+        <MappingFragment StoreEntitySet="ver_perfiles">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_sectores">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_sectores">
+        <MappingFragment StoreEntitySet="ver_sectores">
+          <ScalarProperty Name="sector" ColumnName="sector" />
+          <ScalarProperty Name="id_sector" ColumnName="id_sector" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_Tipo_Solicitud">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_Tipo_Solicitud">
+        <MappingFragment StoreEntitySet="ver_Tipo_Solicitud">
+          <ScalarProperty Name="Descripcion_Solicitud" ColumnName="Descripcion_Solicitud" />
+          <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_Tipo_Tramite">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_Tipo_Tramite">
+        <MappingFragment StoreEntitySet="ver_Tipo_Tramite">
+          <ScalarProperty Name="Puntos" ColumnName="Puntos" />
+          <ScalarProperty Name="Descripcion_Tramite" ColumnName="Descripcion_Tramite" />
+          <ScalarProperty Name="Id_Tramite" ColumnName="Id_Tramite" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_usuarios">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_usuarios">
+        <MappingFragment StoreEntitySet="ver_usuarios">
+          <ScalarProperty Name="resetpwd" ColumnName="resetpwd" />
+          <ScalarProperty Name="nuevoinicio" ColumnName="nuevoinicio" />
+          <ScalarProperty Name="conectado" ColumnName="conectado" />
+          <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+          <ScalarProperty Name="bloqueado" ColumnName="bloqueado" />
+          <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+          <ScalarProperty Name="fecha_de_expiracion" ColumnName="fecha_de_expiracion" />
+          <ScalarProperty Name="fechaexpira" ColumnName="fechaexpira" />
+          <ScalarProperty Name="pwd" ColumnName="pwd" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ver_usuarios2">
+      <EntityTypeMapping TypeName="bmtktp01Model.ver_usuarios2">
+        <MappingFragment StoreEntitySet="ver_usuarios2">
+          <ScalarProperty Name="resetpwd" ColumnName="resetpwd" />
+          <ScalarProperty Name="nuevoinicio" ColumnName="nuevoinicio" />
+          <ScalarProperty Name="conectado" ColumnName="conectado" />
+          <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+          <ScalarProperty Name="bloqueado" ColumnName="bloqueado" />
+          <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+          <ScalarProperty Name="fecha_de_expiracion" ColumnName="fecha_de_expiracion" />
+          <ScalarProperty Name="fechaexpira" ColumnName="fechaexpira" />
+          <ScalarProperty Name="pwd" ColumnName="pwd" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

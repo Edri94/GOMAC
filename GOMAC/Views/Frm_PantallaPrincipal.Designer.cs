@@ -29,6 +29,7 @@ namespace GOMAC.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_PantallaPrincipal));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.sistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,6 +50,8 @@ namespace GOMAC.Views
             this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.perfilesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.conexionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inact = new System.Windows.Forms.Timer(this.components);
+            this.tmtHora = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -193,6 +196,14 @@ namespace GOMAC.Views
             this.conexionesToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.conexionesToolStripMenuItem.Text = "Conexiones";
             // 
+            // inact
+            // 
+            this.inact.Tick += new System.EventHandler(this.inact_Tick);
+            // 
+            // tmtHora
+            // 
+            this.tmtHora.Tick += new System.EventHandler(this.tmtHora_Tick);
+            // 
             // Frm_PantallaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,5 +248,7 @@ namespace GOMAC.Views
         private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem perfilesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem conexionesToolStripMenuItem;
+        private System.Windows.Forms.Timer inact;
+        private System.Windows.Forms.Timer tmtHora;
     }
 }
