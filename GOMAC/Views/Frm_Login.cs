@@ -13,18 +13,20 @@ using System.Windows.Forms;
 namespace GOMAC.Views
 {
     public partial class Frm_Login : Form
-    {
-        public bool loggeado;
+    {       
         public int sr, tiempo_servicioa, tiempo_serviciom, tiempo_atencion, tiempo_espera, cierre_tiempo, meses_sin_conectar;
-        public string str_srv, str_bd, str_usr, str_pwd, str_provider;
-        public bmtktp01Entities bdbmtktp01;
+        public string str_srv, str_bd, str_usr, str_pwd, str_provider;    
         public USUARIO usuario;
 
         public List<ver_perfil_sector> perfiles_sector;
         public List<ver_usuarios2> usuarios;
         public List<ver_sectores> sectores;
         public List<ver_perfiles> perfiles;
+        public List<ver_consultores> consultores;
 
+        private bmtktp01Entities bdbmtktp01;
+        private bool loggeado;
+        private Encriptacion crpt;
         private string[] sect2 = new string[6];
 
         private void txtUser_KeyUp(object sender, KeyEventArgs e)
@@ -51,12 +53,15 @@ namespace GOMAC.Views
             }
         }
 
- 
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
         public Frm_Login()
         {
             InitializeComponent();
-
+            crpt = new Encriptacion();
             bdbmtktp01 = new bmtktp01Entities();
         }
 
@@ -98,25 +103,62 @@ namespace GOMAC.Views
                 {
                     MessageBox.Show("Llenar campo de usuario y password", "Llenar informacion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+                //llenamos los colectores correspondientes
                 else
                 {
-                    if(ObtenUsuarios() != null)
+                    if(ObtenUsuarios() == null || ObtenSectores() == null || ObtenPerfiles() == null || ObtenConsultores() == null)
                     {
+                        txtUser.Text = "";
+                        txtPassword.Text = "";
+                    }
+                    else
+                    {
+                        ver_usuarios2 ver_usuario = usuarios.Where(x => x.login == txtUser.Text).FirstOrDefault();
+
+                        if(ver_usuario != null)
+                        {
+                            USUARIO usuario = ver_usuario.ToUsuario();
+                            if(crpt.Decrypt(usuario.pwd) != txtPassword.Text)
+                            {
+                                MessageBox.Show("La contrasena es incorrecta", "Error de Credenciales", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            else
+                            {
+                                loggeado = true;
+                                Frm_PantallaPrincipal frm = new Frm_PantallaPrincipal(usuario);
+                                this.Hide();
+                                frm.Show();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("El usuario no existe", "Error de Credenciales", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+
+
+
 
                     }
-                    if(ObtenSectores() != null)
-                    {
-
-                    }
-                    if(ObtenPerfiles() != null)
-                    {
-
-                    }
+                 
                 }
             }
             catch (Exception ex)
             {
                 Log.Escribe(ex);
+            }
+        }
+
+        private object ObtenConsultores()
+        {
+            try
+            {
+                consultores = (from c in bdbmtktp01.ver_consultores select c).ToList();
+                return consultores;
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+                return consultores;
             }
         }
 

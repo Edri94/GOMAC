@@ -22,19 +22,19 @@ namespace GOMAC.Views
         public bmtktp01Entities bdbmtktp01;
         public List<ver_perfil_sector> perfiles_sector;
 
-        Frm_NuevaSolicitud frm_nuevasolicitud;
+        private Frm_NuevaSolicitud frm_nuevasolicitud;
+        private USUARIO usuario;
 
-        public Frm_PantallaPrincipal()
+        public Frm_PantallaPrincipal(USUARIO usuario)
         {
             InitializeComponent();
-        }
 
+            this.usuario = usuario;
+        }
         private void PantallaPrincipal_Load(object sender, EventArgs e)
         {
 
             bdbmtktp01 = new bmtktp01Entities();
-
-            loggeado = true; //[PRUEBAS]
 
             tmtHora.Enabled = true;
 
@@ -49,7 +49,11 @@ namespace GOMAC.Views
         {
             try
             {
-                VerPerfilSector();
+                //El codigo aqui manejara los permisos para mostrar u ocultar menus dependiendo el usario/rol
+                if(VerPerfilSector() != null) 
+                {
+
+                }
 
 
             }
@@ -59,15 +63,17 @@ namespace GOMAC.Views
             }
         }
 
-        private void VerPerfilSector()
+        private List<ver_perfil_sector> VerPerfilSector()
         {
             try
             {
                 perfiles_sector = (from p in bdbmtktp01.ver_perfil_sector select p).ToList();
+                return perfiles_sector;
             }
             catch (Exception ex)
             {
                 Log.Escribe(ex);
+                return perfiles_sector;
             }
         }
 
@@ -75,7 +81,7 @@ namespace GOMAC.Views
 
         private void nuevaSolicitudToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(loggeado)
+            if(usuario  != null)
             {
                 if(frm_nuevasolicitud != null)
                 {

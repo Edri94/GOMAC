@@ -1,4 +1,5 @@
 ﻿using GOMAC.Helpers;
+using GOMAC.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,9 @@ namespace GOMAC.Views
     public partial class Frm_NuevaSolicitud : Form
     {
         private Frm_PantallaPrincipal frmp;
-        
+        private bmtktp01Entities bdbmtktp01;
+        private SEGUIMIENTO seguimiento_doc;
+
         public string str_consultor;
         public int se_carga;
         public int num_solicitud;
@@ -24,8 +27,9 @@ namespace GOMAC.Views
             InitializeComponent();
 
             this.frmp = frmp;
+            this.bdbmtktp01 = new bmtktp01Entities();
 
-            txtNombre.Text = "Nombre";
+        txtNombre.Text = "Nombre";
             txtApellidoP.Text = "Primer Apellido";
             txtApellidoM.Text = "Segundo Apellido";
 
@@ -54,7 +58,18 @@ namespace GOMAC.Views
             //txtFRecepDoc.LostFocus += new EventHandler(this.TxtFRecepDocLostFocus);
             //************************************************************************************
 
+            LlenaComboTipoSolicitud();
+            LlenaComboTipoTramite();
+
             if(str_consultor.Trim() != "")
+            {
+                CargaConsulta();
+            }
+
+
+
+
+            if (str_consultor.Trim() != "")
             {
                 if(lblStatus.Text == "Nueva")
                 {
@@ -78,6 +93,48 @@ namespace GOMAC.Views
 
 
 
+        }
+
+        private void LlenaComboTipoTramite()
+        {
+            try
+            {
+                List<ver_Tipo_Tramite> tipos_tramite =
+                    (from tt in bdbmtktp01.ver_Tipo_Tramite orderby tt.Id_Tramite ascending select tt).ToList();
+
+                if (tipos_tramite != null)
+                {
+                    cmbTipoTramite.DataSource = tipos_tramite;
+                    cmbTipoTramite.ValueMember = "Id_Tramite";
+                    cmbTipoTramite.DisplayMember = "Descripcion_Tramite";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void LlenaComboTipoSolicitud()
+        {
+            try
+            {
+                List<ver_Tipo_Solicitud> tipos_solicitud = 
+                    (from ts in bdbmtktp01.ver_Tipo_Solicitud orderby ts.Id_Solicitud ascending select ts).ToList();
+
+                if(tipos_solicitud != null)
+                {
+                    cmbTipoSolicitud.DataSource = tipos_solicitud;
+                    cmbTipoSolicitud.ValueMember = "Id_Solicitud";
+                    cmbTipoSolicitud.DisplayMember = "Descripcion_Solicitud";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
         }
 
         private void CargaConsulta()
@@ -174,11 +231,193 @@ namespace GOMAC.Views
         {
             try
             {
+                this.Text = (str_consultor.Trim() == "") ? "Captura de solicitud" : "Consulta de solicitud";
+
+                if(VerSeguimientoDoc(Int32.Parse(txtSolicitud.Text)) != null)
+                {
+                    //Datos Cuenta
+                    dtpFechaCaptura.Value = (seguimiento_doc.Fecha_Captura.HasValue)? seguimiento_doc.Fecha_Captura.Value : dtpFechaCaptura.MinDate;
+
+                    cmbConsultorMac.SelectedIndex = (seguimiento_doc.Id_ConsultorMac.HasValue) ? seguimiento_doc.Id_ConsultorMac.Value : -1;
+
+                    cmbTipoSolicitud.SelectedIndex = (seguimiento_doc.Id_Solicitud.HasValue)? seguimiento_doc.Id_Solicitud.Value : -1;
+
+
+                    if(seguimiento_doc.ExisteTKT.ToUpper() == "S")
+                    {
+                        rbExisteCuentaSi.Checked = true;
+                    }
+                    else
+                    {
+                        rbExisteCuentaNo.Checked = true;
+                    }
+
+                    switch (Int32.Parse(seguimiento_doc.Status))
+                    {
+                        case 1:
+                            dtgvwObservaciones.Enabled = true;
+                            lblStatus.Text = "En proceso";
+                            btnCancelarSolicitud.Visible = true;
+                            btnGuardar.Text = "Modificar";
+                            btnGuardar.Visible = true;
+
+                            btnNuevaObservacion.Visible = false;
+
+                            cmbTipoSolicitud.Enabled = false;
+                            txtCuenta.Enabled = false;
+                            cmbProducto.Enabled = false;
+                            txtNombre.Enabled = false;
+                            txtApellidoP.Enabled = false;
+                            txtApellidoM.Enabled = false;
+                            TxtDepositoTkt.Enabled = true;
+                            grpTipoPersona.Enabled = false;
+
+                            if(txtFRecepDoc.Text == "")
+                            {
+                                btnFRecepDoc.Visible = true;
+                                btnFRecepDoc.Enabled = true;
+                            }
+
+                            if(txtFAnalisisMac.Text == "")
+                            {
+                                btnFAnalisisMac.Visible = true;
+                                btnFAnalisisMac.Enabled = true;
+
+                            }
+
+                            if (txtFFormalizada.Text == "")
+                            {
+                                btnFFormalizada.Visible = true;
+                                btnFFormalizada.Enabled = true;
+                            }
+
+                            if (txtFRecepcion.Text == "")
+                            {
+                                btnFRecepcion.Visible = true;
+                                btnFRecepcion.Enabled = true;
+                            }
+
+                            if (txtFAtencion.Text == "")
+                            {
+                                btnFAtencion.Visible = true;
+                                btnFAtencion.Enabled = true;
+                            }
+
+
+                            if(txtDesbloqueo.Text == "")
+                            {
+                                btnDesbloqueo.Visible = true;
+                                btnDesbloqueo.Enabled = true;
+                            }
+
+                            if(txtEnvio.Text == "")
+                            {
+                                btnEnvio.Visible = true;
+                                btnEnvio.Enabled = true;
+                            }
+
+                            btnVerObservacion.Enabled = true;
+                            break;
+
+                        case 2:
+                            dtgvwObservaciones.Enabled = true;
+                            lblStatus.Text = "Concluida";                          
+                            btnGuardar.Visible = false;
+                            btnCancelarSolicitud.Visible = false;
+                            cmbTipoSolicitud.Enabled = false;
+                            btnConcluirSolicitud.Enabled = false;
+                            btnNuevaObservacion.Visible = false;
+                            btnNuevaObservacion.Enabled = false;
+                            cmbProducto.Enabled = false;
+                            grpTipoPersona.Enabled = false;
+                            btnVerObservacion.Enabled = true;
+                            break;
+
+                        case 3:
+                            lblStatus.Text = "Cancelada";
+                            btnGuardar.Visible = false;
+                            btnCancelarSolicitud.Visible = false;
+                            cmbTipoSolicitud.Enabled = false;
+                            btnConcluirSolicitud.Enabled = false;
+                            cmbProducto.Enabled = false;
+                            btnVerObservacion.Enabled = true;
+                            grpTipoPersona.Enabled = false;
+                            dtgvwObservaciones.Enabled = true;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    txtPuntos.Text = (seguimiento_doc.Puntos.HasValue)? seguimiento_doc.Puntos.Value.ToString() : "";
+
+                    if(seguimiento_doc.Circuito == "A")
+                    {
+                        if(rbCircuitoAuto.Enabled)
+                        {
+                            rbCircuitoAuto.Checked = true;
+                            rbCircuitoManual.Checked = false;
+                        }
+                    }
+                    else
+                    {
+                        if (rbCircuitoManual.Enabled)
+                        {
+                            rbCircuitoAuto.Checked = false;
+                            rbCircuitoManual.Checked = true;
+                        }
+                    }
+
+                    grpCircuito.Enabled = false;
+                    grpTicket.Enabled = false;
+
+                    txtCuenta.Text = seguimiento_doc.Cuenta_Cliente;
+
+
+                    if(seguimiento_doc.Tipo_Persona == 0)
+                    {
+                        //PERSONA FISICA
+                        if(rbPersonaFisica.Enabled == true)
+                        {
+                            rbPersonaFisica.Checked = true;
+                            rbPersonaMoral.Checked = false;
+                        }
+                    }
+                    else
+                    {
+                        //PERSONA MORAL
+                        if (rbPersonaMoral.Enabled == true)
+                        {
+                            rbPersonaFisica.Checked = false;
+                            rbPersonaMoral.Checked = true;
+                        }
+                    }
+
+
+                }
 
             }
             catch (Exception ex)
             {
                 Log.Escribe(ex);
+            }
+        }
+
+        private SEGUIMIENTO VerSeguimientoDoc(int numero_solicitud)
+        {
+            try
+            {
+                seguimiento_doc = 
+                    (from s in bdbmtktp01.SEGUIMIENTO
+                     join sd in bdbmtktp01.SEGUIMIENTO_DOCTOS on s.Num_Solicitud equals sd.Num_Solicitud
+                     where s.Num_Solicitud == numero_solicitud
+                     select s)
+                    .FirstOrDefault();
+                return seguimiento_doc;
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+                return seguimiento_doc;
             }
         }
 
