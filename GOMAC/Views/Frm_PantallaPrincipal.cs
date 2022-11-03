@@ -23,6 +23,7 @@ namespace GOMAC.Views
         public List<ver_perfil_sector> perfiles_sector;
 
         private Frm_NuevaSolicitud frm_nuevasolicitud;
+        private Frm_ConsultaSolicitud frm_consultasolicitud;
         private USUARIO usuario;
 
         public Frm_PantallaPrincipal(USUARIO usuario)
@@ -44,6 +45,43 @@ namespace GOMAC.Views
 
 
         }
+
+        private void consultaSolicitudToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (usuario != null)
+            {
+                if (frm_consultasolicitud != null)
+                {
+                    frm_consultasolicitud.Close();
+                    frm_consultasolicitud = null;
+                }
+
+                frm_consultasolicitud = new Frm_ConsultaSolicitud(this);
+
+                frm_consultasolicitud.MdiParent = this;
+                frm_consultasolicitud.Show();
+            }
+
+        }
+
+        private void nuevaSolicitudToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (usuario != null)
+            {
+                if (frm_nuevasolicitud != null)
+                {
+                    frm_nuevasolicitud.Close();
+                    frm_nuevasolicitud = null;
+                }
+
+                frm_nuevasolicitud = new Frm_NuevaSolicitud(this);
+
+                frm_nuevasolicitud.MdiParent = this;
+                frm_nuevasolicitud.str_consultor = "";
+                frm_nuevasolicitud.Show();
+            }
+        }
+
 
         private void Valida()
         {
@@ -77,27 +115,6 @@ namespace GOMAC.Views
             }
         }
 
-      
-
-        private void nuevaSolicitudToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if(usuario  != null)
-            {
-                if(frm_nuevasolicitud != null)
-                {
-                    frm_nuevasolicitud.Close();
-                    frm_nuevasolicitud = null;
-                }
-               
-                frm_nuevasolicitud = new Frm_NuevaSolicitud(this);
-
-                frm_nuevasolicitud.MdiParent = this;
-                frm_nuevasolicitud.str_consultor = "";
-                frm_nuevasolicitud.Show();
-            }
-
-            
-        }
 
         private void inact_Tick(object sender, EventArgs e)
         {

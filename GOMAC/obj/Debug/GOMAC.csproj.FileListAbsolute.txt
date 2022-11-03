@@ -15,3 +15,4 @@ C:\Users\MI05332\source\repos\GOMAC\GOMAC\bin\Debug\EntityFramework.SqlServer.xm
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.csproj.CopyComplete
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.Views.Frm_Login.resources
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.csproj.AssemblyReference.cache
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.Views.Frm_ConsultaSolicitud.resources

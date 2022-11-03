@@ -12,7 +12,7 @@ namespace GOMAC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class VER_FUNCIONARIOS
+    public class VER_FUNCIONARIOS : IEquatable<VER_FUNCIONARIOS>
     {
         public string NUMERO_FUNCIONARIO { get; set; }
         public string PROMOTOR { get; set; }
@@ -20,5 +20,29 @@ namespace GOMAC.Models
         public string DIVISION { get; set; }
         public string PLAZA { get; set; }
         public string SUCURSAL { get; set; }
+
+
+        public override int GetHashCode()
+        {
+            //Get hash code for the Name field if it is not null.
+            int hashBanca = BANCA == null ? 0 : BANCA.GetHashCode();
+
+
+            //Calculate the hash code for the product.
+            return hashBanca;
+        }
+
+        bool IEquatable<VER_FUNCIONARIOS>.Equals(VER_FUNCIONARIOS other)
+        {
+            //Check whether the compared object is null.
+            if (Object.ReferenceEquals(other, null)) return false;
+
+            //Check whether the compared object references the same data.
+            if (Object.ReferenceEquals(this, other)) return true;
+
+            //Check whether the products' properties are equal.
+            return BANCA.Equals(other.BANCA);
+
+        }
     }
 }
