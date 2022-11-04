@@ -76,6 +76,10 @@ namespace GOMAC.Views
 
             lblFecha.Text = DateTime.Now.ToString("dd-MM-yyyy");
 
+            //[PRUEBAS]
+            txtUser.Text = "MI05332";
+            txtPassword.Text = "Edri3010";
+
         }
 
         private void SetSect2()

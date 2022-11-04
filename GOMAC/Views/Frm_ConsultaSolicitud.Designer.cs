@@ -32,8 +32,8 @@ namespace GOMAC.Views
             this.grpFiltros = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.grpRangoFechas = new System.Windows.Forms.GroupBox();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpFecha2 = new System.Windows.Forms.DateTimePicker();
+            this.dtpFecha1 = new System.Windows.Forms.DateTimePicker();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.grpTipoPersona = new System.Windows.Forms.GroupBox();
@@ -63,6 +63,7 @@ namespace GOMAC.Views
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.chkFechas = new System.Windows.Forms.CheckBox();
             this.grpFiltros.SuspendLayout();
             this.grpRangoFechas.SuspendLayout();
             this.grpTipoPersona.SuspendLayout();
@@ -93,9 +94,9 @@ namespace GOMAC.Views
             this.grpFiltros.Controls.Add(this.cmbBanca);
             this.grpFiltros.Controls.Add(this.cmbConsultor);
             this.grpFiltros.Location = new System.Drawing.Point(8, 8);
-            this.grpFiltros.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpFiltros.Margin = new System.Windows.Forms.Padding(2);
             this.grpFiltros.Name = "grpFiltros";
-            this.grpFiltros.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpFiltros.Padding = new System.Windows.Forms.Padding(2);
             this.grpFiltros.Size = new System.Drawing.Size(783, 226);
             this.grpFiltros.TabIndex = 0;
             this.grpFiltros.TabStop = false;
@@ -104,49 +105,51 @@ namespace GOMAC.Views
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(657, 188);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(111, 31);
-            this.button1.TabIndex = 5;
+            this.button1.TabIndex = 15;
             this.button1.Text = "Buscar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // grpRangoFechas
             // 
-            this.grpRangoFechas.Controls.Add(this.dateTimePicker2);
-            this.grpRangoFechas.Controls.Add(this.dateTimePicker1);
+            this.grpRangoFechas.Controls.Add(this.chkFechas);
+            this.grpRangoFechas.Controls.Add(this.dtpFecha2);
+            this.grpRangoFechas.Controls.Add(this.dtpFecha1);
             this.grpRangoFechas.Controls.Add(this.label11);
             this.grpRangoFechas.Controls.Add(this.label10);
             this.grpRangoFechas.Location = new System.Drawing.Point(311, 118);
-            this.grpRangoFechas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpRangoFechas.Margin = new System.Windows.Forms.Padding(2);
             this.grpRangoFechas.Name = "grpRangoFechas";
-            this.grpRangoFechas.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpRangoFechas.Padding = new System.Windows.Forms.Padding(2);
             this.grpRangoFechas.Size = new System.Drawing.Size(457, 66);
             this.grpRangoFechas.TabIndex = 4;
             this.grpRangoFechas.TabStop = false;
             this.grpRangoFechas.Text = "Rango de Fechas";
             // 
-            // dateTimePicker2
+            // dtpFecha2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(313, 32);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(135, 20);
-            this.dateTimePicker2.TabIndex = 1;
+            this.dtpFecha2.Location = new System.Drawing.Point(313, 32);
+            this.dtpFecha2.Margin = new System.Windows.Forms.Padding(2);
+            this.dtpFecha2.Name = "dtpFecha2";
+            this.dtpFecha2.Size = new System.Drawing.Size(135, 20);
+            this.dtpFecha2.TabIndex = 14;
             // 
-            // dateTimePicker1
+            // dtpFecha1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(89, 32);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(135, 20);
-            this.dateTimePicker1.TabIndex = 1;
+            this.dtpFecha1.Location = new System.Drawing.Point(106, 32);
+            this.dtpFecha1.Margin = new System.Windows.Forms.Padding(2);
+            this.dtpFecha1.Name = "dtpFecha1";
+            this.dtpFecha1.Size = new System.Drawing.Size(135, 20);
+            this.dtpFecha1.TabIndex = 13;
+            this.dtpFecha1.ValueChanged += new System.EventHandler(this.dtpFecha1_ValueChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(237, 36);
+            this.label11.Location = new System.Drawing.Point(247, 36);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(62, 13);
@@ -156,7 +159,7 @@ namespace GOMAC.Views
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 36);
+            this.label10.Location = new System.Drawing.Point(36, 36);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(67, 13);
@@ -169,9 +172,9 @@ namespace GOMAC.Views
             this.grpTipoPersona.Controls.Add(this.rbFisica);
             this.grpTipoPersona.Controls.Add(this.rbTodas);
             this.grpTipoPersona.Location = new System.Drawing.Point(470, 17);
-            this.grpTipoPersona.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpTipoPersona.Margin = new System.Windows.Forms.Padding(2);
             this.grpTipoPersona.Name = "grpTipoPersona";
-            this.grpTipoPersona.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpTipoPersona.Padding = new System.Windows.Forms.Padding(2);
             this.grpTipoPersona.Size = new System.Drawing.Size(304, 44);
             this.grpTipoPersona.TabIndex = 3;
             this.grpTipoPersona.TabStop = false;
@@ -181,10 +184,10 @@ namespace GOMAC.Views
             // 
             this.rbMoral.AutoSize = true;
             this.rbMoral.Location = new System.Drawing.Point(249, 16);
-            this.rbMoral.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbMoral.Margin = new System.Windows.Forms.Padding(2);
             this.rbMoral.Name = "rbMoral";
             this.rbMoral.Size = new System.Drawing.Size(51, 17);
-            this.rbMoral.TabIndex = 0;
+            this.rbMoral.TabIndex = 5;
             this.rbMoral.TabStop = true;
             this.rbMoral.Text = "Moral";
             this.rbMoral.UseVisualStyleBackColor = true;
@@ -193,10 +196,10 @@ namespace GOMAC.Views
             // 
             this.rbFisica.AutoSize = true;
             this.rbFisica.Location = new System.Drawing.Point(166, 16);
-            this.rbFisica.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbFisica.Margin = new System.Windows.Forms.Padding(2);
             this.rbFisica.Name = "rbFisica";
             this.rbFisica.Size = new System.Drawing.Size(52, 17);
-            this.rbFisica.TabIndex = 0;
+            this.rbFisica.TabIndex = 4;
             this.rbFisica.TabStop = true;
             this.rbFisica.Text = "Fisica";
             this.rbFisica.UseVisualStyleBackColor = true;
@@ -205,10 +208,10 @@ namespace GOMAC.Views
             // 
             this.rbTodas.AutoSize = true;
             this.rbTodas.Location = new System.Drawing.Point(81, 16);
-            this.rbTodas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbTodas.Margin = new System.Windows.Forms.Padding(2);
             this.rbTodas.Name = "rbTodas";
             this.rbTodas.Size = new System.Drawing.Size(55, 17);
-            this.rbTodas.TabIndex = 0;
+            this.rbTodas.TabIndex = 3;
             this.rbTodas.TabStop = true;
             this.rbTodas.Text = "Todas";
             this.rbTodas.UseVisualStyleBackColor = true;
@@ -216,42 +219,42 @@ namespace GOMAC.Views
             // txtAplllido2
             // 
             this.txtAplllido2.Location = new System.Drawing.Point(568, 88);
-            this.txtAplllido2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtAplllido2.Margin = new System.Windows.Forms.Padding(2);
             this.txtAplllido2.Name = "txtAplllido2";
             this.txtAplllido2.Size = new System.Drawing.Size(207, 20);
-            this.txtAplllido2.TabIndex = 2;
+            this.txtAplllido2.TabIndex = 8;
             // 
             // txtApellido1
             // 
             this.txtApellido1.Location = new System.Drawing.Point(351, 88);
-            this.txtApellido1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtApellido1.Margin = new System.Windows.Forms.Padding(2);
             this.txtApellido1.Name = "txtApellido1";
             this.txtApellido1.Size = new System.Drawing.Size(207, 20);
-            this.txtApellido1.TabIndex = 2;
+            this.txtApellido1.TabIndex = 7;
             // 
             // txtFolio
             // 
             this.txtFolio.Location = new System.Drawing.Point(59, 167);
-            this.txtFolio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtFolio.Margin = new System.Windows.Forms.Padding(2);
             this.txtFolio.Name = "txtFolio";
             this.txtFolio.Size = new System.Drawing.Size(149, 20);
-            this.txtFolio.TabIndex = 2;
+            this.txtFolio.TabIndex = 11;
             // 
             // txtCuenta
             // 
             this.txtCuenta.Location = new System.Drawing.Point(59, 118);
-            this.txtCuenta.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtCuenta.Margin = new System.Windows.Forms.Padding(2);
             this.txtCuenta.Name = "txtCuenta";
             this.txtCuenta.Size = new System.Drawing.Size(149, 20);
-            this.txtCuenta.TabIndex = 2;
+            this.txtCuenta.TabIndex = 9;
             // 
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(17, 88);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(325, 20);
-            this.txtNombre.TabIndex = 2;
+            this.txtNombre.TabIndex = 6;
             // 
             // label5
             // 
@@ -325,12 +328,13 @@ namespace GOMAC.Views
             // 
             // cmbStatus
             // 
+            this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbStatus.FormattingEnabled = true;
-            this.cmbStatus.Location = new System.Drawing.Point(70, 142);
-            this.cmbStatus.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbStatus.Location = new System.Drawing.Point(59, 142);
+            this.cmbStatus.Margin = new System.Windows.Forms.Padding(2);
             this.cmbStatus.Name = "cmbStatus";
-            this.cmbStatus.Size = new System.Drawing.Size(186, 21);
-            this.cmbStatus.TabIndex = 0;
+            this.cmbStatus.Size = new System.Drawing.Size(197, 21);
+            this.cmbStatus.TabIndex = 10;
             // 
             // label2
             // 
@@ -354,29 +358,31 @@ namespace GOMAC.Views
             // 
             // cmbBanca
             // 
+            this.cmbBanca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBanca.FormattingEnabled = true;
             this.cmbBanca.Location = new System.Drawing.Point(70, 46);
-            this.cmbBanca.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbBanca.Margin = new System.Windows.Forms.Padding(2);
             this.cmbBanca.Name = "cmbBanca";
             this.cmbBanca.Size = new System.Drawing.Size(186, 21);
-            this.cmbBanca.TabIndex = 0;
+            this.cmbBanca.TabIndex = 2;
             // 
             // cmbConsultor
             // 
+            this.cmbConsultor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbConsultor.FormattingEnabled = true;
             this.cmbConsultor.Location = new System.Drawing.Point(70, 19);
-            this.cmbConsultor.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbConsultor.Margin = new System.Windows.Forms.Padding(2);
             this.cmbConsultor.Name = "cmbConsultor";
             this.cmbConsultor.Size = new System.Drawing.Size(186, 21);
-            this.cmbConsultor.TabIndex = 0;
+            this.cmbConsultor.TabIndex = 1;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Location = new System.Drawing.Point(8, 244);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(783, 213);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
@@ -386,7 +392,7 @@ namespace GOMAC.Views
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(4, 16);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
@@ -396,30 +402,42 @@ namespace GOMAC.Views
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(679, 467);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(112, 28);
             this.button2.TabIndex = 3;
             this.button2.Text = "Salir";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(553, 467);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(112, 28);
             this.button3.TabIndex = 3;
             this.button3.Text = "Exporta a Excel";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(12, 467);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(529, 28);
             this.progressBar1.TabIndex = 4;
+            // 
+            // chkFechas
+            // 
+            this.chkFechas.AutoSize = true;
+            this.chkFechas.Location = new System.Drawing.Point(16, 35);
+            this.chkFechas.Name = "chkFechas";
+            this.chkFechas.Size = new System.Drawing.Size(15, 14);
+            this.chkFechas.TabIndex = 12;
+            this.chkFechas.UseVisualStyleBackColor = true;
+            this.chkFechas.CheckedChanged += new System.EventHandler(this.chkFechas_CheckedChanged);
             // 
             // Frm_ConsultaSolicitud
             // 
@@ -431,7 +449,7 @@ namespace GOMAC.Views
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpFiltros);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Frm_ConsultaSolicitud";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Consulta de Solicitudes";
@@ -475,8 +493,8 @@ namespace GOMAC.Views
         private System.Windows.Forms.ComboBox cmbConsultor;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox grpRangoFechas;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpFecha2;
+        private System.Windows.Forms.DateTimePicker dtpFecha1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -484,5 +502,6 @@ namespace GOMAC.Views
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.CheckBox chkFechas;
     }
 }
