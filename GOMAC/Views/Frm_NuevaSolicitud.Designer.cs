@@ -82,8 +82,7 @@ namespace GOMAC.Views
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaCancelada = new System.Windows.Forms.DateTimePicker();
             this.btnConcluirSolicitud = new System.Windows.Forms.Button();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.cmbMinuto5 = new System.Windows.Forms.ComboBox();
@@ -100,19 +99,12 @@ namespace GOMAC.Views
             this.cmbHora2 = new System.Windows.Forms.ComboBox();
             this.cmbHora1 = new System.Windows.Forms.ComboBox();
             this.btnFAtencion = new System.Windows.Forms.Button();
-            this.txtFAtencion = new System.Windows.Forms.TextBox();
             this.btnFRecepcion = new System.Windows.Forms.Button();
-            this.txtFRecepcion = new System.Windows.Forms.TextBox();
             this.btnFFormalizada = new System.Windows.Forms.Button();
-            this.txtFFormalizada = new System.Windows.Forms.TextBox();
             this.btnFAnalisisMac = new System.Windows.Forms.Button();
-            this.txtFAnalisisMac = new System.Windows.Forms.TextBox();
             this.btnEnvio = new System.Windows.Forms.Button();
-            this.txtEnvio = new System.Windows.Forms.TextBox();
             this.btnDesbloqueo = new System.Windows.Forms.Button();
-            this.txtDesbloqueo = new System.Windows.Forms.TextBox();
             this.btnFRecepDoc = new System.Windows.Forms.Button();
-            this.txtFRecepDoc = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btnVerObservacion = new System.Windows.Forms.Button();
             this.btnNuevaObservacion = new System.Windows.Forms.Button();
@@ -131,6 +123,16 @@ namespace GOMAC.Views
             this.btnCancelarSolicitud = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.tmrTraerDatos = new System.Windows.Forms.Timer(this.components);
+            this.dtpFRecepDoc = new System.Windows.Forms.DateTimePicker();
+            this.dtpFAnalisisMac = new System.Windows.Forms.DateTimePicker();
+            this.dtpFFormalizada = new System.Windows.Forms.DateTimePicker();
+            this.dtpFRecepcion = new System.Windows.Forms.DateTimePicker();
+            this.dtpFAtencion = new System.Windows.Forms.DateTimePicker();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.dtpEnvio = new System.Windows.Forms.DateTimePicker();
+            this.dtpDesbloqueo = new System.Windows.Forms.DateTimePicker();
+            this.dtpConcluir = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpTipoPersona.SuspendLayout();
@@ -605,6 +607,16 @@ namespace GOMAC.Views
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label17);
+            this.tabPage2.Controls.Add(this.label16);
+            this.tabPage2.Controls.Add(this.dtpFAtencion);
+            this.tabPage2.Controls.Add(this.dtpFRecepcion);
+            this.tabPage2.Controls.Add(this.dtpFFormalizada);
+            this.tabPage2.Controls.Add(this.dtpDesbloqueo);
+            this.tabPage2.Controls.Add(this.dtpConcluir);
+            this.tabPage2.Controls.Add(this.dtpEnvio);
+            this.tabPage2.Controls.Add(this.dtpFAnalisisMac);
+            this.tabPage2.Controls.Add(this.dtpFRecepDoc);
             this.tabPage2.Controls.Add(this.grpOriginales);
             this.tabPage2.Controls.Add(this.label15);
             this.tabPage2.Controls.Add(this.label14);
@@ -613,8 +625,7 @@ namespace GOMAC.Views
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.textBox10);
-            this.tabPage2.Controls.Add(this.dateTimePicker1);
+            this.tabPage2.Controls.Add(this.dtpFechaCancelada);
             this.tabPage2.Controls.Add(this.btnConcluirSolicitud);
             this.tabPage2.Controls.Add(this.monthCalendar1);
             this.tabPage2.Controls.Add(this.cmbMinuto5);
@@ -631,19 +642,12 @@ namespace GOMAC.Views
             this.tabPage2.Controls.Add(this.cmbHora2);
             this.tabPage2.Controls.Add(this.cmbHora1);
             this.tabPage2.Controls.Add(this.btnFAtencion);
-            this.tabPage2.Controls.Add(this.txtFAtencion);
             this.tabPage2.Controls.Add(this.btnFRecepcion);
-            this.tabPage2.Controls.Add(this.txtFRecepcion);
             this.tabPage2.Controls.Add(this.btnFFormalizada);
-            this.tabPage2.Controls.Add(this.txtFFormalizada);
             this.tabPage2.Controls.Add(this.btnFAnalisisMac);
-            this.tabPage2.Controls.Add(this.txtFAnalisisMac);
             this.tabPage2.Controls.Add(this.btnEnvio);
-            this.tabPage2.Controls.Add(this.txtEnvio);
             this.tabPage2.Controls.Add(this.btnDesbloqueo);
-            this.tabPage2.Controls.Add(this.txtDesbloqueo);
             this.tabPage2.Controls.Add(this.btnFRecepDoc);
-            this.tabPage2.Controls.Add(this.txtFRecepDoc);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage2.Name = "tabPage2";
@@ -758,26 +762,18 @@ namespace GOMAC.Views
             this.label9.TabIndex = 7;
             this.label9.Text = "Expediente Unico";
             // 
-            // textBox10
+            // dtpFechaCancelada
             // 
-            this.textBox10.Location = new System.Drawing.Point(846, 205);
-            this.textBox10.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(286, 26);
-            this.textBox10.TabIndex = 6;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(850, 282);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(286, 26);
-            this.dateTimePicker1.TabIndex = 1;
+            this.dtpFechaCancelada.Location = new System.Drawing.Point(850, 295);
+            this.dtpFechaCancelada.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dtpFechaCancelada.Name = "dtpFechaCancelada";
+            this.dtpFechaCancelada.Size = new System.Drawing.Size(286, 26);
+            this.dtpFechaCancelada.TabIndex = 1;
             // 
             // btnConcluirSolicitud
             // 
             this.btnConcluirSolicitud.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConcluirSolicitud.Location = new System.Drawing.Point(846, 175);
+            this.btnConcluirSolicitud.Location = new System.Drawing.Point(846, 206);
             this.btnConcluirSolicitud.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnConcluirSolicitud.Name = "btnConcluirSolicitud";
             this.btnConcluirSolicitud.Size = new System.Drawing.Size(288, 29);
@@ -788,7 +784,7 @@ namespace GOMAC.Views
             // monthCalendar1
             // 
             this.monthCalendar1.Location = new System.Drawing.Point(444, 15);
-            this.monthCalendar1.Margin = new System.Windows.Forms.Padding(14, 14, 14, 14);
+            this.monthCalendar1.Margin = new System.Windows.Forms.Padding(14);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 4;
             // 
@@ -822,7 +818,7 @@ namespace GOMAC.Views
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(912, 257);
+            this.label8.Location = new System.Drawing.Point(912, 270);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(167, 20);
@@ -919,15 +915,6 @@ namespace GOMAC.Views
             this.btnFAtencion.TabIndex = 0;
             this.btnFAtencion.UseVisualStyleBackColor = true;
             // 
-            // txtFAtencion
-            // 
-            this.txtFAtencion.ForeColor = System.Drawing.Color.LightGray;
-            this.txtFAtencion.Location = new System.Drawing.Point(62, 305);
-            this.txtFAtencion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtFAtencion.Name = "txtFAtencion";
-            this.txtFAtencion.Size = new System.Drawing.Size(188, 26);
-            this.txtFAtencion.TabIndex = 0;
-            // 
             // btnFRecepcion
             // 
             this.btnFRecepcion.Location = new System.Drawing.Point(16, 234);
@@ -936,15 +923,6 @@ namespace GOMAC.Views
             this.btnFRecepcion.Size = new System.Drawing.Size(36, 35);
             this.btnFRecepcion.TabIndex = 0;
             this.btnFRecepcion.UseVisualStyleBackColor = true;
-            // 
-            // txtFRecepcion
-            // 
-            this.txtFRecepcion.ForeColor = System.Drawing.Color.LightGray;
-            this.txtFRecepcion.Location = new System.Drawing.Point(62, 238);
-            this.txtFRecepcion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtFRecepcion.Name = "txtFRecepcion";
-            this.txtFRecepcion.Size = new System.Drawing.Size(188, 26);
-            this.txtFRecepcion.TabIndex = 0;
             // 
             // btnFFormalizada
             // 
@@ -955,15 +933,6 @@ namespace GOMAC.Views
             this.btnFFormalizada.TabIndex = 0;
             this.btnFFormalizada.UseVisualStyleBackColor = true;
             // 
-            // txtFFormalizada
-            // 
-            this.txtFFormalizada.ForeColor = System.Drawing.Color.LightGray;
-            this.txtFFormalizada.Location = new System.Drawing.Point(62, 172);
-            this.txtFFormalizada.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtFFormalizada.Name = "txtFFormalizada";
-            this.txtFFormalizada.Size = new System.Drawing.Size(188, 26);
-            this.txtFFormalizada.TabIndex = 0;
-            // 
             // btnFAnalisisMac
             // 
             this.btnFAnalisisMac.Location = new System.Drawing.Point(16, 102);
@@ -973,48 +942,23 @@ namespace GOMAC.Views
             this.btnFAnalisisMac.TabIndex = 0;
             this.btnFAnalisisMac.UseVisualStyleBackColor = true;
             // 
-            // txtFAnalisisMac
-            // 
-            this.txtFAnalisisMac.ForeColor = System.Drawing.Color.LightGray;
-            this.txtFAnalisisMac.Location = new System.Drawing.Point(62, 106);
-            this.txtFAnalisisMac.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtFAnalisisMac.Name = "txtFAnalisisMac";
-            this.txtFAnalisisMac.Size = new System.Drawing.Size(188, 26);
-            this.txtFAnalisisMac.TabIndex = 0;
-            // 
             // btnEnvio
             // 
-            this.btnEnvio.Location = new System.Drawing.Point(862, 125);
+            this.btnEnvio.Location = new System.Drawing.Point(862, 155);
             this.btnEnvio.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEnvio.Name = "btnEnvio";
             this.btnEnvio.Size = new System.Drawing.Size(36, 35);
             this.btnEnvio.TabIndex = 0;
             this.btnEnvio.UseVisualStyleBackColor = true;
             // 
-            // txtEnvio
-            // 
-            this.txtEnvio.Location = new System.Drawing.Point(933, 126);
-            this.txtEnvio.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtEnvio.Name = "txtEnvio";
-            this.txtEnvio.Size = new System.Drawing.Size(188, 26);
-            this.txtEnvio.TabIndex = 0;
-            // 
             // btnDesbloqueo
             // 
-            this.btnDesbloqueo.Location = new System.Drawing.Point(862, 80);
+            this.btnDesbloqueo.Location = new System.Drawing.Point(862, 95);
             this.btnDesbloqueo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDesbloqueo.Name = "btnDesbloqueo";
             this.btnDesbloqueo.Size = new System.Drawing.Size(36, 35);
             this.btnDesbloqueo.TabIndex = 0;
             this.btnDesbloqueo.UseVisualStyleBackColor = true;
-            // 
-            // txtDesbloqueo
-            // 
-            this.txtDesbloqueo.Location = new System.Drawing.Point(933, 82);
-            this.txtDesbloqueo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtDesbloqueo.Name = "txtDesbloqueo";
-            this.txtDesbloqueo.Size = new System.Drawing.Size(188, 26);
-            this.txtDesbloqueo.TabIndex = 0;
             // 
             // btnFRecepDoc
             // 
@@ -1024,15 +968,6 @@ namespace GOMAC.Views
             this.btnFRecepDoc.Size = new System.Drawing.Size(36, 35);
             this.btnFRecepDoc.TabIndex = 0;
             this.btnFRecepDoc.UseVisualStyleBackColor = true;
-            // 
-            // txtFRecepDoc
-            // 
-            this.txtFRecepDoc.ForeColor = System.Drawing.Color.LightGray;
-            this.txtFRecepDoc.Location = new System.Drawing.Point(62, 40);
-            this.txtFRecepDoc.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtFRecepDoc.Name = "txtFRecepDoc";
-            this.txtFRecepDoc.Size = new System.Drawing.Size(188, 26);
-            this.txtFRecepDoc.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -1220,6 +1155,80 @@ namespace GOMAC.Views
             this.tmrTraerDatos.Interval = 1000;
             this.tmrTraerDatos.Tick += new System.EventHandler(this.tmrTraerDatos_Tick);
             // 
+            // dtpFRecepDoc
+            // 
+            this.dtpFRecepDoc.Location = new System.Drawing.Point(62, 42);
+            this.dtpFRecepDoc.Name = "dtpFRecepDoc";
+            this.dtpFRecepDoc.Size = new System.Drawing.Size(188, 26);
+            this.dtpFRecepDoc.TabIndex = 10;
+            // 
+            // dtpFAnalisisMac
+            // 
+            this.dtpFAnalisisMac.Location = new System.Drawing.Point(62, 108);
+            this.dtpFAnalisisMac.Name = "dtpFAnalisisMac";
+            this.dtpFAnalisisMac.Size = new System.Drawing.Size(188, 26);
+            this.dtpFAnalisisMac.TabIndex = 10;
+            // 
+            // dtpFFormalizada
+            // 
+            this.dtpFFormalizada.Location = new System.Drawing.Point(62, 173);
+            this.dtpFFormalizada.Name = "dtpFFormalizada";
+            this.dtpFFormalizada.Size = new System.Drawing.Size(188, 26);
+            this.dtpFFormalizada.TabIndex = 10;
+            // 
+            // dtpFRecepcion
+            // 
+            this.dtpFRecepcion.Location = new System.Drawing.Point(62, 237);
+            this.dtpFRecepcion.Name = "dtpFRecepcion";
+            this.dtpFRecepcion.Size = new System.Drawing.Size(188, 26);
+            this.dtpFRecepcion.TabIndex = 10;
+            // 
+            // dtpFAtencion
+            // 
+            this.dtpFAtencion.Location = new System.Drawing.Point(62, 302);
+            this.dtpFAtencion.Name = "dtpFAtencion";
+            this.dtpFAtencion.Size = new System.Drawing.Size(188, 26);
+            this.dtpFAtencion.TabIndex = 10;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(969, 131);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(110, 20);
+            this.label16.TabIndex = 11;
+            this.label16.Text = "Envio Agencia";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(941, 71);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(165, 20);
+            this.label17.TabIndex = 11;
+            this.label17.Text = "Desbloqueo Sistemas";
+            // 
+            // dtpEnvio
+            // 
+            this.dtpEnvio.Location = new System.Drawing.Point(929, 154);
+            this.dtpEnvio.Name = "dtpEnvio";
+            this.dtpEnvio.Size = new System.Drawing.Size(188, 26);
+            this.dtpEnvio.TabIndex = 10;
+            // 
+            // dtpDesbloqueo
+            // 
+            this.dtpDesbloqueo.Location = new System.Drawing.Point(929, 95);
+            this.dtpDesbloqueo.Name = "dtpDesbloqueo";
+            this.dtpDesbloqueo.Size = new System.Drawing.Size(188, 26);
+            this.dtpDesbloqueo.TabIndex = 10;
+            // 
+            // dtpConcluir
+            // 
+            this.dtpConcluir.Location = new System.Drawing.Point(846, 234);
+            this.dtpConcluir.Name = "dtpConcluir";
+            this.dtpConcluir.Size = new System.Drawing.Size(288, 26);
+            this.dtpConcluir.TabIndex = 10;
+            // 
             // Frm_NuevaSolicitud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1326,9 +1335,7 @@ namespace GOMAC.Views
         private System.Windows.Forms.Button btnCancelarSolicitud;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btnFRecepDoc;
-        private System.Windows.Forms.TextBox txtFRecepDoc;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpFechaCancelada;
         private System.Windows.Forms.Button btnConcluirSolicitud;
         private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.ComboBox cmbMinuto5;
@@ -1345,17 +1352,11 @@ namespace GOMAC.Views
         private System.Windows.Forms.ComboBox cmbHora2;
         private System.Windows.Forms.ComboBox cmbHora1;
         private System.Windows.Forms.Button btnFAtencion;
-        private System.Windows.Forms.TextBox txtFAtencion;
         private System.Windows.Forms.Button btnFRecepcion;
-        private System.Windows.Forms.TextBox txtFRecepcion;
         private System.Windows.Forms.Button btnFFormalizada;
-        private System.Windows.Forms.TextBox txtFFormalizada;
         private System.Windows.Forms.Button btnFAnalisisMac;
-        private System.Windows.Forms.TextBox txtFAnalisisMac;
         private System.Windows.Forms.Button btnEnvio;
-        private System.Windows.Forms.TextBox txtEnvio;
         private System.Windows.Forms.Button btnDesbloqueo;
-        private System.Windows.Forms.TextBox txtDesbloqueo;
         private System.Windows.Forms.Button btnVerObservacion;
         private System.Windows.Forms.Button btnNuevaObservacion;
         private System.Windows.Forms.DataGridView dtgvwObservaciones;
@@ -1372,5 +1373,15 @@ namespace GOMAC.Views
         private System.Windows.Forms.GroupBox grpOriginales;
         private System.Windows.Forms.RadioButton rbIncorrectos;
         private System.Windows.Forms.RadioButton rbcorrectos;
+        private System.Windows.Forms.DateTimePicker dtpFAtencion;
+        private System.Windows.Forms.DateTimePicker dtpFRecepcion;
+        private System.Windows.Forms.DateTimePicker dtpFFormalizada;
+        private System.Windows.Forms.DateTimePicker dtpFAnalisisMac;
+        private System.Windows.Forms.DateTimePicker dtpFRecepDoc;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.DateTimePicker dtpEnvio;
+        private System.Windows.Forms.DateTimePicker dtpDesbloqueo;
+        private System.Windows.Forms.DateTimePicker dtpConcluir;
     }
 }

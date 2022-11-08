@@ -33,11 +33,11 @@ namespace GOMAC.Views
             txtApellidoP.Text = "Primer Apellido";
             txtApellidoM.Text = "Segundo Apellido";
 
-            txtFRecepDoc.Text = "Expediente Unico";
-            txtFAnalisisMac.Text = "Analisis MAC";
-            txtFFormalizada.Text = "Formalizada";
-            txtFRecepcion.Text = "Recepcion de Originales";
-            txtFAtencion.Text = "Atencion de Originales";
+            //txtFRecepDoc.Text = "Expediente Unico";
+            //txtFAnalisisMac.Text = "Analisis MAC";
+            //txtFFormalizada.Text = "Formalizada";
+            //txtFRecepcion.Text = "Recepcion de Originales";
+            //txtFAtencion.Text = "Atencion de Originales";
 
             CargarcomboHora(cmbHora1);
             CargarcomboHora(cmbHora2);
@@ -319,45 +319,45 @@ namespace GOMAC.Views
                             TxtDepositoTkt.Enabled = true;
                             grpTipoPersona.Enabled = false;
 
-                            if (txtFRecepDoc.Text == "")
+                            if (dtpFRecepDoc.Text == "")
                             {
                                 btnFRecepDoc.Visible = true;
                                 btnFRecepDoc.Enabled = true;
                             }
 
-                            if (txtFAnalisisMac.Text == "")
+                            if (dtpFAnalisisMac.Text == "")
                             {
                                 btnFAnalisisMac.Visible = true;
                                 btnFAnalisisMac.Enabled = true;
 
                             }
 
-                            if (txtFFormalizada.Text == "")
+                            if (dtpFFormalizada.Text == "")
                             {
                                 btnFFormalizada.Visible = true;
                                 btnFFormalizada.Enabled = true;
                             }
 
-                            if (txtFRecepcion.Text == "")
+                            if (dtpFRecepcion.Text == "")
                             {
                                 btnFRecepcion.Visible = true;
                                 btnFRecepcion.Enabled = true;
                             }
 
-                            if (txtFAtencion.Text == "")
+                            if (dtpFAtencion.Text == "")
                             {
                                 btnFAtencion.Visible = true;
                                 btnFAtencion.Enabled = true;
                             }
 
 
-                            if (txtDesbloqueo.Text == "")
+                            if (dtpDesbloqueo.Text == "")
                             {
                                 btnDesbloqueo.Visible = true;
                                 btnDesbloqueo.Enabled = true;
                             }
 
-                            if (txtEnvio.Text == "")
+                            if (dtpEnvio.Text == "")
                             {
                                 btnEnvio.Visible = true;
                                 btnEnvio.Enabled = true;
@@ -460,13 +460,13 @@ namespace GOMAC.Views
                     {
                         if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.Value == DateTime.Parse("01-01-1900"))
                         {
-                            txtFRecepDoc.Text = "";
+                            dtpFRecepDoc.Text = "";
                             cmbHora1.SelectedText = "00";
                             cmbMinuto1.SelectedText = "00";
                         }
                         else
                         {
-                            txtFRecepDoc.Text = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.Value.ToString("dd-MM-yyyy");
+                            dtpFRecepDoc.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.Value;
                             cmbHora1.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.Value.ToString("hh");
                             cmbMinuto1.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.Value.ToString("mm");
 
@@ -483,13 +483,13 @@ namespace GOMAC.Views
                     {
                         if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.Value == DateTime.Parse("01-01-1900"))
                         {
-                            txtFAnalisisMac.Text = "";
+                            dtpFAnalisisMac.Text = "";
                             cmbHora2.SelectedText = "00";
                             cmbMinuto2.SelectedText = "00";
                         }
                         else
                         {
-                            txtFAnalisisMac.Text = seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.Value.ToString("dd-MM-yyyy");
+                            dtpFAnalisisMac.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.Value;
                             cmbHora2.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.Value.ToString("hh");
                             cmbMinuto2.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.Value.ToString("mm");
 
@@ -511,13 +511,13 @@ namespace GOMAC.Views
                     {
                         if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.Value == DateTime.Parse("01-01-1900"))
                         {
-                            txtFFormalizada.Text = "";
+                            dtpFFormalizada.Text = "";
                             cmbHora3.SelectedText = "00";
                             cmbMinuto3.SelectedText = "00";
                         }
                         else
                         {
-                            txtFFormalizada.Text = seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.Value.ToString("dd-MM-yyyy");
+                            dtpFFormalizada.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.Value;
                             cmbHora3.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.Value.ToString("hh");
                             cmbMinuto3.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.Value.ToString("mm");
 
@@ -535,13 +535,13 @@ namespace GOMAC.Views
                     {
                         if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.Value == DateTime.Parse("01-01-1900"))
                         {
-                            txtFRecepcion.Text = "";
+                            dtpFRecepcion.Text = "";
                             cmbHora4.SelectedText = "00";
                             cmbMinuto4.SelectedText = "00";
                         }
                         else
                         {
-                            txtFRecepcion.Text = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.Value.ToString("dd-MM-yyyy");
+                            dtpFRecepcion.Text = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.Value.ToString("dd-MM-yyyy");
                             cmbHora4.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.Value.ToString("hh");
                             cmbMinuto4.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.Value.ToString("mm");
 
@@ -559,13 +559,13 @@ namespace GOMAC.Views
                     {
                         if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Aten_Originales.Value == DateTime.Parse("01-01-1900"))
                         {
-                            txtFAtencion.Text = "";
+                            dtpFAtencion.Text = String.Empty;
                             cmbHora5.SelectedText = "00";
                             cmbMinuto5.SelectedText = "00";
                         }
                         else
                         {
-                            txtFAtencion.Text = seguimiento_doc.SEGUIMIENTO_DOCTOS.Aten_Originales.Value.ToString("dd-MM-yyy");
+                            dtpFAtencion.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Aten_Originales.Value;
                             cmbHora5.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Aten_Originales.Value.ToString("hh");
                             cmbMinuto5.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Aten_Originales.Value.ToString("mm");
 
@@ -578,7 +578,7 @@ namespace GOMAC.Views
                     
 
 
-                    if(txtFAtencion.Text.Trim() =="")
+                    if(dtpFAtencion.Text.Trim() =="")
                     {
 
                     }
@@ -658,32 +658,84 @@ namespace GOMAC.Views
                             txtSolicitud.Text = consecutivo.ToString();
                             dtpFechaCaptura.Value = DateTime.Now;
 
-                            txtEnvio.Enabled = true;
+                            dtpEnvio.Enabled = true;
                             btnCancelarSolicitud.Enabled = false;
                             btnGuardar.Enabled = false;
 
+                            int id_ConsultorMac = frmp.usuario_loggeado.id_usuario;
+                            int id_Solicitud = cmbTipoSolicitud.SelectedIndex;
+                            int id_Tramite = cmbTipoTramite.SelectedIndex;
+                            int puntos = Int32.Parse(txtPuntos.Text);
+                            string circuito = (rbCircuitoAuto.Checked)? "A": "M";
+                            string cuenta_Cliente = txtCuenta.Text;
+                            string sufijo_Kapiti = cmbProducto.Text;
+                            byte tipo_Persona = (byte)((rbPersonaFisica.Checked) ? 0 : 1);
+                            string nombre_Cliente = txtNombre.Text;
+                            string apellido_Paterno = txtApellidoP.Text;
+                            string apellido_Materno = txtApellidoM.Text;
+                            string deposito_Inicial = Int32.Parse(TxtDepositoTkt.Text).ToString("C", frmp.format);
+                            string numero_Registro = cmbNumeroFuncionario.Text;
+                            string nombre_Promotor = cmbPromotor.Text;
+                            string banca = cmbBanca.Text;
+                            string division = cmbDivision.Text;
+                            string plaza = cmbPlaza.Text;
+                            string sucursal = cmbSucursal.Text;
+                            string status = "1";
+                            int num_Solicitud = Int32.Parse(txtSolicitud.Text);
+                            string fechaRepc_Doc = dtpFRecepDoc.Value.ToString("dd-MM-yyyy");
+                            string horaRepc_Doc = cmbHora1.Text + ":" + cmbMinuto1.Text;
+                            string fechaAnalisis_Mac = dtpFAnalisisMac.Value.ToString("dd-MM-yyyy");
+                            string horaAnalisis_Mac = cmbHora2.Text + ":" + cmbMinuto2.Text;
+                            string fechaFormalizada = dtpFFormalizada.Value.ToString("dd-MM-yyyy");
+                            string horaFormalizada = cmbHora3.Text + ":" + cmbMinuto3.Text;
+                            string fechaRepc_Originales = dtpFRecepcion.Value.ToString("dd-MM-yyyy");
+                            string horaRepc_Originales = cmbHora4.Text + ":" + cmbMinuto4.Text;
+                            string fechaAten_Originales = rbExisteCuentaSi.Checked ? "S" : "N";
+                            string horaAten_Originales = cmbHora5.Text + ":" + cmbMinuto5.Text;
+                            string originales = "-1";
+                            decimal deposito_Inicial_Ini = decimal.Parse(txtDepositoIni.Text);
+                            string fecha_Desbloqueo = dtpDesbloqueo.Value.ToString("dd-MM-yyyy");
+                            string fecha_Envio = dtpEnvio.Value.ToString("dd-MM-yyyy");
+                            string fecha_concluida = dtpConcluir.Value.ToString("dd-MM-yyyy");
+                            string existeTKT = rbExisteCuentaSi.Checked ? "S" : "N";
+
                             bdbmtktp01.Mac_Inserta_Datos(
-                                frmp.usuario_loggeado.id_usuario
-                                ,cmbTipoSolicitud.SelectedIndex
-                                , cmbTipoTramite.SelectedIndex
-                                , Int32.Parse(txtPuntos.Text)
-                                , (rbCircuitoAuto.Checked)? "A": "M"
-                                ,txtCuenta.Text
-                                ,cmbProducto.Text
-                                ,(rbPersonaFisica.Checked)? 0:1
-                                ,txtNombre.Text
-                                ,txtApellidoP.Text
-                                ,txtApellidoM.Text
-                                ,Int32.Parse(TxtDepositoTkt.Text).ToString("C", frmp.format)
-                                ,cmbNumeroFuncionario.Text
-                                ,cmbPromotor.Text
-                                ,cmbBanca.Text
-                                ,cmbDivision.Text
-                                ,cmbPlaza.Text
-                                ,cmbSucursal.Text 
-                                ,"1"
-                                ,Int32.Parse(txtSolicitud.Text)
-                                
+                                id_ConsultorMac,
+                                id_Solicitud ,
+                                id_Tramite,
+                                puntos,
+                                circuito,
+                                cuenta_Cliente, 
+                                sufijo_Kapiti ,
+                                tipo_Persona ,
+                                nombre_Cliente,
+                                apellido_Paterno, 
+                                apellido_Materno,
+                                deposito_Inicial ,
+                                numero_Registro ,
+                                nombre_Promotor,
+                                banca ,
+                                division, 
+                                plaza ,
+                                sucursal, 
+                                status ,
+                                 num_Solicitud,
+                                 fechaRepc_Doc,
+                                 horaRepc_Doc ,
+                                 fechaAnalisis_Mac, 
+                                 horaAnalisis_Mac,
+                                 fechaFormalizada ,
+                                 horaFormalizada ,
+                                 fechaRepc_Originales, 
+                                 horaRepc_Originales,
+                                 fechaAten_Originales, 
+                                 horaAten_Originales,
+                                 originales ,
+                                 deposito_Inicial_Ini, 
+                                 fecha_Desbloqueo ,
+                                 fecha_Envio,
+                                 fecha_concluida,
+                                 existeTKT 
                             );
 
                         }
