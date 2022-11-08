@@ -52,7 +52,7 @@ namespace GOMAC.Views
 
         private void consultaSolicitudToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (usuario != null)
+            if (usuario_loggeado != null)
             {
                 if (frm_consultasolicitud != null)
                 {
@@ -70,7 +70,7 @@ namespace GOMAC.Views
 
         private void nuevaSolicitudToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (usuario != null)
+            if (usuario_loggeado != null)
             {
                 if (frm_nuevasolicitud != null)
                 {

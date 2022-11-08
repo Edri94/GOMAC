@@ -38,21 +38,6 @@ namespace GOMAC.Views
             //txtFFormalizada.Text = "Formalizada";
             //txtFRecepcion.Text = "Recepcion de Originales";
             //txtFAtencion.Text = "Atencion de Originales";
-
-            CargarcomboHora(cmbHora1);
-            CargarcomboHora(cmbHora2);
-            CargarcomboHora(cmbHora3);
-            CargarcomboHora(cmbHora4);
-            CargarcomboHora(cmbHora5);
-
-
-            CargarcomboMinuto(cmbMinuto1);
-            CargarcomboMinuto(cmbMinuto2);
-            CargarcomboMinuto(cmbMinuto3);
-            CargarcomboMinuto(cmbMinuto4);
-            CargarcomboMinuto(cmbMinuto5);
-
-
         }
 
         private void CargarcomboMinuto(ComboBox cmbMinuto)
@@ -109,10 +94,35 @@ namespace GOMAC.Views
             //txtFRecepDoc.LostFocus += new EventHandler(this.TxtFRecepDocLostFocus);
             //************************************************************************************
 
+
+            CargarcomboHora(cmbHora1);
+            CargarcomboHora(cmbHora2);
+            CargarcomboHora(cmbHora3);
+            CargarcomboHora(cmbHora4);
+            CargarcomboHora(cmbHora5);
+
+
+            CargarcomboMinuto(cmbMinuto1);
+            CargarcomboMinuto(cmbMinuto2);
+            CargarcomboMinuto(cmbMinuto3);
+            CargarcomboMinuto(cmbMinuto4);
+            CargarcomboMinuto(cmbMinuto5);
+
+
             LlenaComboTipoSolicitud();
             LlenaComboTipoTramite();
+            LlenarComboConsultor();
+            LlenaComboBanca();
+            LlenarComboDivision();
+            LlenarComboProducto();
+            LlenaComboplaza();
+            LlenaComboSucursal();
+            LlenaComboNombreFunc();
+            LlenaComboNumFunc();
 
-            if(str_consultor.Trim() != "")
+
+
+            if (str_consultor.Trim() != "")
             {
                 CargaConsulta();
             }
@@ -140,6 +150,181 @@ namespace GOMAC.Views
             }
         }
 
+        private void LlenaComboNumFunc()
+        {
+            try
+            {
+                List<string> promotores =
+                    bdbmtktp01.VER_FUNCIONARIOS.Select(p => p.PROMOTOR).Distinct().ToList();
+
+
+                if (promotores != null)
+                {
+                    //Anadiendo default
+                    promotores.Insert(0, "...");
+                    cmbPromotor.DataSource = promotores;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void LlenaComboNombreFunc()
+        {
+            try
+            {
+                List<string> num_funcionarios =
+                    bdbmtktp01.VER_FUNCIONARIOS.Select(f => f.NUMERO_FUNCIONARIO).Distinct().ToList();
+
+
+                if (num_funcionarios != null)
+                {
+                    //Anadiendo default
+                    num_funcionarios.Insert(0, "...");
+                    cmbNumeroFuncionario.DataSource = num_funcionarios;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void LlenaComboplaza()
+        {
+            try
+            {
+                List<string> plazas =
+                    bdbmtktp01.VER_FUNCIONARIOS.Select(p => p.PLAZA).Distinct().ToList();
+
+
+                if (plazas != null)
+                {
+                    //Anadiendo default
+                    plazas.Insert(0, "...");
+                    cmbPlaza.DataSource = plazas;
+                }
+            }
+            catch(Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+
+        private void LlenaComboSucursal()
+        {
+            try
+            {
+                List<string> sucursales =
+                    bdbmtktp01.VER_FUNCIONARIOS.Select(s => s.SUCURSAL).Distinct().ToList();
+
+
+                if (sucursales != null)
+                {
+                    //Anadiendo default
+                    sucursales.Insert(0, "...");
+                    cmbSucursal.DataSource = sucursales;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void LlenarComboProducto()
+        {
+            try
+            {
+                List<string> productos = new List<string>();
+
+                productos.Add("...");
+                productos.Add("000");
+                productos.Add("100");
+                productos.Add("687");
+
+                cmbProducto.DataSource = productos;
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void LlenarComboDivision()
+        {
+            try
+            {
+                try
+                {
+                    List<string> divisones =
+                        bdbmtktp01.VER_FUNCIONARIOS .Select(d => d.DIVISION).Distinct().ToList();
+
+
+                    if (divisones != null)
+                    {
+                        //Anadiendo default
+                        divisones.Insert(0, "...");
+                        cmbDivision.DataSource = divisones;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Escribe(ex);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void LlenaComboBanca()
+        {
+            try
+            {
+                List<string> funcionarios =
+                    bdbmtktp01.VER_FUNCIONARIOS.Select(b => b.BANCA).Distinct().ToList();
+
+
+                if (funcionarios != null)
+                {
+                    //Anadiendo default
+                    funcionarios.Insert(0, "...");
+                    cmbBanca.DataSource = funcionarios;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void LlenarComboConsultor()
+        {
+            try
+            {
+                List<ver_consultores> consultores =
+                    (from c in bdbmtktp01.ver_consultores orderby c.Id_ConsultorMac ascending select c).ToList();
+
+                if (consultores != null)
+                {
+                    consultores.Insert(0, new ver_consultores { Iniciales_ConsultorMac = "..." });
+                    cmbConsultorMac.DataSource = consultores;
+                    cmbConsultorMac.ValueMember = "Id_ConsultorMac";
+                    cmbConsultorMac.DisplayMember = "Iniciales_ConsultorMac";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
         private void LlenaComboTipoTramite()
         {
             try
@@ -149,7 +334,7 @@ namespace GOMAC.Views
 
                 if (tipos_tramite != null)
                 {
-                    tipos_tramite.Insert(0, new ver_Tipo_Tramite { Descripcion_Tramite = "" });
+                    tipos_tramite.Insert(0, new ver_Tipo_Tramite { Descripcion_Tramite = "..." });
                     cmbTipoTramite.DataSource = tipos_tramite;
                     cmbTipoTramite.ValueMember = "Id_Tramite";
                     cmbTipoTramite.DisplayMember = "Descripcion_Tramite";
@@ -171,7 +356,7 @@ namespace GOMAC.Views
 
                 if(tipos_solicitud != null)
                 {
-                    tipos_solicitud.Insert(0, new ver_Tipo_Solicitud { Descripcion_Solicitud= "" });
+                    tipos_solicitud.Insert(0, new ver_Tipo_Solicitud { Descripcion_Solicitud= "..." });
                     cmbTipoSolicitud.DataSource = tipos_solicitud;
                     cmbTipoSolicitud.ValueMember = "Id_Solicitud";
                     cmbTipoSolicitud.DisplayMember = "Descripcion_Solicitud";

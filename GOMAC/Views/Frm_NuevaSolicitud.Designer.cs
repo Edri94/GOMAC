@@ -72,6 +72,16 @@ namespace GOMAC.Views
             this.cmbBanca = new System.Windows.Forms.ComboBox();
             this.cmbNumeroFuncionario = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.dtpFAtencion = new System.Windows.Forms.DateTimePicker();
+            this.dtpFRecepcion = new System.Windows.Forms.DateTimePicker();
+            this.dtpFFormalizada = new System.Windows.Forms.DateTimePicker();
+            this.dtpDesbloqueo = new System.Windows.Forms.DateTimePicker();
+            this.dtpConcluir = new System.Windows.Forms.DateTimePicker();
+            this.dtpEnvio = new System.Windows.Forms.DateTimePicker();
+            this.dtpFAnalisisMac = new System.Windows.Forms.DateTimePicker();
+            this.dtpFRecepDoc = new System.Windows.Forms.DateTimePicker();
             this.grpOriginales = new System.Windows.Forms.GroupBox();
             this.rbIncorrectos = new System.Windows.Forms.RadioButton();
             this.rbcorrectos = new System.Windows.Forms.RadioButton();
@@ -123,16 +133,6 @@ namespace GOMAC.Views
             this.btnCancelarSolicitud = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.tmrTraerDatos = new System.Windows.Forms.Timer(this.components);
-            this.dtpFRecepDoc = new System.Windows.Forms.DateTimePicker();
-            this.dtpFAnalisisMac = new System.Windows.Forms.DateTimePicker();
-            this.dtpFFormalizada = new System.Windows.Forms.DateTimePicker();
-            this.dtpFRecepcion = new System.Windows.Forms.DateTimePicker();
-            this.dtpFAtencion = new System.Windows.Forms.DateTimePicker();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.dtpEnvio = new System.Windows.Forms.DateTimePicker();
-            this.dtpDesbloqueo = new System.Windows.Forms.DateTimePicker();
-            this.dtpConcluir = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpTipoPersona.SuspendLayout();
@@ -558,6 +558,7 @@ namespace GOMAC.Views
             // 
             // cmbPromotor
             // 
+            this.cmbPromotor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPromotor.FormattingEnabled = true;
             this.cmbPromotor.Location = new System.Drawing.Point(96, 63);
             this.cmbPromotor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -656,6 +657,80 @@ namespace GOMAC.Views
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(941, 71);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(165, 20);
+            this.label17.TabIndex = 11;
+            this.label17.Text = "Desbloqueo Sistemas";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(969, 131);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(110, 20);
+            this.label16.TabIndex = 11;
+            this.label16.Text = "Envio Agencia";
+            // 
+            // dtpFAtencion
+            // 
+            this.dtpFAtencion.Location = new System.Drawing.Point(62, 302);
+            this.dtpFAtencion.Name = "dtpFAtencion";
+            this.dtpFAtencion.Size = new System.Drawing.Size(188, 26);
+            this.dtpFAtencion.TabIndex = 10;
+            // 
+            // dtpFRecepcion
+            // 
+            this.dtpFRecepcion.Location = new System.Drawing.Point(62, 237);
+            this.dtpFRecepcion.Name = "dtpFRecepcion";
+            this.dtpFRecepcion.Size = new System.Drawing.Size(188, 26);
+            this.dtpFRecepcion.TabIndex = 10;
+            // 
+            // dtpFFormalizada
+            // 
+            this.dtpFFormalizada.Location = new System.Drawing.Point(62, 173);
+            this.dtpFFormalizada.Name = "dtpFFormalizada";
+            this.dtpFFormalizada.Size = new System.Drawing.Size(188, 26);
+            this.dtpFFormalizada.TabIndex = 10;
+            // 
+            // dtpDesbloqueo
+            // 
+            this.dtpDesbloqueo.Location = new System.Drawing.Point(929, 95);
+            this.dtpDesbloqueo.Name = "dtpDesbloqueo";
+            this.dtpDesbloqueo.Size = new System.Drawing.Size(188, 26);
+            this.dtpDesbloqueo.TabIndex = 10;
+            // 
+            // dtpConcluir
+            // 
+            this.dtpConcluir.Location = new System.Drawing.Point(846, 234);
+            this.dtpConcluir.Name = "dtpConcluir";
+            this.dtpConcluir.Size = new System.Drawing.Size(288, 26);
+            this.dtpConcluir.TabIndex = 10;
+            // 
+            // dtpEnvio
+            // 
+            this.dtpEnvio.Location = new System.Drawing.Point(929, 154);
+            this.dtpEnvio.Name = "dtpEnvio";
+            this.dtpEnvio.Size = new System.Drawing.Size(188, 26);
+            this.dtpEnvio.TabIndex = 10;
+            // 
+            // dtpFAnalisisMac
+            // 
+            this.dtpFAnalisisMac.Location = new System.Drawing.Point(62, 108);
+            this.dtpFAnalisisMac.Name = "dtpFAnalisisMac";
+            this.dtpFAnalisisMac.Size = new System.Drawing.Size(188, 26);
+            this.dtpFAnalisisMac.TabIndex = 10;
+            // 
+            // dtpFRecepDoc
+            // 
+            this.dtpFRecepDoc.Location = new System.Drawing.Point(62, 42);
+            this.dtpFRecepDoc.Name = "dtpFRecepDoc";
+            this.dtpFRecepDoc.Size = new System.Drawing.Size(188, 26);
+            this.dtpFRecepDoc.TabIndex = 10;
             // 
             // grpOriginales
             // 
@@ -1089,7 +1164,7 @@ namespace GOMAC.Views
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.lblStatus);
-            this.groupBox6.Location = new System.Drawing.Point(18, 769);
+            this.groupBox6.Location = new System.Drawing.Point(18, 818);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1110,7 +1185,7 @@ namespace GOMAC.Views
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(644, 792);
+            this.btnLimpiar.Location = new System.Drawing.Point(644, 841);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(112, 35);
@@ -1120,7 +1195,7 @@ namespace GOMAC.Views
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(765, 792);
+            this.btnGuardar.Location = new System.Drawing.Point(765, 841);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(112, 35);
@@ -1131,7 +1206,7 @@ namespace GOMAC.Views
             // 
             // btnCancelarSolicitud
             // 
-            this.btnCancelarSolicitud.Location = new System.Drawing.Point(886, 794);
+            this.btnCancelarSolicitud.Location = new System.Drawing.Point(886, 843);
             this.btnCancelarSolicitud.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCancelarSolicitud.Name = "btnCancelarSolicitud";
             this.btnCancelarSolicitud.Size = new System.Drawing.Size(174, 35);
@@ -1141,7 +1216,7 @@ namespace GOMAC.Views
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(1070, 792);
+            this.btnSalir.Location = new System.Drawing.Point(1070, 841);
             this.btnSalir.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(130, 35);
@@ -1155,85 +1230,11 @@ namespace GOMAC.Views
             this.tmrTraerDatos.Interval = 1000;
             this.tmrTraerDatos.Tick += new System.EventHandler(this.tmrTraerDatos_Tick);
             // 
-            // dtpFRecepDoc
-            // 
-            this.dtpFRecepDoc.Location = new System.Drawing.Point(62, 42);
-            this.dtpFRecepDoc.Name = "dtpFRecepDoc";
-            this.dtpFRecepDoc.Size = new System.Drawing.Size(188, 26);
-            this.dtpFRecepDoc.TabIndex = 10;
-            // 
-            // dtpFAnalisisMac
-            // 
-            this.dtpFAnalisisMac.Location = new System.Drawing.Point(62, 108);
-            this.dtpFAnalisisMac.Name = "dtpFAnalisisMac";
-            this.dtpFAnalisisMac.Size = new System.Drawing.Size(188, 26);
-            this.dtpFAnalisisMac.TabIndex = 10;
-            // 
-            // dtpFFormalizada
-            // 
-            this.dtpFFormalizada.Location = new System.Drawing.Point(62, 173);
-            this.dtpFFormalizada.Name = "dtpFFormalizada";
-            this.dtpFFormalizada.Size = new System.Drawing.Size(188, 26);
-            this.dtpFFormalizada.TabIndex = 10;
-            // 
-            // dtpFRecepcion
-            // 
-            this.dtpFRecepcion.Location = new System.Drawing.Point(62, 237);
-            this.dtpFRecepcion.Name = "dtpFRecepcion";
-            this.dtpFRecepcion.Size = new System.Drawing.Size(188, 26);
-            this.dtpFRecepcion.TabIndex = 10;
-            // 
-            // dtpFAtencion
-            // 
-            this.dtpFAtencion.Location = new System.Drawing.Point(62, 302);
-            this.dtpFAtencion.Name = "dtpFAtencion";
-            this.dtpFAtencion.Size = new System.Drawing.Size(188, 26);
-            this.dtpFAtencion.TabIndex = 10;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(969, 131);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(110, 20);
-            this.label16.TabIndex = 11;
-            this.label16.Text = "Envio Agencia";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(941, 71);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(165, 20);
-            this.label17.TabIndex = 11;
-            this.label17.Text = "Desbloqueo Sistemas";
-            // 
-            // dtpEnvio
-            // 
-            this.dtpEnvio.Location = new System.Drawing.Point(929, 154);
-            this.dtpEnvio.Name = "dtpEnvio";
-            this.dtpEnvio.Size = new System.Drawing.Size(188, 26);
-            this.dtpEnvio.TabIndex = 10;
-            // 
-            // dtpDesbloqueo
-            // 
-            this.dtpDesbloqueo.Location = new System.Drawing.Point(929, 95);
-            this.dtpDesbloqueo.Name = "dtpDesbloqueo";
-            this.dtpDesbloqueo.Size = new System.Drawing.Size(188, 26);
-            this.dtpDesbloqueo.TabIndex = 10;
-            // 
-            // dtpConcluir
-            // 
-            this.dtpConcluir.Location = new System.Drawing.Point(846, 234);
-            this.dtpConcluir.Name = "dtpConcluir";
-            this.dtpConcluir.Size = new System.Drawing.Size(288, 26);
-            this.dtpConcluir.TabIndex = 10;
-            // 
             // Frm_NuevaSolicitud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1222, 843);
+            this.ClientSize = new System.Drawing.Size(1222, 904);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnCancelarSolicitud);
             this.Controls.Add(this.btnGuardar);
