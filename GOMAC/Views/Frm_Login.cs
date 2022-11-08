@@ -23,6 +23,7 @@ namespace GOMAC.Views
         public List<ver_sectores> sectores;
         public List<ver_perfiles> perfiles;
         public List<ver_consultores> consultores;
+        public ver_usuarios2 usuario_loggeado;
 
         private bmtktp01Entities bdbmtktp01;
         private bool loggeado;
@@ -117,19 +118,18 @@ namespace GOMAC.Views
                     }
                     else
                     {
-                        ver_usuarios2 ver_usuario = usuarios.Where(x => x.login == txtUser.Text).FirstOrDefault();
+                        usuario_loggeado = usuarios.Where(x => x.login == txtUser.Text).FirstOrDefault();
 
-                        if(ver_usuario != null)
-                        {
-                            USUARIO usuario = ver_usuario.ToUsuario();
-                            if(crpt.Decrypt(usuario.pwd) != txtPassword.Text)
+                        if(usuario_loggeado != null)
+                        {                         
+                            if(crpt.Decrypt(usuario_loggeado.pwd) != txtPassword.Text)
                             {
                                 MessageBox.Show("La contrasena es incorrecta", "Error de Credenciales", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                             else
                             {
                                 loggeado = true;
-                                Frm_PantallaPrincipal frm = new Frm_PantallaPrincipal(usuario);
+                                Frm_PantallaPrincipal frm = new Frm_PantallaPrincipal(usuario_loggeado);
                                 this.Hide();
                                 frm.Show();
                             }

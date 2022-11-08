@@ -27,23 +27,6 @@ namespace GOMAC.Models
         public Nullable<bool> nuevoinicio { get; set; }
         public Nullable<bool> resetpwd { get; set; }
 
-        public USUARIO ToUsuario()
-        {
-            return new USUARIO
-            {
-                id_usuario = this.id_usuario,
-                id_perfil = this.id_perfil,
-                login = this.login,
-                pwd = this.pwd,
-                fechaexpira = this.fechaexpira,
-                fecha_de_expiracion = DateTime.Parse(this.fecha_de_expiracion),
-                habilitado = this.habilitado,
-                bloqueado = this.bloqueado,
-                fechacreacion = DateTime.Parse(this.fechacreacion),
-                conectado = this.conectado,
-                nuevoinicio = this.nuevoinicio,
-                resetpwd = this.resetpwd
-            };
-        }
+       
     }
 }

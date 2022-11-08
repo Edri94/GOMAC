@@ -563,6 +563,44 @@
     <EntitySet Name="ver_Tipo_Tramite" EntityType="bmtktp01Model.ver_Tipo_Tramite" />
     <EntitySet Name="ver_usuarios" EntityType="bmtktp01Model.ver_usuarios" />
     <EntitySet Name="ver_usuarios2" EntityType="bmtktp01Model.ver_usuarios2" />
+    <FunctionImport Name="Mac_Inserta_Datos" ReturnType="Collection(bmtktp01Model.Mac_Inserta_Datos_Result)">
+      <Parameter Name="Id_ConsultorMac" Mode="In" Type="Int32" />
+      <Parameter Name="Id_Solicitud" Mode="In" Type="Int32" />
+      <Parameter Name="Id_Tramite" Mode="In" Type="Int32" />
+      <Parameter Name="Puntos" Mode="In" Type="Int32" />
+      <Parameter Name="Circuito" Mode="In" Type="String" />
+      <Parameter Name="Cuenta_Cliente" Mode="In" Type="String" />
+      <Parameter Name="Sufijo_Kapiti" Mode="In" Type="String" />
+      <Parameter Name="Tipo_Persona" Mode="In" Type="Byte" />
+      <Parameter Name="Nombre_Cliente" Mode="In" Type="String" />
+      <Parameter Name="Apellido_Paterno" Mode="In" Type="String" />
+      <Parameter Name="Apellido_Materno" Mode="In" Type="String" />
+      <Parameter Name="Deposito_Inicial" Mode="In" Type="String" />
+      <Parameter Name="Numero_Registro" Mode="In" Type="String" />
+      <Parameter Name="Nombre_Promotor" Mode="In" Type="String" />
+      <Parameter Name="Banca" Mode="In" Type="String" />
+      <Parameter Name="Division" Mode="In" Type="String" />
+      <Parameter Name="Plaza" Mode="In" Type="String" />
+      <Parameter Name="Sucursal" Mode="In" Type="String" />
+      <Parameter Name="Status" Mode="In" Type="String" />
+      <Parameter Name="Num_Solicitud" Mode="In" Type="Int32" />
+      <Parameter Name="FechaRepc_Doc" Mode="In" Type="String" />
+      <Parameter Name="HoraRepc_Doc" Mode="In" Type="String" />
+      <Parameter Name="FechaAnalisis_Mac" Mode="In" Type="String" />
+      <Parameter Name="HoraAnalisis_Mac" Mode="In" Type="String" />
+      <Parameter Name="FechaFormalizada" Mode="In" Type="String" />
+      <Parameter Name="HoraFormalizada" Mode="In" Type="String" />
+      <Parameter Name="FechaRepc_Originales" Mode="In" Type="String" />
+      <Parameter Name="HoraRepc_Originales" Mode="In" Type="String" />
+      <Parameter Name="FechaAten_Originales" Mode="In" Type="String" />
+      <Parameter Name="HoraAten_Originales" Mode="In" Type="String" />
+      <Parameter Name="Originales" Mode="In" Type="String" />
+      <Parameter Name="Deposito_Inicial_Ini" Mode="In" Type="Decimal" />
+      <Parameter Name="Fecha_Desbloqueo" Mode="In" Type="String" />
+      <Parameter Name="Fecha_Envio" Mode="In" Type="String" />
+      <Parameter Name="Fecha_concluida" Mode="In" Type="String" />
+      <Parameter Name="ExisteTKT" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="log_conect">
     <Key>
@@ -777,4 +815,9 @@
     <Property Name="nuevoinicio" Type="Boolean" />
     <Property Name="resetpwd" Type="Boolean" />
   </EntityType>
+  <ComplexType Name="Mac_Inserta_Datos_Result">
+    <Property Type="String" Name="Column1" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="Column2" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Column3" Nullable="true" MaxLength="5" />
+  </ComplexType>
 </Schema>

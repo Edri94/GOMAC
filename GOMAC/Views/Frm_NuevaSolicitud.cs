@@ -149,6 +149,7 @@ namespace GOMAC.Views
 
                 if (tipos_tramite != null)
                 {
+                    tipos_tramite.Insert(0, new ver_Tipo_Tramite { Descripcion_Tramite = "" });
                     cmbTipoTramite.DataSource = tipos_tramite;
                     cmbTipoTramite.ValueMember = "Id_Tramite";
                     cmbTipoTramite.DisplayMember = "Descripcion_Tramite";
@@ -170,6 +171,7 @@ namespace GOMAC.Views
 
                 if(tipos_solicitud != null)
                 {
+                    tipos_solicitud.Insert(0, new ver_Tipo_Solicitud { Descripcion_Solicitud= "" });
                     cmbTipoSolicitud.DataSource = tipos_solicitud;
                     cmbTipoSolicitud.ValueMember = "Id_Solicitud";
                     cmbTipoSolicitud.DisplayMember = "Descripcion_Solicitud";
@@ -612,6 +614,152 @@ namespace GOMAC.Views
             {
                 Log.Escribe(ex);
                 return seguimiento_doc;
+            }
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if(str_consultor == "")
+            {
+                if(cmbConsultorMac.Text == "...")
+                {
+                    MessageBox.Show("Debe seleccionar su consultor", "Error Solicitud", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                string query = "";
+                int i = 0;
+                string str_time;
+                string str_docuemntos;
+
+
+                if(ValidaCampos())
+                {
+                   if(btnGuardar.Text == "Guardar")
+                    {
+                        tabControl1.Enabled = false;
+                        int consecutivo = Mac_Consecutivo();
+
+                        if (consecutivo <= 0)
+                        {
+                            MessageBox.Show("No se pudo definir el numero de consecutivo que se le asignara a su solicitud. " + (char)13 + "¡¡¡ No se puede generar la solicitud. !!!",
+                                "Error al Guardar",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                                );
+                      
+                        }
+                        else
+                        {
+                            txtSolicitud.Enabled = true;
+                            dtpFechaCaptura.Enabled = true;
+
+                            txtSolicitud.Text = consecutivo.ToString();
+                            dtpFechaCaptura.Value = DateTime.Now;
+
+                            txtEnvio.Enabled = true;
+                            btnCancelarSolicitud.Enabled = false;
+                            btnGuardar.Enabled = false;
+
+                            bdbmtktp01.Mac_Inserta_Datos(
+                                frmp.usuario_loggeado.id_usuario
+                                ,cmbTipoSolicitud.SelectedIndex
+                                , cmbTipoTramite.SelectedIndex
+                                , Int32.Parse(txtPuntos.Text)
+                                , (rbCircuitoAuto.Checked)? "A": "M"
+                                ,txtCuenta.Text
+                                ,cmbProducto.Text
+                                ,(rbPersonaFisica.Checked)? 0:1
+                                ,txtNombre.Text
+                                ,txtApellidoP.Text
+                                ,txtApellidoM.Text
+                                ,Int32.Parse(TxtDepositoTkt.Text).ToString("C", frmp.format)
+                                ,cmbNumeroFuncionario.Text
+                                ,cmbPromotor.Text
+                                ,cmbBanca.Text
+                                ,cmbDivision.Text
+                                ,cmbPlaza.Text
+                                ,cmbSucursal.Text 
+                                ,"1"
+                                ,Int32.Parse(txtSolicitud.Text)
+                                
+                            );
+
+                        }
+                    }
+                }
+            }
+        }
+
+        public int Mac_Consecutivo()
+        {
+            try
+            {
+                return (bdbmtktp01.SEGUIMIENTO.Max(x => x.Num_Solicitud)) + 1;
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+                return -1;
+            }
+           
+        }
+
+        private bool ValidaCampos()
+        {
+            try
+            {
+                if(cmbConsultorMac.SelectedIndex <= -1)
+                {
+                    MessageBox.Show("Favor de Asignar Consultor", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                if (cmbTipoSolicitud.SelectedIndex <= -1)
+                {
+                    MessageBox.Show("Favor de seleccionar el Tipo de Solicitud", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                if (cmbTipoTramite.SelectedIndex <= -1)
+                {
+                    MessageBox.Show("Favor de seleccionar el Tipo de Tramite", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if(txtCuenta.Text == "")
+                {
+                    MessageBox.Show("Favor de capturar cuenta", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if (cmbProducto.SelectedIndex <= -1)
+                {
+                    MessageBox.Show("Favor de sekeccionar un producto", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if (txtNombre.Text == "")
+                {
+                    MessageBox.Show("Favor de caputrar el Nombre del cliente", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if (txtApellidoP.Text == "")
+                {
+                    MessageBox.Show("Favor de caputrar el primer apellido del cliente", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if (txtApellidoM.Text == "")
+                {
+                    MessageBox.Show("Favor de caputrar el segundo apellido del cliente", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+                return false;
             }
         }
 

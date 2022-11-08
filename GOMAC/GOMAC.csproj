@@ -122,6 +122,9 @@
     <Compile Include="Models\log_conect.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Mac_Inserta_Datos_Result.cs">
+      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MOVIMIENTOS_PERFIL.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
     </Compile>

@@ -423,5 +423,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Mac_Inserta_Datos" FunctionName="bmtktp01Model.Store.Mac_Inserta_Datos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.Mac_Inserta_Datos_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="Column2" ColumnName="Column2" />
+          <ScalarProperty Name="Column3" ColumnName="Column3" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

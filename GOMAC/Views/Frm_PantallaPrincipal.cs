@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,16 +22,19 @@ namespace GOMAC.Views
         public string str_srv, str_bd, str_usr, str_pwd, str_provider;
         public bmtktp01Entities bdbmtktp01;
         public List<ver_perfil_sector> perfiles_sector;
+        public ver_usuarios2 usuario_loggeado;
+        public NumberFormatInfo format;
 
         private Frm_NuevaSolicitud frm_nuevasolicitud;
         private Frm_ConsultaSolicitud frm_consultasolicitud;
-        private USUARIO usuario;
+        
 
-        public Frm_PantallaPrincipal(USUARIO usuario)
+        public Frm_PantallaPrincipal(ver_usuarios2 usuario)
         {
             InitializeComponent();
 
-            this.usuario = usuario;
+            this.usuario_loggeado = usuario;
+            format = (NumberFormatInfo)CultureInfo.CreateSpecificCulture("es-MX").NumberFormat.Clone();
         }
         private void PantallaPrincipal_Load(object sender, EventArgs e)
         {
