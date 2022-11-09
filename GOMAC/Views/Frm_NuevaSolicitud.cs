@@ -17,6 +17,7 @@ namespace GOMAC.Views
         private Frm_PantallaPrincipal frmp;
         private bmtktp01Entities bdbmtktp01;
         private SEGUIMIENTO seguimiento_doc;
+        
 
         public string str_consultor;
         public int se_carga;
@@ -32,49 +33,6 @@ namespace GOMAC.Views
             txtNombre.Text = "Nombre";
             txtApellidoP.Text = "Primer Apellido";
             txtApellidoM.Text = "Segundo Apellido";
-
-            //txtFRecepDoc.Text = "Expediente Unico";
-            //txtFAnalisisMac.Text = "Analisis MAC";
-            //txtFFormalizada.Text = "Formalizada";
-            //txtFRecepcion.Text = "Recepcion de Originales";
-            //txtFAtencion.Text = "Atencion de Originales";
-        }
-
-        private void CargarcomboMinuto(ComboBox cmbMinuto)
-        {
-            List<Map> minutos = new List<Map>();
-
-            for (int i = 0; i <= 60; i++)
-            {
-                minutos.Add(new Map
-                {
-                    Key = i.ToString("00"),
-                    Value = i.ToString("00")
-                });
-            }
-            
-            cmbMinuto.DataSource = minutos;
-            cmbMinuto.DisplayMember = "Key";
-            cmbMinuto.ValueMember = "Value";
-        }
-
-        private void CargarcomboHora(ComboBox cmbHora)
-        {
-            List<Map> horas = new List<Map>();
-
-            for(int i = 1; i <= 12; i++)
-            {
-                horas.Add(new Map
-                {
-                    Key  = i.ToString("00"),
-                    Value = i.ToString("00")
-                });
-            }
-
-            cmbHora.DataSource = horas;
-            cmbHora.DisplayMember = "Key";
-            cmbHora.ValueMember = "Value";
-            
         }
 
         private void Frm_NuevaSolicitud_Load(object sender, EventArgs e)
@@ -132,7 +90,7 @@ namespace GOMAC.Views
 
             if (str_consultor.Trim() != "")
             {
-                if(lblStatus.Text == "Nueva")
+                if (lblStatus.Text == "Nueva")
                 {
                     switch (se_carga)
                     {
@@ -144,18 +102,166 @@ namespace GOMAC.Views
                         default:
                             MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             break;
-                        
+
                     }
                 }
             }
         }
+
+
+        private void Frm_NuevaSolicitud_Activated(object sender, EventArgs e)
+        {
+            if(str_consultor.Trim() == "")
+            {
+                this.Text = "Captura de Solicitudes Sistema GO-MAC";
+            }
+            else
+            {
+                this.Text = "Consulta de Solicitudes Sistema GO-MAC";
+
+                switch (lblStatus.Text)
+                {
+                    case "Nueva":
+                        CargaConsulta();
+                        break;
+                   
+                    default:
+                        MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        this.Close();
+                        break;
+                }
+            }
+
+            if(frmp.activa == 1)
+            {
+                btnLimpiar.Visible = false;
+                btnGuardar.Visible = true;
+                btnCancelarSolicitud.Visible = true;
+
+                btnNuevaObservacion.Visible = true;
+                btnVerObservacion.Visible = true;
+
+                btnLimpiar.Enabled = false;
+                btnGuardar.Enabled = true;
+                btnCancelarSolicitud.Enabled = true;
+
+                if(btnLimpiar.Text == "Limpiar")
+                {
+                    btnLimpiar.Enabled = false;
+                }
+
+            }
+            else
+            {
+                btnLimpiar.Visible = false;
+                btnGuardar.Visible = false;
+                btnCancelarSolicitud.Visible = false;
+
+                btnNuevaObservacion.Visible = false;
+                btnVerObservacion.Visible = false;
+                btnLimpiar.Enabled = false;
+                btnGuardar.Enabled = false;
+                btnCancelarSolicitud.Enabled = false;
+
+                btnNuevaObservacion.Enabled = false;
+                btnVerObservacion.Enabled = false;
+            }
+
+
+            switch (lblStatus.Text)
+            {
+                case "En Proceso":
+                    dtgvwObservaciones.Enabled = true;
+                    btnCancelarSolicitud.Visible = true;
+                    btnGuardar.Text = "Modificar";
+                    btnGuardar.Visible = true;
+
+                    btnLimpiar.Visible = false;
+                    btnLimpiar.Enabled = false;
+                    btnVerObservacion.Enabled = true;
+                break;
+                case "Concluida":
+                    dtgvwObservaciones.Enabled = true;
+                    btnGuardar.Visible = false;
+                    btnCancelarSolicitud.Visible = false;
+                    cmbTipoSolicitud.Enabled = false;
+                    btnConcluirSolicitud.Enabled = false;
+                    btnLimpiar.Visible = false;
+                    btnLimpiar.Enabled = false;
+                    cmbProducto.Enabled = false;
+                    grpTipoPersona.Enabled = false;
+                    btnVerObservacion.Enabled = true;
+                    btnGuardar.Enabled = false;
+                    btnCancelarSolicitud.Enabled = false;
+                    btnGuardar.Visible = false;
+                    btnCancelarSolicitud.Visible = false;
+                break;
+                case "Cancelada":
+                    btnGuardar.Visible = false;
+                    btnCancelarSolicitud.Visible = false;
+                    cmbTipoSolicitud.Enabled = false;
+                    btnConcluirSolicitud.Enabled = false;
+                    btnLimpiar.Visible = false;
+                    cmbProducto.Enabled = true;
+                    btnVerObservacion.Enabled = true;
+                    grpTipoPersona.Enabled = false;
+                    dtgvwObservaciones.Enabled = true;
+                    btnGuardar.Enabled = false;
+                    btnCancelarSolicitud.Enabled = false;
+                break;
+            }
+
+
+
+
+
+        }
+
+        private void CargarcomboMinuto(ComboBox cmbMinuto)
+        {
+            List<Map> minutos = new List<Map>();
+
+            for (int i = 0; i <= 60; i++)
+            {
+                minutos.Add(new Map
+                {
+                    Key = i.ToString("00"),
+                    Value = i.ToString("00")
+                });
+            }
+            
+            cmbMinuto.DataSource = minutos;
+            cmbMinuto.DisplayMember = "Key";
+            cmbMinuto.ValueMember = "Value";
+        }
+
+        private void CargarcomboHora(ComboBox cmbHora)
+        {
+            List<Map> horas = new List<Map>();
+
+            for(int i = 1; i <= 12; i++)
+            {
+                horas.Add(new Map
+                {
+                    Key  = i.ToString("00"),
+                    Value = i.ToString("00")
+                });
+            }
+
+            cmbHora.DataSource = horas;
+            cmbHora.DisplayMember = "Key";
+            cmbHora.ValueMember = "Value";
+            
+        }
+
+      
 
         private void LlenaComboNumFunc()
         {
             try
             {
                 List<string> promotores =
-                    bdbmtktp01.VER_FUNCIONARIOS.Select(p => p.PROMOTOR).Distinct().ToList();
+                    bdbmtktp01.VER_FUNCIONARIOS.OrderBy(o => o.NUMERO_FUNCIONARIO).Select(p => p.NUMERO_FUNCIONARIO).Distinct().ToList();
 
 
                 if (promotores != null)
@@ -176,7 +282,7 @@ namespace GOMAC.Views
             try
             {
                 List<string> num_funcionarios =
-                    bdbmtktp01.VER_FUNCIONARIOS.Select(f => f.NUMERO_FUNCIONARIO).Distinct().ToList();
+                    bdbmtktp01.VER_FUNCIONARIOS.OrderBy(o => o.PROMOTOR).Select(p => p.PROMOTOR).Distinct().ToList();
 
 
                 if (num_funcionarios != null)
@@ -197,7 +303,7 @@ namespace GOMAC.Views
             try
             {
                 List<string> plazas =
-                    bdbmtktp01.VER_FUNCIONARIOS.Select(p => p.PLAZA).Distinct().ToList();
+                    bdbmtktp01.VER_FUNCIONARIOS.OrderBy(o => o.PLAZA).Select(p => p.PLAZA).Distinct().ToList();
 
 
                 if (plazas != null)
@@ -219,7 +325,7 @@ namespace GOMAC.Views
             try
             {
                 List<string> sucursales =
-                    bdbmtktp01.VER_FUNCIONARIOS.Select(s => s.SUCURSAL).Distinct().ToList();
+                    bdbmtktp01.VER_FUNCIONARIOS.OrderBy(o => o.SUCURSAL).Select(s => s.SUCURSAL).Distinct().ToList();
 
 
                 if (sucursales != null)
@@ -261,7 +367,7 @@ namespace GOMAC.Views
                 try
                 {
                     List<string> divisones =
-                        bdbmtktp01.VER_FUNCIONARIOS .Select(d => d.DIVISION).Distinct().ToList();
+                        bdbmtktp01.VER_FUNCIONARIOS.OrderBy(o => o.DIVISION).Select(d => d.DIVISION).Distinct().ToList();
 
 
                     if (divisones != null)
@@ -287,7 +393,7 @@ namespace GOMAC.Views
             try
             {
                 List<string> funcionarios =
-                    bdbmtktp01.VER_FUNCIONARIOS.Select(b => b.BANCA).Distinct().ToList();
+                    bdbmtktp01.VER_FUNCIONARIOS.OrderBy(o => o.BANCA).Select(b => b.BANCA).Distinct().ToList();
 
 
                 if (funcionarios != null)
@@ -308,7 +414,7 @@ namespace GOMAC.Views
             try
             {
                 List<ver_consultores> consultores =
-                    (from c in bdbmtktp01.ver_consultores orderby c.Id_ConsultorMac ascending select c).ToList();
+                    (from c in bdbmtktp01.ver_consultores orderby c.Iniciales_ConsultorMac ascending select c).ToList();
 
                 if (consultores != null)
                 {
@@ -330,7 +436,7 @@ namespace GOMAC.Views
             try
             {
                 List<ver_Tipo_Tramite> tipos_tramite =
-                    (from tt in bdbmtktp01.ver_Tipo_Tramite orderby tt.Id_Tramite ascending select tt).ToList();
+                    (from tt in bdbmtktp01.ver_Tipo_Tramite orderby tt.Descripcion_Tramite ascending select tt).ToList();
 
                 if (tipos_tramite != null)
                 {
@@ -352,7 +458,7 @@ namespace GOMAC.Views
             try
             {
                 List<ver_Tipo_Solicitud> tipos_solicitud = 
-                    (from ts in bdbmtktp01.ver_Tipo_Solicitud orderby ts.Id_Solicitud ascending select ts).ToList();
+                    (from ts in bdbmtktp01.ver_Tipo_Solicitud orderby ts.Descripcion_Solicitud ascending select ts).ToList();
 
                 if(tipos_solicitud != null)
                 {
@@ -1000,24 +1106,6 @@ namespace GOMAC.Views
             }
         }
 
-
-        //public void TxtFRecepDocGotFocus(object sender, EventArgs e)
-        //{
-        //    if (txtFRecepDoc.Text == "")
-        //    {
-        //        txtFRecepDoc.Text = "Expediente Unico";
-        //        txtFRecepDoc.ForeColor = Color.LightGray;
-        //    }
-        //}
-
-        //public void TxtFRecepDocLostFocus(object sender, EventArgs e)
-        //{
-        //    if (txtFRecepDoc.Text == "Expediente Unico")
-        //    {
-        //        txtFRecepDoc.Text = "";
-        //        txtFRecepDoc.ForeColor = Color.Black;
-        //    }
-
-        //}
+       
     }
 }

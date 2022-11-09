@@ -24,6 +24,7 @@ namespace GOMAC.Views
         public List<ver_perfil_sector> perfiles_sector;
         public ver_usuarios2 usuario_loggeado;
         public NumberFormatInfo format;
+        public int activa;
 
         private Frm_NuevaSolicitud frm_nuevasolicitud;
         private Frm_ConsultaSolicitud frm_consultasolicitud;
@@ -94,7 +95,7 @@ namespace GOMAC.Views
                 //El codigo aqui manejara los permisos para mostrar u ocultar menus dependiendo el usario/rol
                 if(VerPerfilSector() != null) 
                 {
-
+                    activa = 1;
                 }
 
 
