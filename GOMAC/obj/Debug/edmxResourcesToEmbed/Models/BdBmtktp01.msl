@@ -432,5 +432,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Mac_Obtiene_FechaServidor" FunctionName="bmtktp01Model.Store.Mac_Obtiene_FechaServidor" />
   </EntityContainerMapping>
 </Mapping>

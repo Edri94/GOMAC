@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CATALOGOSModelStoreContainer" CdmEntityContainer="CATALOGOSEntities">
+    <EntitySetMapping Name="DIAS_FERIADOS">
+      <EntityTypeMapping TypeName="CATALOGOSModel.DIAS_FERIADOS">
+        <MappingFragment StoreEntitySet="DIAS_FERIADOS">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="tipo_dia_feriado" ColumnName="tipo_dia_feriado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

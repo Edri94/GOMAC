@@ -601,6 +601,7 @@
       <Parameter Name="Fecha_concluida" Mode="In" Type="String" />
       <Parameter Name="ExisteTKT" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="Mac_Obtiene_FechaServidor" ReturnType="Collection(DateTime)" />
   </EntityContainer>
   <EntityType Name="log_conect">
     <Key>

@@ -211,5 +211,10 @@ namespace GOMAC.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Mac_Inserta_Datos_Result>("Mac_Inserta_Datos", id_ConsultorMacParameter, id_SolicitudParameter, id_TramiteParameter, puntosParameter, circuitoParameter, cuenta_ClienteParameter, sufijo_KapitiParameter, tipo_PersonaParameter, nombre_ClienteParameter, apellido_PaternoParameter, apellido_MaternoParameter, deposito_InicialParameter, numero_RegistroParameter, nombre_PromotorParameter, bancaParameter, divisionParameter, plazaParameter, sucursalParameter, statusParameter, num_SolicitudParameter, fechaRepc_DocParameter, horaRepc_DocParameter, fechaAnalisis_MacParameter, horaAnalisis_MacParameter, fechaFormalizadaParameter, horaFormalizadaParameter, fechaRepc_OriginalesParameter, horaRepc_OriginalesParameter, fechaAten_OriginalesParameter, horaAten_OriginalesParameter, originalesParameter, deposito_Inicial_IniParameter, fecha_DesbloqueoParameter, fecha_EnvioParameter, fecha_concluidaParameter, existeTKTParameter);
         }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> Mac_Obtiene_FechaServidor()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("Mac_Obtiene_FechaServidor");
+        }
     }
 }

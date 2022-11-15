@@ -710,6 +710,7 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
     <Parameter Name="Fecha_concluida" Type="varchar" Mode="In" />
     <Parameter Name="ExisteTKT" Type="char" Mode="In" />
   </Function>
+  <Function Name="Mac_Obtiene_FechaServidor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="bmtktp01ModelStoreContainer">
     <EntitySet Name="CONECT" EntityType="Self.CONECT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CONSULTORES" EntityType="Self.CONSULTORES" Schema="dbo" store:Type="Tables" />

@@ -715,6 +715,7 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
           <Parameter Name="Fecha_concluida" Type="varchar" Mode="In" />
           <Parameter Name="ExisteTKT" Type="char" Mode="In" />
         </Function>
+        <Function Name="Mac_Obtiene_FechaServidor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="bmtktp01ModelStoreContainer">
           <EntitySet Name="CONECT" EntityType="Self.CONECT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONSULTORES" EntityType="Self.CONSULTORES" Schema="dbo" store:Type="Tables" />
@@ -1576,6 +1577,7 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
             <Parameter Name="Fecha_concluida" Mode="In" Type="String" />
             <Parameter Name="ExisteTKT" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="Mac_Obtiene_FechaServidor" ReturnType="Collection(DateTime)" />
         </EntityContainer>
         <EntityType Name="log_conect">
           <Key>
@@ -2232,6 +2234,7 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Mac_Obtiene_FechaServidor" FunctionName="bmtktp01Model.Store.Mac_Obtiene_FechaServidor" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

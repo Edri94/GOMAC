@@ -26,7 +26,5 @@ namespace GOMAC.Models
         public bool conectado { get; set; }
         public Nullable<bool> nuevoinicio { get; set; }
         public Nullable<bool> resetpwd { get; set; }
-
-       
     }
 }

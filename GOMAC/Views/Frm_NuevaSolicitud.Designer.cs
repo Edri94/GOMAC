@@ -1,7 +1,7 @@
 ﻿
 namespace GOMAC.Views
 {
-    partial class Frm_NuevaSolicitud
+    partial class b
     {
         /// <summary>
         /// Required designer variable.
@@ -94,7 +94,7 @@ namespace GOMAC.Views
             this.label9 = new System.Windows.Forms.Label();
             this.dtpFechaCancelada = new System.Windows.Forms.DateTimePicker();
             this.btnConcluirSolicitud = new System.Windows.Forms.Button();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.Calendario = new System.Windows.Forms.MonthCalendar();
             this.cmbMinuto5 = new System.Windows.Forms.ComboBox();
             this.cmbMinuto4 = new System.Windows.Forms.ComboBox();
             this.cmbMinuto3 = new System.Windows.Forms.ComboBox();
@@ -108,13 +108,6 @@ namespace GOMAC.Views
             this.cmbHora3 = new System.Windows.Forms.ComboBox();
             this.cmbHora2 = new System.Windows.Forms.ComboBox();
             this.cmbHora1 = new System.Windows.Forms.ComboBox();
-            this.btnFAtencion = new System.Windows.Forms.Button();
-            this.btnFRecepcion = new System.Windows.Forms.Button();
-            this.btnFFormalizada = new System.Windows.Forms.Button();
-            this.btnFAnalisisMac = new System.Windows.Forms.Button();
-            this.btnEnvio = new System.Windows.Forms.Button();
-            this.btnDesbloqueo = new System.Windows.Forms.Button();
-            this.btnFRecepDoc = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btnVerObservacion = new System.Windows.Forms.Button();
             this.btnNuevaObservacion = new System.Windows.Forms.Button();
@@ -133,6 +126,18 @@ namespace GOMAC.Views
             this.btnCancelarSolicitud = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.tmrTraerDatos = new System.Windows.Forms.Timer(this.components);
+            this.tmrTab = new System.Windows.Forms.Timer(this.components);
+            this.tmtValidarBoton = new System.Windows.Forms.Timer(this.components);
+            this.btnFRecepDoc = new System.Windows.Forms.RadioButton();
+            this.btnFAnalisisMac = new System.Windows.Forms.RadioButton();
+            this.btnFFormalizada = new System.Windows.Forms.RadioButton();
+            this.btnFRecepcion = new System.Windows.Forms.RadioButton();
+            this.btnFAtencion = new System.Windows.Forms.RadioButton();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.grpCalendario = new System.Windows.Forms.GroupBox();
+            this.btnDesbloqueo = new System.Windows.Forms.RadioButton();
+            this.btnEnvio = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpTipoPersona.SuspendLayout();
@@ -147,6 +152,9 @@ namespace GOMAC.Views
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.grpCalendario.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -159,7 +167,7 @@ namespace GOMAC.Views
             this.groupBox1.Controls.Add(this.txtSolicitud);
             this.groupBox1.Location = new System.Drawing.Point(12, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(793, 65);
+            this.groupBox1.Size = new System.Drawing.Size(826, 65);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -226,7 +234,7 @@ namespace GOMAC.Views
             this.groupBox2.Controls.Add(this.lblPuntos);
             this.groupBox2.Location = new System.Drawing.Point(12, 77);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(793, 97);
+            this.groupBox2.Size = new System.Drawing.Size(826, 97);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
@@ -234,7 +242,7 @@ namespace GOMAC.Views
             // 
             this.grpTipoPersona.Controls.Add(this.rbPersonaMoral);
             this.grpTipoPersona.Controls.Add(this.rbPersonaFisica);
-            this.grpTipoPersona.Location = new System.Drawing.Point(662, 10);
+            this.grpTipoPersona.Location = new System.Drawing.Point(695, 10);
             this.grpTipoPersona.Name = "grpTipoPersona";
             this.grpTipoPersona.Size = new System.Drawing.Size(125, 81);
             this.grpTipoPersona.TabIndex = 5;
@@ -427,7 +435,7 @@ namespace GOMAC.Views
             this.tabControl1.Location = new System.Drawing.Point(12, 246);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(793, 248);
+            this.tabControl1.Size = new System.Drawing.Size(826, 293);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -446,7 +454,7 @@ namespace GOMAC.Views
             this.tabPage1.Controls.Add(this.cmbNumeroFuncionario);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(785, 222);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
@@ -562,51 +570,14 @@ namespace GOMAC.Views
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.label17);
-            this.tabPage2.Controls.Add(this.label16);
-            this.tabPage2.Controls.Add(this.dtpFAtencion);
-            this.tabPage2.Controls.Add(this.dtpFRecepcion);
-            this.tabPage2.Controls.Add(this.dtpFFormalizada);
-            this.tabPage2.Controls.Add(this.dtpDesbloqueo);
-            this.tabPage2.Controls.Add(this.dtpConcluir);
-            this.tabPage2.Controls.Add(this.dtpEnvio);
-            this.tabPage2.Controls.Add(this.dtpFAnalisisMac);
-            this.tabPage2.Controls.Add(this.dtpFRecepDoc);
+            this.tabPage2.Controls.Add(this.grpCalendario);
+            this.tabPage2.Controls.Add(this.groupBox7);
+            this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.grpOriginales);
-            this.tabPage2.Controls.Add(this.label15);
-            this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.label13);
-            this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.label11);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.dtpFechaCancelada);
-            this.tabPage2.Controls.Add(this.btnConcluirSolicitud);
-            this.tabPage2.Controls.Add(this.monthCalendar1);
-            this.tabPage2.Controls.Add(this.cmbMinuto5);
-            this.tabPage2.Controls.Add(this.cmbMinuto4);
-            this.tabPage2.Controls.Add(this.cmbMinuto3);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.txtDepositoIni);
-            this.tabPage2.Controls.Add(this.cmbMinuto2);
-            this.tabPage2.Controls.Add(this.cmbMinuto1);
-            this.tabPage2.Controls.Add(this.cmbHora5);
-            this.tabPage2.Controls.Add(this.cmbHora4);
-            this.tabPage2.Controls.Add(this.cmbHora3);
-            this.tabPage2.Controls.Add(this.cmbHora2);
-            this.tabPage2.Controls.Add(this.cmbHora1);
-            this.tabPage2.Controls.Add(this.btnFAtencion);
-            this.tabPage2.Controls.Add(this.btnFRecepcion);
-            this.tabPage2.Controls.Add(this.btnFFormalizada);
-            this.tabPage2.Controls.Add(this.btnFAnalisisMac);
-            this.tabPage2.Controls.Add(this.btnEnvio);
-            this.tabPage2.Controls.Add(this.btnDesbloqueo);
-            this.tabPage2.Controls.Add(this.btnFRecepDoc);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPage2.Size = new System.Drawing.Size(785, 222);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(818, 267);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -614,7 +585,7 @@ namespace GOMAC.Views
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(627, 46);
+            this.label17.Location = new System.Drawing.Point(75, 52);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(109, 13);
@@ -624,7 +595,7 @@ namespace GOMAC.Views
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(646, 85);
+            this.label16.Location = new System.Drawing.Point(94, 91);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(76, 13);
@@ -633,64 +604,65 @@ namespace GOMAC.Views
             // 
             // dtpFAtencion
             // 
-            this.dtpFAtencion.Location = new System.Drawing.Point(41, 196);
-            this.dtpFAtencion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpFAtencion.Location = new System.Drawing.Point(44, 202);
+            this.dtpFAtencion.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFAtencion.Name = "dtpFAtencion";
             this.dtpFAtencion.Size = new System.Drawing.Size(127, 20);
             this.dtpFAtencion.TabIndex = 10;
             // 
             // dtpFRecepcion
             // 
-            this.dtpFRecepcion.Location = new System.Drawing.Point(41, 154);
-            this.dtpFRecepcion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpFRecepcion.Location = new System.Drawing.Point(44, 160);
+            this.dtpFRecepcion.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFRecepcion.Name = "dtpFRecepcion";
             this.dtpFRecepcion.Size = new System.Drawing.Size(127, 20);
             this.dtpFRecepcion.TabIndex = 10;
             // 
             // dtpFFormalizada
             // 
-            this.dtpFFormalizada.Location = new System.Drawing.Point(41, 112);
-            this.dtpFFormalizada.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpFFormalizada.Location = new System.Drawing.Point(44, 118);
+            this.dtpFFormalizada.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFFormalizada.Name = "dtpFFormalizada";
             this.dtpFFormalizada.Size = new System.Drawing.Size(127, 20);
             this.dtpFFormalizada.TabIndex = 10;
             // 
             // dtpDesbloqueo
             // 
-            this.dtpDesbloqueo.Location = new System.Drawing.Point(619, 62);
-            this.dtpDesbloqueo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpDesbloqueo.Location = new System.Drawing.Point(34, 68);
+            this.dtpDesbloqueo.Margin = new System.Windows.Forms.Padding(2);
             this.dtpDesbloqueo.Name = "dtpDesbloqueo";
-            this.dtpDesbloqueo.Size = new System.Drawing.Size(127, 20);
+            this.dtpDesbloqueo.Size = new System.Drawing.Size(173, 20);
             this.dtpDesbloqueo.TabIndex = 10;
             // 
             // dtpConcluir
             // 
-            this.dtpConcluir.Location = new System.Drawing.Point(564, 152);
-            this.dtpConcluir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpConcluir.Location = new System.Drawing.Point(12, 158);
+            this.dtpConcluir.Margin = new System.Windows.Forms.Padding(2);
             this.dtpConcluir.Name = "dtpConcluir";
             this.dtpConcluir.Size = new System.Drawing.Size(193, 20);
             this.dtpConcluir.TabIndex = 10;
+            this.dtpConcluir.ValueChanged += new System.EventHandler(this.dtpConcluir_ValueChanged);
             // 
             // dtpEnvio
             // 
-            this.dtpEnvio.Location = new System.Drawing.Point(619, 100);
-            this.dtpEnvio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpEnvio.Location = new System.Drawing.Point(34, 106);
+            this.dtpEnvio.Margin = new System.Windows.Forms.Padding(2);
             this.dtpEnvio.Name = "dtpEnvio";
-            this.dtpEnvio.Size = new System.Drawing.Size(127, 20);
+            this.dtpEnvio.Size = new System.Drawing.Size(173, 20);
             this.dtpEnvio.TabIndex = 10;
             // 
             // dtpFAnalisisMac
             // 
-            this.dtpFAnalisisMac.Location = new System.Drawing.Point(41, 70);
-            this.dtpFAnalisisMac.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpFAnalisisMac.Location = new System.Drawing.Point(44, 76);
+            this.dtpFAnalisisMac.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFAnalisisMac.Name = "dtpFAnalisisMac";
             this.dtpFAnalisisMac.Size = new System.Drawing.Size(127, 20);
             this.dtpFAnalisisMac.TabIndex = 10;
             // 
             // dtpFRecepDoc
             // 
-            this.dtpFRecepDoc.Location = new System.Drawing.Point(41, 27);
-            this.dtpFRecepDoc.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpFRecepDoc.Location = new System.Drawing.Point(44, 33);
+            this.dtpFRecepDoc.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFRecepDoc.Name = "dtpFRecepDoc";
             this.dtpFRecepDoc.Size = new System.Drawing.Size(127, 20);
             this.dtpFRecepDoc.TabIndex = 10;
@@ -699,10 +671,10 @@ namespace GOMAC.Views
             // 
             this.grpOriginales.Controls.Add(this.rbIncorrectos);
             this.grpOriginales.Controls.Add(this.rbcorrectos);
-            this.grpOriginales.Location = new System.Drawing.Point(296, 181);
-            this.grpOriginales.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpOriginales.Location = new System.Drawing.Point(316, 204);
+            this.grpOriginales.Margin = new System.Windows.Forms.Padding(2);
             this.grpOriginales.Name = "grpOriginales";
-            this.grpOriginales.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpOriginales.Padding = new System.Windows.Forms.Padding(2);
             this.grpOriginales.Size = new System.Drawing.Size(231, 38);
             this.grpOriginales.TabIndex = 9;
             this.grpOriginales.TabStop = false;
@@ -712,7 +684,7 @@ namespace GOMAC.Views
             // 
             this.rbIncorrectos.AutoSize = true;
             this.rbIncorrectos.Location = new System.Drawing.Point(141, 15);
-            this.rbIncorrectos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbIncorrectos.Margin = new System.Windows.Forms.Padding(2);
             this.rbIncorrectos.Name = "rbIncorrectos";
             this.rbIncorrectos.Size = new System.Drawing.Size(78, 17);
             this.rbIncorrectos.TabIndex = 0;
@@ -724,7 +696,7 @@ namespace GOMAC.Views
             // 
             this.rbcorrectos.AutoSize = true;
             this.rbcorrectos.Location = new System.Drawing.Point(51, 15);
-            this.rbcorrectos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbcorrectos.Margin = new System.Windows.Forms.Padding(2);
             this.rbcorrectos.Name = "rbcorrectos";
             this.rbcorrectos.Size = new System.Drawing.Size(70, 17);
             this.rbcorrectos.TabIndex = 0;
@@ -736,7 +708,7 @@ namespace GOMAC.Views
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(220, 3);
+            this.label15.Location = new System.Drawing.Point(223, 9);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(27, 13);
             this.label15.TabIndex = 8;
@@ -746,7 +718,7 @@ namespace GOMAC.Views
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(184, 3);
+            this.label14.Location = new System.Drawing.Point(187, 9);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(26, 13);
             this.label14.TabIndex = 8;
@@ -755,7 +727,7 @@ namespace GOMAC.Views
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(44, 182);
+            this.label13.Location = new System.Drawing.Point(47, 188);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(113, 13);
             this.label13.TabIndex = 7;
@@ -764,7 +736,7 @@ namespace GOMAC.Views
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(44, 139);
+            this.label12.Location = new System.Drawing.Point(47, 145);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(123, 13);
             this.label12.TabIndex = 7;
@@ -773,7 +745,7 @@ namespace GOMAC.Views
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(44, 96);
+            this.label11.Location = new System.Drawing.Point(47, 102);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(63, 13);
             this.label11.TabIndex = 7;
@@ -782,7 +754,7 @@ namespace GOMAC.Views
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(44, 53);
+            this.label10.Location = new System.Drawing.Point(47, 59);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(68, 13);
             this.label10.TabIndex = 7;
@@ -791,7 +763,7 @@ namespace GOMAC.Views
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(44, 10);
+            this.label9.Location = new System.Drawing.Point(47, 16);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(91, 13);
             this.label9.TabIndex = 7;
@@ -799,7 +771,7 @@ namespace GOMAC.Views
             // 
             // dtpFechaCancelada
             // 
-            this.dtpFechaCancelada.Location = new System.Drawing.Point(567, 192);
+            this.dtpFechaCancelada.Location = new System.Drawing.Point(15, 198);
             this.dtpFechaCancelada.Name = "dtpFechaCancelada";
             this.dtpFechaCancelada.Size = new System.Drawing.Size(192, 20);
             this.dtpFechaCancelada.TabIndex = 1;
@@ -807,23 +779,25 @@ namespace GOMAC.Views
             // btnConcluirSolicitud
             // 
             this.btnConcluirSolicitud.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConcluirSolicitud.Location = new System.Drawing.Point(564, 134);
+            this.btnConcluirSolicitud.Location = new System.Drawing.Point(12, 140);
             this.btnConcluirSolicitud.Name = "btnConcluirSolicitud";
             this.btnConcluirSolicitud.Size = new System.Drawing.Size(192, 19);
             this.btnConcluirSolicitud.TabIndex = 5;
             this.btnConcluirSolicitud.Text = "Concluir Solicitud";
             this.btnConcluirSolicitud.UseVisualStyleBackColor = true;
             // 
-            // monthCalendar1
+            // Calendario
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(296, 10);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 4;
+            this.Calendario.FirstDayOfWeek = System.Windows.Forms.Day.Thursday;
+            this.Calendario.Location = new System.Drawing.Point(13, 18);
+            this.Calendario.Name = "Calendario";
+            this.Calendario.TabIndex = 4;
+            this.Calendario.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.Calendario_DateSelected);
             // 
             // cmbMinuto5
             // 
             this.cmbMinuto5.FormattingEnabled = true;
-            this.cmbMinuto5.Location = new System.Drawing.Point(215, 195);
+            this.cmbMinuto5.Location = new System.Drawing.Point(218, 201);
             this.cmbMinuto5.Name = "cmbMinuto5";
             this.cmbMinuto5.Size = new System.Drawing.Size(35, 21);
             this.cmbMinuto5.TabIndex = 3;
@@ -831,7 +805,7 @@ namespace GOMAC.Views
             // cmbMinuto4
             // 
             this.cmbMinuto4.FormattingEnabled = true;
-            this.cmbMinuto4.Location = new System.Drawing.Point(215, 153);
+            this.cmbMinuto4.Location = new System.Drawing.Point(218, 159);
             this.cmbMinuto4.Name = "cmbMinuto4";
             this.cmbMinuto4.Size = new System.Drawing.Size(35, 21);
             this.cmbMinuto4.TabIndex = 3;
@@ -839,7 +813,7 @@ namespace GOMAC.Views
             // cmbMinuto3
             // 
             this.cmbMinuto3.FormattingEnabled = true;
-            this.cmbMinuto3.Location = new System.Drawing.Point(215, 111);
+            this.cmbMinuto3.Location = new System.Drawing.Point(218, 117);
             this.cmbMinuto3.Name = "cmbMinuto3";
             this.cmbMinuto3.Size = new System.Drawing.Size(35, 21);
             this.cmbMinuto3.TabIndex = 3;
@@ -847,7 +821,7 @@ namespace GOMAC.Views
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(608, 175);
+            this.label8.Location = new System.Drawing.Point(56, 181);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(114, 13);
             this.label8.TabIndex = 1;
@@ -856,7 +830,7 @@ namespace GOMAC.Views
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(573, 7);
+            this.label7.Location = new System.Drawing.Point(21, 13);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(73, 13);
             this.label7.TabIndex = 1;
@@ -864,7 +838,7 @@ namespace GOMAC.Views
             // 
             // txtDepositoIni
             // 
-            this.txtDepositoIni.Location = new System.Drawing.Point(567, 23);
+            this.txtDepositoIni.Location = new System.Drawing.Point(15, 29);
             this.txtDepositoIni.Name = "txtDepositoIni";
             this.txtDepositoIni.Size = new System.Drawing.Size(192, 20);
             this.txtDepositoIni.TabIndex = 0;
@@ -872,7 +846,7 @@ namespace GOMAC.Views
             // cmbMinuto2
             // 
             this.cmbMinuto2.FormattingEnabled = true;
-            this.cmbMinuto2.Location = new System.Drawing.Point(215, 69);
+            this.cmbMinuto2.Location = new System.Drawing.Point(218, 75);
             this.cmbMinuto2.Name = "cmbMinuto2";
             this.cmbMinuto2.Size = new System.Drawing.Size(35, 21);
             this.cmbMinuto2.TabIndex = 3;
@@ -880,7 +854,7 @@ namespace GOMAC.Views
             // cmbMinuto1
             // 
             this.cmbMinuto1.FormattingEnabled = true;
-            this.cmbMinuto1.Location = new System.Drawing.Point(215, 26);
+            this.cmbMinuto1.Location = new System.Drawing.Point(218, 32);
             this.cmbMinuto1.Name = "cmbMinuto1";
             this.cmbMinuto1.Size = new System.Drawing.Size(35, 21);
             this.cmbMinuto1.TabIndex = 3;
@@ -888,7 +862,7 @@ namespace GOMAC.Views
             // cmbHora5
             // 
             this.cmbHora5.FormattingEnabled = true;
-            this.cmbHora5.Location = new System.Drawing.Point(179, 195);
+            this.cmbHora5.Location = new System.Drawing.Point(182, 201);
             this.cmbHora5.Name = "cmbHora5";
             this.cmbHora5.Size = new System.Drawing.Size(35, 21);
             this.cmbHora5.TabIndex = 3;
@@ -896,7 +870,7 @@ namespace GOMAC.Views
             // cmbHora4
             // 
             this.cmbHora4.FormattingEnabled = true;
-            this.cmbHora4.Location = new System.Drawing.Point(179, 153);
+            this.cmbHora4.Location = new System.Drawing.Point(182, 159);
             this.cmbHora4.Name = "cmbHora4";
             this.cmbHora4.Size = new System.Drawing.Size(35, 21);
             this.cmbHora4.TabIndex = 3;
@@ -904,7 +878,7 @@ namespace GOMAC.Views
             // cmbHora3
             // 
             this.cmbHora3.FormattingEnabled = true;
-            this.cmbHora3.Location = new System.Drawing.Point(179, 111);
+            this.cmbHora3.Location = new System.Drawing.Point(182, 117);
             this.cmbHora3.Name = "cmbHora3";
             this.cmbHora3.Size = new System.Drawing.Size(35, 21);
             this.cmbHora3.TabIndex = 3;
@@ -912,7 +886,7 @@ namespace GOMAC.Views
             // cmbHora2
             // 
             this.cmbHora2.FormattingEnabled = true;
-            this.cmbHora2.Location = new System.Drawing.Point(179, 69);
+            this.cmbHora2.Location = new System.Drawing.Point(182, 75);
             this.cmbHora2.Name = "cmbHora2";
             this.cmbHora2.Size = new System.Drawing.Size(35, 21);
             this.cmbHora2.TabIndex = 3;
@@ -920,66 +894,10 @@ namespace GOMAC.Views
             // cmbHora1
             // 
             this.cmbHora1.FormattingEnabled = true;
-            this.cmbHora1.Location = new System.Drawing.Point(179, 26);
+            this.cmbHora1.Location = new System.Drawing.Point(182, 32);
             this.cmbHora1.Name = "cmbHora1";
             this.cmbHora1.Size = new System.Drawing.Size(35, 21);
             this.cmbHora1.TabIndex = 3;
-            // 
-            // btnFAtencion
-            // 
-            this.btnFAtencion.Location = new System.Drawing.Point(11, 195);
-            this.btnFAtencion.Name = "btnFAtencion";
-            this.btnFAtencion.Size = new System.Drawing.Size(24, 23);
-            this.btnFAtencion.TabIndex = 0;
-            this.btnFAtencion.UseVisualStyleBackColor = true;
-            // 
-            // btnFRecepcion
-            // 
-            this.btnFRecepcion.Location = new System.Drawing.Point(11, 152);
-            this.btnFRecepcion.Name = "btnFRecepcion";
-            this.btnFRecepcion.Size = new System.Drawing.Size(24, 23);
-            this.btnFRecepcion.TabIndex = 0;
-            this.btnFRecepcion.UseVisualStyleBackColor = true;
-            // 
-            // btnFFormalizada
-            // 
-            this.btnFFormalizada.Location = new System.Drawing.Point(11, 109);
-            this.btnFFormalizada.Name = "btnFFormalizada";
-            this.btnFFormalizada.Size = new System.Drawing.Size(24, 23);
-            this.btnFFormalizada.TabIndex = 0;
-            this.btnFFormalizada.UseVisualStyleBackColor = true;
-            // 
-            // btnFAnalisisMac
-            // 
-            this.btnFAnalisisMac.Location = new System.Drawing.Point(11, 66);
-            this.btnFAnalisisMac.Name = "btnFAnalisisMac";
-            this.btnFAnalisisMac.Size = new System.Drawing.Size(24, 23);
-            this.btnFAnalisisMac.TabIndex = 0;
-            this.btnFAnalisisMac.UseVisualStyleBackColor = true;
-            // 
-            // btnEnvio
-            // 
-            this.btnEnvio.Location = new System.Drawing.Point(575, 101);
-            this.btnEnvio.Name = "btnEnvio";
-            this.btnEnvio.Size = new System.Drawing.Size(24, 23);
-            this.btnEnvio.TabIndex = 0;
-            this.btnEnvio.UseVisualStyleBackColor = true;
-            // 
-            // btnDesbloqueo
-            // 
-            this.btnDesbloqueo.Location = new System.Drawing.Point(575, 62);
-            this.btnDesbloqueo.Name = "btnDesbloqueo";
-            this.btnDesbloqueo.Size = new System.Drawing.Size(24, 23);
-            this.btnDesbloqueo.TabIndex = 0;
-            this.btnDesbloqueo.UseVisualStyleBackColor = true;
-            // 
-            // btnFRecepDoc
-            // 
-            this.btnFRecepDoc.Location = new System.Drawing.Point(11, 23);
-            this.btnFRecepDoc.Name = "btnFRecepDoc";
-            this.btnFRecepDoc.Size = new System.Drawing.Size(24, 23);
-            this.btnFRecepDoc.TabIndex = 0;
-            this.btnFRecepDoc.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
@@ -989,7 +907,7 @@ namespace GOMAC.Views
             this.tabPage3.Controls.Add(this.lblObservaciones);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(785, 222);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
@@ -1039,7 +957,7 @@ namespace GOMAC.Views
             this.groupBox4.Controls.Add(this.txtNombre);
             this.groupBox4.Location = new System.Drawing.Point(12, 180);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(793, 60);
+            this.groupBox4.Size = new System.Drawing.Size(826, 60);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Nombre del Cliente";
@@ -1049,7 +967,7 @@ namespace GOMAC.Views
             this.groupBox5.Controls.Add(this.TxtDepositoTkt);
             this.groupBox5.Location = new System.Drawing.Point(560, 11);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(229, 43);
+            this.groupBox5.Size = new System.Drawing.Size(260, 43);
             this.groupBox5.TabIndex = 19;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Deposito Inicial KYC";
@@ -1058,7 +976,7 @@ namespace GOMAC.Views
             // 
             this.TxtDepositoTkt.Location = new System.Drawing.Point(8, 17);
             this.TxtDepositoTkt.Name = "TxtDepositoTkt";
-            this.TxtDepositoTkt.Size = new System.Drawing.Size(216, 20);
+            this.TxtDepositoTkt.Size = new System.Drawing.Size(246, 20);
             this.TxtDepositoTkt.TabIndex = 0;
             // 
             // txtApellidoM
@@ -1088,7 +1006,7 @@ namespace GOMAC.Views
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.lblStatus);
-            this.groupBox6.Location = new System.Drawing.Point(12, 493);
+            this.groupBox6.Location = new System.Drawing.Point(13, 540);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(200, 51);
             this.groupBox6.TabIndex = 4;
@@ -1106,7 +1024,7 @@ namespace GOMAC.Views
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(429, 505);
+            this.btnLimpiar.Location = new System.Drawing.Point(430, 559);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 5;
@@ -1115,7 +1033,7 @@ namespace GOMAC.Views
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(510, 505);
+            this.btnGuardar.Location = new System.Drawing.Point(511, 559);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 5;
@@ -1125,7 +1043,7 @@ namespace GOMAC.Views
             // 
             // btnCancelarSolicitud
             // 
-            this.btnCancelarSolicitud.Location = new System.Drawing.Point(591, 506);
+            this.btnCancelarSolicitud.Location = new System.Drawing.Point(592, 559);
             this.btnCancelarSolicitud.Name = "btnCancelarSolicitud";
             this.btnCancelarSolicitud.Size = new System.Drawing.Size(116, 23);
             this.btnCancelarSolicitud.TabIndex = 5;
@@ -1134,7 +1052,7 @@ namespace GOMAC.Views
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(713, 505);
+            this.btnSalir.Location = new System.Drawing.Point(714, 559);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(87, 23);
             this.btnSalir.TabIndex = 5;
@@ -1147,11 +1065,154 @@ namespace GOMAC.Views
             this.tmrTraerDatos.Interval = 1000;
             this.tmrTraerDatos.Tick += new System.EventHandler(this.tmrTraerDatos_Tick);
             // 
-            // Frm_NuevaSolicitud
+            // btnFRecepDoc
+            // 
+            this.btnFRecepDoc.AutoSize = true;
+            this.btnFRecepDoc.Location = new System.Drawing.Point(14, 32);
+            this.btnFRecepDoc.Name = "btnFRecepDoc";
+            this.btnFRecepDoc.Size = new System.Drawing.Size(14, 13);
+            this.btnFRecepDoc.TabIndex = 12;
+            this.btnFRecepDoc.TabStop = true;
+            this.btnFRecepDoc.UseVisualStyleBackColor = true;
+            this.btnFRecepDoc.CheckedChanged += new System.EventHandler(this.btnFRecepDoc_CheckedChanged);
+            // 
+            // btnFAnalisisMac
+            // 
+            this.btnFAnalisisMac.AutoSize = true;
+            this.btnFAnalisisMac.Location = new System.Drawing.Point(14, 75);
+            this.btnFAnalisisMac.Name = "btnFAnalisisMac";
+            this.btnFAnalisisMac.Size = new System.Drawing.Size(14, 13);
+            this.btnFAnalisisMac.TabIndex = 12;
+            this.btnFAnalisisMac.TabStop = true;
+            this.btnFAnalisisMac.UseVisualStyleBackColor = true;
+            this.btnFAnalisisMac.CheckedChanged += new System.EventHandler(this.btnFAnalisisMac_CheckedChanged);
+            // 
+            // btnFFormalizada
+            // 
+            this.btnFFormalizada.AutoSize = true;
+            this.btnFFormalizada.Location = new System.Drawing.Point(14, 117);
+            this.btnFFormalizada.Name = "btnFFormalizada";
+            this.btnFFormalizada.Size = new System.Drawing.Size(14, 13);
+            this.btnFFormalizada.TabIndex = 12;
+            this.btnFFormalizada.TabStop = true;
+            this.btnFFormalizada.UseVisualStyleBackColor = true;
+            this.btnFFormalizada.CheckedChanged += new System.EventHandler(this.btnFFormalizada_CheckedChanged);
+            // 
+            // btnFRecepcion
+            // 
+            this.btnFRecepcion.AutoSize = true;
+            this.btnFRecepcion.Location = new System.Drawing.Point(14, 158);
+            this.btnFRecepcion.Name = "btnFRecepcion";
+            this.btnFRecepcion.Size = new System.Drawing.Size(14, 13);
+            this.btnFRecepcion.TabIndex = 12;
+            this.btnFRecepcion.TabStop = true;
+            this.btnFRecepcion.UseVisualStyleBackColor = true;
+            this.btnFRecepcion.CheckedChanged += new System.EventHandler(this.btnFRecepcion_CheckedChanged);
+            // 
+            // btnFAtencion
+            // 
+            this.btnFAtencion.AutoSize = true;
+            this.btnFAtencion.Location = new System.Drawing.Point(14, 201);
+            this.btnFAtencion.Name = "btnFAtencion";
+            this.btnFAtencion.Size = new System.Drawing.Size(14, 13);
+            this.btnFAtencion.TabIndex = 12;
+            this.btnFAtencion.TabStop = true;
+            this.btnFAtencion.UseVisualStyleBackColor = true;
+            this.btnFAtencion.CheckedChanged += new System.EventHandler(this.btnFAtencion_CheckedChanged);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.btnFAtencion);
+            this.groupBox3.Controls.Add(this.cmbHora1);
+            this.groupBox3.Controls.Add(this.btnFRecepcion);
+            this.groupBox3.Controls.Add(this.cmbHora2);
+            this.groupBox3.Controls.Add(this.btnFFormalizada);
+            this.groupBox3.Controls.Add(this.cmbHora3);
+            this.groupBox3.Controls.Add(this.btnFAnalisisMac);
+            this.groupBox3.Controls.Add(this.cmbHora4);
+            this.groupBox3.Controls.Add(this.btnFRecepDoc);
+            this.groupBox3.Controls.Add(this.cmbHora5);
+            this.groupBox3.Controls.Add(this.cmbMinuto1);
+            this.groupBox3.Controls.Add(this.cmbMinuto2);
+            this.groupBox3.Controls.Add(this.dtpFAtencion);
+            this.groupBox3.Controls.Add(this.cmbMinuto3);
+            this.groupBox3.Controls.Add(this.dtpFRecepcion);
+            this.groupBox3.Controls.Add(this.cmbMinuto4);
+            this.groupBox3.Controls.Add(this.dtpFFormalizada);
+            this.groupBox3.Controls.Add(this.cmbMinuto5);
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.dtpFAnalisisMac);
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.dtpFRecepDoc);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.Location = new System.Drawing.Point(7, 16);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(284, 245);
+            this.groupBox3.TabIndex = 13;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Fechas";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.txtDepositoIni);
+            this.groupBox7.Controls.Add(this.label17);
+            this.groupBox7.Controls.Add(this.label16);
+            this.groupBox7.Controls.Add(this.label7);
+            this.groupBox7.Controls.Add(this.dtpDesbloqueo);
+            this.groupBox7.Controls.Add(this.label8);
+            this.groupBox7.Controls.Add(this.dtpConcluir);
+            this.groupBox7.Controls.Add(this.btnConcluirSolicitud);
+            this.groupBox7.Controls.Add(this.btnEnvio);
+            this.groupBox7.Controls.Add(this.btnDesbloqueo);
+            this.groupBox7.Controls.Add(this.dtpEnvio);
+            this.groupBox7.Controls.Add(this.dtpFechaCancelada);
+            this.groupBox7.Location = new System.Drawing.Point(587, 16);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(225, 245);
+            this.groupBox7.TabIndex = 14;
+            this.groupBox7.TabStop = false;
+            // 
+            // grpCalendario
+            // 
+            this.grpCalendario.Controls.Add(this.Calendario);
+            this.grpCalendario.Location = new System.Drawing.Point(299, 7);
+            this.grpCalendario.Name = "grpCalendario";
+            this.grpCalendario.Size = new System.Drawing.Size(271, 187);
+            this.grpCalendario.TabIndex = 15;
+            this.grpCalendario.TabStop = false;
+            this.grpCalendario.Text = "Calendario";
+            // 
+            // btnDesbloqueo
+            // 
+            this.btnDesbloqueo.AutoSize = true;
+            this.btnDesbloqueo.Location = new System.Drawing.Point(15, 68);
+            this.btnDesbloqueo.Name = "btnDesbloqueo";
+            this.btnDesbloqueo.Size = new System.Drawing.Size(14, 13);
+            this.btnDesbloqueo.TabIndex = 12;
+            this.btnDesbloqueo.TabStop = true;
+            this.btnDesbloqueo.UseVisualStyleBackColor = true;
+            this.btnDesbloqueo.CheckedChanged += new System.EventHandler(this.btnDesbloqueo_CheckedChanged);
+            // 
+            // btnEnvio
+            // 
+            this.btnEnvio.AutoSize = true;
+            this.btnEnvio.Location = new System.Drawing.Point(15, 106);
+            this.btnEnvio.Name = "btnEnvio";
+            this.btnEnvio.Size = new System.Drawing.Size(14, 13);
+            this.btnEnvio.TabIndex = 12;
+            this.btnEnvio.TabStop = true;
+            this.btnEnvio.UseVisualStyleBackColor = true;
+            this.btnEnvio.CheckedChanged += new System.EventHandler(this.btnEnvio_CheckedChanged);
+            // 
+            // b
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(815, 548);
+            this.ClientSize = new System.Drawing.Size(850, 591);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnCancelarSolicitud);
             this.Controls.Add(this.btnGuardar);
@@ -1162,7 +1223,7 @@ namespace GOMAC.Views
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "Frm_NuevaSolicitud";
+            this.Name = "b";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Captura de Solicitudes";
             this.Activated += new System.EventHandler(this.Frm_NuevaSolicitud_Activated);
@@ -1181,7 +1242,6 @@ namespace GOMAC.Views
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.grpOriginales.ResumeLayout(false);
             this.grpOriginales.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -1192,6 +1252,11 @@ namespace GOMAC.Views
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.grpCalendario.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1252,10 +1317,9 @@ namespace GOMAC.Views
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnCancelarSolicitud;
         private System.Windows.Forms.Button btnSalir;
-        private System.Windows.Forms.Button btnFRecepDoc;
         private System.Windows.Forms.DateTimePicker dtpFechaCancelada;
         private System.Windows.Forms.Button btnConcluirSolicitud;
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.MonthCalendar Calendario;
         private System.Windows.Forms.ComboBox cmbMinuto5;
         private System.Windows.Forms.ComboBox cmbMinuto4;
         private System.Windows.Forms.ComboBox cmbMinuto3;
@@ -1269,12 +1333,6 @@ namespace GOMAC.Views
         private System.Windows.Forms.ComboBox cmbHora3;
         private System.Windows.Forms.ComboBox cmbHora2;
         private System.Windows.Forms.ComboBox cmbHora1;
-        private System.Windows.Forms.Button btnFAtencion;
-        private System.Windows.Forms.Button btnFRecepcion;
-        private System.Windows.Forms.Button btnFFormalizada;
-        private System.Windows.Forms.Button btnFAnalisisMac;
-        private System.Windows.Forms.Button btnEnvio;
-        private System.Windows.Forms.Button btnDesbloqueo;
         private System.Windows.Forms.Button btnVerObservacion;
         private System.Windows.Forms.Button btnNuevaObservacion;
         private System.Windows.Forms.DataGridView dtgvwObservaciones;
@@ -1301,5 +1359,17 @@ namespace GOMAC.Views
         private System.Windows.Forms.DateTimePicker dtpEnvio;
         private System.Windows.Forms.DateTimePicker dtpDesbloqueo;
         private System.Windows.Forms.DateTimePicker dtpConcluir;
+        private System.Windows.Forms.Timer tmrTab;
+        private System.Windows.Forms.Timer tmtValidarBoton;
+        private System.Windows.Forms.RadioButton btnFRecepDoc;
+        private System.Windows.Forms.RadioButton btnFAnalisisMac;
+        private System.Windows.Forms.RadioButton btnFAtencion;
+        private System.Windows.Forms.RadioButton btnFRecepcion;
+        private System.Windows.Forms.RadioButton btnFFormalizada;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.GroupBox grpCalendario;
+        private System.Windows.Forms.RadioButton btnEnvio;
+        private System.Windows.Forms.RadioButton btnDesbloqueo;
     }
 }

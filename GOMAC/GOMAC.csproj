@@ -107,11 +107,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BdBmtktp01.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\BdCatalogos.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdCatalogos.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BdCatalogos.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdCatalogos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BdCatalogos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdCatalogos.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\CONECT.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CONSULTORES.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DIAS_FERIADOS.cs">
+      <DependentUpon>BdCatalogos.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\dtproperties.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
@@ -275,6 +293,13 @@
     <None Include="Models\BdBmtktp01.edmx.diagram">
       <DependentUpon>BdBmtktp01.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="Models\BdCatalogos.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BdCatalogos.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\BdCatalogos.edmx.diagram">
+      <DependentUpon>BdCatalogos.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -302,6 +327,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BdBmtktp01.edmx</DependentUpon>
       <LastGenOutput>BdBmtktp01.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BdCatalogos.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BdCatalogos.edmx</DependentUpon>
+      <LastGenOutput>BdCatalogos.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BdCatalogos.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BdCatalogos.edmx</DependentUpon>
+      <LastGenOutput>BdCatalogos.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\bbva-logo-3.ico" />
     <Content Include="Resources\bbva_logo.jpg" />

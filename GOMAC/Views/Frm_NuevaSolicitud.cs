@@ -12,10 +12,11 @@ using System.Windows.Forms;
 
 namespace GOMAC.Views
 {
-    public partial class Frm_NuevaSolicitud : Form
+    public partial class b : Form
     {
         private Frm_PantallaPrincipal frmp;
         private bmtktp01Entities bdbmtktp01;
+        private CATALOGOSEntities bdCatalogos;
         private SEGUIMIENTO seguimiento_doc;
         
 
@@ -23,12 +24,13 @@ namespace GOMAC.Views
         public int se_carga;
         public int num_solicitud;
 
-        public Frm_NuevaSolicitud(Frm_PantallaPrincipal frmp)
+        public b(Frm_PantallaPrincipal frmp)
         {      
             InitializeComponent();
           
             this.frmp = frmp;
             this.bdbmtktp01 = new bmtktp01Entities();
+            this.bdCatalogos = new CATALOGOSEntities();
 
             txtNombre.Text = "Nombre";
             txtApellidoP.Text = "Primer Apellido";
@@ -78,34 +80,165 @@ namespace GOMAC.Views
             LlenaComboNombreFunc();
             LlenaComboNumFunc();
 
+            dtpFRecepDoc.Value = dtpFRecepDoc.MinDate;
+            dtpFAnalisisMac.Value = dtpFAnalisisMac.MinDate;
+            dtpFFormalizada.Value = dtpFFormalizada.MinDate;
+            dtpFRecepcion.Value = dtpFRecepcion.MinDate;
+            dtpFAtencion.Value = dtpFAtencion.MinDate;
+
 
 
             if (str_consultor.Trim() != "")
             {
                 CargaConsulta();
-            }
 
-
-
-
-            if (str_consultor.Trim() != "")
-            {
                 if (lblStatus.Text == "Nueva")
                 {
-                    switch (se_carga)
-                    {
-                        case 0:
-                            CargaConsulta();
-                            se_carga = 1;
-                            break;
+                    MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
-                        default:
-                            MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
+            }
 
-                    }
+
+            cmbProducto.Enabled = false;
+            cmbBanca.Enabled = false;
+            cmbDivision.Enabled = false;
+            cmbPlaza.Enabled = false;
+            cmbSucursal.Enabled = false;
+            lblStatus.Text = "Nueva";
+            this.Text = "Captura de solicitud";
+
+            if(btnLimpiar.Text == "Limpiar")
+            {
+                btnLimpiar.Enabled = false;
+            }
+
+            if(lblStatus.Text == "En proceso")
+            {
+                btnFRecepDoc.Visible = true;
+                btnFRecepDoc.Enabled = true;
+
+                btnFAnalisisMac.Visible = true;
+                btnFAnalisisMac.Enabled = true;
+
+                btnFFormalizada.Visible = true;
+                btnFFormalizada.Enabled = true;
+
+                btnFRecepcion.Visible = true;
+                btnFRecepcion.Enabled = true;
+
+                btnFAtencion.Visible = true;
+                btnFAtencion.Enabled = true;
+
+            }
+            else
+            {
+                if(lblStatus.Text == "Nueva")
+                {                
+                    MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);                  
                 }
             }
+
+            if(frmp.activa == 1)
+            {
+                btnLimpiar.Visible = false;
+                btnGuardar.Visible = true;
+                btnCancelarSolicitud.Visible = true;
+
+                btnVerObservacion.Visible = true;
+                btnLimpiar.Visible = true;
+                btnVerObservacion.Enabled = true;
+                btnLimpiar.Enabled = true;
+                btnGuardar.Enabled = true;
+                btnCancelarSolicitud.Enabled = true;
+                btnLimpiar.Visible = false;
+
+                if (btnLimpiar.Text == "Limpiar")
+                {
+                    btnLimpiar.Enabled = false;
+                }
+            }
+            else
+            {
+                btnLimpiar.Visible = false;
+                btnGuardar.Visible = false;
+                btnCancelarSolicitud.Visible = false;
+
+                btnVerObservacion.Visible = false;
+                btnLimpiar.Visible = false;
+                btnVerObservacion.Enabled = false;
+                btnLimpiar.Enabled = false;
+                btnGuardar.Enabled = false;
+                btnCancelarSolicitud.Enabled = false;
+
+            }
+
+            if (str_consultor != "")
+            {
+                tmrTraerDatos.Enabled = false;
+
+                txtSolicitud.Text = num_solicitud.ToString();
+                CargaConsulta();
+
+
+
+                tmtValidarBoton.Enabled = true;
+                switch (lblStatus.Text)
+                {
+                    case "En Proceso":
+                        dtgvwObservaciones.Enabled = true;
+                        btnCancelarSolicitud.Visible = true;
+                        btnGuardar.Text = "Modificar";
+                        btnGuardar.Visible = true;
+
+                        btnLimpiar.Visible = false;
+                        btnLimpiar.Enabled = false;
+                        btnVerObservacion.Enabled = true;
+                        break;
+                    case "Concluida":
+                        dtgvwObservaciones.Enabled = true;
+                        btnGuardar.Visible = false;
+                        btnCancelarSolicitud.Visible = false;
+                        cmbTipoSolicitud.Enabled = false;
+                        btnConcluirSolicitud.Enabled = false;
+                        btnLimpiar.Visible = false;
+                        btnLimpiar.Enabled = false;
+                        cmbProducto.Enabled = false;
+                        grpTipoPersona.Enabled = false;
+                        btnVerObservacion.Enabled = false;
+                        btnGuardar.Enabled = false;
+                        btnCancelarSolicitud.Visible = false;
+                        btnGuardar.Visible = false;
+                        btnCancelarSolicitud.Visible = false;
+                        break;
+                    case "Cancelada":
+                        lblStatus.Text = "Cancelada";
+                        btnGuardar.Visible = false;
+                        btnCancelarSolicitud.Visible = false;
+                        cmbTipoSolicitud.Enabled = false;
+                        btnConcluirSolicitud.Enabled = false;
+                        btnLimpiar.Visible = false;
+                        cmbProducto.Enabled = true;
+                        btnVerObservacion.Enabled = true;
+                        grpTipoPersona.Enabled = false;
+                        dtgvwObservaciones.Enabled = true;
+                        btnGuardar.Enabled = false;
+                        btnCancelarSolicitud.Enabled = false;
+                        btnGuardar.Visible = false;
+                        btnCancelarSolicitud.Visible = false;
+                        break;
+                    default:
+
+                        break;
+                }
+            }
+
+            dtpFechaCaptura.Enabled = false;
+            txtPuntos.Enabled = false;
+            dtpFechaCancelada.Enabled = false;
+
+
+
         }
 
 
@@ -211,7 +344,13 @@ namespace GOMAC.Views
                 break;
             }
 
-
+            if(str_consultor != "")
+            {
+                if(lblStatus.Text == "Nueva")
+                {
+                    MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
 
 
 
@@ -1106,6 +1245,211 @@ namespace GOMAC.Views
             }
         }
 
-       
+        private void Calendario_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            try
+            {
+                string str_fecha = Calendario.SelectionRange.Start.ToShortDateString();
+                DateTime fecha_selec = Calendario.SelectionRange.Start;
+
+                if((fecha_selec >= DateTime.Now) || Int32.Parse(grpCalendario.Tag.ToString()) == 5)
+                {
+                    DIAS_FERIADOS dia_feriado = (from df in bdCatalogos.DIAS_FERIADOS where df.fecha == fecha_selec select df).FirstOrDefault();
+
+                    if(dia_feriado == null)
+                    {
+                        MessageBox.Show("FAVOR DE SELECCIONAR UNA FECHA VALIDA", "VALIDACION DE DIAS FERIADOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    else
+                    {
+                        int tag = Int32.Parse(grpCalendario.Tag.ToString());
+                        
+                        switch (tag)
+                        {
+                            case 1:
+                                
+                            break;
+
+                            case 2:
+                            break;
+
+                            case 3:
+                            break;
+
+                            case 4:
+                            break;
+
+                            case 5:
+                            break;
+                            
+                            default:
+                            break;
+                        }
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+
+        private void btnFFormalizada_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnFFormalizada.Checked)
+            {
+                if (dtpFFormalizada.Value != dtpFFormalizada.MinDate)
+                {
+                    grpCalendario.Tag = 1;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpFFormalizada.Value = fecha_servidor;
+                    cmbHora3.SelectedValue = fecha_servidor.ToString("hh");
+                    cmbMinuto3.SelectedValue = fecha_servidor.ToString("mm");
+
+                }
+            }
+        }
+
+        private void btnFRecepcion_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnFRecepcion.Checked)
+            {
+                if (dtpFRecepcion.Value != dtpFRecepcion.MinDate)
+                {
+                    grpCalendario.Tag = 2;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpFRecepcion.Value = fecha_servidor;
+                    cmbHora4.SelectedValue = fecha_servidor.ToString("hh");
+                    cmbMinuto4.SelectedValue = fecha_servidor.ToString("mm");
+
+                }
+            }
+        }
+
+        private void btnFAtencion_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnFAtencion.Checked)
+            {
+                if (dtpFAtencion.Value != dtpFAtencion.MinDate)
+                {
+                    grpCalendario.Tag = 3;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpFAtencion.Value = fecha_servidor;
+                    cmbHora5.SelectedValue = fecha_servidor.ToString("hh");
+                    cmbMinuto5.SelectedValue = fecha_servidor.ToString("mm");
+
+                }
+            }
+
+        }
+
+        private void btnDesbloqueo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnDesbloqueo.Checked)
+            {
+                if (dtpDesbloqueo.Value != dtpDesbloqueo.MinDate)
+                {
+                    grpCalendario.Tag = 4;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpDesbloqueo.Value = fecha_servidor;
+                }
+            }
+        }
+
+        private void btnEnvio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnEnvio.Checked)
+            {
+                if (dtpEnvio.Value != dtpEnvio.MinDate)
+                {
+                    grpCalendario.Tag = 5;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpEnvio.Value = fecha_servidor;
+                }
+            }
+        }
+
+        private void dtpConcluir_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpConcluir.Value != dtpConcluir.MinDate)
+            {
+                grpCalendario.Tag = 6;
+            }
+            else
+            {
+                DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                dtpConcluir.Value = fecha_servidor;
+                cmbHora1.SelectedValue = fecha_servidor.ToString("hh");
+                cmbMinuto1.SelectedValue = fecha_servidor.ToString("mm");
+
+            }
+        }
+
+        private void btnFRecepDoc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnFRecepDoc.Checked)
+            {
+                if (dtpFRecepDoc.Value != dtpFRecepDoc.MinDate)
+                {
+                    grpCalendario.Tag = 7;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpFRecepDoc.Value = fecha_servidor;
+                    cmbHora1.SelectedValue = fecha_servidor.ToString("hh");
+                    cmbMinuto1.SelectedValue = fecha_servidor.ToString("mm");
+
+                }
+            }
+        }
+
+        private void btnFAnalisisMac_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnFAnalisisMac.Checked)
+            {
+                if (dtpFAnalisisMac.Value != dtpFAnalisisMac.MinDate)
+                {
+                    grpCalendario.Tag = 8;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpFAnalisisMac.Value = fecha_servidor;
+                    cmbHora2.SelectedValue = fecha_servidor.ToString("hh");
+                    cmbMinuto2.SelectedValue = fecha_servidor.ToString("mm");
+
+                }
+            }
+        }
+
+        
     }
 }
