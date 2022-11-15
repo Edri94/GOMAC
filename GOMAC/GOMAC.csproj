@@ -122,6 +122,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BdCatalogos.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\BdFuncionarios.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdFuncionarios.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BdFuncionarios.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdFuncionarios.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BdFuncionarios.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdFuncionarios.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\CONECT.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
     </Compile>
@@ -133,6 +148,9 @@
     </Compile>
     <Compile Include="Models\dtproperties.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FUNCIONARIO.cs">
+      <DependentUpon>BdFuncionarios.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HISTORIALPWD.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
@@ -187,6 +205,9 @@
     </Compile>
     <Compile Include="Models\TIPO_TRAMITE.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UNIDAD_ORGANIZACIONAL_RESUMEN.cs">
+      <DependentUpon>BdFuncionarios.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\USUARIO.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
@@ -300,6 +321,13 @@
     <None Include="Models\BdCatalogos.edmx.diagram">
       <DependentUpon>BdCatalogos.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="Models\BdFuncionarios.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BdFuncionarios.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\BdFuncionarios.edmx.diagram">
+      <DependentUpon>BdFuncionarios.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -337,6 +365,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BdCatalogos.edmx</DependentUpon>
       <LastGenOutput>BdCatalogos.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BdFuncionarios.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BdFuncionarios.edmx</DependentUpon>
+      <LastGenOutput>BdFuncionarios.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BdFuncionarios.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BdFuncionarios.edmx</DependentUpon>
+      <LastGenOutput>BdFuncionarios.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\bbva-logo-3.ico" />
     <Content Include="Resources\bbva_logo.jpg" />

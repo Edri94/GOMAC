@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FUNCIONARIOSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="FUNCIONARIO">
+    <Key>
+      <PropertyRef Name="funcionario" />
+    </Key>
+    <Property Name="funcionario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="unidad_organizacional" Type="int" />
+    <Property Name="nombre_funcionario" Type="char" MaxLength="35" Nullable="false" />
+    <Property Name="apellido_paterno" Type="char" MaxLength="20" />
+    <Property Name="apellido_materno" Type="char" MaxLength="20" />
+    <Property Name="numero_funcionario" Type="char" MaxLength="8" />
+    <Property Name="telefono_funcionario" Type="varchar" MaxLength="20" />
+    <Property Name="fax_funcionario" Type="varchar" MaxLength="20" />
+    <Property Name="calle_funcionario" Type="varchar" MaxLength="60" />
+    <Property Name="colonia_funcionario" Type="varchar" MaxLength="60" />
+    <Property Name="ubicacion" Type="smallint" />
+    <Property Name="cp_funcionario" Type="varchar" MaxLength="10" />
+    <Property Name="estrategico" Type="smallint" />
+    <Property Name="activo" Type="tinyint" />
+    <Property Name="numero_registro" Type="char" MaxLength="8" Nullable="false" />
+    <Property Name="on_mni" Type="bit" Nullable="false" />
+    <Property Name="on_bsi" Type="bit" Nullable="false" />
+    <Property Name="on_harris" Type="bit" Nullable="false" />
+    <Property Name="cr_opera" Type="int" />
+    <Property Name="bbvab" Type="bit" Nullable="false" />
+    <Property Name="unidad_organizacional_anterior" Type="char" MaxLength="200" />
+    <Property Name="cr_opera_term" Type="int" />
+    <Property Name="fecha_alta" Type="smalldatetime" />
+    <Property Name="fecha_baja" Type="smalldatetime" />
+    <Property Name="fecha_ult_modif" Type="smalldatetime" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'FUNCIONARIOS.Funcionario.UNIDAD_ORGANIZACIONAL_RESUMEN' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="UNIDAD_ORGANIZACIONAL_RESUMEN">
+    <Key>
+      <PropertyRef Name="funcionario" />
+    </Key>
+    <Property Name="funcionario" Type="int" Nullable="false" />
+    <Property Name="unidad_organizacional_padre" Type="int" />
+    <Property Name="banca" Type="varchar" MaxLength="75" />
+    <Property Name="division" Type="varchar" MaxLength="75" />
+    <Property Name="cr" Type="varchar" MaxLength="75" />
+    <Property Name="plaza" Type="varchar" MaxLength="75" />
+    <Property Name="sucursal" Type="varchar" MaxLength="75" />
+    <Property Name="unidad_org_banca" Type="varchar" MaxLength="10" />
+    <Property Name="unidad_org_division" Type="varchar" MaxLength="10" />
+    <Property Name="unidad_org_creg" Type="varchar" MaxLength="10" />
+    <Property Name="unidad_org_plaza" Type="varchar" MaxLength="10" />
+    <Property Name="unidad_org_sucursal" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityContainer Name="FUNCIONARIOSModelStoreContainer">
+    <EntitySet Name="FUNCIONARIO" EntityType="Self.FUNCIONARIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UNIDAD_ORGANIZACIONAL_RESUMEN" EntityType="Self.UNIDAD_ORGANIZACIONAL_RESUMEN" store:Type="Tables" store:Schema="Funcionario">
+      <DefiningQuery>SELECT 
+    [UNIDAD_ORGANIZACIONAL_RESUMEN].[funcionario] AS [funcionario], 
+    [UNIDAD_ORGANIZACIONAL_RESUMEN].[unidad_organizacional_padre] AS [unidad_organizacional_padre], 
+    [UNIDAD_ORGANIZACIONAL_RESUMEN].[banca] AS [banca], 
+    [UNIDAD_ORGANIZACIONAL_RESUMEN].[division] AS [division], 
+    [UNIDAD_ORGANIZACIONAL_RESUMEN].[cr] AS [cr], 
+    [UNIDAD_ORGANIZACIONAL_RESUMEN].[plaza] AS [plaza], 
+    [UNIDAD_ORGANIZACIONAL_RESUMEN].[sucursal] AS [sucursal], 
+    [UNIDAD_ORGANIZACIONAL_RESUMEN].[unidad_org_banca] AS [unidad_org_banca], 
+    [UNIDAD_ORGANIZACIONAL_RESUMEN].[unidad_org_division] AS [unidad_org_division], 
+    [UNIDAD_ORGANIZACIONAL_RESUMEN].[unidad_org_creg] AS [unidad_org_creg], 
+    [UNIDAD_ORGANIZACIONAL_RESUMEN].[unidad_org_plaza] AS [unidad_org_plaza], 
+    [UNIDAD_ORGANIZACIONAL_RESUMEN].[unidad_org_sucursal] AS [unidad_org_sucursal]
+    FROM [Funcionario].[UNIDAD_ORGANIZACIONAL_RESUMEN] AS [UNIDAD_ORGANIZACIONAL_RESUMEN]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

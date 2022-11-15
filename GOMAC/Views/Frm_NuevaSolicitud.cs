@@ -12,25 +12,195 @@ using System.Windows.Forms;
 
 namespace GOMAC.Views
 {
-    public partial class b : Form
+    public partial class FrmNueva_Solicitud : Form 
     {
         private Frm_PantallaPrincipal frmp;
         private bmtktp01Entities bdbmtktp01;
         private CATALOGOSEntities bdCatalogos;
+        private FUNCIONARIOSEntities bdFuncionarios;
         private SEGUIMIENTO seguimiento_doc;
-        
+
+        private List<FUNCIONARIO> funcionarios;
+        private List<UNIDAD_ORGANIZACIONAL_RESUMEN> uors;
+
+
 
         public string str_consultor;
         public int se_carga;
         public int num_solicitud;
 
-        public b(Frm_PantallaPrincipal frmp)
+        bool cmbNumeroFuncionario_activo = false, cmbConsultorMac_activo = false;
+
+        private void Calendario_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            try
+            {
+                string str_fecha = Calendario.SelectionRange.Start.ToShortDateString();
+                DateTime fecha_selec = Calendario.SelectionRange.Start;
+
+                if ((fecha_selec >= DateTime.Now) || Int32.Parse(grpCalendario.Tag.ToString()) == 5)
+                {
+                    DIAS_FERIADOS dia_feriado = (from df in bdCatalogos.DIAS_FERIADOS where df.fecha == fecha_selec select df).FirstOrDefault();
+
+                    if (dia_feriado == null)
+                    {
+                        MessageBox.Show("FAVOR DE SELECCIONAR UNA FECHA VALIDA", "VALIDACION DE DIAS FERIADOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    else
+                    {
+                        int tag = Int32.Parse(grpCalendario.Tag.ToString());
+
+                        switch (tag)
+                        {
+                            case 1:
+                                dtpFFormalizada.Value = Calendario.SelectionRange.Start;
+                            break;
+
+                            case 2:
+                                dtpFRecepcion.Value = Calendario.SelectionRange.Start;
+                            break;
+
+                            case 3:
+                                dtpFAtencion.Value = Calendario.SelectionRange.Start;
+                            break;
+
+                            case 4:
+                                dtpDesbloqueo.Value = Calendario.SelectionRange.Start;
+                            break;
+
+                            case 5:
+                                dtpEnvio.Value = Calendario.SelectionRange.Start;
+                            break;
+                            
+                            case 6:
+                                dtpConcluir.Value = Calendario.SelectionRange.Start;
+                            break;
+                            
+                            case 7:
+                                dtpFRecepDoc.Value = Calendario.SelectionRange.Start;
+                            break;
+
+                            case 8:
+                                dtpFAnalisisMac.Value = Calendario.SelectionRange.Start;
+                            break;                              
+                        }
+                        grpCalendario.Tag = null;
+                        grpCalendario.Visible = false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("La fecha no puede ser menor al dia", "VALIDACION DE FECHA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void cmbConsultorMac_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cmbConsultorMac_activo)
+            {
+                if (frmp.activa == 1)
+                {
+                    btnLimpiar.Visible = true;
+                    btnGuardar.Visible = true;
+                    btnCancelarSolicitud.Visible = true;
+
+                    btnVerObservacion.Visible = true;
+                    btnNuevaObservacion.Visible = true;
+                    btnVerObservacion.Enabled = true;
+                    btnLimpiar.Enabled = true;
+                    btnGuardar.Enabled = true;
+                    btnCancelarSolicitud.Enabled = true;
+
+                }
+                else
+                {
+                    btnLimpiar.Visible = false;
+                    btnGuardar.Visible = false;
+                    btnCancelarSolicitud.Visible = false;
+
+                    btnVerObservacion.Visible = false;
+                    btnNuevaObservacion.Visible = false;
+                    btnVerObservacion.Enabled = false;
+                    btnLimpiar.Enabled = false;
+
+                    btnCancelarSolicitud.Enabled = false;
+
+                    btnGuardar.Enabled = false;
+                    btnNuevaObservacion.Enabled = false;
+                    btnVerObservacion.Enabled = false;
+                }
+
+                if (btnGuardar.Text == "Guaradar" && lblStatus.Text == "")
+                {
+                    if (cmbTipoSolicitud.Enabled == true && btnGuardar.Visible == true)
+                    {
+                        cmbTipoSolicitud.Focus();
+                    }
+                }
+            }
+        }
+
+        private void cmbNumeroFuncionario_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (cmbNumeroFuncionario_activo)
+            {
+                if (str_consultor == "")
+                {
+                    if (cmbNumeroFuncionario.Text == "...")
+                    {
+                        MessageBox.Show("Debe de proporcionar o selectcionar un numero de funcionario", "Numero no valido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+                try
+                {
+                    FUNCIONARIO funcionario = (
+                        from f in bdFuncionarios.FUNCIONARIO
+                        join uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN on f.funcionario1 equals uor.funcionario
+                        where f.numero_registro == cmbNumeroFuncionario.SelectedValue.ToString()
+                        select f
+                    ).FirstOrDefault();
+
+                    if (funcionario == null)
+                    {
+                        MessageBox.Show("No se pudieron obtener los datos del funcionaro solicitado", "Error de obtencion de datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    else
+                    {
+                        cmbPromotor.Enabled = true;
+                        cmbBanca.Enabled = true;
+                        cmbDivision.Enabled = true;
+                        cmbPlaza.Enabled = true;
+                        cmbSucursal.Enabled = true;
+
+                        cmbNumeroFuncionario.Tag = funcionario;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Escribe(ex);
+                }
+            }
+        }
+
+
+        public FrmNueva_Solicitud(Frm_PantallaPrincipal frmp)
         {      
             InitializeComponent();
           
             this.frmp = frmp;
             this.bdbmtktp01 = new bmtktp01Entities();
             this.bdCatalogos = new CATALOGOSEntities();
+            this.bdFuncionarios = new FUNCIONARIOSEntities();
 
             txtNombre.Text = "Nombre";
             txtApellidoP.Text = "Primer Apellido";
@@ -69,16 +239,40 @@ namespace GOMAC.Views
             CargarcomboMinuto(cmbMinuto5);
 
 
+            funcionarios = (
+                from f in bdFuncionarios.FUNCIONARIO
+                join uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN on f.funcionario1 equals uor.funcionario
+                select f
+            ).ToList();
+
+            uors = (
+                from uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN
+                join f in bdFuncionarios.FUNCIONARIO on uor.funcionario equals f.funcionario1
+                select uor
+            ).ToList();
+
+
+
+            LlenaComboNumFunc();
+            LlenaComboNombreFunc();
+
+            LlenaComboBanca();
+            LlenaComboplaza();
+            LlenarComboDivision();
+            LlenaComboSucursal();
+
+
+
             LlenaComboTipoSolicitud();
             LlenaComboTipoTramite();
             LlenarComboConsultor();
-            LlenaComboBanca();
-            LlenarComboDivision();
+           
+            
             LlenarComboProducto();
-            LlenaComboplaza();
-            LlenaComboSucursal();
-            LlenaComboNombreFunc();
-            LlenaComboNumFunc();
+           
+            
+            
+            
 
             dtpFRecepDoc.Value = dtpFRecepDoc.MinDate;
             dtpFAnalisisMac.Value = dtpFAnalisisMac.MinDate;
@@ -242,6 +436,7 @@ namespace GOMAC.Views
         }
 
 
+
         private void Frm_NuevaSolicitud_Activated(object sender, EventArgs e)
         {
             if(str_consultor.Trim() == "")
@@ -399,16 +594,28 @@ namespace GOMAC.Views
         {
             try
             {
-                List<string> promotores =
-                    bdbmtktp01.VER_FUNCIONARIOS.OrderBy(o => o.NUMERO_FUNCIONARIO).Select(p => p.NUMERO_FUNCIONARIO).Distinct().ToList();
+                funcionarios = (
+                from f in funcionarios
+                orderby f.numero_funcionario
+                select f
+            ).ToList();
 
-
-                if (promotores != null)
+                if (funcionarios != null)
                 {
                     //Anadiendo default
-                    promotores.Insert(0, "...");
-                    cmbPromotor.DataSource = promotores;
-                }
+                    funcionarios.Insert(0, new FUNCIONARIO
+                    {
+                        funcionario1 = -1,
+                        nombre_funcionario = ".",
+                        apellido_paterno = ".",
+                        apellido_materno = ".",
+                        numero_funcionario = ". . . "
+                    });
+
+                    cmbNumeroFuncionario.DataSource = funcionarios;
+                    cmbNumeroFuncionario.ValueMember = "funcionario1";
+                    cmbNumeroFuncionario.DisplayMember = "numero_funcionario";
+                }  
             }
             catch (Exception ex)
             {
@@ -420,15 +627,13 @@ namespace GOMAC.Views
         {
             try
             {
-                List<string> num_funcionarios =
-                    bdbmtktp01.VER_FUNCIONARIOS.OrderBy(o => o.PROMOTOR).Select(p => p.PROMOTOR).Distinct().ToList();
+                funcionarios = (from f in funcionarios orderby f.nombre_funcionario, f.apellido_paterno, f.apellido_materno select f).ToList();
 
-
-                if (num_funcionarios != null)
+                if (funcionarios != null)
                 {
-                    //Anadiendo default
-                    num_funcionarios.Insert(0, "...");
-                    cmbNumeroFuncionario.DataSource = num_funcionarios;
+                    cmbPromotor.DataSource = funcionarios;
+                    cmbPromotor.ValueMember = "funcionario1";
+                    cmbPromotor.DisplayMember = "_nombreCompleto";
                 }
             }
             catch (Exception ex)
@@ -441,15 +646,15 @@ namespace GOMAC.Views
         {
             try
             {
-                List<string> plazas =
-                    bdbmtktp01.VER_FUNCIONARIOS.OrderBy(o => o.PLAZA).Select(p => p.PLAZA).Distinct().ToList();
+                uors = (from uor in uors orderby uor.plaza select uor).ToList();
 
-
-                if (plazas != null)
+                if (uors != null)
                 {
                     //Anadiendo default
-                    plazas.Insert(0, "...");
-                    cmbPlaza.DataSource = plazas;
+                    uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { plaza = ". . .  "});
+                    cmbPlaza.DataSource = uors;
+                    cmbPlaza.ValueMember = "plaza";
+                    cmbPlaza.DisplayMember = "plaza";
                 }
             }
             catch(Exception ex)
@@ -463,16 +668,16 @@ namespace GOMAC.Views
         {
             try
             {
-                List<string> sucursales =
-                    bdbmtktp01.VER_FUNCIONARIOS.OrderBy(o => o.SUCURSAL).Select(s => s.SUCURSAL).Distinct().ToList();
+                uors = (from uor in uors orderby uor.sucursal select uor).ToList();
 
-
-                if (sucursales != null)
+                if (uors != null)
                 {
                     //Anadiendo default
-                    sucursales.Insert(0, "...");
-                    cmbSucursal.DataSource = sucursales;
-                }
+                    uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { sucursal = ". . .  " });
+                    cmbSucursal.DataSource = uors;
+                    cmbSucursal.ValueMember = "sucursal";
+                    cmbSucursal.DisplayMember = "sucursal";
+                }    
             }
             catch (Exception ex)
             {
@@ -505,16 +710,16 @@ namespace GOMAC.Views
             {
                 try
                 {
-                    List<string> divisones =
-                        bdbmtktp01.VER_FUNCIONARIOS.OrderBy(o => o.DIVISION).Select(d => d.DIVISION).Distinct().ToList();
+                    uors = (from uor in uors orderby uor.division select uor).ToList();
 
-
-                    if (divisones != null)
+                    if (uors != null)
                     {
                         //Anadiendo default
-                        divisones.Insert(0, "...");
-                        cmbDivision.DataSource = divisones;
-                    }
+                        uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { division = ". . .  " });
+                        cmbDivision.DataSource = uors;
+                        cmbDivision.ValueMember = "division";
+                        cmbDivision.DisplayMember = "division";
+                    }              
                 }
                 catch (Exception ex)
                 {
@@ -531,15 +736,15 @@ namespace GOMAC.Views
         {
             try
             {
-                List<string> funcionarios =
-                    bdbmtktp01.VER_FUNCIONARIOS.OrderBy(o => o.BANCA).Select(b => b.BANCA).Distinct().ToList();
+                uors = (from uor in uors orderby uor.banca select uor).ToList();
 
-
-                if (funcionarios != null)
+                if (uors != null)
                 {
                     //Anadiendo default
-                    funcionarios.Insert(0, "...");
-                    cmbBanca.DataSource = funcionarios;
+                    uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { banca = ". . .  " });
+                    cmbBanca.DataSource = uors;
+                    cmbBanca.ValueMember = "banca";
+                    cmbBanca.DisplayMember = "banca";
                 }
             }
             catch (Exception ex)
@@ -1245,57 +1450,7 @@ namespace GOMAC.Views
             }
         }
 
-        private void Calendario_DateSelected(object sender, DateRangeEventArgs e)
-        {
-            try
-            {
-                string str_fecha = Calendario.SelectionRange.Start.ToShortDateString();
-                DateTime fecha_selec = Calendario.SelectionRange.Start;
-
-                if((fecha_selec >= DateTime.Now) || Int32.Parse(grpCalendario.Tag.ToString()) == 5)
-                {
-                    DIAS_FERIADOS dia_feriado = (from df in bdCatalogos.DIAS_FERIADOS where df.fecha == fecha_selec select df).FirstOrDefault();
-
-                    if(dia_feriado == null)
-                    {
-                        MessageBox.Show("FAVOR DE SELECCIONAR UNA FECHA VALIDA", "VALIDACION DE DIAS FERIADOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    else
-                    {
-                        int tag = Int32.Parse(grpCalendario.Tag.ToString());
-                        
-                        switch (tag)
-                        {
-                            case 1:
-                                
-                            break;
-
-                            case 2:
-                            break;
-
-                            case 3:
-                            break;
-
-                            case 4:
-                            break;
-
-                            case 5:
-                            break;
-                            
-                            default:
-                            break;
-                        }
-                    }
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
+        
 
 
         private void btnFFormalizada_CheckedChanged(object sender, EventArgs e)
@@ -1450,6 +1605,18 @@ namespace GOMAC.Views
             }
         }
 
-        
+ 
+
+       
+
+        private void cmbNumeroFuncionario_Click(object sender, EventArgs e)
+        {
+            cmbNumeroFuncionario_activo = true;
+        }
+
+        private void cmbConsultorMac_Click(object sender, EventArgs e)
+        {
+            cmbConsultorMac_activo = true;
+        }
     }
 }

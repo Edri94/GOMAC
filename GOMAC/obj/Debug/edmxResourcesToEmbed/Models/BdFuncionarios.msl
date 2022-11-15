@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FUNCIONARIOSModelStoreContainer" CdmEntityContainer="FUNCIONARIOSEntities">
+    <EntitySetMapping Name="FUNCIONARIO">
+      <EntityTypeMapping TypeName="FUNCIONARIOSModel.FUNCIONARIO">
+        <MappingFragment StoreEntitySet="FUNCIONARIO">
+          <ScalarProperty Name="funcionario1" ColumnName="funcionario" />
+          <ScalarProperty Name="unidad_organizacional" ColumnName="unidad_organizacional" />
+          <ScalarProperty Name="nombre_funcionario" ColumnName="nombre_funcionario" />
+          <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+          <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
+          <ScalarProperty Name="numero_funcionario" ColumnName="numero_funcionario" />
+          <ScalarProperty Name="telefono_funcionario" ColumnName="telefono_funcionario" />
+          <ScalarProperty Name="fax_funcionario" ColumnName="fax_funcionario" />
+          <ScalarProperty Name="calle_funcionario" ColumnName="calle_funcionario" />
+          <ScalarProperty Name="colonia_funcionario" ColumnName="colonia_funcionario" />
+          <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+          <ScalarProperty Name="cp_funcionario" ColumnName="cp_funcionario" />
+          <ScalarProperty Name="estrategico" ColumnName="estrategico" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="numero_registro" ColumnName="numero_registro" />
+          <ScalarProperty Name="on_mni" ColumnName="on_mni" />
+          <ScalarProperty Name="on_bsi" ColumnName="on_bsi" />
+          <ScalarProperty Name="on_harris" ColumnName="on_harris" />
+          <ScalarProperty Name="cr_opera" ColumnName="cr_opera" />
+          <ScalarProperty Name="bbvab" ColumnName="bbvab" />
+          <ScalarProperty Name="unidad_organizacional_anterior" ColumnName="unidad_organizacional_anterior" />
+          <ScalarProperty Name="cr_opera_term" ColumnName="cr_opera_term" />
+          <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+          <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+          <ScalarProperty Name="fecha_ult_modif" ColumnName="fecha_ult_modif" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UNIDAD_ORGANIZACIONAL_RESUMEN">
+      <EntityTypeMapping TypeName="FUNCIONARIOSModel.UNIDAD_ORGANIZACIONAL_RESUMEN">
+        <MappingFragment StoreEntitySet="UNIDAD_ORGANIZACIONAL_RESUMEN">
+          <ScalarProperty Name="funcionario" ColumnName="funcionario" />
+          <ScalarProperty Name="unidad_organizacional_padre" ColumnName="unidad_organizacional_padre" />
+          <ScalarProperty Name="banca" ColumnName="banca" />
+          <ScalarProperty Name="division" ColumnName="division" />
+          <ScalarProperty Name="cr" ColumnName="cr" />
+          <ScalarProperty Name="plaza" ColumnName="plaza" />
+          <ScalarProperty Name="sucursal" ColumnName="sucursal" />
+          <ScalarProperty Name="unidad_org_banca" ColumnName="unidad_org_banca" />
+          <ScalarProperty Name="unidad_org_division" ColumnName="unidad_org_division" />
+          <ScalarProperty Name="unidad_org_creg" ColumnName="unidad_org_creg" />
+          <ScalarProperty Name="unidad_org_plaza" ColumnName="unidad_org_plaza" />
+          <ScalarProperty Name="unidad_org_sucursal" ColumnName="unidad_org_sucursal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

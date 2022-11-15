@@ -26,7 +26,7 @@ namespace GOMAC.Views
         public NumberFormatInfo format;
         public int activa;
 
-        private b frm_nuevasolicitud;
+        private FrmNueva_Solicitud frm_nuevasolicitud;
         private Frm_ConsultaSolicitud frm_consultasolicitud;
         
 
@@ -79,7 +79,7 @@ namespace GOMAC.Views
                     frm_nuevasolicitud = null;
                 }
 
-                frm_nuevasolicitud = new b(this);
+                frm_nuevasolicitud = new FrmNueva_Solicitud(this);
 
                 frm_nuevasolicitud.MdiParent = this;
                 frm_nuevasolicitud.str_consultor = "";

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FUNCIONARIOSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="FUNCIONARIO">
+    <Key>
+      <PropertyRef Name="funcionario1" />
+    </Key>
+    <Property Name="funcionario1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="unidad_organizacional" Type="Int32" />
+    <Property Name="nombre_funcionario" Type="String" MaxLength="35" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="apellido_paterno" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="apellido_materno" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="numero_funcionario" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+    <Property Name="telefono_funcionario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="fax_funcionario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="calle_funcionario" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="colonia_funcionario" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="ubicacion" Type="Int16" />
+    <Property Name="cp_funcionario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estrategico" Type="Int16" />
+    <Property Name="activo" Type="Byte" />
+    <Property Name="numero_registro" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="on_mni" Type="Boolean" Nullable="false" />
+    <Property Name="on_bsi" Type="Boolean" Nullable="false" />
+    <Property Name="on_harris" Type="Boolean" Nullable="false" />
+    <Property Name="cr_opera" Type="Int32" />
+    <Property Name="bbvab" Type="Boolean" Nullable="false" />
+    <Property Name="unidad_organizacional_anterior" Type="String" MaxLength="200" FixedLength="true" Unicode="false" />
+    <Property Name="cr_opera_term" Type="Int32" />
+    <Property Name="fecha_alta" Type="DateTime" Precision="0" />
+    <Property Name="fecha_baja" Type="DateTime" Precision="0" />
+    <Property Name="fecha_ult_modif" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="UNIDAD_ORGANIZACIONAL_RESUMEN">
+    <Key>
+      <PropertyRef Name="funcionario" />
+    </Key>
+    <Property Name="funcionario" Type="Int32" Nullable="false" />
+    <Property Name="unidad_organizacional_padre" Type="Int32" />
+    <Property Name="banca" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <Property Name="division" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <Property Name="cr" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <Property Name="plaza" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <Property Name="sucursal" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <Property Name="unidad_org_banca" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="unidad_org_division" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="unidad_org_creg" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="unidad_org_plaza" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="unidad_org_sucursal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="FUNCIONARIOSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="FUNCIONARIO" EntityType="Self.FUNCIONARIO" />
+    <EntitySet Name="UNIDAD_ORGANIZACIONAL_RESUMEN" EntityType="Self.UNIDAD_ORGANIZACIONAL_RESUMEN" />
+  </EntityContainer>
+</Schema>
