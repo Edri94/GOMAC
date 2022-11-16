@@ -26,5 +26,6 @@ namespace GOMAC.Models
         }
     
         public virtual DbSet<DIAS_FERIADOS> DIAS_FERIADOS { get; set; }
+        public virtual DbSet<PRODUCTOS> PRODUCTOS { get; set; }
     }
 }

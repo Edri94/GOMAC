@@ -9,7 +9,15 @@ advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene defini
     <Property Name="fecha" Type="smalldatetime" Nullable="false" />
     <Property Name="tipo_dia_feriado" Type="tinyint" />
   </EntityType>
+  <EntityType Name="PRODUCTOS">
+    <Key>
+      <PropertyRef Name="Id_Producto" />
+    </Key>
+    <Property Name="Id_Producto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Producto" Type="varchar" MaxLength="3" Nullable="false" />
+  </EntityType>
   <EntityContainer Name="CATALOGOSModelStoreContainer">
+    <EntitySet Name="PRODUCTOS" EntityType="Self.PRODUCTOS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DIAS_FERIADOS" EntityType="Self.DIAS_FERIADOS" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [DIAS_FERIADOS].[fecha] AS [fecha], 

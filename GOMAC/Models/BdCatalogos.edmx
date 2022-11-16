@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CATALOGOSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CATALOGOSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="DIAS_FERIADOS">
@@ -14,7 +14,15 @@ advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene defini
           <Property Name="fecha" Type="smalldatetime" Nullable="false" />
           <Property Name="tipo_dia_feriado" Type="tinyint" />
         </EntityType>
+        <EntityType Name="PRODUCTOS">
+          <Key>
+            <PropertyRef Name="Id_Producto" />
+          </Key>
+          <Property Name="Id_Producto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Producto" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="CATALOGOSModelStoreContainer">
+          <EntitySet Name="PRODUCTOS" EntityType="Self.PRODUCTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DIAS_FERIADOS" EntityType="Self.DIAS_FERIADOS" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [DIAS_FERIADOS].[fecha] AS [fecha], 
@@ -22,8 +30,7 @@ advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene defini
     FROM [dbo].[DIAS_FERIADOS] AS [DIAS_FERIADOS]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CATALOGOSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -36,7 +43,15 @@ advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene defini
         </EntityType>
         <EntityContainer Name="CATALOGOSEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DIAS_FERIADOS" EntityType="Self.DIAS_FERIADOS" />
+          <EntitySet Name="PRODUCTOS" EntityType="CATALOGOSModel.PRODUCTOS" />
         </EntityContainer>
+        <EntityType Name="PRODUCTOS">
+          <Key>
+            <PropertyRef Name="Id_Producto" />
+          </Key>
+          <Property Name="Id_Producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Producto" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -48,6 +63,14 @@ advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene defini
               <MappingFragment StoreEntitySet="DIAS_FERIADOS">
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="tipo_dia_feriado" ColumnName="tipo_dia_feriado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTOS">
+            <EntityTypeMapping TypeName="CATALOGOSModel.PRODUCTOS">
+              <MappingFragment StoreEntitySet="PRODUCTOS">
+                <ScalarProperty Name="Producto" ColumnName="Producto" />
+                <ScalarProperty Name="Id_Producto" ColumnName="Id_Producto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

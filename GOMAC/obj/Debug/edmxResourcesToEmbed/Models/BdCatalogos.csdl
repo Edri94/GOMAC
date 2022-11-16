@@ -9,5 +9,13 @@
   </EntityType>
   <EntityContainer Name="CATALOGOSEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="DIAS_FERIADOS" EntityType="Self.DIAS_FERIADOS" />
+    <EntitySet Name="PRODUCTOS" EntityType="CATALOGOSModel.PRODUCTOS" />
   </EntityContainer>
+  <EntityType Name="PRODUCTOS">
+    <Key>
+      <PropertyRef Name="Id_Producto" />
+    </Key>
+    <Property Name="Id_Producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Producto" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

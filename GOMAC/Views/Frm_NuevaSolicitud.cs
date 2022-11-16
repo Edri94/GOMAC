@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Linq.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -28,9 +29,15 @@ namespace GOMAC.Views
         public string str_consultor;
         public int se_carga;
         public int num_solicitud;
+        public int busqueda_segundos = 0;
 
         bool cmbNumeroFuncionario_activo = false, cmbConsultorMac_activo = false;
 
+        /// <summary>
+        /// Se ejecuta al escoger una fecha en el calendario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Calendario_DateSelected(object sender, DateRangeEventArgs e)
         {
             try
@@ -101,6 +108,11 @@ namespace GOMAC.Views
             }
         }
 
+        /// <summary>
+        /// Se ejecuta al escoger un Consultor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbConsultorMac_SelectedValueChanged(object sender, EventArgs e)
         {
             if (cmbConsultorMac_activo)
@@ -147,13 +159,18 @@ namespace GOMAC.Views
             }
         }
 
+        /// <summary>
+        /// Se ejecuta al escoger un numero de funcionario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbNumeroFuncionario_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (cmbNumeroFuncionario_activo)
             {
                 if (str_consultor == "")
                 {
-                    if (cmbNumeroFuncionario.Text == "...")
+                    if (cmbNumeroFuncionario.Text == ". . . ")
                     {
                         MessageBox.Show("Debe de proporcionar o selectcionar un numero de funcionario", "Numero no valido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
@@ -164,13 +181,20 @@ namespace GOMAC.Views
                     FUNCIONARIO funcionario = (
                         from f in bdFuncionarios.FUNCIONARIO
                         join uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN on f.funcionario1 equals uor.funcionario
-                        where f.numero_registro == cmbNumeroFuncionario.SelectedValue.ToString()
+                        where f.numero_registro == cmbNumeroFuncionario.SelectedValue.ToString().Trim()
                         select f
                     ).FirstOrDefault();
 
-                    if (funcionario == null)
+                    UNIDAD_ORGANIZACIONAL_RESUMEN unidad_organizacional = (
+                        from uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN
+                        join f in bdFuncionarios.FUNCIONARIO on uor.funcionario equals f.funcionario1
+                        where f.numero_registro == cmbNumeroFuncionario.SelectedValue.ToString().Trim()
+                        select uor
+                    ).FirstOrDefault();
+
+                    if (funcionario == null || unidad_organizacional == null)
                     {
-                        MessageBox.Show("No se pudieron obtener los datos del funcionaro solicitado", "Error de obtencion de datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("No existe el funcionario", "Error de obtencion de datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                     else
@@ -182,6 +206,12 @@ namespace GOMAC.Views
                         cmbSucursal.Enabled = true;
 
                         cmbNumeroFuncionario.Tag = funcionario;
+                        cmbPromotor.SelectedValue = funcionario.funcionario1;
+                        cmbBanca.SelectedValue = unidad_organizacional.banca;
+                        cmbDivision.SelectedValue = unidad_organizacional.division;
+                        cmbPlaza.SelectedValue = unidad_organizacional.plaza;
+                        cmbSucursal.SelectedValue = unidad_organizacional.plaza;
+
 
                     }
                 }
@@ -209,6 +239,16 @@ namespace GOMAC.Views
 
         private void Frm_NuevaSolicitud_Load(object sender, EventArgs e)
         {
+            //***Definiendo T<ooltips ************************************************************
+            ToolTip tt1 = new ToolTip();
+
+            tt1.AutoPopDelay = 5000;
+            tt1.InitialDelay = 1000;
+            tt1.ReshowDelay = 500;
+            tt1.ShowAlways = true;
+
+            tt1.SetToolTip(this.cmbNumeroFuncionario, "Presiona ENTER para efectuar busqueda con el numero de funcionario");
+
 
             //***PLACE HOLDERS********************************************************************
             txtNombre.GotFocus += new EventHandler(this.TxtNombreGotFocus);
@@ -245,13 +285,22 @@ namespace GOMAC.Views
                 select f
             ).ToList();
 
+            funcionarios.Insert(0, new FUNCIONARIO
+            {
+                funcionario1 = -1,
+                nombre_funcionario = ".",
+                apellido_paterno = ".",
+                apellido_materno = ".",
+                numero_funcionario = ". . . "
+            });
+
             uors = (
                 from uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN
                 join f in bdFuncionarios.FUNCIONARIO on uor.funcionario equals f.funcionario1
                 select uor
             ).ToList();
 
-
+            uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { banca = ". . .  ", plaza = ". . .  ", division = ". . .  ", sucursal = ". . .  " });
 
             LlenaComboNumFunc();
             LlenaComboNombreFunc();
@@ -260,7 +309,7 @@ namespace GOMAC.Views
             LlenaComboplaza();
             LlenarComboDivision();
             LlenaComboSucursal();
-
+            LlenarComboProducto();
 
 
             LlenaComboTipoSolicitud();
@@ -268,12 +317,6 @@ namespace GOMAC.Views
             LlenarComboConsultor();
            
             
-            LlenarComboProducto();
-           
-            
-            
-            
-
             dtpFRecepDoc.Value = dtpFRecepDoc.MinDate;
             dtpFAnalisisMac.Value = dtpFAnalisisMac.MinDate;
             dtpFFormalizada.Value = dtpFFormalizada.MinDate;
@@ -602,18 +645,8 @@ namespace GOMAC.Views
 
                 if (funcionarios != null)
                 {
-                    //Anadiendo default
-                    funcionarios.Insert(0, new FUNCIONARIO
-                    {
-                        funcionario1 = -1,
-                        nombre_funcionario = ".",
-                        apellido_paterno = ".",
-                        apellido_materno = ".",
-                        numero_funcionario = ". . . "
-                    });
-
                     cmbNumeroFuncionario.DataSource = funcionarios;
-                    cmbNumeroFuncionario.ValueMember = "funcionario1";
+                    cmbNumeroFuncionario.ValueMember = "numero_registro";
                     cmbNumeroFuncionario.DisplayMember = "numero_funcionario";
                 }  
             }
@@ -650,8 +683,7 @@ namespace GOMAC.Views
 
                 if (uors != null)
                 {
-                    //Anadiendo default
-                    uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { plaza = ". . .  "});
+                                  
                     cmbPlaza.DataSource = uors;
                     cmbPlaza.ValueMember = "plaza";
                     cmbPlaza.DisplayMember = "plaza";
@@ -668,15 +700,14 @@ namespace GOMAC.Views
         {
             try
             {
-                uors = (from uor in uors orderby uor.sucursal select uor).ToList();
+                uors = (from uor in uors orderby uor.plaza select uor).ToList();
 
                 if (uors != null)
                 {
-                    //Anadiendo default
-                    uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { sucursal = ". . .  " });
+               
                     cmbSucursal.DataSource = uors;
-                    cmbSucursal.ValueMember = "sucursal";
-                    cmbSucursal.DisplayMember = "sucursal";
+                    cmbSucursal.ValueMember = "plaza";
+                    cmbSucursal.DisplayMember = "plaza";
                 }    
             }
             catch (Exception ex)
@@ -689,14 +720,16 @@ namespace GOMAC.Views
         {
             try
             {
-                List<string> productos = new List<string>();
+                List<PRODUCTOS> productos = (from p in bdCatalogos.PRODUCTOS orderby p.Producto select p).ToList();
 
-                productos.Add("...");
-                productos.Add("000");
-                productos.Add("100");
-                productos.Add("687");
+                if (productos != null)
+                {
+                    productos.Insert(0, new PRODUCTOS { Producto = ". . .  "});
 
-                cmbProducto.DataSource = productos;
+                    cmbProducto.DataSource = productos;
+                    cmbProducto.ValueMember = "Id_Producto";
+                    cmbProducto.DisplayMember = "Producto";
+                }
             }
             catch (Exception ex)
             {
@@ -714,8 +747,7 @@ namespace GOMAC.Views
 
                     if (uors != null)
                     {
-                        //Anadiendo default
-                        uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { division = ". . .  " });
+                                           
                         cmbDivision.DataSource = uors;
                         cmbDivision.ValueMember = "division";
                         cmbDivision.DisplayMember = "division";
@@ -740,8 +772,7 @@ namespace GOMAC.Views
 
                 if (uors != null)
                 {
-                    //Anadiendo default
-                    uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { banca = ". . .  " });
+                                   
                     cmbBanca.DataSource = uors;
                     cmbBanca.ValueMember = "banca";
                     cmbBanca.DisplayMember = "banca";
@@ -757,12 +788,12 @@ namespace GOMAC.Views
         {
             try
             {
-                List<ver_consultores> consultores =
-                    (from c in bdbmtktp01.ver_consultores orderby c.Iniciales_ConsultorMac ascending select c).ToList();
+                List<CONSULTORES> consultores =
+                    (from c in bdbmtktp01.CONSULTORES orderby c.Iniciales_ConsultorMac ascending select c).ToList();
 
                 if (consultores != null)
                 {
-                    consultores.Insert(0, new ver_consultores { Iniciales_ConsultorMac = "..." });
+                    consultores.Insert(0, new CONSULTORES { Iniciales_ConsultorMac = ". . . " });
                     cmbConsultorMac.DataSource = consultores;
                     cmbConsultorMac.ValueMember = "Id_ConsultorMac";
                     cmbConsultorMac.DisplayMember = "Iniciales_ConsultorMac";
@@ -779,12 +810,12 @@ namespace GOMAC.Views
         {
             try
             {
-                List<ver_Tipo_Tramite> tipos_tramite =
-                    (from tt in bdbmtktp01.ver_Tipo_Tramite orderby tt.Descripcion_Tramite ascending select tt).ToList();
+                List<TIPO_TRAMITE> tipos_tramite =
+                    (from tt in bdbmtktp01.TIPO_TRAMITE orderby tt.Descripcion_Tramite ascending select tt).ToList();
 
                 if (tipos_tramite != null)
                 {
-                    tipos_tramite.Insert(0, new ver_Tipo_Tramite { Descripcion_Tramite = "..." });
+                    tipos_tramite.Insert(0, new TIPO_TRAMITE { Descripcion_Tramite = ". . . " });
                     cmbTipoTramite.DataSource = tipos_tramite;
                     cmbTipoTramite.ValueMember = "Id_Tramite";
                     cmbTipoTramite.DisplayMember = "Descripcion_Tramite";
@@ -801,12 +832,12 @@ namespace GOMAC.Views
         {
             try
             {
-                List<ver_Tipo_Solicitud> tipos_solicitud = 
-                    (from ts in bdbmtktp01.ver_Tipo_Solicitud orderby ts.Descripcion_Solicitud ascending select ts).ToList();
+                List<TIPO_SOLICITUD> tipos_solicitud = 
+                    (from ts in bdbmtktp01.TIPO_SOLICITUD orderby ts.Descripcion_Solicitud ascending select ts).ToList();
 
                 if(tipos_solicitud != null)
                 {
-                    tipos_solicitud.Insert(0, new ver_Tipo_Solicitud { Descripcion_Solicitud= "..." });
+                    tipos_solicitud.Insert(0, new TIPO_SOLICITUD { Descripcion_Solicitud= ". . . " });
                     cmbTipoSolicitud.DataSource = tipos_solicitud;
                     cmbTipoSolicitud.ValueMember = "Id_Solicitud";
                     cmbTipoSolicitud.DisplayMember = "Descripcion_Solicitud";
@@ -1256,7 +1287,7 @@ namespace GOMAC.Views
         {
             if(str_consultor == "")
             {
-                if(cmbConsultorMac.Text == "...")
+                if(cmbConsultorMac.Text == ". . . ")
                 {
                     MessageBox.Show("Debe seleccionar su consultor", "Error Solicitud", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -1605,13 +1636,31 @@ namespace GOMAC.Views
             }
         }
 
- 
-
-       
 
         private void cmbNumeroFuncionario_Click(object sender, EventArgs e)
         {
             cmbNumeroFuncionario_activo = true;
+        }
+
+        private void cmbNumeroFuncionario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                string busqueda = cmbNumeroFuncionario.Text.Trim();
+                cmbNumeroFuncionario_activo = true;
+
+                //cmbNumeroFuncionario.DataSource = funcionarios.Where(w => w.numero_funcionario.Contains(busqueda)).Select(x => x).ToList();
+                cmbNumeroFuncionario.DataSource = funcionarios
+                    .Where(w => w.numero_funcionario.StartsWith(busqueda))
+                    .OrderBy(o => o.numero_funcionario)
+                    .Select(x => x)
+                    .ToList();
+
+                cmbNumeroFuncionario.DisplayMember = "numero_funcionario";
+                cmbNumeroFuncionario.ValueMember = "numero_registro";
+                cmbNumeroFuncionario.Refresh();
+            }
+
         }
 
         private void cmbConsultorMac_Click(object sender, EventArgs e)
