@@ -24,14 +24,13 @@ namespace GOMAC.Views
         private List<FUNCIONARIO> funcionarios;
         private List<UNIDAD_ORGANIZACIONAL_RESUMEN> uors;
 
-
+        private string default_cmb = ". . . ";
 
         public string str_consultor;
         public int se_carga;
         public int num_solicitud;
-        public int busqueda_segundos = 0;
 
-        bool cmbNumeroFuncionario_activo = false, cmbConsultorMac_activo = false;
+        bool cmbNumeroFuncionario_activo = false, cmbConsultorMac_activo = false, cmbProducto_activo = false, cmbTipoSolicitud_activo = false, cmbTipoTramite_activo = false;
 
         /// <summary>
         /// Se ejecuta al escoger una fecha en el calendario
@@ -166,11 +165,14 @@ namespace GOMAC.Views
         /// <param name="e"></param>
         private void cmbNumeroFuncionario_SelectedIndexChanged_1(object sender, EventArgs e)
         {
+            
             if (cmbNumeroFuncionario_activo)
             {
+                FUNCIONARIO funcionario_selec = (FUNCIONARIO)cmbNumeroFuncionario.SelectedItem;
+
                 if (str_consultor == "")
                 {
-                    if (cmbNumeroFuncionario.Text == ". . . ")
+                    if (cmbNumeroFuncionario.Text == default_cmb)
                     {
                         MessageBox.Show("Debe de proporcionar o selectcionar un numero de funcionario", "Numero no valido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
@@ -181,14 +183,14 @@ namespace GOMAC.Views
                     FUNCIONARIO funcionario = (
                         from f in bdFuncionarios.FUNCIONARIO
                         join uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN on f.funcionario1 equals uor.funcionario
-                        where f.numero_registro == cmbNumeroFuncionario.SelectedValue.ToString().Trim()
+                        where f.numero_registro == funcionario_selec.numero_registro
                         select f
                     ).FirstOrDefault();
 
                     UNIDAD_ORGANIZACIONAL_RESUMEN unidad_organizacional = (
                         from uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN
                         join f in bdFuncionarios.FUNCIONARIO on uor.funcionario equals f.funcionario1
-                        where f.numero_registro == cmbNumeroFuncionario.SelectedValue.ToString().Trim()
+                        where f.numero_registro == funcionario_selec.numero_registro
                         select uor
                     ).FirstOrDefault();
 
@@ -207,11 +209,45 @@ namespace GOMAC.Views
 
                         cmbNumeroFuncionario.Tag = funcionario;
                         cmbPromotor.SelectedValue = funcionario.funcionario1;
-                        cmbBanca.SelectedValue = unidad_organizacional.banca;
-                        cmbDivision.SelectedValue = unidad_organizacional.division;
-                        cmbPlaza.SelectedValue = unidad_organizacional.plaza;
-                        cmbSucursal.SelectedValue = unidad_organizacional.plaza;
 
+
+                        if (unidad_organizacional.banca != null)
+                        {
+                            cmbBanca.SelectedValue = unidad_organizacional.banca;
+                        }
+                        else
+                        {
+                            cmbBanca.SelectedIndex = 0;
+                        }
+
+
+                        if (unidad_organizacional.division != null)
+                        {
+                            cmbDivision.SelectedValue = unidad_organizacional.division;                          
+                        }
+                        else
+                        {
+                            cmbDivision.SelectedIndex = 0;
+                        }
+
+
+                        if (unidad_organizacional.plaza != null)
+                        {
+                            cmbSucursal.SelectedValue = unidad_organizacional.plaza;
+                            cmbPlaza.SelectedValue = unidad_organizacional.plaza;
+                        }
+                        else
+                        {
+                            cmbSucursal.SelectedIndex = 0;
+                            cmbPlaza.SelectedIndex = 0;
+                        }
+
+
+                        cmbPromotor.Enabled = false;
+                        cmbBanca.Enabled = false;
+                        cmbDivision.Enabled = false;
+                        cmbSucursal.Enabled = false;
+                        cmbPlaza.Enabled = false;
 
                     }
                 }
@@ -219,6 +255,107 @@ namespace GOMAC.Views
                 {
                     Log.Escribe(ex);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Se ejecuta cuando se esocge un producto
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbProducto_activo)
+            {
+                if (str_consultor == "")
+                {
+                    if (cmbProducto.SelectedText == default_cmb)
+                    {
+                        grpTicket.Enabled = false;
+                        grpTipoPersona.Enabled = false;
+                    }
+                    else
+                    {
+                        grpTicket.Enabled = true;
+                        grpTipoPersona.Enabled = true;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Se ejecuta cuando se escoge un tipo de solicitud
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbTipoSolicitud_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cmbTipoSolicitud_activo)
+            {
+                TIPO_SOLICITUD tiposolicitud_selec = (TIPO_SOLICITUD)cmbTipoSolicitud.SelectedItem;
+
+                LlenaComboTipoTramite(tiposolicitud_selec);
+
+                if(str_consultor == "")
+                {
+                    if(tiposolicitud_selec.Descripcion_Solicitud == default_cmb)
+                    {
+                        cmbTipoTramite.Enabled = false;
+                        grpCircuito.Enabled = false;
+                        grpTicket.Enabled = false;
+                        grpTipoPersona.Enabled = false;
+                    }
+                    else
+                    {
+                        cmbTipoTramite.Enabled = true;
+                        grpCircuito.Enabled = true;
+                    }
+                }
+            }
+            
+        }
+
+        /// <summary>
+        /// Se ejecuta cuando se escoge un tipo de tramite
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbTipoTramite_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cmbTipoTramite_activo)
+            {
+                TIPO_TRAMITE tipotramite_selec = (TIPO_TRAMITE)cmbTipoTramite.SelectedItem;
+
+                if (str_consultor == "")
+                {
+                    if (tipotramite_selec.Descripcion_Tramite == default_cmb)
+                    {
+                        grpTicket.Enabled = false;
+                        grpTipoPersona.Enabled = false;
+                    }
+                    else
+                    {
+                        grpTicket.Enabled = true;
+                        txtPuntos.Text = tipotramite_selec.Puntos.ToString();
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Se ejecuta al presionar boton de cancelar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCancelarSolicitud_Click(object sender, EventArgs e)
+        {
+            DialogResult dg = MessageBox.Show($"Esta seguro de querer cancelar la solicitud No. {txtSolicitud.Text}", "Confirmar cancelacion", MessageBoxButtons.YesNo);
+            if(dg == DialogResult.Yes)
+            {
+                //Investigar como ejecutar un update con EntityFramework donde haya retorno de un valor...
+            }
+            else
+            {
+
             }
         }
 
@@ -291,7 +428,7 @@ namespace GOMAC.Views
                 nombre_funcionario = ".",
                 apellido_paterno = ".",
                 apellido_materno = ".",
-                numero_funcionario = ". . . "
+                numero_funcionario = default_cmb
             });
 
             uors = (
@@ -679,7 +816,7 @@ namespace GOMAC.Views
         {
             try
             {
-                uors = (from uor in uors orderby uor.plaza select uor).ToList();
+                uors = (from uor in uors where uor.plaza != null orderby uor.plaza select uor).ToList();
 
                 if (uors != null)
                 {
@@ -700,7 +837,7 @@ namespace GOMAC.Views
         {
             try
             {
-                uors = (from uor in uors orderby uor.plaza select uor).ToList();
+                uors = (from uor in uors where uor.plaza != null orderby uor.plaza select uor).ToList();
 
                 if (uors != null)
                 {
@@ -743,7 +880,7 @@ namespace GOMAC.Views
             {
                 try
                 {
-                    uors = (from uor in uors orderby uor.division select uor).ToList();
+                    uors = (from uor in uors where uor.division != null orderby uor.division select uor).ToList();
 
                     if (uors != null)
                     {
@@ -768,7 +905,7 @@ namespace GOMAC.Views
         {
             try
             {
-                uors = (from uor in uors orderby uor.banca select uor).ToList();
+                uors = (from uor in uors where uor.banca != null orderby uor.banca select uor).ToList();
 
                 if (uors != null)
                 {
@@ -793,7 +930,7 @@ namespace GOMAC.Views
 
                 if (consultores != null)
                 {
-                    consultores.Insert(0, new CONSULTORES { Iniciales_ConsultorMac = ". . . " });
+                    consultores.Insert(0, new CONSULTORES { Iniciales_ConsultorMac = default_cmb });
                     cmbConsultorMac.DataSource = consultores;
                     cmbConsultorMac.ValueMember = "Id_ConsultorMac";
                     cmbConsultorMac.DisplayMember = "Iniciales_ConsultorMac";
@@ -806,16 +943,24 @@ namespace GOMAC.Views
             }
         }
 
-        private void LlenaComboTipoTramite()
+        private void LlenaComboTipoTramite(TIPO_SOLICITUD ts = default)
         {
             try
             {
                 List<TIPO_TRAMITE> tipos_tramite =
                     (from tt in bdbmtktp01.TIPO_TRAMITE orderby tt.Descripcion_Tramite ascending select tt).ToList();
 
+                if(ts != default)
+                {
+                    tipos_tramite = tipos_tramite
+                        .Where(w => w.Descripcion_Tramite.ToUpper().Contains(ts.Descripcion_Solicitud.ToUpper().Substring(0,5).Trim()))
+                        .Select(s => s)
+                        .ToList();
+                }
+
                 if (tipos_tramite != null)
                 {
-                    tipos_tramite.Insert(0, new TIPO_TRAMITE { Descripcion_Tramite = ". . . " });
+                    tipos_tramite.Insert(0, new TIPO_TRAMITE { Descripcion_Tramite = default_cmb });
                     cmbTipoTramite.DataSource = tipos_tramite;
                     cmbTipoTramite.ValueMember = "Id_Tramite";
                     cmbTipoTramite.DisplayMember = "Descripcion_Tramite";
@@ -837,7 +982,7 @@ namespace GOMAC.Views
 
                 if(tipos_solicitud != null)
                 {
-                    tipos_solicitud.Insert(0, new TIPO_SOLICITUD { Descripcion_Solicitud= ". . . " });
+                    tipos_solicitud.Insert(0, new TIPO_SOLICITUD { Descripcion_Solicitud = default_cmb });
                     cmbTipoSolicitud.DataSource = tipos_solicitud;
                     cmbTipoSolicitud.ValueMember = "Id_Solicitud";
                     cmbTipoSolicitud.DisplayMember = "Descripcion_Solicitud";
@@ -1287,7 +1432,7 @@ namespace GOMAC.Views
         {
             if(str_consultor == "")
             {
-                if(cmbConsultorMac.Text == ". . . ")
+                if(cmbConsultorMac.Text == default_cmb)
                 {
                     MessageBox.Show("Debe seleccionar su consultor", "Error Solicitud", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -1661,6 +1806,26 @@ namespace GOMAC.Views
                 cmbNumeroFuncionario.Refresh();
             }
 
+        }
+
+        private void cmbSucursal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        
+        private void cmbTipoTramite_Click(object sender, EventArgs e)
+        {
+            cmbTipoTramite_activo = true;
+        }
+
+        private void cmbTipoSolicitud_Click(object sender, EventArgs e)
+        {
+            cmbTipoSolicitud_activo = true;
+        }
+
+        private void cmbProducto_Click(object sender, EventArgs e)
+        {
+            cmbProducto_activo = true;
         }
 
         private void cmbConsultorMac_Click(object sender, EventArgs e)
