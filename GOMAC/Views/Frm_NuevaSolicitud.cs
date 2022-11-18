@@ -1,10 +1,13 @@
-﻿using GOMAC.Helpers;
+﻿using GOMAC.Data;
+using GOMAC.Helpers;
 using GOMAC.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Data.Linq.SqlClient;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -352,9 +355,306 @@ namespace GOMAC.Views
             if(dg == DialogResult.Yes)
             {
                 //Investigar como ejecutar un update con EntityFramework donde haya retorno de un valor...
+               using(var context = new bmtktp01Entities())
+                {
+                    using(var dbContextTransaction = context.Database.BeginTransaction())
+                    {
+                        int num_solicitud = Int32.Parse(txtSolicitud.Text);
+                        try
+                        {                
+                            SEGUIMIENTO seguimiento = context.SEGUIMIENTO.Where(w => w.Num_Solicitud == num_solicitud).Select(s => s).FirstOrDefault();
+
+                            if (seguimiento != null)
+                            {
+                                seguimiento.Status = "3";
+
+                                SEGUIMIENTO_DOCTOS seguimiento_doctos = context.SEGUIMIENTO_DOCTOS.Where(w => w.Num_Solicitud == num_solicitud).Select(s => s).FirstOrDefault();
+
+                                if (seguimiento_doctos != null)
+                                {
+                                    seguimiento_doctos.Cancelacion = DateTime.Now;
+
+                                    context.SaveChanges();
+                                    dbContextTransaction.Commit();
+
+                                    MessageBox.Show("Solicitud No. " + seguimiento.Num_Solicitud + " CANCELADA", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    dtpFechaCancelada.Value = seguimiento_doctos.Cancelacion.Value;
+                                    lblStatus.Text = "Cancelada";
+                                    btnNuevaObservacion.Enabled = false;
+
+                                    btnFRecepDoc.Visible = false;
+                                    btnFAnalisisMac.Visible = false;
+                                    btnFFormalizada.Visible = false;
+                                    btnFRecepcion.Visible = false;
+                                    btnFAtencion.Visible = false;
+                                    btnDesbloqueo.Visible = false;
+                                    btnEnvio.Visible = false;
+
+                                    btnGuardar.Visible = false;
+
+                                    tmrTraerDatos.Enabled = true;
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Escribe(ex);
+                            dbContextTransaction.Rollback();
+                            MessageBox.Show("Solicitud No. " + num_solicitud + "no pudo ser CANCELADA", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+
+        /// <summary>
+        /// se ejecuta al checkear radiobutton de Formalizada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFFormalizada_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnFFormalizada.Checked)
+            {
+                if (dtpFFormalizada.Value != dtpFFormalizada.MinDate)
+                {
+                    grpCalendario.Tag = 1;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpFFormalizada.Value = fecha_servidor;
+                    cmbHora3.SelectedValue = fecha_servidor.ToString("hh");
+                    cmbMinuto3.SelectedValue = fecha_servidor.ToString("mm");
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// se ejecuta al checkear radiobutton de Recepcion de originales
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFRecepcion_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnFRecepcion.Checked)
+            {
+                if (dtpFRecepcion.Value != dtpFRecepcion.MinDate)
+                {
+                    grpCalendario.Tag = 2;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpFRecepcion.Value = fecha_servidor;
+                    cmbHora4.SelectedValue = fecha_servidor.ToString("hh");
+                    cmbMinuto4.SelectedValue = fecha_servidor.ToString("mm");
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// se ejecuta al checkear radiobutton de Atencion de originales
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFAtencion_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnFAtencion.Checked)
+            {
+                if (dtpFAtencion.Value != dtpFAtencion.MinDate)
+                {
+                    grpCalendario.Tag = 3;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpFAtencion.Value = fecha_servidor;
+                    cmbHora5.SelectedValue = fecha_servidor.ToString("hh");
+                    cmbMinuto5.SelectedValue = fecha_servidor.ToString("mm");
+
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// se ejecuta al checkear radiobutton de Desbloqueo Sistemas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDesbloqueo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnDesbloqueo.Checked)
+            {
+                if (dtpDesbloqueo.Value != dtpDesbloqueo.MinDate)
+                {
+                    grpCalendario.Tag = 4;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpDesbloqueo.Value = fecha_servidor;
+                }
+            }
+        }
+
+        /// <summary>
+        /// se ejecuta al checkear radiobutton de Envio Agencias
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnEnvio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnEnvio.Checked)
+            {
+                if (dtpEnvio.Value != dtpEnvio.MinDate)
+                {
+                    grpCalendario.Tag = 5;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpEnvio.Value = fecha_servidor;
+                }
+            }
+        }
+
+        /// <summary>
+        /// se ejecuta al checkear radiobutton de Expediente unico
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFRecepDoc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnFRecepDoc.Checked)
+            {
+                if (dtpFRecepDoc.Value != dtpFRecepDoc.MinDate)
+                {
+                    grpCalendario.Tag = 7;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpFRecepDoc.Value = fecha_servidor;
+                    cmbHora1.SelectedValue = fecha_servidor.ToString("hh");
+                    cmbMinuto1.SelectedValue = fecha_servidor.ToString("mm");
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// se ejecuta al checkear radiobutton de Analisis MAC
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFAnalisisMac_CheckedChanged(object sender, EventArgs e)
+        {
+            if (btnFAnalisisMac.Checked)
+            {
+                if (dtpFAnalisisMac.Value != dtpFAnalisisMac.MinDate)
+                {
+                    grpCalendario.Tag = 8;
+                }
+                else
+                {
+                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                    dtpFAnalisisMac.Value = fecha_servidor;
+                    cmbHora2.SelectedValue = fecha_servidor.ToString("hh");
+                    cmbMinuto2.SelectedValue = fecha_servidor.ToString("mm");
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// Metodo validacion de campos importantes
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidaCampos()
+        {
+            try
+            {
+                if (cmbConsultorMac.SelectedIndex <= -1)
+                {
+                    MessageBox.Show("Favor de Asignar Consultor", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                if (cmbTipoSolicitud.SelectedIndex <= -1)
+                {
+                    MessageBox.Show("Favor de seleccionar el Tipo de Solicitud", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                if (cmbTipoTramite.SelectedIndex <= -1)
+                {
+                    MessageBox.Show("Favor de seleccionar el Tipo de Tramite", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if (txtCuenta.Text == "")
+                {
+                    MessageBox.Show("Favor de capturar cuenta", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if (cmbProducto.SelectedIndex <= -1)
+                {
+                    MessageBox.Show("Favor de sekeccionar un producto", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if (txtNombre.Text == "")
+                {
+                    MessageBox.Show("Favor de caputrar el Nombre del cliente", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if (txtApellidoP.Text == "")
+                {
+                    MessageBox.Show("Favor de caputrar el primer apellido del cliente", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if (txtApellidoM.Text == "")
+                {
+                    MessageBox.Show("Favor de caputrar el segundo apellido del cliente", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+                return false;
+            }
+        }
+
+
+        private void dtpConcluir_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpConcluir.Value != dtpConcluir.MinDate)
+            {
+                grpCalendario.Tag = 6;
             }
             else
             {
+                DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                dtpConcluir.Value = fecha_servidor;
+                cmbHora1.SelectedValue = fecha_servidor.ToString("hh");
+                cmbMinuto1.SelectedValue = fecha_servidor.ToString("mm");
 
             }
         }
@@ -1568,219 +1868,6 @@ namespace GOMAC.Views
             }
            
         }
-
-        private bool ValidaCampos()
-        {
-            try
-            {
-                if(cmbConsultorMac.SelectedIndex <= -1)
-                {
-                    MessageBox.Show("Favor de Asignar Consultor", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-
-                if (cmbTipoSolicitud.SelectedIndex <= -1)
-                {
-                    MessageBox.Show("Favor de seleccionar el Tipo de Solicitud", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-
-                if (cmbTipoTramite.SelectedIndex <= -1)
-                {
-                    MessageBox.Show("Favor de seleccionar el Tipo de Tramite", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-                if(txtCuenta.Text == "")
-                {
-                    MessageBox.Show("Favor de capturar cuenta", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-                if (cmbProducto.SelectedIndex <= -1)
-                {
-                    MessageBox.Show("Favor de sekeccionar un producto", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-                if (txtNombre.Text == "")
-                {
-                    MessageBox.Show("Favor de caputrar el Nombre del cliente", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-                if (txtApellidoP.Text == "")
-                {
-                    MessageBox.Show("Favor de caputrar el primer apellido del cliente", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-                if (txtApellidoM.Text == "")
-                {
-                    MessageBox.Show("Favor de caputrar el segundo apellido del cliente", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-
-                return true;
-
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-                return false;
-            }
-        }
-
-        
-
-
-        private void btnFFormalizada_CheckedChanged(object sender, EventArgs e)
-        {
-            if (btnFFormalizada.Checked)
-            {
-                if (dtpFFormalizada.Value != dtpFFormalizada.MinDate)
-                {
-                    grpCalendario.Tag = 1;
-                }
-                else
-                {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
-
-                    dtpFFormalizada.Value = fecha_servidor;
-                    cmbHora3.SelectedValue = fecha_servidor.ToString("hh");
-                    cmbMinuto3.SelectedValue = fecha_servidor.ToString("mm");
-
-                }
-            }
-        }
-
-        private void btnFRecepcion_CheckedChanged(object sender, EventArgs e)
-        {
-            if (btnFRecepcion.Checked)
-            {
-                if (dtpFRecepcion.Value != dtpFRecepcion.MinDate)
-                {
-                    grpCalendario.Tag = 2;
-                }
-                else
-                {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
-
-                    dtpFRecepcion.Value = fecha_servidor;
-                    cmbHora4.SelectedValue = fecha_servidor.ToString("hh");
-                    cmbMinuto4.SelectedValue = fecha_servidor.ToString("mm");
-
-                }
-            }
-        }
-
-        private void btnFAtencion_CheckedChanged(object sender, EventArgs e)
-        {
-            if (btnFAtencion.Checked)
-            {
-                if (dtpFAtencion.Value != dtpFAtencion.MinDate)
-                {
-                    grpCalendario.Tag = 3;
-                }
-                else
-                {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
-
-                    dtpFAtencion.Value = fecha_servidor;
-                    cmbHora5.SelectedValue = fecha_servidor.ToString("hh");
-                    cmbMinuto5.SelectedValue = fecha_servidor.ToString("mm");
-
-                }
-            }
-
-        }
-
-        private void btnDesbloqueo_CheckedChanged(object sender, EventArgs e)
-        {
-            if (btnDesbloqueo.Checked)
-            {
-                if (dtpDesbloqueo.Value != dtpDesbloqueo.MinDate)
-                {
-                    grpCalendario.Tag = 4;
-                }
-                else
-                {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
-
-                    dtpDesbloqueo.Value = fecha_servidor;
-                }
-            }
-        }
-
-        private void btnEnvio_CheckedChanged(object sender, EventArgs e)
-        {
-            if (btnEnvio.Checked)
-            {
-                if (dtpEnvio.Value != dtpEnvio.MinDate)
-                {
-                    grpCalendario.Tag = 5;
-                }
-                else
-                {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
-
-                    dtpEnvio.Value = fecha_servidor;
-                }
-            }
-        }
-
-        private void dtpConcluir_ValueChanged(object sender, EventArgs e)
-        {
-            if (dtpConcluir.Value != dtpConcluir.MinDate)
-            {
-                grpCalendario.Tag = 6;
-            }
-            else
-            {
-                DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
-
-                dtpConcluir.Value = fecha_servidor;
-                cmbHora1.SelectedValue = fecha_servidor.ToString("hh");
-                cmbMinuto1.SelectedValue = fecha_servidor.ToString("mm");
-
-            }
-        }
-
-        private void btnFRecepDoc_CheckedChanged(object sender, EventArgs e)
-        {
-            if (btnFRecepDoc.Checked)
-            {
-                if (dtpFRecepDoc.Value != dtpFRecepDoc.MinDate)
-                {
-                    grpCalendario.Tag = 7;
-                }
-                else
-                {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
-
-                    dtpFRecepDoc.Value = fecha_servidor;
-                    cmbHora1.SelectedValue = fecha_servidor.ToString("hh");
-                    cmbMinuto1.SelectedValue = fecha_servidor.ToString("mm");
-
-                }
-            }
-        }
-
-        private void btnFAnalisisMac_CheckedChanged(object sender, EventArgs e)
-        {
-            if (btnFAnalisisMac.Checked)
-            {
-                if (dtpFAnalisisMac.Value != dtpFAnalisisMac.MinDate)
-                {
-                    grpCalendario.Tag = 8;
-                }
-                else
-                {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
-
-                    dtpFAnalisisMac.Value = fecha_servidor;
-                    cmbHora2.SelectedValue = fecha_servidor.ToString("hh");
-                    cmbMinuto2.SelectedValue = fecha_servidor.ToString("mm");
-
-                }
-            }
-        }
-
 
         private void cmbNumeroFuncionario_Click(object sender, EventArgs e)
         {

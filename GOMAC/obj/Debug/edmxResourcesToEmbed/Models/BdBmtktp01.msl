@@ -433,5 +433,13 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="Mac_Obtiene_FechaServidor" FunctionName="bmtktp01Model.Store.Mac_Obtiene_FechaServidor" />
+    <FunctionImportMapping FunctionImportName="Mac_Cancela" FunctionName="bmtktp01Model.Store.Mac_Cancela">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.Mac_Cancela_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="Column2" ColumnName="Column2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

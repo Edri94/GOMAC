@@ -602,6 +602,9 @@
       <Parameter Name="ExisteTKT" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="Mac_Obtiene_FechaServidor" ReturnType="Collection(DateTime)" />
+    <FunctionImport Name="Mac_Cancela" ReturnType="Collection(bmtktp01Model.Mac_Cancela_Result)">
+      <Parameter Name="Num_Solicitud" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="log_conect">
     <Key>
@@ -820,5 +823,9 @@
     <Property Type="String" Name="Column1" Nullable="false" MaxLength="1" />
     <Property Type="String" Name="Column2" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="Column3" Nullable="true" MaxLength="5" />
+  </ComplexType>
+  <ComplexType Name="Mac_Cancela_Result">
+    <Property Type="Int32" Name="Column1" Nullable="false" />
+    <Property Type="String" Name="Column2" Nullable="true" MaxLength="20" />
   </ComplexType>
 </Schema>

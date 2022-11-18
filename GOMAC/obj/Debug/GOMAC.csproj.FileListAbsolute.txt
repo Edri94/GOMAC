@@ -31,3 +31,4 @@ C:\Users\MI05332\source\repos\GOMAC\GOMAC\bin\Debug\System.Linq.Dynamic.Core.pdb
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\bin\Debug\System.Linq.Dynamic.Core.xml
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\bin\Debug\System.ValueTuple.xml
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.Views.FrmNueva_Solicitud.resources
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.csproj.AssemblyReference.cache

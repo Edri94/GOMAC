@@ -672,6 +672,9 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="Mac_Cancela" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Num_Solicitud" Type="int" Mode="In" />
+  </Function>
   <Function Name="Mac_Inserta_Datos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Id_ConsultorMac" Type="int" Mode="In" />
     <Parameter Name="Id_Solicitud" Type="int" Mode="In" />

@@ -216,5 +216,14 @@ namespace GOMAC.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("Mac_Obtiene_FechaServidor");
         }
+    
+        public virtual ObjectResult<Mac_Cancela_Result> Mac_Cancela(Nullable<int> num_Solicitud)
+        {
+            var num_SolicitudParameter = num_Solicitud.HasValue ?
+                new ObjectParameter("Num_Solicitud", num_Solicitud) :
+                new ObjectParameter("Num_Solicitud", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Mac_Cancela_Result>("Mac_Cancela", num_SolicitudParameter);
+        }
     }
 }
