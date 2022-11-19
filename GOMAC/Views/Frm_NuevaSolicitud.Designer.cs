@@ -476,7 +476,7 @@ namespace GOMAC.Views
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1239, 423);
+            this.tabControl1.Size = new System.Drawing.Size(1239, 409);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -497,7 +497,7 @@ namespace GOMAC.Views
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage1.Size = new System.Drawing.Size(1231, 410);
+            this.tabPage1.Size = new System.Drawing.Size(1231, 390);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -635,7 +635,7 @@ namespace GOMAC.Views
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage2.Size = new System.Drawing.Size(1231, 390);
+            this.tabPage2.Size = new System.Drawing.Size(1231, 376);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1132,7 +1132,7 @@ namespace GOMAC.Views
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage3.Size = new System.Drawing.Size(1231, 410);
+            this.tabPage3.Size = new System.Drawing.Size(1231, 390);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1242,11 +1242,11 @@ namespace GOMAC.Views
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.lblStatus);
-            this.groupBox6.Location = new System.Drawing.Point(20, 800);
+            this.groupBox6.Location = new System.Drawing.Point(20, 788);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox6.Size = new System.Drawing.Size(300, 78);
+            this.groupBox6.Size = new System.Drawing.Size(300, 67);
             this.groupBox6.TabIndex = 4;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Status Solicitud";
@@ -1258,7 +1258,7 @@ namespace GOMAC.Views
             this.lblStatus.Location = new System.Drawing.Point(16, 25);
             this.lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(274, 40);
+            this.lblStatus.Size = new System.Drawing.Size(274, 29);
             this.lblStatus.TabIndex = 0;
             // 
             // btnLimpiar
