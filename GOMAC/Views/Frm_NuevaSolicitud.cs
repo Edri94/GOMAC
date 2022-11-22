@@ -356,7 +356,7 @@ namespace GOMAC.Views
             {
                 //Investigar como ejecutar un update con EntityFramework donde haya retorno de un valor...
                using(var context = new bmtktp01Entities())
-                {
+               {
                     using(var dbContextTransaction = context.Database.BeginTransaction())
                     {
                         int num_solicitud = Int32.Parse(txtSolicitud.Text);
@@ -703,7 +703,7 @@ namespace GOMAC.Views
                             string nombre_Cliente = txtNombre.Text;
                             string apellido_Paterno = txtApellidoP.Text;
                             string apellido_Materno = txtApellidoM.Text;
-                            string deposito_Inicial = Int32.Parse(TxtDepositoTkt.Text).ToString("C", frmp.format);
+                            decimal deposito_Inicial = decimal.Parse(TxtDepositoTkt.Text);
                             string numero_Registro = cmbNumeroFuncionario.Text;
                             string nombre_Promotor = cmbPromotor.Text;
                             string banca = cmbBanca.Text;
@@ -730,9 +730,9 @@ namespace GOMAC.Views
                             string existeTKT = rbExisteCuentaSi.Checked ? "S" : "N";
 
 
+                            FuncionesBdbmtktp01 context = new FuncionesBdbmtktp01();
 
-
-                            FuncionesBdbmtktp01.Mac_Inserta_Datos(
+                            Mac_Inserta_Respuesta respuesta = context.Mac_Inserta_Datos(
                                 id_ConsultorMac,
                                 id_Solicitud,
                                 id_Tramite,
@@ -772,6 +772,46 @@ namespace GOMAC.Views
                             );
 
                             dtpEnvio.Enabled = false;
+
+                            if(respuesta.Codigo == 0)
+                            {
+                                if(cmbTipoSolicitud.SelectedText != default_cmb)
+                                {
+                                    lblDeposito.Visible = false;
+                                    txtDepositoIni.Visible = false;
+                                }
+                                else
+                                {
+
+                                    lblDeposito.Visible = true;
+                                    txtDepositoIni.Visible = true;
+                                }
+
+                                if(rbCircuitoAuto.Checked)
+                                {
+                                    btnDesbloqueo.Visible = true;
+                                    LblDesbloquep.Visible = true;
+                                    dtpDesbloqueo.Visible = true;
+                                }
+                                else
+                                {
+                                    btnDesbloqueo.Visible = false;
+                                    LblDesbloquep.Visible = false;
+                                    dtpDesbloqueo.Visible = false;
+                                }
+
+                                dtpFechaCaptura.Value = respuesta.FechaHora_Captura;
+                                txtDepositoIni.Text = "0.00";
+
+
+                                txtSolicitud.Enabled = true;
+
+
+
+
+                            }
+
+
 
                         }
                     }

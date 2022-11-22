@@ -76,9 +76,9 @@ namespace GOMAC.Views
             this.Calendario = new System.Windows.Forms.MonthCalendar();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.txtDepositoIni = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
+            this.LblDesbloquep = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblDeposito = new System.Windows.Forms.Label();
             this.dtpDesbloqueo = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
             this.dtpConcluir = new System.Windows.Forms.DateTimePicker();
@@ -497,7 +497,7 @@ namespace GOMAC.Views
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage1.Size = new System.Drawing.Size(1231, 390);
+            this.tabPage1.Size = new System.Drawing.Size(1231, 376);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -664,9 +664,9 @@ namespace GOMAC.Views
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.txtDepositoIni);
-            this.groupBox7.Controls.Add(this.label17);
+            this.groupBox7.Controls.Add(this.LblDesbloquep);
             this.groupBox7.Controls.Add(this.label16);
-            this.groupBox7.Controls.Add(this.label7);
+            this.groupBox7.Controls.Add(this.lblDeposito);
             this.groupBox7.Controls.Add(this.dtpDesbloqueo);
             this.groupBox7.Controls.Add(this.label8);
             this.groupBox7.Controls.Add(this.dtpConcluir);
@@ -691,14 +691,14 @@ namespace GOMAC.Views
             this.txtDepositoIni.Size = new System.Drawing.Size(286, 26);
             this.txtDepositoIni.TabIndex = 0;
             // 
-            // label17
+            // LblDesbloquep
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(112, 80);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(165, 20);
-            this.label17.TabIndex = 11;
-            this.label17.Text = "Desbloqueo Sistemas";
+            this.LblDesbloquep.AutoSize = true;
+            this.LblDesbloquep.Location = new System.Drawing.Point(112, 80);
+            this.LblDesbloquep.Name = "LblDesbloquep";
+            this.LblDesbloquep.Size = new System.Drawing.Size(165, 20);
+            this.LblDesbloquep.TabIndex = 11;
+            this.LblDesbloquep.Text = "Desbloqueo Sistemas";
             // 
             // label16
             // 
@@ -709,15 +709,15 @@ namespace GOMAC.Views
             this.label16.TabIndex = 11;
             this.label16.Text = "Envio Agencia";
             // 
-            // label7
+            // lblDeposito
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(32, 20);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(105, 20);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Deposito TKT";
+            this.lblDeposito.AutoSize = true;
+            this.lblDeposito.Location = new System.Drawing.Point(32, 20);
+            this.lblDeposito.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDeposito.Name = "lblDeposito";
+            this.lblDeposito.Size = new System.Drawing.Size(105, 20);
+            this.lblDeposito.TabIndex = 1;
+            this.lblDeposito.Text = "Deposito TKT";
             // 
             // dtpDesbloqueo
             // 
@@ -1132,7 +1132,7 @@ namespace GOMAC.Views
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage3.Size = new System.Drawing.Size(1231, 390);
+            this.tabPage3.Size = new System.Drawing.Size(1231, 376);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1426,7 +1426,7 @@ namespace GOMAC.Views
         private System.Windows.Forms.ComboBox cmbMinuto4;
         private System.Windows.Forms.ComboBox cmbMinuto3;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblDeposito;
         private System.Windows.Forms.TextBox txtDepositoIni;
         private System.Windows.Forms.ComboBox cmbMinuto2;
         private System.Windows.Forms.ComboBox cmbMinuto1;
@@ -1456,7 +1456,7 @@ namespace GOMAC.Views
         private System.Windows.Forms.DateTimePicker dtpFFormalizada;
         private System.Windows.Forms.DateTimePicker dtpFAnalisisMac;
         private System.Windows.Forms.DateTimePicker dtpFRecepDoc;
-        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label LblDesbloquep;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.DateTimePicker dtpEnvio;
         private System.Windows.Forms.DateTimePicker dtpDesbloqueo;

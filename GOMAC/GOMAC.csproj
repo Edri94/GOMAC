@@ -93,6 +93,7 @@
     <Compile Include="Data\ConexionAS400.cs" />
     <Compile Include="Data\ConexionBD.cs" />
     <Compile Include="Data\FuncionesBD.cs" />
+    <Compile Include="Data\FuncionesBdbmtktp01.cs" />
     <Compile Include="Models\BdBmtktp01.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -165,6 +166,7 @@
     <Compile Include="Models\Mac_Inserta_Datos_Result.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Mac_Inserta_Respuesta.cs" />
     <Compile Include="Models\MOVIMIENTOS_PERFIL.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
     </Compile>
