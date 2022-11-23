@@ -9,6 +9,7 @@ using System.Data.Entity.Core.Objects;
 using System.Data.Linq.SqlClient;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,8 @@ namespace GOMAC.Views
         private List<UNIDAD_ORGANIZACIONAL_RESUMEN> uors;
 
         private string default_cmb = ". . . ";
+        private DateTime default_dtp = DateTimePicker.MinimumDateTime;
+        private NumberFormatInfo format_mxn = (NumberFormatInfo)CultureInfo.CreateSpecificCulture("es-MX").NumberFormat.Clone();
 
         public string str_consultor;
         public int se_carga;
@@ -1573,6 +1576,34 @@ namespace GOMAC.Views
 
                 if (VerSeguimientoDoc(Int32.Parse(txtSolicitud.Text)) != null)
                 {
+
+                    if (seguimiento_doc.Status != "1")
+                    {
+                        btnGuardar.Visible = false;
+                        btnCancelarSolicitud.Visible = false;
+                        cmbConsultorMac.Enabled = false;
+                        grpCircuito.Enabled = false;
+                        grpTicket.Enabled = false;
+                        TxtDepositoTkt.Enabled = true;
+                        cmbNumeroFuncionario.Enabled = false;
+                        cmbPromotor.Enabled = false;
+                        cmbBanca.Enabled = false;
+                        cmbDivision.Enabled = false;
+                        cmbPlaza.Enabled = false;
+                        cmbSucursal.Enabled = false;
+                        dtpFRecepcion.Enabled = false;
+                        dtpFAnalisisMac.Enabled = false;
+                        dtpFRecepcion.Enabled = false;
+                        txtDepositoIni.Enabled = false;
+                        dtpDesbloqueo.Enabled = false;
+                        dtpEnvio.Enabled = false;
+                        grpOriginales.Enabled = false;
+                        btnNuevaObservacion.Enabled = false;
+
+                        VisibleBtnsFecha(false);
+                        HabilitarCmbsTiempo(false);
+                    }
+
                     //Datos Cuenta
                     dtpFechaCaptura.Value = (seguimiento_doc.Fecha_Captura.HasValue) ? seguimiento_doc.Fecha_Captura.Value : dtpFechaCaptura.MinDate;
 
@@ -1708,7 +1739,10 @@ namespace GOMAC.Views
                     grpCircuito.Enabled = false;
                     grpTicket.Enabled = false;
 
+                    txtCuenta.Tag = 1;
                     txtCuenta.Text = seguimiento_doc.Cuenta_Cliente;
+
+                    cmbProducto.SelectedText = seguimiento_doc.Sufijo_Kapiti;
 
 
                     if (seguimiento_doc.Tipo_Persona == 0)
@@ -1735,25 +1769,37 @@ namespace GOMAC.Views
                     txtApellidoM.Text = seguimiento_doc.Apellido_Materno;
 
                     TxtDepositoTkt.Text = seguimiento_doc.Deposito_InicialTKT.ToString();
+                    TxtDepositoTkt.Tag = seguimiento_doc.Deposito_InicialTKT.ToString();
 
 
                     //Datos Funcionario
                     cmbNumeroFuncionario.SelectedText = seguimiento_doc.Numero_Registro;
+                    cmbNumeroFuncionario.Tag = seguimiento_doc.Numero_Registro;
+                    cmbPromotor.Text = seguimiento_doc.Nombre_Promotor;
+                    cmbPromotor.Enabled = false;
                     cmbBanca.SelectedText = seguimiento_doc.Banca;
+                    cmbBanca.Enabled = false;
                     cmbDivision.SelectedText = seguimiento_doc.Division;
+                    cmbDivision.Enabled = false;
                     cmbPlaza.SelectedText = seguimiento_doc.Plaza;
+                    cmbPlaza.Enabled = false;
                     cmbSucursal.SelectedText = seguimiento_doc.Sucursal;
+                    cmbSucursal.Enabled = false;
 
 
 
                     //Dato Seguimiento Documento
-                    if(seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.HasValue)
+                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.HasValue)
                     {
                         if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.Value == DateTime.Parse("01-01-1900"))
                         {
                             dtpFRecepDoc.Text = "";
                             cmbHora1.SelectedText = "00";
                             cmbMinuto1.SelectedText = "00";
+
+                            grpOriginales.Enabled = true;
+
+                            VisibleBtnsFecha(false);
                         }
                         else
                         {
@@ -1761,16 +1807,28 @@ namespace GOMAC.Views
                             cmbHora1.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.Value.ToString("hh");
                             cmbMinuto1.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.Value.ToString("mm");
 
+                            grpOriginales.Enabled = false;
+
+                            btnFRecepDoc.Visible = false;
+                            btnFAtencion.Visible = false;
+                            btnEnvio.Visible = false;
+
+
                             if (lblStatus.Text == "En proceso")
                             {
+                                btnFAnalisisMac.Visible = false;
+                                btnDesbloqueo.Visible = false;
 
                             }
                         }
+
+                        cmbHora1.Enabled = false;
+                        cmbMinuto1.Enabled = false;
                     }
-                   
+
 
                     //Analisis_Mac
-                    if(seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.HasValue)
+                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.HasValue)
                     {
                         if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.Value == DateTime.Parse("01-01-1900"))
                         {
@@ -1784,21 +1842,34 @@ namespace GOMAC.Views
                             cmbHora2.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.Value.ToString("hh");
                             cmbMinuto2.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.Value.ToString("mm");
 
+                            grpOriginales.Enabled = false;
+                            dtpFAnalisisMac.Enabled = false;
+                            btnFAnalisisMac.Visible = false;
+                            btnFAtencion.Visible = false;
+                            btnEnvio.Visible = false;
+
                             if (lblStatus.Text == "En proceso" && cmbTipoSolicitud.SelectedIndex != 3)
                             {
+                                btnFFormalizada.Visible = true;
+                                btnFAtencion.Visible = true;
+                                btnDesbloqueo.Visible = true;
 
                             }
                             else if (lblStatus.Text == "En proceso" && cmbTipoSolicitud.SelectedIndex == 3)
                             {
-
+                                btnConcluirSolicitud.Enabled = true;
+                                btnEnvio.Visible = true;
                             }
                         }
-                    }
-                    
 
+                    }
+
+
+                    cmbHora2.Enabled = false;
+                    cmbMinuto2.Enabled = false;
 
                     //Formalizada
-                    if(seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.HasValue)
+                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.HasValue)
                     {
                         if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.Value == DateTime.Parse("01-01-1900"))
                         {
@@ -1812,17 +1883,24 @@ namespace GOMAC.Views
                             cmbHora3.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.Value.ToString("hh");
                             cmbMinuto3.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.Value.ToString("mm");
 
+                            dtpFFormalizada.Enabled = false;
+                            btnFFormalizada.Visible = false;
+
                             if (lblStatus.Text == "En proceso")
                             {
-
+                                btnEnvio.Visible = false;
                             }
                         }
                     }
-                    
+
+                    cmbHora3.Enabled = false;
+                    cmbMinuto3.Enabled = false;
+
+
 
 
                     //Repc_Originales
-                    if(seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.HasValue)
+                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.HasValue)
                     {
                         if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.Value == DateTime.Parse("01-01-1900"))
                         {
@@ -1836,12 +1914,20 @@ namespace GOMAC.Views
                             cmbHora4.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.Value.ToString("hh");
                             cmbMinuto4.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.Value.ToString("mm");
 
+                            dtpFRecepcion.Enabled = false;
+                            btnFRecepcion.Enabled = false;
+
+
                             if (lblStatus.Text == "En proceso")
                             {
-
+                                btnFAtencion.Visible = true;
                             }
                         }
                     }
+
+                    cmbHora4.Enabled = false;
+                    cmbMinuto4.Enabled = false;
+
 
 
 
@@ -1860,25 +1946,108 @@ namespace GOMAC.Views
                             cmbHora5.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Aten_Originales.Value.ToString("hh");
                             cmbMinuto5.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Aten_Originales.Value.ToString("mm");
 
+                            dtpFAtencion.Enabled = false;
+                            btnFAtencion.Enabled = false;
+
                             if (lblStatus.Text == "En proceso")
                             {
-
+                                grpOriginales.Enabled = true;
                             }
                         }
                     }
-                    
+
+                    cmbHora5.Enabled = false;
+                    cmbMinuto5.Enabled = false;
 
 
-                    if(dtpFAtencion.Text.Trim() =="")
+
+                    if (dtpFAtencion.Value == default_dtp)
                     {
-
+                        rbcorrectos.Enabled = false;
+                        rbcorrectos.Checked = false;
+                        rbIncorrectos.Enabled = false;
+                        rbIncorrectos.Checked = false;
                     }
                     else
                     {
-
+                        rbcorrectos.Enabled = true;
+                        rbcorrectos.Checked = true;
+                        rbIncorrectos.Enabled = true;
+                        rbIncorrectos.Checked = true;
                     }
 
 
+                    TxtDepositoTkt.Text = (seguimiento_doc.Deposito_InicialTKT.HasValue) ? seguimiento_doc.Deposito_InicialTKT.Value.ToString("C", format_mxn) : "0.00";
+                    txtDepositoIni.Text = (seguimiento_doc.SEGUIMIENTO_DOCTOS.Deposito_Inicial.HasValue) ? seguimiento_doc.SEGUIMIENTO_DOCTOS.Deposito_Inicial.Value.ToString("C", format_mxn) : "0.00";
+
+                    if (txtDepositoIni.Text == "0.00")
+                    {
+                        txtDepositoIni.Enabled = false;
+                    }
+
+                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Desbloqueo_Sistemas.Value == new DateTime(1900, 1, 1))
+                    {
+                        dtpDesbloqueo.Enabled = true;
+                        dtpDesbloqueo.Value = default_dtp;
+                    }
+                    else
+                    {
+                        dtpDesbloqueo.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Desbloqueo_Sistemas.Value;
+                        dtpDesbloqueo.Enabled = false;
+
+                        btnDesbloqueo.Visible = false;
+                    }
+
+
+                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Envio_Agencia.Value == new DateTime(1900, 1, 1))
+                    {
+                        dtpEnvio.Value = default_dtp;
+                        dtpEnvio.Enabled = false;
+                        btnEnvio.Visible = true;
+                    }
+                    else
+                    {
+                        dtpEnvio.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Envio_Agencia.Value;
+                        dtpEnvio.Enabled = false;
+                    }
+
+
+                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Cancelacion.Value == new DateTime(1900, 1, 1))
+                    {
+                        dtpFechaCancelada.Value = default_dtp;
+                    }
+                    else
+                    {
+                        dtpFechaCancelada.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Cancelacion.Value;
+                    }
+
+
+                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Concluida.Value == new DateTime(1900, 1, 1))
+                    {
+                        dtpConcluir.Value = default_dtp;
+                    }
+                    else
+                    {
+                        dtpConcluir.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Concluida.Value;
+                    }
+
+
+                    cmbTipoTramite.SelectedValue = seguimiento_doc.Id_Tramite;
+
+
+                    if (cmbTipoSolicitud.SelectedIndex != 1)
+                    {
+                        lblDeposito.Visible = false;
+                        txtDepositoIni.Visible = false;
+                    }
+                    else
+                    {
+                        lblDeposito.Visible = true;
+                        txtDepositoIni.Visible = true;
+                    }
+
+
+                    LlenaDtgdwObservaciones();
 
                 }
 
@@ -1887,6 +2056,80 @@ namespace GOMAC.Views
             {
                 Log.Escribe(ex);
             }
+        }
+
+        private void LlenaDtgdwObservaciones()
+        {
+            try
+            {
+                SEGUIMIENTO observaciones = (
+                       from s in bdbmtktp01.SEGUIMIENTO
+                       join o in bdbmtktp01.OBSERVACIONES on s.Num_Solicitud equals o.Num_Solicitud
+                       where s.Num_Solicitud == Int32.Parse(txtSolicitud.Text)
+                       select s
+                   ).FirstOrDefault();
+
+                if (observaciones == null)
+                {
+                    MessageBox.Show("No se pudieron cargar las observaciones para la solicitud " + txtSolicitud.Text, "Error de carga.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                dtgvwObservaciones.Enabled = true;
+
+
+                DataTable dt = new DataTable();
+                dt.Clear();
+                dt.Columns.Add("Observaciones");
+                dt.Columns.Add("Fecha Observacion");
+
+                foreach (OBSERVACIONES observacion in observaciones.OBSERVACIONES)
+                {
+                    DataRow dr = dt.NewRow();
+
+                    dr["Observaciones"] = observacion.Observaciones1;
+                    dr["Fecha Observacion"] = observacion.Fecha_Observ;
+
+                    dt.Rows.Add(dr);
+                }
+
+                dtgvwObservaciones.DataSource = dt;
+                dtgvwObservaciones.Refresh();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void HabilitarCmbsTiempo(bool v)
+        {
+            cmbHora1.Enabled = v;
+            cmbHora2.Enabled = v;
+            cmbHora3.Enabled = v;
+            cmbHora4.Enabled = v;
+            cmbHora5.Enabled = v;
+
+            cmbMinuto1.Enabled = v;
+            cmbMinuto2.Enabled = v;
+            cmbMinuto3.Enabled = v;
+            cmbMinuto4.Enabled = v;
+            cmbMinuto5.Enabled = v;
+
+        }
+
+        private void VisibleBtnsFecha(bool v)
+        {
+            btnFRecepDoc.Visible = v;
+            btnFAnalisisMac.Visible = v;
+            btnFFormalizada.Visible = v;
+            btnFRecepcion.Visible = v;
+            btnFAtencion.Visible = v;
+            btnDesbloqueo.Visible = v;
+            btnEnvio.Visible = v;
         }
 
         private SEGUIMIENTO VerSeguimientoDoc(int numero_solicitud)
