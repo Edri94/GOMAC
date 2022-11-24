@@ -879,71 +879,7 @@ namespace GOMAC.Views
 
             txtApellidoM.GotFocus += new EventHandler(this.TxtApelllidoMGotFocus);
             txtApellidoM.LostFocus += new EventHandler(this.TxtApellidoMLostFocus);
-
-            //txtFRecepDoc.GotFocus += new EventHandler(this.TxtFRecepDocGotFocus);
-            //txtFRecepDoc.LostFocus += new EventHandler(this.TxtFRecepDocLostFocus);
             //************************************************************************************
-
-
-            CargarcomboHora(cmbHora1);
-            CargarcomboHora(cmbHora2);
-            CargarcomboHora(cmbHora3);
-            CargarcomboHora(cmbHora4);
-            CargarcomboHora(cmbHora5);
-
-
-            CargarcomboMinuto(cmbMinuto1);
-            CargarcomboMinuto(cmbMinuto2);
-            CargarcomboMinuto(cmbMinuto3);
-            CargarcomboMinuto(cmbMinuto4);
-            CargarcomboMinuto(cmbMinuto5);
-
-
-            funcionarios = (
-                from f in bdFuncionarios.FUNCIONARIO
-                join uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN on f.funcionario1 equals uor.funcionario
-                select f
-            ).ToList();
-
-            funcionarios.Insert(0, new FUNCIONARIO
-            {
-                funcionario1 = -1,
-                nombre_funcionario = ".",
-                apellido_paterno = ".",
-                apellido_materno = ".",
-                numero_funcionario = default_cmb
-            });
-
-            uors = (
-                from uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN
-                join f in bdFuncionarios.FUNCIONARIO on uor.funcionario equals f.funcionario1
-                select uor
-            ).ToList();
-
-            uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { banca = ". . .  ", plaza = ". . .  ", division = ". . .  ", sucursal = ". . .  " });
-
-            LlenaComboNumFunc();
-            LlenaComboNombreFunc();
-
-            LlenaComboBanca();
-            LlenaComboplaza();
-            LlenarComboDivision();
-            LlenaComboSucursal();
-            LlenarComboProducto();
-
-
-            LlenaComboTipoSolicitud();
-            LlenaComboTipoTramite();
-            LlenarComboConsultor();
-           
-            
-            dtpFRecepDoc.Value = dtpFRecepDoc.MinDate;
-            dtpFAnalisisMac.Value = dtpFAnalisisMac.MinDate;
-            dtpFFormalizada.Value = dtpFFormalizada.MinDate;
-            dtpFRecepcion.Value = dtpFRecepcion.MinDate;
-            dtpFAtencion.Value = dtpFAtencion.MinDate;
-
-
 
             if (str_consultor.Trim() != "")
             {
@@ -955,46 +891,102 @@ namespace GOMAC.Views
                 }
 
             }
-
-
-            cmbProducto.Enabled = false;
-            cmbBanca.Enabled = false;
-            cmbDivision.Enabled = false;
-            cmbPlaza.Enabled = false;
-            cmbSucursal.Enabled = false;
-            lblStatus.Text = "Nueva";
-            this.Text = "Captura de solicitud";
-
-            if(btnLimpiar.Text == "Limpiar")
-            {
-                btnLimpiar.Enabled = false;
-            }
-
-            if(lblStatus.Text == "En proceso")
-            {
-                btnFRecepDoc.Visible = true;
-                btnFRecepDoc.Enabled = true;
-
-                btnFAnalisisMac.Visible = true;
-                btnFAnalisisMac.Enabled = true;
-
-                btnFFormalizada.Visible = true;
-                btnFFormalizada.Enabled = true;
-
-                btnFRecepcion.Visible = true;
-                btnFRecepcion.Enabled = true;
-
-                btnFAtencion.Visible = true;
-                btnFAtencion.Enabled = true;
-
-            }
             else
             {
-                if(lblStatus.Text == "Nueva")
-                {                
-                    MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);                  
+                CargarcomboHora(cmbHora1);
+                CargarcomboHora(cmbHora2);
+                CargarcomboHora(cmbHora3);
+                CargarcomboHora(cmbHora4);
+                CargarcomboHora(cmbHora5);
+
+
+                CargarcomboMinuto(cmbMinuto1);
+                CargarcomboMinuto(cmbMinuto2);
+                CargarcomboMinuto(cmbMinuto3);
+                CargarcomboMinuto(cmbMinuto4);
+                CargarcomboMinuto(cmbMinuto5);
+
+
+                LlenarFechaNumero();
+
+                funcionarios = (
+                  from f in bdFuncionarios.FUNCIONARIO
+                  join uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN on f.funcionario1 equals uor.funcionario
+                  select f
+                ).ToList();
+
+                funcionarios.Insert(0, new FUNCIONARIO
+                {
+                    funcionario1 = -1,
+                    nombre_funcionario = ".",
+                    apellido_paterno = ".",
+                    apellido_materno = ".",
+                    numero_funcionario = default_cmb
+                });
+
+                uors = (
+                    from uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN
+                    join f in bdFuncionarios.FUNCIONARIO on uor.funcionario equals f.funcionario1
+                    select uor
+                ).ToList();
+
+                uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { banca = ". . .  ", plaza = ". . .  ", division = ". . .  ", sucursal = ". . .  " });
+
+                LlenaComboNumFunc();
+                LlenaComboNombreFunc();
+
+                LlenaComboBanca();
+                LlenaComboplaza();
+                LlenarComboDivision();
+                LlenaComboSucursal();
+                LlenarComboProducto();
+
+
+                LlenaComboTipoSolicitud();
+                LlenaComboTipoTramite();
+                LlenarComboConsultor();
+
+                dtpFRecepDoc.Value = dtpFRecepDoc.MinDate;
+                dtpFAnalisisMac.Value = dtpFAnalisisMac.MinDate;
+                dtpFFormalizada.Value = dtpFFormalizada.MinDate;
+                dtpFRecepcion.Value = dtpFRecepcion.MinDate;
+                dtpFAtencion.Value = dtpFAtencion.MinDate;
+
+                cmbProducto.Enabled = false;
+                cmbBanca.Enabled = false;
+                cmbDivision.Enabled = false;
+                cmbPlaza.Enabled = false;
+                cmbSucursal.Enabled = false;
+                lblStatus.Text = "Nueva";
+                this.Text = "Captura de solicitud";
+
+                if (btnLimpiar.Text == "Limpiar")
+                {
+                    btnLimpiar.Enabled = false;
                 }
+
+
+                if (lblStatus.Text == "En proceso")
+                {
+                    btnFRecepDoc.Visible = true;
+                    btnFRecepDoc.Enabled = true;
+
+                    btnFAnalisisMac.Visible = true;
+                    btnFAnalisisMac.Enabled = true;
+
+                    btnFFormalizada.Visible = true;
+                    btnFFormalizada.Enabled = true;
+
+                    btnFRecepcion.Visible = true;
+                    btnFRecepcion.Enabled = true;
+
+                    btnFAtencion.Visible = true;
+                    btnFAtencion.Enabled = true;
+
+                }
+
             }
+
 
             if(frmp.activa == 1)
             {
@@ -1093,12 +1085,40 @@ namespace GOMAC.Views
             dtpFechaCaptura.Enabled = false;
             txtPuntos.Enabled = false;
             dtpFechaCancelada.Enabled = false;
-
-
-
         }
 
+        private void LlenarFechaNumero()
+        {
+            try
+            {
+                if(str_consultor == "" )
+                {
+                    int consecutivo = Mac_Consecutivo();
 
+                    if(consecutivo == -1)
+                    {
+                        MessageBox.Show("No se pudo obtener el consecutivo para la solicitud", "Error de obtencion consecutivo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                
+                    else
+                    {
+                        dtpFechaCaptura.Enabled = false;
+                        dtpFechaCaptura.Value = DateTime.Now;
+                        txtSolicitud.Enabled = false;
+                        txtSolicitud.Text = consecutivo.ToString();
+
+
+
+                        
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
 
         private void Frm_NuevaSolicitud_Activated(object sender, EventArgs e)
         {
@@ -1404,8 +1424,10 @@ namespace GOMAC.Views
             }
         }
 
+
         private void LlenarComboConsultor()
         {
+            //[NOTA]Corregir esta funcion y hacerlo como esta en el codigo viejo
             try
             {
                 List<CONSULTORES> consultores =
