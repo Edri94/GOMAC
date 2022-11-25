@@ -16,11 +16,11 @@ namespace GOMAC.Views
 {
     public partial class Frm_ConsultaSolicitud : Form
     {
-        Frm_PantallaPrincipal frmp;
+        Frm_Login frmp;
         private bmtktp01Entities bdbmtktp01;
         private DataTable dt;
 
-        public Frm_ConsultaSolicitud(Frm_PantallaPrincipal frmp)
+        public Frm_ConsultaSolicitud(Frm_Login frmp)
         {
             InitializeComponent();
 

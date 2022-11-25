@@ -17,25 +17,24 @@ namespace GOMAC.Views
     public partial class Frm_PantallaPrincipal : Form
     {
 
-        public bool loggeado;
-        public int sr, tiempo_servicioa, tiempo_serviciom, tiempo_atencion, tiempo_espera, cierre_tiempo, meses_sin_conectar;
-        public string str_srv, str_bd, str_usr, str_pwd, str_provider;
+        //public bool loggeado;
+        //public int sr, tiempo_servicioa, tiempo_serviciom, tiempo_atencion, tiempo_espera, cierre_tiempo, meses_sin_conectar;
+        //public string str_srv, str_bd, str_usr, str_pwd, str_provider;
+        //public ver_usuarios2 usuario_loggeado;
         public bmtktp01Entities bdbmtktp01;
         public List<ver_perfil_sector> perfiles_sector;
-        public ver_usuarios2 usuario_loggeado;
         public NumberFormatInfo format;
-        public int activa;
 
+        private Frm_Login frml;
         private FrmNueva_Solicitud frm_nuevasolicitud;
         private Frm_ConsultaSolicitud frm_consultasolicitud;
         
 
-        public Frm_PantallaPrincipal(ver_usuarios2 usuario)
+        public Frm_PantallaPrincipal(Frm_Login frml)
         {
-            InitializeComponent();
-
-            this.usuario_loggeado = usuario;
+            InitializeComponent(); 
             format = (NumberFormatInfo)CultureInfo.CreateSpecificCulture("es-MX").NumberFormat.Clone();
+            this.frml = frml;
         }
         private void PantallaPrincipal_Load(object sender, EventArgs e)
         {
@@ -44,7 +43,7 @@ namespace GOMAC.Views
 
             tmtHora.Enabled = true;
 
-            inact.Interval = 1000 * tiempo_espera;
+            inact.Interval = 1000 * frml.tiempo_espera;
 
             Valida();
 
@@ -53,7 +52,7 @@ namespace GOMAC.Views
 
         private void consultaSolicitudToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (usuario_loggeado != null)
+            if (frml.usuario_loggeado != null)
             {
                 if (frm_consultasolicitud != null)
                 {
@@ -61,7 +60,7 @@ namespace GOMAC.Views
                     frm_consultasolicitud = null;
                 }
 
-                frm_consultasolicitud = new Frm_ConsultaSolicitud(this);
+                frm_consultasolicitud = new Frm_ConsultaSolicitud(frml);
 
                 frm_consultasolicitud.MdiParent = this;
                 frm_consultasolicitud.Show();
@@ -71,7 +70,7 @@ namespace GOMAC.Views
 
         private void nuevaSolicitudToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (usuario_loggeado != null)
+            if (frml.usuario_loggeado != null)
             {
                 if (frm_nuevasolicitud != null)
                 {
@@ -79,11 +78,11 @@ namespace GOMAC.Views
                     frm_nuevasolicitud = null;
                 }
 
-                frm_nuevasolicitud = new FrmNueva_Solicitud(this);
+                frm_nuevasolicitud = new FrmNueva_Solicitud(frml);
 
                 frm_nuevasolicitud.MdiParent = this;
                 frm_nuevasolicitud.str_consultor = "";
-                frm_nuevasolicitud.Show();
+                frm_nuevasolicitud.Show();   
             }
         }
 
@@ -95,7 +94,7 @@ namespace GOMAC.Views
                 //El codigo aqui manejara los permisos para mostrar u ocultar menus dependiendo el usario/rol
                 if(VerPerfilSector() != null) 
                 {
-                    activa = 1;
+                    frml.activa = 1;
                 }
 
 

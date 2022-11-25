@@ -3,6 +3,7 @@ using GOMAC.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace GOMAC.Data
 {
     public class FuncionesBdbmtktp01 : bmtktp01Entities
     {
-        public static DateTime fecha_default;
+        public static DateTime fecha_default; 
 
         public virtual Mac_Inserta_Respuesta Mac_Inserta_Datos(int id_ConsultorMac, int id_Solicitud, int id_Tramite, int puntos, string circuito, string cuenta_Cliente, string sufijo_Kapiti, byte tipo_Persona, string nombre_Cliente, string apellido_Paterno, string apellido_Materno, decimal deposito_Inicial, string numero_Registro, string nombre_Promotor, string banca, string division, string plaza, string sucursal, string status, int num_Solicitud, DateTime fechaRepc_Doc, TimeSpan horaRepc_Doc, DateTime fechaAnalisis_Mac, TimeSpan horaAnalisis_Mac, DateTime fechaFormalizada, TimeSpan horaFormalizada, DateTime fechaRepc_Originales, TimeSpan horaRepc_Originales, DateTime fechaAten_Originales, TimeSpan horaAten_Originales, string originales, decimal deposito_Inicial_Ini, DateTime fecha_Desbloqueo, DateTime fecha_Envio, DateTime fecha_concluida, string existeTKT)
         {
@@ -138,6 +139,18 @@ namespace GOMAC.Data
 
 
                         return new Mac_Inserta_Respuesta { Codigo = 0, Diferiencia = diferiencia, FechaHora_Captura = DateTime.Now };
+                    }
+                    catch(DbEntityValidationException  ex)
+                    {
+                        foreach (DbEntityValidationResult eve in ex.EntityValidationErrors)
+                        {
+                            foreach (var ve in eve.ValidationErrors)
+                            {
+                                string error = $"- Property: \"{ ve.PropertyName}\", Value: \"{ eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName)}\", Error: \"{ve.ErrorMessage}\"";
+                                Log.Escribe(error, "Error!!!!!!");
+                            };
+                        }
+                        return new Mac_Inserta_Respuesta { Codigo = 1, Diferiencia = TimeSpan.Zero, FechaHora_Captura = DateTime.Now };
                     }
                     catch (Exception ex)
                     {

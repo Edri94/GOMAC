@@ -15,6 +15,7 @@ namespace GOMAC.Views
     public partial class Frm_Login : Form
     {       
         public int sr, tiempo_servicioa, tiempo_serviciom, tiempo_atencion, tiempo_espera, cierre_tiempo, meses_sin_conectar;
+        public int activa;
         public string str_srv, str_bd, str_usr, str_pwd, str_provider;    
         public USUARIO usuario;
 
@@ -129,7 +130,7 @@ namespace GOMAC.Views
                             else
                             {
                                 loggeado = true;
-                                Frm_PantallaPrincipal frm = new Frm_PantallaPrincipal(usuario_loggeado);
+                                Frm_PantallaPrincipal frm = new Frm_PantallaPrincipal(this);
                                 this.Hide();
                                 frm.Show();
                             }

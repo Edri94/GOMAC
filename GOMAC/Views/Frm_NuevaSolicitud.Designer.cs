@@ -182,6 +182,7 @@ namespace GOMAC.Views
             this.cmbConsultorMac.Name = "cmbConsultorMac";
             this.cmbConsultorMac.Size = new System.Drawing.Size(458, 28);
             this.cmbConsultorMac.TabIndex = 2;
+            this.cmbConsultorMac.SelectedIndexChanged += new System.EventHandler(this.cmbConsultorMac_SelectedIndexChanged);
             this.cmbConsultorMac.SelectedValueChanged += new System.EventHandler(this.cmbConsultorMac_SelectedValueChanged);
             this.cmbConsultorMac.Click += new System.EventHandler(this.cmbConsultorMac_Click);
             // 
@@ -315,6 +316,7 @@ namespace GOMAC.Views
             this.rbExisteCuentaNo.TabStop = true;
             this.rbExisteCuentaNo.Text = "No";
             this.rbExisteCuentaNo.UseVisualStyleBackColor = true;
+            this.rbExisteCuentaNo.CheckedChanged += new System.EventHandler(this.rbExisteCuentaNo_CheckedChanged);
             // 
             // rbExisteCuentaSi
             // 
@@ -327,6 +329,7 @@ namespace GOMAC.Views
             this.rbExisteCuentaSi.TabStop = true;
             this.rbExisteCuentaSi.Text = "Si";
             this.rbExisteCuentaSi.UseVisualStyleBackColor = true;
+            this.rbExisteCuentaSi.CheckedChanged += new System.EventHandler(this.rbExisteCuentaSi_CheckedChanged);
             // 
             // lblProducto
             // 
@@ -476,7 +479,7 @@ namespace GOMAC.Views
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1239, 409);
+            this.tabControl1.Size = new System.Drawing.Size(1239, 402);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -497,7 +500,7 @@ namespace GOMAC.Views
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage1.Size = new System.Drawing.Size(1231, 376);
+            this.tabPage1.Size = new System.Drawing.Size(1231, 369);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -635,7 +638,7 @@ namespace GOMAC.Views
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage2.Size = new System.Drawing.Size(1231, 376);
+            this.tabPage2.Size = new System.Drawing.Size(1231, 369);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -679,7 +682,7 @@ namespace GOMAC.Views
             this.groupBox7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox7.Size = new System.Drawing.Size(338, 361);
+            this.groupBox7.Size = new System.Drawing.Size(338, 333);
             this.groupBox7.TabIndex = 14;
             this.groupBox7.TabStop = false;
             // 
@@ -694,7 +697,7 @@ namespace GOMAC.Views
             // LblDesbloquep
             // 
             this.LblDesbloquep.AutoSize = true;
-            this.LblDesbloquep.Location = new System.Drawing.Point(112, 80);
+            this.LblDesbloquep.Location = new System.Drawing.Point(112, 76);
             this.LblDesbloquep.Name = "LblDesbloquep";
             this.LblDesbloquep.Size = new System.Drawing.Size(165, 20);
             this.LblDesbloquep.TabIndex = 11;
@@ -703,7 +706,7 @@ namespace GOMAC.Views
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(141, 140);
+            this.label16.Location = new System.Drawing.Point(141, 133);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(110, 20);
             this.label16.TabIndex = 11;
@@ -721,7 +724,7 @@ namespace GOMAC.Views
             // 
             // dtpDesbloqueo
             // 
-            this.dtpDesbloqueo.Location = new System.Drawing.Point(51, 105);
+            this.dtpDesbloqueo.Location = new System.Drawing.Point(51, 101);
             this.dtpDesbloqueo.Name = "dtpDesbloqueo";
             this.dtpDesbloqueo.Size = new System.Drawing.Size(258, 26);
             this.dtpDesbloqueo.TabIndex = 10;
@@ -729,7 +732,7 @@ namespace GOMAC.Views
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(84, 278);
+            this.label8.Location = new System.Drawing.Point(84, 261);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(167, 20);
@@ -738,7 +741,7 @@ namespace GOMAC.Views
             // 
             // dtpConcluir
             // 
-            this.dtpConcluir.Location = new System.Drawing.Point(18, 243);
+            this.dtpConcluir.Location = new System.Drawing.Point(18, 226);
             this.dtpConcluir.Name = "dtpConcluir";
             this.dtpConcluir.Size = new System.Drawing.Size(288, 26);
             this.dtpConcluir.TabIndex = 10;
@@ -747,7 +750,7 @@ namespace GOMAC.Views
             // btnConcluirSolicitud
             // 
             this.btnConcluirSolicitud.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConcluirSolicitud.Location = new System.Drawing.Point(18, 215);
+            this.btnConcluirSolicitud.Location = new System.Drawing.Point(18, 198);
             this.btnConcluirSolicitud.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnConcluirSolicitud.Name = "btnConcluirSolicitud";
             this.btnConcluirSolicitud.Size = new System.Drawing.Size(288, 29);
@@ -758,7 +761,7 @@ namespace GOMAC.Views
             // btnEnvio
             // 
             this.btnEnvio.AutoSize = true;
-            this.btnEnvio.Location = new System.Drawing.Point(22, 163);
+            this.btnEnvio.Location = new System.Drawing.Point(22, 156);
             this.btnEnvio.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEnvio.Name = "btnEnvio";
             this.btnEnvio.Size = new System.Drawing.Size(21, 20);
@@ -770,7 +773,7 @@ namespace GOMAC.Views
             // btnDesbloqueo
             // 
             this.btnDesbloqueo.AutoSize = true;
-            this.btnDesbloqueo.Location = new System.Drawing.Point(22, 105);
+            this.btnDesbloqueo.Location = new System.Drawing.Point(22, 101);
             this.btnDesbloqueo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDesbloqueo.Name = "btnDesbloqueo";
             this.btnDesbloqueo.Size = new System.Drawing.Size(21, 20);
@@ -781,14 +784,14 @@ namespace GOMAC.Views
             // 
             // dtpEnvio
             // 
-            this.dtpEnvio.Location = new System.Drawing.Point(51, 163);
+            this.dtpEnvio.Location = new System.Drawing.Point(51, 156);
             this.dtpEnvio.Name = "dtpEnvio";
             this.dtpEnvio.Size = new System.Drawing.Size(258, 26);
             this.dtpEnvio.TabIndex = 10;
             // 
             // dtpFechaCancelada
             // 
-            this.dtpFechaCancelada.Location = new System.Drawing.Point(22, 305);
+            this.dtpFechaCancelada.Location = new System.Drawing.Point(22, 288);
             this.dtpFechaCancelada.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtpFechaCancelada.Name = "dtpFechaCancelada";
             this.dtpFechaCancelada.Size = new System.Drawing.Size(286, 26);
@@ -827,7 +830,7 @@ namespace GOMAC.Views
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox3.Size = new System.Drawing.Size(426, 361);
+            this.groupBox3.Size = new System.Drawing.Size(426, 323);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Fechas";
@@ -845,7 +848,7 @@ namespace GOMAC.Views
             // btnFAtencion
             // 
             this.btnFAtencion.AutoSize = true;
-            this.btnFAtencion.Location = new System.Drawing.Point(21, 309);
+            this.btnFAtencion.Location = new System.Drawing.Point(22, 276);
             this.btnFAtencion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnFAtencion.Name = "btnFAtencion";
             this.btnFAtencion.Size = new System.Drawing.Size(21, 20);
@@ -866,7 +869,7 @@ namespace GOMAC.Views
             // btnFRecepcion
             // 
             this.btnFRecepcion.AutoSize = true;
-            this.btnFRecepcion.Location = new System.Drawing.Point(21, 243);
+            this.btnFRecepcion.Location = new System.Drawing.Point(21, 217);
             this.btnFRecepcion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnFRecepcion.Name = "btnFRecepcion";
             this.btnFRecepcion.Size = new System.Drawing.Size(21, 20);
@@ -878,7 +881,7 @@ namespace GOMAC.Views
             // cmbHora2
             // 
             this.cmbHora2.FormattingEnabled = true;
-            this.cmbHora2.Location = new System.Drawing.Point(273, 115);
+            this.cmbHora2.Location = new System.Drawing.Point(273, 107);
             this.cmbHora2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbHora2.Name = "cmbHora2";
             this.cmbHora2.Size = new System.Drawing.Size(50, 28);
@@ -887,7 +890,7 @@ namespace GOMAC.Views
             // btnFFormalizada
             // 
             this.btnFFormalizada.AutoSize = true;
-            this.btnFFormalizada.Location = new System.Drawing.Point(21, 180);
+            this.btnFFormalizada.Location = new System.Drawing.Point(21, 164);
             this.btnFFormalizada.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnFFormalizada.Name = "btnFFormalizada";
             this.btnFFormalizada.Size = new System.Drawing.Size(21, 20);
@@ -899,7 +902,7 @@ namespace GOMAC.Views
             // cmbHora3
             // 
             this.cmbHora3.FormattingEnabled = true;
-            this.cmbHora3.Location = new System.Drawing.Point(273, 180);
+            this.cmbHora3.Location = new System.Drawing.Point(273, 164);
             this.cmbHora3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbHora3.Name = "cmbHora3";
             this.cmbHora3.Size = new System.Drawing.Size(50, 28);
@@ -908,7 +911,7 @@ namespace GOMAC.Views
             // btnFAnalisisMac
             // 
             this.btnFAnalisisMac.AutoSize = true;
-            this.btnFAnalisisMac.Location = new System.Drawing.Point(21, 115);
+            this.btnFAnalisisMac.Location = new System.Drawing.Point(21, 107);
             this.btnFAnalisisMac.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnFAnalisisMac.Name = "btnFAnalisisMac";
             this.btnFAnalisisMac.Size = new System.Drawing.Size(21, 20);
@@ -920,7 +923,7 @@ namespace GOMAC.Views
             // cmbHora4
             // 
             this.cmbHora4.FormattingEnabled = true;
-            this.cmbHora4.Location = new System.Drawing.Point(273, 245);
+            this.cmbHora4.Location = new System.Drawing.Point(273, 219);
             this.cmbHora4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbHora4.Name = "cmbHora4";
             this.cmbHora4.Size = new System.Drawing.Size(50, 28);
@@ -941,7 +944,7 @@ namespace GOMAC.Views
             // cmbHora5
             // 
             this.cmbHora5.FormattingEnabled = true;
-            this.cmbHora5.Location = new System.Drawing.Point(273, 309);
+            this.cmbHora5.Location = new System.Drawing.Point(274, 276);
             this.cmbHora5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbHora5.Name = "cmbHora5";
             this.cmbHora5.Size = new System.Drawing.Size(50, 28);
@@ -959,7 +962,7 @@ namespace GOMAC.Views
             // cmbMinuto2
             // 
             this.cmbMinuto2.FormattingEnabled = true;
-            this.cmbMinuto2.Location = new System.Drawing.Point(327, 115);
+            this.cmbMinuto2.Location = new System.Drawing.Point(327, 107);
             this.cmbMinuto2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbMinuto2.Name = "cmbMinuto2";
             this.cmbMinuto2.Size = new System.Drawing.Size(50, 28);
@@ -967,7 +970,7 @@ namespace GOMAC.Views
             // 
             // dtpFAtencion
             // 
-            this.dtpFAtencion.Location = new System.Drawing.Point(66, 311);
+            this.dtpFAtencion.Location = new System.Drawing.Point(67, 278);
             this.dtpFAtencion.Name = "dtpFAtencion";
             this.dtpFAtencion.Size = new System.Drawing.Size(188, 26);
             this.dtpFAtencion.TabIndex = 10;
@@ -975,7 +978,7 @@ namespace GOMAC.Views
             // cmbMinuto3
             // 
             this.cmbMinuto3.FormattingEnabled = true;
-            this.cmbMinuto3.Location = new System.Drawing.Point(327, 180);
+            this.cmbMinuto3.Location = new System.Drawing.Point(327, 164);
             this.cmbMinuto3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbMinuto3.Name = "cmbMinuto3";
             this.cmbMinuto3.Size = new System.Drawing.Size(50, 28);
@@ -983,7 +986,7 @@ namespace GOMAC.Views
             // 
             // dtpFRecepcion
             // 
-            this.dtpFRecepcion.Location = new System.Drawing.Point(66, 246);
+            this.dtpFRecepcion.Location = new System.Drawing.Point(66, 222);
             this.dtpFRecepcion.Name = "dtpFRecepcion";
             this.dtpFRecepcion.Size = new System.Drawing.Size(188, 26);
             this.dtpFRecepcion.TabIndex = 10;
@@ -991,7 +994,7 @@ namespace GOMAC.Views
             // cmbMinuto4
             // 
             this.cmbMinuto4.FormattingEnabled = true;
-            this.cmbMinuto4.Location = new System.Drawing.Point(327, 245);
+            this.cmbMinuto4.Location = new System.Drawing.Point(327, 219);
             this.cmbMinuto4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbMinuto4.Name = "cmbMinuto4";
             this.cmbMinuto4.Size = new System.Drawing.Size(50, 28);
@@ -999,7 +1002,7 @@ namespace GOMAC.Views
             // 
             // dtpFFormalizada
             // 
-            this.dtpFFormalizada.Location = new System.Drawing.Point(66, 182);
+            this.dtpFFormalizada.Location = new System.Drawing.Point(66, 166);
             this.dtpFFormalizada.Name = "dtpFFormalizada";
             this.dtpFFormalizada.Size = new System.Drawing.Size(188, 26);
             this.dtpFFormalizada.TabIndex = 10;
@@ -1007,7 +1010,7 @@ namespace GOMAC.Views
             // cmbMinuto5
             // 
             this.cmbMinuto5.FormattingEnabled = true;
-            this.cmbMinuto5.Location = new System.Drawing.Point(327, 309);
+            this.cmbMinuto5.Location = new System.Drawing.Point(328, 276);
             this.cmbMinuto5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbMinuto5.Name = "cmbMinuto5";
             this.cmbMinuto5.Size = new System.Drawing.Size(50, 28);
@@ -1016,7 +1019,7 @@ namespace GOMAC.Views
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(70, 91);
+            this.label10.Location = new System.Drawing.Point(70, 83);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(102, 20);
@@ -1026,7 +1029,7 @@ namespace GOMAC.Views
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(70, 157);
+            this.label11.Location = new System.Drawing.Point(70, 141);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(96, 20);
@@ -1036,7 +1039,7 @@ namespace GOMAC.Views
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(70, 223);
+            this.label12.Location = new System.Drawing.Point(70, 197);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(181, 20);
@@ -1045,7 +1048,7 @@ namespace GOMAC.Views
             // 
             // dtpFAnalisisMac
             // 
-            this.dtpFAnalisisMac.Location = new System.Drawing.Point(66, 117);
+            this.dtpFAnalisisMac.Location = new System.Drawing.Point(66, 109);
             this.dtpFAnalisisMac.Name = "dtpFAnalisisMac";
             this.dtpFAnalisisMac.Size = new System.Drawing.Size(188, 26);
             this.dtpFAnalisisMac.TabIndex = 10;
@@ -1053,7 +1056,7 @@ namespace GOMAC.Views
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(70, 289);
+            this.label13.Location = new System.Drawing.Point(71, 254);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(168, 20);
@@ -1093,9 +1096,9 @@ namespace GOMAC.Views
             // 
             this.grpOriginales.Controls.Add(this.rbIncorrectos);
             this.grpOriginales.Controls.Add(this.rbcorrectos);
-            this.grpOriginales.Location = new System.Drawing.Point(474, 314);
+            this.grpOriginales.Location = new System.Drawing.Point(474, 304);
             this.grpOriginales.Name = "grpOriginales";
-            this.grpOriginales.Size = new System.Drawing.Size(346, 58);
+            this.grpOriginales.Size = new System.Drawing.Size(346, 48);
             this.grpOriginales.TabIndex = 9;
             this.grpOriginales.TabStop = false;
             this.grpOriginales.Text = "Originales";
@@ -1103,7 +1106,7 @@ namespace GOMAC.Views
             // rbIncorrectos
             // 
             this.rbIncorrectos.AutoSize = true;
-            this.rbIncorrectos.Location = new System.Drawing.Point(212, 23);
+            this.rbIncorrectos.Location = new System.Drawing.Point(216, 16);
             this.rbIncorrectos.Name = "rbIncorrectos";
             this.rbIncorrectos.Size = new System.Drawing.Size(114, 24);
             this.rbIncorrectos.TabIndex = 0;
@@ -1114,7 +1117,7 @@ namespace GOMAC.Views
             // rbcorrectos
             // 
             this.rbcorrectos.AutoSize = true;
-            this.rbcorrectos.Location = new System.Drawing.Point(76, 23);
+            this.rbcorrectos.Location = new System.Drawing.Point(103, 16);
             this.rbcorrectos.Name = "rbcorrectos";
             this.rbcorrectos.Size = new System.Drawing.Size(103, 24);
             this.rbcorrectos.TabIndex = 0;
@@ -1132,7 +1135,7 @@ namespace GOMAC.Views
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage3.Size = new System.Drawing.Size(1231, 376);
+            this.tabPage3.Size = new System.Drawing.Size(1231, 369);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1242,7 +1245,7 @@ namespace GOMAC.Views
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.lblStatus);
-            this.groupBox6.Location = new System.Drawing.Point(20, 788);
+            this.groupBox6.Location = new System.Drawing.Point(20, 775);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1263,7 +1266,7 @@ namespace GOMAC.Views
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(681, 819);
+            this.btnLimpiar.Location = new System.Drawing.Point(681, 789);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(112, 35);
@@ -1273,7 +1276,7 @@ namespace GOMAC.Views
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(802, 819);
+            this.btnGuardar.Location = new System.Drawing.Point(802, 789);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(112, 35);
@@ -1284,7 +1287,7 @@ namespace GOMAC.Views
             // 
             // btnCancelarSolicitud
             // 
-            this.btnCancelarSolicitud.Location = new System.Drawing.Point(924, 819);
+            this.btnCancelarSolicitud.Location = new System.Drawing.Point(924, 789);
             this.btnCancelarSolicitud.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCancelarSolicitud.Name = "btnCancelarSolicitud";
             this.btnCancelarSolicitud.Size = new System.Drawing.Size(174, 35);
@@ -1295,7 +1298,7 @@ namespace GOMAC.Views
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(1107, 819);
+            this.btnSalir.Location = new System.Drawing.Point(1107, 789);
             this.btnSalir.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(130, 35);
@@ -1313,7 +1316,7 @@ namespace GOMAC.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1275, 864);
+            this.ClientSize = new System.Drawing.Size(1275, 854);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnCancelarSolicitud);
             this.Controls.Add(this.btnGuardar);

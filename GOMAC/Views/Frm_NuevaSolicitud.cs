@@ -19,7 +19,7 @@ namespace GOMAC.Views
 {
     public partial class FrmNueva_Solicitud : Form 
     {
-        private Frm_PantallaPrincipal frmp;
+        private Frm_Login frmp;
         private bmtktp01Entities bdbmtktp01;
         private CATALOGOSEntities bdCatalogos;
         private FUNCIONARIOSEntities bdFuncionarios;
@@ -31,6 +31,7 @@ namespace GOMAC.Views
         private string default_cmb = ". . . ";
         private DateTime default_dtp = DateTimePicker.MinimumDateTime;
         private NumberFormatInfo format_mxn = (NumberFormatInfo)CultureInfo.CreateSpecificCulture("es-MX").NumberFormat.Clone();
+        private DataTable dt_observaciones;
 
         public string str_consultor;
         public int se_carga;
@@ -656,172 +657,264 @@ namespace GOMAC.Views
                 if (cmbConsultorMac.Text == default_cmb)
                 {
                     MessageBox.Show("Debe seleccionar su consultor", "Error Solicitud", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-
             }
-            else
+          
+            string query = "";
+            int i = 0;
+            string str_time;
+            string str_docuemntos;
+
+
+            if (ValidaCampos())
             {
-                string query = "";
-                int i = 0;
-                string str_time;
-                string str_docuemntos;
-
-
-                if (ValidaCampos())
+                if (btnGuardar.Text == "Guardar")
                 {
-                    if (btnGuardar.Text == "Guardar")
+                    tabControl1.Enabled = false;
+                    int consecutivo = Mac_Consecutivo();
+
+                    if (consecutivo <= 0)
                     {
-                        tabControl1.Enabled = false;
-                        int consecutivo = Mac_Consecutivo();
-
-                        if (consecutivo <= 0)
-                        {
-                            MessageBox.Show("No se pudo definir el numero de consecutivo que se le asignara a su solicitud. " + (char)13 + "¡¡¡ No se puede generar la solicitud. !!!",
-                                "Error al Guardar",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning
-                                );
-
-                        }
-                        else
-                        {
-                            txtSolicitud.Enabled = true;
-                            dtpFechaCaptura.Enabled = true;
-
-                            txtSolicitud.Text = consecutivo.ToString();
-                            dtpFechaCaptura.Value = DateTime.Now;
-
-                            dtpEnvio.Enabled = true;
-                            btnCancelarSolicitud.Enabled = false;
-                            btnGuardar.Enabled = false;
-
-                            int id_ConsultorMac = frmp.usuario_loggeado.id_usuario;
-                            int id_Solicitud = cmbTipoSolicitud.SelectedIndex;
-                            int id_Tramite = cmbTipoTramite.SelectedIndex;
-                            int puntos = Int32.Parse(txtPuntos.Text);
-                            string circuito = (rbCircuitoAuto.Checked) ? "A" : "M";
-                            string cuenta_Cliente = txtCuenta.Text;
-                            string sufijo_Kapiti = cmbProducto.Text;
-                            byte tipo_Persona = (byte)((rbPersonaFisica.Checked) ? 0 : 1);
-                            string nombre_Cliente = txtNombre.Text;
-                            string apellido_Paterno = txtApellidoP.Text;
-                            string apellido_Materno = txtApellidoM.Text;
-                            decimal deposito_Inicial = decimal.Parse(TxtDepositoTkt.Text);
-                            string numero_Registro = cmbNumeroFuncionario.Text;
-                            string nombre_Promotor = cmbPromotor.Text;
-                            string banca = cmbBanca.Text;
-                            string division = cmbDivision.Text;
-                            string plaza = cmbPlaza.Text;
-                            string sucursal = cmbSucursal.Text;
-                            string status = "1";
-                            int num_Solicitud = Int32.Parse(txtSolicitud.Text);
-                            DateTime fechaRepc_Doc = dtpFRecepDoc.Value;
-                            TimeSpan horaRepc_Doc = new TimeSpan(Int32.Parse(cmbHora1.Text), Int32.Parse(cmbMinuto1.Text), 0); 
-                            DateTime fechaAnalisis_Mac = dtpFAnalisisMac.Value;
-                            TimeSpan horaAnalisis_Mac = new TimeSpan(Int32.Parse(cmbHora2.Text), Int32.Parse(cmbMinuto2.Text), 0);
-                            DateTime fechaFormalizada = dtpFFormalizada.Value;
-                            TimeSpan horaFormalizada = new TimeSpan(Int32.Parse(cmbHora3.Text), Int32.Parse(cmbMinuto3.Text), 0);
-                            DateTime fechaRepc_Originales = dtpFRecepcion.Value;
-                            TimeSpan horaRepc_Originales = new TimeSpan(Int32.Parse(cmbHora4.Text), Int32.Parse(cmbMinuto4.Text), 0);
-                            DateTime fechaAten_Originales = dtpFAtencion.Value; ;
-                            TimeSpan horaAten_Originales = new TimeSpan(Int32.Parse(cmbHora5.Text), Int32.Parse(cmbMinuto5.Text), 0);
-                            string originales = "-1";
-                            decimal deposito_Inicial_Ini = decimal.Parse(txtDepositoIni.Text);
-                            DateTime fecha_Desbloqueo = dtpDesbloqueo.Value;
-                            DateTime fecha_Envio = dtpEnvio.Value;
-                            DateTime fecha_concluida = dtpConcluir.Value;
-                            string existeTKT = rbExisteCuentaSi.Checked ? "S" : "N";
-
-
-                            FuncionesBdbmtktp01 context = new FuncionesBdbmtktp01();
-
-                            Mac_Inserta_Respuesta respuesta = context.Mac_Inserta_Datos(
-                                id_ConsultorMac,
-                                id_Solicitud,
-                                id_Tramite,
-                                puntos,
-                                circuito,
-                                cuenta_Cliente,
-                                sufijo_Kapiti,
-                                tipo_Persona,
-                                nombre_Cliente,
-                                apellido_Paterno,
-                                apellido_Materno,
-                                deposito_Inicial,
-                                numero_Registro,
-                                nombre_Promotor,
-                                banca,
-                                division,
-                                plaza,
-                                sucursal,
-                                status,
-                                 num_Solicitud,
-                                 fechaRepc_Doc,
-                                 horaRepc_Doc,
-                                 fechaAnalisis_Mac,
-                                 horaAnalisis_Mac,
-                                 fechaFormalizada,
-                                 horaFormalizada,
-                                 fechaRepc_Originales,
-                                 horaRepc_Originales,
-                                 fechaAten_Originales,
-                                 horaAten_Originales,
-                                 originales,
-                                 deposito_Inicial_Ini,
-                                 fecha_Desbloqueo,
-                                 fecha_Envio,
-                                 fecha_concluida,
-                                 existeTKT
+                        MessageBox.Show("No se pudo definir el numero de consecutivo que se le asignara a su solicitud. " + (char)13 + "¡¡¡ No se puede generar la solicitud. !!!",
+                            "Error al Guardar",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
                             );
 
-                            dtpEnvio.Enabled = false;
+                    }
+                    else
+                    {
+                        txtSolicitud.Enabled = true;
+                        dtpFechaCaptura.Enabled = true;
 
-                            if(respuesta.Codigo == 0)
+                        txtSolicitud.Text = consecutivo.ToString();
+                        dtpFechaCaptura.Value = DateTime.Now;
+
+                        dtpEnvio.Enabled = true;
+                        btnCancelarSolicitud.Enabled = false;
+                        btnGuardar.Enabled = false;
+
+                        int id_ConsultorMac = frmp.usuario_loggeado.id_usuario;
+                        int id_Solicitud = cmbTipoSolicitud.SelectedIndex;
+                        int id_Tramite = cmbTipoTramite.SelectedIndex;
+                        int puntos = Int32.Parse(txtPuntos.Text);
+                        string circuito = (rbCircuitoAuto.Checked) ? "A" : "M";
+                        string cuenta_Cliente = txtCuenta.Text;
+                        string sufijo_Kapiti = cmbProducto.Text;
+                        byte tipo_Persona = (byte)((rbPersonaFisica.Checked) ? 0 : 1);
+                        string nombre_Cliente = txtNombre.Text;
+                        string apellido_Paterno = txtApellidoP.Text;
+                        string apellido_Materno = txtApellidoM.Text;
+                        decimal deposito_Inicial = decimal.Parse(TxtDepositoTkt.Text);
+                        string numero_Registro = cmbNumeroFuncionario.Text;
+                        string nombre_Promotor = cmbPromotor.Text;
+                        string banca = cmbBanca.Text;
+                        string division = cmbDivision.Text;
+                        string plaza = cmbPlaza.Text;
+                        string sucursal = cmbSucursal.Text;
+                        string status = "1";
+                        int num_Solicitud = Int32.Parse(txtSolicitud.Text);
+                        DateTime fechaRepc_Doc = dtpFRecepDoc.Value;
+                        TimeSpan horaRepc_Doc = new TimeSpan(Int32.Parse(cmbHora1.SelectedValue.ToString()), Int32.Parse(cmbMinuto1.SelectedValue.ToString()), 0); 
+                        DateTime fechaAnalisis_Mac = dtpFAnalisisMac.Value;
+                        TimeSpan horaAnalisis_Mac = new TimeSpan(Int32.Parse(cmbHora2.SelectedValue.ToString()), Int32.Parse(cmbMinuto2.SelectedValue.ToString()), 0);
+                        DateTime fechaFormalizada = dtpFFormalizada.Value;
+                        TimeSpan horaFormalizada = new TimeSpan(Int32.Parse(cmbHora3.SelectedValue.ToString()), Int32.Parse(cmbMinuto3.SelectedValue.ToString()), 0);
+                        DateTime fechaRepc_Originales = dtpFRecepcion.Value;
+                        TimeSpan horaRepc_Originales = new TimeSpan(Int32.Parse(cmbHora4.SelectedValue.ToString()), Int32.Parse(cmbMinuto4.SelectedValue.ToString()), 0);
+                        DateTime fechaAten_Originales = dtpFAtencion.Value; ;
+                        TimeSpan horaAten_Originales = new TimeSpan(Int32.Parse(cmbHora5.SelectedValue.ToString()), Int32.Parse(cmbMinuto5.SelectedValue.ToString()), 0);
+                        string originales = "-1";
+                        decimal deposito_Inicial_Ini = decimal.Parse(txtDepositoIni.Text);
+                        DateTime fecha_Desbloqueo = dtpDesbloqueo.Value;
+                        DateTime fecha_Envio = dtpEnvio.Value;
+                        DateTime fecha_concluida = dtpConcluir.Value;
+                        string existeTKT = rbExisteCuentaSi.Checked ? "S" : "N";
+
+
+                        FuncionesBdbmtktp01 context = new FuncionesBdbmtktp01();
+
+                        Mac_Inserta_Respuesta respuesta = context.Mac_Inserta_Datos(
+                            id_ConsultorMac,
+                            id_Solicitud,
+                            id_Tramite,
+                            puntos,
+                            circuito,
+                            cuenta_Cliente,
+                            sufijo_Kapiti,
+                            tipo_Persona,
+                            nombre_Cliente,
+                            apellido_Paterno,
+                            apellido_Materno,
+                            deposito_Inicial,
+                            numero_Registro,
+                            nombre_Promotor,
+                            banca,
+                            division,
+                            plaza,
+                            sucursal,
+                            status,
+                            num_Solicitud,
+                            fechaRepc_Doc,
+                            horaRepc_Doc,
+                            fechaAnalisis_Mac,
+                            horaAnalisis_Mac,
+                            fechaFormalizada,
+                            horaFormalizada,
+                            fechaRepc_Originales,
+                            horaRepc_Originales,
+                            fechaAten_Originales,
+                            horaAten_Originales,
+                            originales,
+                            deposito_Inicial_Ini,
+                            fecha_Desbloqueo,
+                            fecha_Envio,
+                            fecha_concluida,
+                            existeTKT
+                        );
+
+                        dtpEnvio.Enabled = false;
+
+                        if(respuesta.Codigo == 0)
+                        {
+                            if(cmbTipoSolicitud.SelectedText != default_cmb)
                             {
-                                if(cmbTipoSolicitud.SelectedText != default_cmb)
-                                {
-                                    lblDeposito.Visible = false;
-                                    txtDepositoIni.Visible = false;
-                                }
-                                else
-                                {
+                                lblDeposito.Visible = false;
+                                txtDepositoIni.Visible = false;
+                            }
+                            else
+                            {
 
-                                    lblDeposito.Visible = true;
-                                    txtDepositoIni.Visible = true;
-                                }
-
-                                if(rbCircuitoAuto.Checked)
-                                {
-                                    btnDesbloqueo.Visible = true;
-                                    LblDesbloquep.Visible = true;
-                                    dtpDesbloqueo.Visible = true;
-                                }
-                                else
-                                {
-                                    btnDesbloqueo.Visible = false;
-                                    LblDesbloquep.Visible = false;
-                                    dtpDesbloqueo.Visible = false;
-                                }
-
-                                dtpFechaCaptura.Value = respuesta.FechaHora_Captura;
-                                txtDepositoIni.Text = "0.00";
-
-
-                                txtSolicitud.Enabled = true;
-
-
-
-
+                                lblDeposito.Visible = true;
+                                txtDepositoIni.Visible = true;
                             }
 
+                            if(rbCircuitoAuto.Checked)
+                            {
+                                btnDesbloqueo.Visible = true;
+                                LblDesbloquep.Visible = true;
+                                dtpDesbloqueo.Visible = true;
+                            }
+                            else
+                            {
+                                btnDesbloqueo.Visible = false;
+                                LblDesbloquep.Visible = false;
+                                dtpDesbloqueo.Visible = false;
+                            }
 
+                            dtpFechaCaptura.Value = respuesta.FechaHora_Captura;
+                            txtDepositoIni.Text = "0.00";
+
+
+                            txtSolicitud.Enabled = true;
+
+                            foreach (DataGridViewRow fila in dtgvwObservaciones.Rows)
+                            {
+                                int insertado = 0;
+                                OBSERVACIONES observacion = new OBSERVACIONES { Num_Solicitud = Int32.Parse(txtSolicitud.Text), Observaciones1 = fila.Cells[""].Value.ToString(), Fecha_Observ = DateTime.Now };
+
+                                bdbmtktp01.OBSERVACIONES.Add(observacion);
+
+                                insertado = bdbmtktp01.SaveChanges();
+                            }
+
+                            txtSolicitud.Enabled = false;
+                            lblStatus.Text = "En proceso";
+
+                            MessageBox.Show("El Número de folio es: " + txtSolicitud.Text, "Numero de folio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            DialogResult dialogResult = MessageBox.Show("¿Desea dar de alta otra solicitud?", "Nueva Solicitud", MessageBoxButtons.YesNo);
+                            
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                Limpiar();
+                            }
 
                         }
                     }
                 }
-            }
+            }          
         }
 
+        private void Limpiar()
+        {
+            cmbNumeroFuncionario_activo = false;
+            cmbConsultorMac_activo = false;
+            cmbProducto_activo = false;
+            cmbTipoSolicitud_activo = false; 
+            cmbTipoTramite_activo = false;
+
+            cmbConsultorMac.SelectedText = default_cmb;
+            cmbTipoSolicitud.SelectedText = default_cmb;
+            cmbTipoTramite.SelectedText = default_cmb;
+
+            cmbNumeroFuncionario.Tag = String.Empty;
+            txtSolicitud.Text = String.Empty;
+            dtpFechaCaptura.Value = default_dtp;
+
+            txtPuntos.Text = String.Empty;
+            rbCircuitoAuto.Checked = true;
+            txtCuenta.Text = String.Empty;
+            cmbProducto.SelectedText = default_cmb;
+            txtNombre.Text = String.Empty;
+            txtApellidoP.Text = String.Empty;
+            txtApellidoM.Text = String.Empty;
+            TxtDepositoTkt.Text = String.Empty;
+            cmbNumeroFuncionario.SelectedText = default_cmb;
+            cmbPromotor.SelectedText = String.Empty;
+            cmbBanca.SelectedText = String.Empty;
+            cmbDivision.SelectedText = String.Empty;
+            cmbPlaza.SelectedText = String.Empty;
+            lblStatus.Text = String.Empty;         
+            cmbHora1.SelectedText = "00";
+            cmbHora2.SelectedText = "00";
+            cmbHora3.SelectedText = "00";
+            cmbHora4.SelectedText = "00";
+            cmbHora5.SelectedText = "00";
+            cmbMinuto1.SelectedText = "00";
+            cmbMinuto2.SelectedText = "00";
+            cmbMinuto3.SelectedText = "00";
+            cmbMinuto4.SelectedText = "00";
+            cmbMinuto5.SelectedText = "00";
+            dtpFFormalizada.Value = default_dtp;
+            dtpFRecepDoc.Value = default_dtp;
+            dtpFAnalisisMac.Value = default_dtp;
+            dtpFRecepcion.Value = default_dtp;
+            dtpFAtencion.Value = default_dtp;
+            dtpDesbloqueo.Value = default_dtp;
+            dtpEnvio.Value = default_dtp;
+            dtpConcluir.Value = default_dtp;
+
+            LlenarFechaNumero();
+
+
+            //TxtNivelTiempo.text = ""
+            //TxtNivelDias.text = ""
+
+            txtDepositoIni.Text = String.Empty;
+            dtgvwObservaciones.DataSource = null;
+            dtgvwObservaciones.Refresh();
+            cmbConsultorMac.Enabled = true;
+            cmbTipoSolicitud.Enabled = true;
+            btnGuardar.Text = "Guardar";
+            btnCancelarSolicitud.Visible = false;
+
+            btnGuardar.Visible = true;
+            grpCircuito.Enabled = true;
+            cmbTipoTramite.Enabled = true;
+            grpTicket.Enabled = true;
+            grpTipoPersona.Enabled = true;
+
+            //If tmrTab.Tag = "" Then
+            //    SSTabSeg.Tab = 0
+            //Else
+            //    tmrTab.Tag = ""
+            //End If
+
+
+
+        }
 
         private void dtpConcluir_ValueChanged(object sender, EventArgs e)
         {
@@ -841,7 +934,7 @@ namespace GOMAC.Views
         }
 
 
-        public FrmNueva_Solicitud(Frm_PantallaPrincipal frmp)
+        public FrmNueva_Solicitud(Frm_Login frmp)
         {      
             InitializeComponent();
           
@@ -1106,10 +1199,6 @@ namespace GOMAC.Views
                         dtpFechaCaptura.Value = DateTime.Now;
                         txtSolicitud.Enabled = false;
                         txtSolicitud.Text = consecutivo.ToString();
-
-
-
-                        
                     }
                     
                 }
@@ -1256,7 +1345,7 @@ namespace GOMAC.Views
         {
             List<Map> horas = new List<Map>();
 
-            for(int i = 1; i <= 12; i++)
+            for(int i = 0; i <= 24; i++)
             {
                 horas.Add(new Map
                 {
@@ -2219,7 +2308,39 @@ namespace GOMAC.Views
         {
         }
 
-        
+        private void cmbConsultorMac_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void rbExisteCuentaSi_CheckedChanged(object sender, EventArgs e)
+        {
+            if(str_consultor == "")
+            {
+                if(rbExisteCuentaSi.Checked)
+                {
+                    txtCuenta.Enabled = false;
+                }
+            }
+        }
+
+        private void rbExisteCuentaNo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (str_consultor == "")
+            {
+                if (rbExisteCuentaNo.Checked)
+                {
+                    txtCuenta.Enabled = true;
+                }
+            }
+
+            string ticket;
+
+            txtCuenta.Enabled = true;
+
+
+        }
+
         private void cmbTipoTramite_Click(object sender, EventArgs e)
         {
             cmbTipoTramite_activo = true;
