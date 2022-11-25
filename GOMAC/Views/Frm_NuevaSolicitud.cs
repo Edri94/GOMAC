@@ -825,11 +825,97 @@ namespace GOMAC.Views
                             MessageBox.Show("El Número de folio es: " + txtSolicitud.Text, "Numero de folio", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             DialogResult dialogResult = MessageBox.Show("¿Desea dar de alta otra solicitud?", "Nueva Solicitud", MessageBoxButtons.YesNo);
-                            
+
                             if (dialogResult == DialogResult.Yes)
                             {
                                 Limpiar();
+
+
+                                btnLimpiar.Text = "Nuevo";
+
+                                cmbConsultorMac.Enabled = false;
+                                cmbTipoSolicitud.Enabled = false;
+                                cmbTipoTramite.Enabled = false;
+                                txtCuenta.Enabled = false;
+                                cmbProducto.Enabled = false;
+                                txtNombre.Enabled = false;
+                                txtApellidoP.Enabled = false;
+                                txtApellidoM.Enabled = false;
+                                TxtDepositoTkt.Enabled = false;
+                                rbcorrectos.Checked = false;
+                                rbIncorrectos.Checked = false;
+
+                                //DoEvents
+                                //tmrTraerDatos.Enabled = True
+
+                                btnCancelarSolicitud.Enabled = true;
+
                             }
+                            else
+                            {
+                                //SSTabSeg.Enabled = True
+                                //SSTabSeg.TabEnabled(1) = True
+                                //SSTabSeg.TabEnabled(2) = True
+                                btnGuardar.Text = "Modificar";
+                                grpOriginales.Enabled = false;
+                                btnGuardar.Enabled = true;
+                                lblStatus.Text = "En proceso";
+
+
+                                if(lblStatus.Text == "En proceso")
+                                {
+                                    grpCircuito.Enabled = true;
+
+                                    HabilitarRbFechas(true);
+                                    HabilitarCmbsTiempo(true);
+
+                                    VisibleRbFechas(true);
+                                    lblDeposito.Visible = true;
+                                    txtDepositoIni.Visible = true;
+
+                                    txtDepositoIni.Enabled = true;
+
+                                    txtApellidoP.Enabled = true;
+                                    txtNombre.Enabled = true;
+                                    txtApellidoM.Enabled = true;
+
+                                    if(LblDesbloquep.Visible == true)
+                                    {
+                                        btnDesbloqueo.Visible = true;
+                                        btnDesbloqueo.Enabled = true;
+                                    }
+                                    else
+                                    {
+                                        btnDesbloqueo.Visible = false;
+                                        btnDesbloqueo.Enabled = false;
+                                    }
+
+                                    grpOriginales.Enabled = true;
+                                    rbcorrectos.Enabled = true;
+                                    rbIncorrectos.Enabled = true;
+
+                                    btnConcluirSolicitud.Enabled = true;
+
+                                    lblDeposito.Visible = true;
+                                    txtDepositoIni.Visible = true;
+                                    txtDepositoIni.Enabled = true;
+                                    txtApellidoP.Enabled = true;
+                                    txtNombre.Enabled = true;
+                                    txtApellidoM.Enabled = true;
+                                }
+                                else
+                                {
+                                    grpCircuito.Enabled = false;
+                                    btnLimpiar.Visible = false;
+
+                                    HabilitarRbFechas(false);
+                                    HabilitarCmbsTiempo(false);
+
+                                    btnDesbloqueo.Visible = false;
+                                    btnDesbloqueo.Enabled = false;
+                                }
+                            }
+
 
                         }
                     }
@@ -912,7 +998,15 @@ namespace GOMAC.Views
             //    tmrTab.Tag = ""
             //End If
 
+            rbExisteCuentaSi.Checked = false;
+            rbExisteCuentaNo.Checked = false;
 
+            cmbNumeroFuncionario.Enabled = true;
+            txtCuenta.Enabled = false;
+            btnNuevaObservacion.Enabled = true;
+            btnVerObservacion.Enabled = true;
+            txtDepositoIni.Enabled = true;
+            grpTipoPersona.Enabled = true;
 
         }
 
@@ -2214,6 +2308,28 @@ namespace GOMAC.Views
             {
                 Log.Escribe(ex);
             }
+        }
+
+        private void HabilitarRbFechas(bool v)
+        {
+            btnFRecepDoc.Enabled = v;
+            btnFAnalisisMac.Enabled = v;
+            btnFFormalizada.Enabled = v;
+            btnFRecepcion.Enabled = v;
+            btnFAtencion.Enabled = v;
+            btnDesbloqueo.Enabled = v;
+            btnEnvio.Enabled = v;
+        }
+
+        private void VisibleRbFechas(bool v)
+        {
+            btnFRecepDoc.Visible = v;
+            btnFAnalisisMac.Visible = v;
+            btnFFormalizada.Visible = v;
+            btnFRecepcion.Visible = v;
+            btnFAtencion.Visible = v;
+            btnDesbloqueo.Visible = v;
+            btnEnvio.Visible = v;
         }
 
         private void HabilitarCmbsTiempo(bool v)
