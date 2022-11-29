@@ -138,6 +138,8 @@ namespace GOMAC.Views
             this.tmrTraerDatos = new System.Windows.Forms.Timer(this.components);
             this.tmrTab = new System.Windows.Forms.Timer(this.components);
             this.tmtValidarBoton = new System.Windows.Forms.Timer(this.components);
+            this.txtNivelTiempo = new System.Windows.Forms.TextBox();
+            this.txtNivelDias = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpTipoPersona.SuspendLayout();
@@ -646,6 +648,8 @@ namespace GOMAC.Views
             // grpCalendario
             // 
             this.grpCalendario.Controls.Add(this.Calendario);
+            this.grpCalendario.Controls.Add(this.txtNivelDias);
+            this.grpCalendario.Controls.Add(this.txtNivelTiempo);
             this.grpCalendario.Location = new System.Drawing.Point(456, 11);
             this.grpCalendario.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.grpCalendario.Name = "grpCalendario";
@@ -1312,6 +1316,20 @@ namespace GOMAC.Views
             this.tmrTraerDatos.Interval = 1000;
             this.tmrTraerDatos.Tick += new System.EventHandler(this.tmrTraerDatos_Tick);
             // 
+            // txtNivelTiempo
+            // 
+            this.txtNivelTiempo.Location = new System.Drawing.Point(41, 111);
+            this.txtNivelTiempo.Name = "txtNivelTiempo";
+            this.txtNivelTiempo.Size = new System.Drawing.Size(307, 26);
+            this.txtNivelTiempo.TabIndex = 16;
+            // 
+            // txtNivelDias
+            // 
+            this.txtNivelDias.Location = new System.Drawing.Point(41, 150);
+            this.txtNivelDias.Name = "txtNivelDias";
+            this.txtNivelDias.Size = new System.Drawing.Size(307, 26);
+            this.txtNivelDias.TabIndex = 16;
+            // 
             // FrmNueva_Solicitud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1348,6 +1366,7 @@ namespace GOMAC.Views
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.grpCalendario.ResumeLayout(false);
+            this.grpCalendario.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1476,5 +1495,7 @@ namespace GOMAC.Views
         private System.Windows.Forms.GroupBox grpCalendario;
         private System.Windows.Forms.RadioButton btnEnvio;
         private System.Windows.Forms.RadioButton btnDesbloqueo;
+        private System.Windows.Forms.TextBox txtNivelDias;
+        private System.Windows.Forms.TextBox txtNivelTiempo;
     }
 }
