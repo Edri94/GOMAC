@@ -913,11 +913,237 @@ namespace GOMAC.Views
 
                                     btnDesbloqueo.Visible = false;
                                     btnDesbloqueo.Enabled = false;
+
+                                    grpOriginales.Enabled = false;
+                                    lblDeposito.Visible = false;
+                                    txtDepositoIni.Visible = false;
+
+                                    txtDepositoIni.Enabled = false;
+                                }
+                                if(lblStatus.Text == "En proceso")
+                                {
+                                    grpCircuito.Enabled = true;
+
+                                    HabilitarRbFechas(true);
+                                    HabilitarCmbsTiempo(true);
+                                    VisibleRbFechas(true);
+
+                                    if(LblDesbloquep.Visible == true)
+                                    {
+                                        btnDesbloqueo.Visible = true;
+                                        btnDesbloqueo.Enabled = true;
+                                    }
+                                    else
+                                    {
+                                        btnDesbloqueo.Visible = false;
+                                        btnDesbloqueo.Enabled = false;
+                                    }
+
+                                    grpOriginales.Enabled = true;
+                                    rbcorrectos.Enabled = true;
+                                    rbIncorrectos.Enabled = true;
+                                    btnConcluirSolicitud.Enabled = true;
+
+                                    cmbTipoSolicitud.Enabled = true;
+                                    lblDeposito.Visible = true;
+                                    txtDepositoIni.Visible = true;
+                                    txtDepositoIni.Enabled = true;
+                                    txtApellidoP.Enabled = true;
+                                    txtNombre.Enabled = true;
+                                    txtApellidoM.Enabled = true;
                                 }
                             }
 
+                            if(lblStatus.Text == "En proceso")
+                            {
+                                grpCircuito.Enabled = true;
+
+                                HabilitarRbFechas(true);
+                                HabilitarCmbsTiempo(true);
+                                VisibleRbFechas(true);
+
+                                if (LblDesbloquep.Visible == true)
+                                {
+                                    btnDesbloqueo.Visible = true;
+                                    btnDesbloqueo.Enabled = true;
+                                }
+                                else
+                                {
+                                    btnDesbloqueo.Visible = false;
+                                    btnDesbloqueo.Enabled = false;
+                                }
+
+                                grpOriginales.Enabled = true;
+                                rbcorrectos.Enabled = true;
+                                rbIncorrectos.Enabled = true;
+                                btnConcluirSolicitud.Enabled = true;
+
+                                cmbTipoSolicitud.Enabled = true;
+                                lblDeposito.Visible = true;
+                                txtDepositoIni.Visible = true;
+                                txtDepositoIni.Enabled = true;
+                                txtApellidoP.Enabled = true;
+                                txtNombre.Enabled = true;
+                                txtApellidoM.Enabled = true;
+
+                            }
+
+                            tmtValidarBoton.Enabled = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al ingresar la operacion" + respuesta.FechaHora_Captura, "Error!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        tmtValidarBoton.Enabled = true;
+                    }
+                }
+                else if(btnGuardar.Text == "Modificar")
+                {
+                    if(MessageBox.Show($"Esta seguro de querer cancelar la solicitud No. {txtSolicitud.Text}", "Confirmar cancelacion", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        if(dtpFAnalisisMac.Value != default_dtp)
+                        {
+                            TimeSpan hora_FRecepDoc = new TimeSpan(Int32.Parse(cmbHora1.SelectedValue.ToString()), Int32.Parse(cmbMinuto1.SelectedValue.ToString()), 0);
+                            TimeSpan hora_FAnalisisMac = new TimeSpan(Int32.Parse(cmbHora2.SelectedValue.ToString()), Int32.Parse(cmbMinuto2.SelectedValue.ToString()), 0);
+                            
+                            if ((dtpFRecepDoc.Value.Date + hora_FRecepDoc)  > dtpFAnalisisMac.Value.Date + hora_FAnalisisMac)
+                            {
+                                MessageBox.Show("La fecha y hora de Analisis Mac no puede ser menor o igual a la fecha y hora de Expediente Único", "Analisis Mac", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                            }
+                        }
+
+                        if(dtpFFormalizada.Value != default_dtp)
+                        {
+                            if(rbCircuitoAuto.Checked)
+                            {
+
+                            }
+                            else
+                            {
+                                TimeSpan hora_FAnalisisMac = new TimeSpan(Int32.Parse(cmbHora2.SelectedValue.ToString()), Int32.Parse(cmbMinuto2.SelectedValue.ToString()), 0);
+                                TimeSpan hora_FFormalizada = new TimeSpan(Int32.Parse(cmbHora3.SelectedValue.ToString()), Int32.Parse(cmbMinuto3.SelectedValue.ToString()), 0);
+
+                                if ((dtpFAnalisisMac.Value.Date + hora_FAnalisisMac) > dtpFFormalizada.Value.Date + hora_FFormalizada)
+                                {
+                                    MessageBox.Show("La fecha y hora de Formalización no puede ser menor o igual a la fecha y hora de Analisis Mac", "Formalizada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                                }
+                            }
+                        }
+
+
+                        if (dtpFAtencion.Value != default_dtp)
+                        {                         
+                            TimeSpan hora_FRecepcion = new TimeSpan(Int32.Parse(cmbHora4.SelectedValue.ToString()), Int32.Parse(cmbMinuto4.SelectedValue.ToString()), 0);
+                            TimeSpan hora_FAtencion = new TimeSpan(Int32.Parse(cmbHora5.SelectedValue.ToString()), Int32.Parse(cmbMinuto5.SelectedValue.ToString()), 0);
+
+                            if ((dtpFRecepcion.Value.Date + hora_FRecepcion) > dtpFAtencion.Value.Date + hora_FAtencion)
+                            {
+                                MessageBox.Show("La fecha y hora de Atención de originales no puede ser menor o igual a la fecha y hora de Recepción", "Atención de originales", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                            }
+                            
+                        }
+
+                        if(rbcorrectos.Checked == true || rbIncorrectos.Checked == true)
+                        {
+                            str_docuemntos = (rbcorrectos.Checked == true) ? "0" : "1";
+                        }
+                        else
+                        {
+                            str_docuemntos = "-1";
+                        }
+
+
+                        dtpEnvio.Enabled = true;
+
+                        int id_ConsultorMac = frmp.usuario_loggeado.id_usuario;
+                        int id_Solicitud = cmbTipoSolicitud.SelectedIndex;
+                        int id_Tramite = cmbTipoTramite.SelectedIndex;
+                        int puntos = Int32.Parse(txtPuntos.Text);
+                        string circuito = (rbCircuitoAuto.Checked) ? "A" : "M";
+                        string cuenta_Cliente = txtCuenta.Text;
+                        string sufijo_Kapiti = cmbProducto.Text;
+                        byte tipo_Persona = (byte)((rbPersonaFisica.Checked) ? 0 : 1);
+                        string nombre_Cliente = txtNombre.Text;
+                        string apellido_Paterno = txtApellidoP.Text;
+                        string apellido_Materno = txtApellidoM.Text;
+                        decimal deposito_Inicial = decimal.Parse(TxtDepositoTkt.Text);
+                        string numero_Registro = cmbNumeroFuncionario.Text;
+                        string nombre_Promotor = cmbPromotor.Text;
+                        string banca = cmbBanca.Text;
+                        string division = cmbDivision.Text;
+                        string plaza = cmbPlaza.Text;
+                        string sucursal = cmbSucursal.Text;
+                        string status = "1";
+                        int num_Solicitud = Int32.Parse(txtSolicitud.Text);
+                        DateTime fechaRepc_Doc = dtpFRecepDoc.Value;
+                        TimeSpan horaRepc_Doc = new TimeSpan(Int32.Parse(cmbHora1.SelectedValue.ToString()), Int32.Parse(cmbMinuto1.SelectedValue.ToString()), 0);
+                        DateTime fechaAnalisis_Mac = dtpFAnalisisMac.Value;
+                        TimeSpan horaAnalisis_Mac = new TimeSpan(Int32.Parse(cmbHora2.SelectedValue.ToString()), Int32.Parse(cmbMinuto2.SelectedValue.ToString()), 0);
+                        DateTime fechaFormalizada = dtpFFormalizada.Value;
+                        TimeSpan horaFormalizada = new TimeSpan(Int32.Parse(cmbHora3.SelectedValue.ToString()), Int32.Parse(cmbMinuto3.SelectedValue.ToString()), 0);
+                        DateTime fechaRepc_Originales = dtpFRecepcion.Value;
+                        TimeSpan horaRepc_Originales = new TimeSpan(Int32.Parse(cmbHora4.SelectedValue.ToString()), Int32.Parse(cmbMinuto4.SelectedValue.ToString()), 0);
+                        DateTime fechaAten_Originales = dtpFAtencion.Value; ;
+                        TimeSpan horaAten_Originales = new TimeSpan(Int32.Parse(cmbHora5.SelectedValue.ToString()), Int32.Parse(cmbMinuto5.SelectedValue.ToString()), 0);
+                        string originales = "-1";
+                        decimal deposito_Inicial_Ini = decimal.Parse(txtDepositoIni.Text);
+                        DateTime fecha_Desbloqueo = dtpDesbloqueo.Value;
+                        DateTime fecha_Envio = dtpEnvio.Value;
+                        DateTime fecha_concluida = dtpConcluir.Value;
+                        string existeTKT = rbExisteCuentaSi.Checked ? "S" : "N";
+
+
+                        FuncionesBdbmtktp01 context = new FuncionesBdbmtktp01();
+
+                        Mac_Actualiza_Respuesta respuesta = context.Mac_Actualiza_Datos(
+                            id_ConsultorMac,
+                            id_Solicitud,
+                            id_Tramite,
+                            puntos,
+                            circuito,
+                            cuenta_Cliente,
+                            sufijo_Kapiti,
+                            tipo_Persona,
+                            nombre_Cliente,
+                            apellido_Paterno,
+                            apellido_Materno,
+                            deposito_Inicial,
+                            numero_Registro,
+                            nombre_Promotor,
+                            banca,
+                            division,
+                            plaza,
+                            sucursal,
+                            status,
+                            num_Solicitud,
+                            fechaRepc_Doc,
+                            horaRepc_Doc,
+                            fechaAnalisis_Mac,
+                            horaAnalisis_Mac,
+                            fechaFormalizada,
+                            horaFormalizada,
+                            fechaRepc_Originales,
+                            horaRepc_Originales,
+                            fechaAten_Originales,
+                            horaAten_Originales,
+                            originales,
+                            deposito_Inicial_Ini,
+                            fecha_Desbloqueo,
+                            fecha_Envio,
+                            fecha_concluida,
+                            existeTKT
+                        );
+
+                        dtpEnvio.Enabled = true;
+
+                        if(respuesta.Codigo == 0)
+                        {
 
                         }
+
                     }
                 }
             }          
@@ -1805,7 +2031,7 @@ namespace GOMAC.Views
                         grpOriginales.Enabled = false;
                         btnNuevaObservacion.Enabled = false;
 
-                        VisibleBtnsFecha(false);
+                        VisibleRbFechas(false);
                         HabilitarCmbsTiempo(false);
                     }
 
@@ -2004,7 +2230,7 @@ namespace GOMAC.Views
 
                             grpOriginales.Enabled = true;
 
-                            VisibleBtnsFecha(false);
+                            VisibleRbFechas(false);
                         }
                         else
                         {
@@ -2348,16 +2574,6 @@ namespace GOMAC.Views
 
         }
 
-        private void VisibleBtnsFecha(bool v)
-        {
-            btnFRecepDoc.Visible = v;
-            btnFAnalisisMac.Visible = v;
-            btnFFormalizada.Visible = v;
-            btnFRecepcion.Visible = v;
-            btnFAtencion.Visible = v;
-            btnDesbloqueo.Visible = v;
-            btnEnvio.Visible = v;
-        }
 
         private SEGUIMIENTO VerSeguimientoDoc(int numero_solicitud)
         {
