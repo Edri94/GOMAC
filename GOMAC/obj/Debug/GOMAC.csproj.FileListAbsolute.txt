@@ -32,3 +32,5 @@ C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.csproj.CopyComplete
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.exe
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.pdb
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.csproj.AssemblyReference.cache
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.Views.Frm_NuevaObvservacion.resources
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.Views.Frm_VistaObvservaciones.resources

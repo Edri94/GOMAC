@@ -57,7 +57,7 @@ namespace GOMAC.Views
             this.lblTipoTramite = new System.Windows.Forms.Label();
             this.txtPuntos = new System.Windows.Forms.TextBox();
             this.lblPuntos = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.SSTabSeg = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -74,6 +74,8 @@ namespace GOMAC.Views
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.grpCalendario = new System.Windows.Forms.GroupBox();
             this.Calendario = new System.Windows.Forms.MonthCalendar();
+            this.txtNivelDias = new System.Windows.Forms.TextBox();
+            this.txtNivelTiempo = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.txtDepositoIni = new System.Windows.Forms.TextBox();
             this.LblDesbloquep = new System.Windows.Forms.Label();
@@ -138,14 +140,12 @@ namespace GOMAC.Views
             this.tmrTraerDatos = new System.Windows.Forms.Timer(this.components);
             this.tmrTab = new System.Windows.Forms.Timer(this.components);
             this.tmtValidarBoton = new System.Windows.Forms.Timer(this.components);
-            this.txtNivelTiempo = new System.Windows.Forms.TextBox();
-            this.txtNivelDias = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpTipoPersona.SuspendLayout();
             this.grpTicket.SuspendLayout();
             this.grpCircuito.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.SSTabSeg.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.grpCalendario.SuspendLayout();
@@ -277,6 +277,7 @@ namespace GOMAC.Views
             this.rbPersonaMoral.TabStop = true;
             this.rbPersonaMoral.Text = "Moral";
             this.rbPersonaMoral.UseVisualStyleBackColor = true;
+            this.rbPersonaMoral.CheckedChanged += new System.EventHandler(this.rbPersonaMoral_CheckedChanged);
             // 
             // rbPersonaFisica
             // 
@@ -289,6 +290,7 @@ namespace GOMAC.Views
             this.rbPersonaFisica.TabStop = true;
             this.rbPersonaFisica.Text = "Fisica";
             this.rbPersonaFisica.UseVisualStyleBackColor = true;
+            this.rbPersonaFisica.CheckedChanged += new System.EventHandler(this.rbPersonaFisica_CheckedChanged);
             // 
             // grpTicket
             // 
@@ -472,17 +474,18 @@ namespace GOMAC.Views
             this.lblPuntos.TabIndex = 1;
             this.lblPuntos.Text = "Puntos:";
             // 
-            // tabControl1
+            // SSTabSeg
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(18, 370);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1239, 402);
-            this.tabControl1.TabIndex = 2;
+            this.SSTabSeg.Controls.Add(this.tabPage1);
+            this.SSTabSeg.Controls.Add(this.tabPage2);
+            this.SSTabSeg.Controls.Add(this.tabPage3);
+            this.SSTabSeg.Location = new System.Drawing.Point(18, 370);
+            this.SSTabSeg.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.SSTabSeg.Name = "SSTabSeg";
+            this.SSTabSeg.SelectedIndex = 0;
+            this.SSTabSeg.Size = new System.Drawing.Size(1239, 402);
+            this.SSTabSeg.TabIndex = 2;
+            this.SSTabSeg.TabIndexChanged += new System.EventHandler(this.SSTabSeg_TabIndexChanged);
             // 
             // tabPage1
             // 
@@ -504,7 +507,7 @@ namespace GOMAC.Views
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage1.Size = new System.Drawing.Size(1231, 369);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Datos Funcionario";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // label4
@@ -642,7 +645,7 @@ namespace GOMAC.Views
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage2.Size = new System.Drawing.Size(1231, 369);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Seguimiento Documentos";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // grpCalendario
@@ -667,6 +670,20 @@ namespace GOMAC.Views
             this.Calendario.Name = "Calendario";
             this.Calendario.TabIndex = 4;
             this.Calendario.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.Calendario_DateSelected);
+            // 
+            // txtNivelDias
+            // 
+            this.txtNivelDias.Location = new System.Drawing.Point(41, 150);
+            this.txtNivelDias.Name = "txtNivelDias";
+            this.txtNivelDias.Size = new System.Drawing.Size(307, 26);
+            this.txtNivelDias.TabIndex = 16;
+            // 
+            // txtNivelTiempo
+            // 
+            this.txtNivelTiempo.Location = new System.Drawing.Point(41, 111);
+            this.txtNivelTiempo.Name = "txtNivelTiempo";
+            this.txtNivelTiempo.Size = new System.Drawing.Size(307, 26);
+            this.txtNivelTiempo.TabIndex = 16;
             // 
             // groupBox7
             // 
@@ -761,6 +778,7 @@ namespace GOMAC.Views
             this.btnConcluirSolicitud.TabIndex = 5;
             this.btnConcluirSolicitud.Text = "Concluir Solicitud";
             this.btnConcluirSolicitud.UseVisualStyleBackColor = true;
+            this.btnConcluirSolicitud.Click += new System.EventHandler(this.btnConcluirSolicitud_Click);
             // 
             // btnEnvio
             // 
@@ -1117,6 +1135,7 @@ namespace GOMAC.Views
             this.rbIncorrectos.TabStop = true;
             this.rbIncorrectos.Text = "Incorrectos";
             this.rbIncorrectos.UseVisualStyleBackColor = true;
+            this.rbIncorrectos.CheckedChanged += new System.EventHandler(this.rbIncorrectos_CheckedChanged);
             // 
             // rbcorrectos
             // 
@@ -1128,6 +1147,7 @@ namespace GOMAC.Views
             this.rbcorrectos.TabStop = true;
             this.rbcorrectos.Text = "Correctos";
             this.rbcorrectos.UseVisualStyleBackColor = true;
+            this.rbcorrectos.CheckedChanged += new System.EventHandler(this.rbcorrectos_CheckedChanged);
             // 
             // tabPage3
             // 
@@ -1141,7 +1161,7 @@ namespace GOMAC.Views
             this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage3.Size = new System.Drawing.Size(1231, 369);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.Text = "Observaciones";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // btnVerObservacion
@@ -1153,6 +1173,7 @@ namespace GOMAC.Views
             this.btnVerObservacion.TabIndex = 3;
             this.btnVerObservacion.Text = "Ver Observacion";
             this.btnVerObservacion.UseVisualStyleBackColor = true;
+            this.btnVerObservacion.Click += new System.EventHandler(this.btnVerObservacion_Click);
             // 
             // btnNuevaObservacion
             // 
@@ -1163,6 +1184,7 @@ namespace GOMAC.Views
             this.btnNuevaObservacion.TabIndex = 3;
             this.btnNuevaObservacion.Text = "Nueva Observacion";
             this.btnNuevaObservacion.UseVisualStyleBackColor = true;
+            this.btnNuevaObservacion.Click += new System.EventHandler(this.btnNuevaObservacion_Click);
             // 
             // dtgvwObservaciones
             // 
@@ -1277,6 +1299,7 @@ namespace GOMAC.Views
             this.btnLimpiar.TabIndex = 5;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnGuardar
             // 
@@ -1316,19 +1339,9 @@ namespace GOMAC.Views
             this.tmrTraerDatos.Interval = 1000;
             this.tmrTraerDatos.Tick += new System.EventHandler(this.tmrTraerDatos_Tick);
             // 
-            // txtNivelTiempo
+            // tmrTab
             // 
-            this.txtNivelTiempo.Location = new System.Drawing.Point(41, 111);
-            this.txtNivelTiempo.Name = "txtNivelTiempo";
-            this.txtNivelTiempo.Size = new System.Drawing.Size(307, 26);
-            this.txtNivelTiempo.TabIndex = 16;
-            // 
-            // txtNivelDias
-            // 
-            this.txtNivelDias.Location = new System.Drawing.Point(41, 150);
-            this.txtNivelDias.Name = "txtNivelDias";
-            this.txtNivelDias.Size = new System.Drawing.Size(307, 26);
-            this.txtNivelDias.TabIndex = 16;
+            this.tmrTab.Tick += new System.EventHandler(this.tmrTab_Tick);
             // 
             // FrmNueva_Solicitud
             // 
@@ -1341,7 +1354,7 @@ namespace GOMAC.Views
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.SSTabSeg);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -1361,7 +1374,7 @@ namespace GOMAC.Views
             this.grpTicket.PerformLayout();
             this.grpCircuito.ResumeLayout(false);
             this.grpCircuito.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
+            this.SSTabSeg.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
@@ -1414,7 +1427,7 @@ namespace GOMAC.Views
         private System.Windows.Forms.GroupBox grpTipoPersona;
         private System.Windows.Forms.RadioButton rbPersonaMoral;
         private System.Windows.Forms.RadioButton rbPersonaFisica;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl SSTabSeg;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox4;

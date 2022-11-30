@@ -32,6 +32,7 @@ namespace GOMAC.Views
         private DateTime default_dtp = DateTimePicker.MinimumDateTime;
         private NumberFormatInfo format_mxn = (NumberFormatInfo)CultureInfo.CreateSpecificCulture("es-MX").NumberFormat.Clone();
         private DataTable dt_observaciones;
+        private int intTab;
 
         public string str_consultor;
         public int se_carga;
@@ -673,7 +674,7 @@ namespace GOMAC.Views
                 {
                     if (btnGuardar.Text == "Guardar")
                     {
-                        tabControl1.Enabled = false;
+                        SSTabSeg.Enabled = false;
                         int consecutivo = Mac_Consecutivo();
 
                         if (consecutivo <= 0)
@@ -778,7 +779,7 @@ namespace GOMAC.Views
 
                             dtpEnvio.Enabled = false;
 
-                            if (respuesta.Codigo == 0)
+                            if (respuesta.Codigo > 0)
                             {
                                 if (cmbTipoSolicitud.SelectedText != default_cmb)
                                 {
@@ -1141,7 +1142,7 @@ namespace GOMAC.Views
 
                             dtpEnvio.Enabled = true;
 
-                            if (respuesta.Codigo == 0)
+                            if (respuesta.Codigo > 0)
                             {
                                 if (dtpFAnalisisMac.Value != default_dtp)
                                 {
@@ -1218,125 +1219,374 @@ namespace GOMAC.Views
             }         
         }
 
-        private void Limpiar()
+        /// <summary>
+        /// Se ejecuta al presionar el boton de limpiar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            cmbNumeroFuncionario_activo = false;
-            cmbConsultorMac_activo = false;
-            cmbProducto_activo = false;
-            cmbTipoSolicitud_activo = false; 
-            cmbTipoTramite_activo = false;
+            str_consultor = "";
+            Limpiar();
+            SSTabSeg.TabIndex = (btnLimpiar.Text == "Nuevo") ? 0 : 1;
 
-            cmbConsultorMac.SelectedText = default_cmb;
-            cmbTipoSolicitud.SelectedText = default_cmb;
-            cmbTipoTramite.SelectedText = default_cmb;
-
-            cmbNumeroFuncionario.Tag = String.Empty;
-            txtSolicitud.Text = String.Empty;
-            dtpFechaCaptura.Value = default_dtp;
-
-            txtPuntos.Text = String.Empty;
-            rbCircuitoAuto.Checked = true;
-            txtCuenta.Text = String.Empty;
-            cmbProducto.SelectedText = default_cmb;
-            txtNombre.Text = String.Empty;
-            txtApellidoP.Text = String.Empty;
-            txtApellidoM.Text = String.Empty;
-            TxtDepositoTkt.Text = String.Empty;
-            cmbNumeroFuncionario.SelectedText = default_cmb;
-            cmbPromotor.SelectedText = String.Empty;
-            cmbBanca.SelectedText = String.Empty;
-            cmbDivision.SelectedText = String.Empty;
-            cmbPlaza.SelectedText = String.Empty;
-            lblStatus.Text = String.Empty;         
-            cmbHora1.SelectedText = "00";
-            cmbHora2.SelectedText = "00";
-            cmbHora3.SelectedText = "00";
-            cmbHora4.SelectedText = "00";
-            cmbHora5.SelectedText = "00";
-            cmbMinuto1.SelectedText = "00";
-            cmbMinuto2.SelectedText = "00";
-            cmbMinuto3.SelectedText = "00";
-            cmbMinuto4.SelectedText = "00";
-            cmbMinuto5.SelectedText = "00";
-            dtpFFormalizada.Value = default_dtp;
-            dtpFRecepDoc.Value = default_dtp;
-            dtpFAnalisisMac.Value = default_dtp;
-            dtpFRecepcion.Value = default_dtp;
-            dtpFAtencion.Value = default_dtp;
-            dtpDesbloqueo.Value = default_dtp;
-            dtpEnvio.Value = default_dtp;
-            dtpConcluir.Value = default_dtp;
-
-            LlenarFechaNumero();
-
-
-            //TxtNivelTiempo.text = ""
-            //TxtNivelDias.text = ""
-
-            txtDepositoIni.Text = String.Empty;
-            dtgvwObservaciones.DataSource = null;
-            dtgvwObservaciones.Refresh();
-            cmbConsultorMac.Enabled = true;
-            cmbTipoSolicitud.Enabled = true;
-            btnGuardar.Text = "Guardar";
-            btnCancelarSolicitud.Visible = false;
-
-            btnGuardar.Visible = true;
-            grpCircuito.Enabled = true;
-            cmbTipoTramite.Enabled = true;
-            grpTicket.Enabled = true;
-            grpTipoPersona.Enabled = true;
-
-            //If tmrTab.Tag = "" Then
-            //    SSTabSeg.Tab = 0
-            //Else
-            //    tmrTab.Tag = ""
-            //End If
-
-            rbExisteCuentaSi.Checked = false;
-            rbExisteCuentaNo.Checked = false;
-
-            cmbNumeroFuncionario.Enabled = true;
-            txtCuenta.Enabled = false;
-            btnNuevaObservacion.Enabled = true;
-            btnVerObservacion.Enabled = true;
-            txtDepositoIni.Enabled = true;
-            grpTipoPersona.Enabled = true;
-
+            btnLimpiar.Text = "Limpiar";
         }
 
-        private void dtpConcluir_ValueChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Se ejecuta al presionar boton de nueva observacion 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNuevaObservacion_Click(object sender, EventArgs e)
         {
-            if (dtpConcluir.Value != dtpConcluir.MinDate)
+            Frm_NuevaObvservacion frm = new Frm_NuevaObvservacion();
+            frm.ShowDialog();
+            if(frm.observacion != "")
             {
-                grpCalendario.Tag = 6;
+                string observaciones = frm.observacion;
+            }
+        }
+
+        /// <summary>
+        /// Se ejecuta al presionar el boton de Salir
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// Se ejecuta al presionar boton concluir
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnConcluirSolicitud_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string str_fecha;
+                int DepositoIni = 0;
+                
+                if((rbcorrectos.Checked == true && int.TryParse(txtDepositoIni.Text, out DepositoIni) == true) || ((TIPO_SOLICITUD)cmbTipoSolicitud.SelectedItem).Id_Solicitud == 3)
+                {
+                    if(DepositoIni > 0)
+                    {
+                        if(MessageBox.Show($"Esta seguro de querer concluir la solicitud No. {txtSolicitud.Text}", "Confirmar concluir solicitud", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            if(FuncionesBdbmtktp01.Actualiza_Docs(Int32.Parse(txtSolicitud.Text)) > 0)
+                            {
+                                MessageBox.Show("Solicitud concluida satisfactoriamente", "Actualizacion hecha", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                VisibleRbFechas(false);
+
+                                tmrTraerDatos.Enabled = true;
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se pudo actualizar el status de de la solicitud " + txtSolicitud.Text, "Error de actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+
+                        }
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        /// <summary>
+        /// Se ejecuta al presionar boton de ver obvservaciones
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnVerObservacion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string datos_ob = "";
+                Frm_VistaObvservaciones frm = new Frm_VistaObvservaciones();
+
+
+                foreach (DataGridViewRow fila in dtgvwObservaciones.Rows)
+                {
+                    if(fila.Selected)
+                    {
+                        datos_ob +=Environment.NewLine + fila.Cells["Observaciones"].Value;
+                        //datos_ob +=Environment.NewLine + fila.Cells["Observacion"].Value;
+                    }
+                }
+
+                if(datos_ob == "")
+                {
+                    frm.observaciones = datos_ob;
+                    frm.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("!!  Debe de seleccionar la observacion que desea visualizar.  ¡¡¡", "Error de visualizacion de observacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                foreach (DataGridViewRow fila in dtgvwObservaciones.Rows)
+                {
+                    fila.Selected = false;
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        /// <summary>
+        /// Se ejecuta al activarse el formulario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Frm_NuevaSolicitud_Activated(object sender, EventArgs e)
+        {
+            //Me.MousePointer = vbHourglass
+
+            //Calendario.DayFont.Size = 9
+            //Calendario.GridLinesColor = vbBlack
+            //Calendario.ShowDays = True
+            //Calendario.ShowVerticalGrid = True
+            //Calendario.ShowHorizontalGrid = True
+            //frmLogin.Caption = "Generacion de solicitudes GO-MAC"
+            //LblNivelServicio(0).Alignment = vbCenter
+            //LblNivelServicio(0).Caption = "Nivel de Servicio" & vbCrLf & "Formalizada / Análisis Mac"
+            //LblNivelServicio(1).Alignment = vbCenter
+            //LblNivelServicio(1).Caption = "Nivel de Servicio" & vbCrLf & "Recepción / Atención de Originales"
+
+
+
+            if (str_consultor.Trim() == "")
+            {
+                this.Text = "Captura de Solicitudes Sistema GO-MAC";
             }
             else
             {
-                DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+                this.Text = "Consulta de Solicitudes Sistema GO-MAC";
 
-                dtpConcluir.Value = fecha_servidor;
-                cmbHora1.SelectedValue = fecha_servidor.ToString("hh");
-                cmbMinuto1.SelectedValue = fecha_servidor.ToString("mm");
+                switch (lblStatus.Text)
+                {
+                    case "Nueva":
+                        CargaConsulta();
+                        break;
 
+                    default:
+                        MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        this.Close();
+                        break;
+                }
+            }
+
+            if (frmp.activa == 1)
+            {
+                btnLimpiar.Visible = false;
+                btnGuardar.Visible = true;
+                btnCancelarSolicitud.Visible = true;
+
+                btnNuevaObservacion.Visible = true;
+                btnVerObservacion.Visible = true;
+
+                btnLimpiar.Enabled = false;
+                btnGuardar.Enabled = true;
+                btnCancelarSolicitud.Enabled = true;
+
+                if (btnLimpiar.Text == "Limpiar")
+                {
+                    btnLimpiar.Enabled = false;
+                }
+
+            }
+            else
+            {
+                btnLimpiar.Visible = false;
+                btnGuardar.Visible = false;
+                btnCancelarSolicitud.Visible = false;
+
+                btnNuevaObservacion.Visible = false;
+                btnVerObservacion.Visible = false;
+                btnLimpiar.Enabled = false;
+                btnGuardar.Enabled = false;
+                btnCancelarSolicitud.Enabled = false;
+
+                btnNuevaObservacion.Enabled = false;
+                btnVerObservacion.Enabled = false;
+            }
+
+
+            switch (lblStatus.Text)
+            {
+                case "En Proceso":
+                    dtgvwObservaciones.Enabled = true;
+                    btnCancelarSolicitud.Visible = true;
+                    btnGuardar.Text = "Modificar";
+                    btnGuardar.Visible = true;
+
+                    btnLimpiar.Visible = false;
+                    btnLimpiar.Enabled = false;
+                    btnVerObservacion.Enabled = true;
+                    break;
+                case "Concluida":
+                    dtgvwObservaciones.Enabled = true;
+                    btnGuardar.Visible = false;
+                    btnCancelarSolicitud.Visible = false;
+                    cmbTipoSolicitud.Enabled = false;
+                    btnConcluirSolicitud.Enabled = false;
+                    btnLimpiar.Visible = false;
+                    btnLimpiar.Enabled = false;
+                    cmbProducto.Enabled = false;
+                    grpTipoPersona.Enabled = false;
+                    btnVerObservacion.Enabled = true;
+                    btnGuardar.Enabled = false;
+                    btnCancelarSolicitud.Enabled = false;
+                    btnGuardar.Visible = false;
+                    btnCancelarSolicitud.Visible = false;
+                    break;
+                case "Cancelada":
+                    btnGuardar.Visible = false;
+                    btnCancelarSolicitud.Visible = false;
+                    cmbTipoSolicitud.Enabled = false;
+                    btnConcluirSolicitud.Enabled = false;
+                    btnLimpiar.Visible = false;
+                    cmbProducto.Enabled = true;
+                    btnVerObservacion.Enabled = true;
+                    grpTipoPersona.Enabled = false;
+                    dtgvwObservaciones.Enabled = true;
+                    btnGuardar.Enabled = false;
+                    btnCancelarSolicitud.Enabled = false;
+                    break;
+            }
+
+            if (str_consultor != "")
+            {
+                if (lblStatus.Text == "Nueva")
+                {
+                    MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
+        /// <summary>
+        /// Llena campo de numeor de solicitud con el consecutivo siguiente y el cmapo fecha con la fecha actual
+        /// </summary>
+        private void LlenarFechaNumero()
+        {
+            try
+            {
+                if (str_consultor == "")
+                {
+                    int consecutivo = Mac_Consecutivo();
 
-        public FrmNueva_Solicitud(Frm_Login frmp)
-        {      
-            InitializeComponent();
-          
-            this.frmp = frmp;
-            this.bdbmtktp01 = new bmtktp01Entities();
-            this.bdCatalogos = new CATALOGOSEntities();
-            this.bdFuncionarios = new FUNCIONARIOSEntities();
+                    if (consecutivo == -1)
+                    {
+                        MessageBox.Show("No se pudo obtener el consecutivo para la solicitud", "Error de obtencion consecutivo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
 
-            txtNombre.Text = "Nombre";
-            txtApellidoP.Text = "Primer Apellido";
-            txtApellidoM.Text = "Segundo Apellido";
+                    else
+                    {
+                        dtpFechaCaptura.Enabled = false;
+                        dtpFechaCaptura.Value = DateTime.Now;
+                        txtSolicitud.Enabled = false;
+                        txtSolicitud.Text = consecutivo.ToString();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
         }
 
+        /// <summary>
+        /// Habilita/deshabilita controles y trae datos para la solicitud
+        /// </summary>
+        private void CargaConsulta()
+        {
+            try
+            {
+                if (str_consultor.Trim() != "")
+                {
+                    se_carga = 0;
+                    tmrTraerDatos.Enabled = false;
+
+                    txtSolicitud.Text = num_solicitud.ToString();
+                    TraerDatos();
+
+                    tmtValidarBoton.Enabled = true;
+
+                    switch (lblStatus.Text)
+                    {
+                        case "En proceso":
+                            dtgvwObservaciones.Enabled = true;
+                            btnCancelarSolicitud.Visible = true;
+                            btnGuardar.Text = "Modificar";
+                            btnGuardar.Visible = true;
+
+                            btnLimpiar.Visible = false;
+                            btnLimpiar.Enabled = false;
+                            btnVerObservacion.Enabled = true;
+                        break;
+                        case "Concluida":
+                            dtgvwObservaciones.Enabled = true;
+                            btnGuardar.Visible = false;
+                            btnCancelarSolicitud.Visible = false;
+                            cmbTipoSolicitud.Enabled = false;
+                            btnConcluirSolicitud.Enabled = false;
+                            btnLimpiar.Visible = false;
+                            btnLimpiar.Enabled = false;
+                            cmbProducto.Enabled = false;
+                            grpTipoPersona.Enabled = false;
+                            btnVerObservacion.Enabled = true;
+                            btnGuardar.Enabled = false;
+                            btnCancelarSolicitud.Enabled = false;
+                        break;
+                        case "Cancelada":
+                            lblStatus.Text = "Cancelada";
+                            btnGuardar.Visible = false;
+                            btnCancelarSolicitud.Visible = false;
+                            cmbTipoSolicitud.Enabled = false;
+                            btnConcluirSolicitud.Enabled = false;
+                            btnLimpiar.Visible = false;
+                            cmbProducto.Enabled = true;
+                            btnVerObservacion.Enabled = true;
+                            grpTipoPersona.Enabled = false;
+                            dtgvwObservaciones.Enabled = true;
+                            btnGuardar.Enabled = false;
+                            btnCancelarSolicitud.Enabled = false;
+                            btnGuardar.Visible = false;
+                            btnCancelarSolicitud.Visible = false;
+                        break;
+
+                    }
+                }
+
+                dtpFechaCaptura.Enabled = false;
+                txtPuntos.Enabled = false;
+                dtpFechaCancelada.Enabled = false;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        /// <summary>
+        /// Se ejecuta al  cargar el formulario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Frm_NuevaSolicitud_Load(object sender, EventArgs e)
         {
             //***Definiendo T<ooltips ************************************************************
@@ -1373,7 +1623,7 @@ namespace GOMAC.Views
                 }
 
             }
-            else
+            if(str_consultor.Trim() == "")
             {
                 CargarcomboHora(cmbHora1);
                 CargarcomboHora(cmbHora2);
@@ -1468,9 +1718,19 @@ namespace GOMAC.Views
                 }
 
             }
+            else
+            {
+                switch (lblStatus.Text)
+                {
+                    case "Nueva":
+                        MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        this.Close();
+                    break;
+                }
+            }
 
 
-            if(frmp.activa == 1)
+            if (frmp.activa == 1)
             {
                 btnLimpiar.Visible = false;
                 btnGuardar.Visible = true;
@@ -1508,12 +1768,28 @@ namespace GOMAC.Views
             {
                 tmrTraerDatos.Enabled = false;
 
+                //Me.MousePointer = 11
+                //Frame2.MousePointer = 11
+                //fraGeneral.MousePointer = 11
+                //SSTabSeg.MousePointer = ssHourglass
+                //FrmTicket.MousePointer = 11
+                //FrmTipoPersona.MousePointer = 11
+                //Frame1.MousePointer = 11
+                //FrmNombreCliente.MousePointer = 11
+
                 txtSolicitud.Text = num_solicitud.ToString();
                 CargaConsulta();
 
-
-
+                //Me.MousePointer = 0
+                //Frame2.MousePointer = 0
+                //fraGeneral.MousePointer = 0
+                //SSTabSeg.MousePointer = ssDefault
+                //FrmTicket.MousePointer = 0
+                //FrmTipoPersona.MousePointer = 0
+                //Frame1.MousePointer = 0
+                //FrmNombreCliente.MousePointer = 0
                 tmtValidarBoton.Enabled = true;
+                
                 switch (lblStatus.Text)
                 {
                     case "En Proceso":
@@ -1569,340 +1845,9 @@ namespace GOMAC.Views
             dtpFechaCancelada.Enabled = false;
         }
 
-        private void LlenarFechaNumero()
-        {
-            try
-            {
-                if(str_consultor == "" )
-                {
-                    int consecutivo = Mac_Consecutivo();
-
-                    if(consecutivo == -1)
-                    {
-                        MessageBox.Show("No se pudo obtener el consecutivo para la solicitud", "Error de obtencion consecutivo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                
-                    else
-                    {
-                        dtpFechaCaptura.Enabled = false;
-                        dtpFechaCaptura.Value = DateTime.Now;
-                        txtSolicitud.Enabled = false;
-                        txtSolicitud.Text = consecutivo.ToString();
-                    }
-                    
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-        private void Frm_NuevaSolicitud_Activated(object sender, EventArgs e)
-        {
-            if(str_consultor.Trim() == "")
-            {
-                this.Text = "Captura de Solicitudes Sistema GO-MAC";
-            }
-            else
-            {
-                this.Text = "Consulta de Solicitudes Sistema GO-MAC";
-
-                switch (lblStatus.Text)
-                {
-                    case "Nueva":
-                        CargaConsulta();
-                        break;
-                   
-                    default:
-                        MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        this.Close();
-                        break;
-                }
-            }
-
-            if(frmp.activa == 1)
-            {
-                btnLimpiar.Visible = false;
-                btnGuardar.Visible = true;
-                btnCancelarSolicitud.Visible = true;
-
-                btnNuevaObservacion.Visible = true;
-                btnVerObservacion.Visible = true;
-
-                btnLimpiar.Enabled = false;
-                btnGuardar.Enabled = true;
-                btnCancelarSolicitud.Enabled = true;
-
-                if(btnLimpiar.Text == "Limpiar")
-                {
-                    btnLimpiar.Enabled = false;
-                }
-
-            }
-            else
-            {
-                btnLimpiar.Visible = false;
-                btnGuardar.Visible = false;
-                btnCancelarSolicitud.Visible = false;
-
-                btnNuevaObservacion.Visible = false;
-                btnVerObservacion.Visible = false;
-                btnLimpiar.Enabled = false;
-                btnGuardar.Enabled = false;
-                btnCancelarSolicitud.Enabled = false;
-
-                btnNuevaObservacion.Enabled = false;
-                btnVerObservacion.Enabled = false;
-            }
-
-
-            switch (lblStatus.Text)
-            {
-                case "En Proceso":
-                    dtgvwObservaciones.Enabled = true;
-                    btnCancelarSolicitud.Visible = true;
-                    btnGuardar.Text = "Modificar";
-                    btnGuardar.Visible = true;
-
-                    btnLimpiar.Visible = false;
-                    btnLimpiar.Enabled = false;
-                    btnVerObservacion.Enabled = true;
-                break;
-                case "Concluida":
-                    dtgvwObservaciones.Enabled = true;
-                    btnGuardar.Visible = false;
-                    btnCancelarSolicitud.Visible = false;
-                    cmbTipoSolicitud.Enabled = false;
-                    btnConcluirSolicitud.Enabled = false;
-                    btnLimpiar.Visible = false;
-                    btnLimpiar.Enabled = false;
-                    cmbProducto.Enabled = false;
-                    grpTipoPersona.Enabled = false;
-                    btnVerObservacion.Enabled = true;
-                    btnGuardar.Enabled = false;
-                    btnCancelarSolicitud.Enabled = false;
-                    btnGuardar.Visible = false;
-                    btnCancelarSolicitud.Visible = false;
-                break;
-                case "Cancelada":
-                    btnGuardar.Visible = false;
-                    btnCancelarSolicitud.Visible = false;
-                    cmbTipoSolicitud.Enabled = false;
-                    btnConcluirSolicitud.Enabled = false;
-                    btnLimpiar.Visible = false;
-                    cmbProducto.Enabled = true;
-                    btnVerObservacion.Enabled = true;
-                    grpTipoPersona.Enabled = false;
-                    dtgvwObservaciones.Enabled = true;
-                    btnGuardar.Enabled = false;
-                    btnCancelarSolicitud.Enabled = false;
-                break;
-            }
-
-            if(str_consultor != "")
-            {
-                if(lblStatus.Text == "Nueva")
-                {
-                    MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-
-
-
-        }
-
-        private void CargarcomboMinuto(ComboBox cmbMinuto)
-        {
-            List<Map> minutos = new List<Map>();
-
-            for (int i = 0; i <= 60; i++)
-            {
-                minutos.Add(new Map
-                {
-                    Key = i.ToString("00"),
-                    Value = i.ToString("00")
-                });
-            }
-            
-            cmbMinuto.DataSource = minutos;
-            cmbMinuto.DisplayMember = "Key";
-            cmbMinuto.ValueMember = "Value";
-        }
-
-        private void CargarcomboHora(ComboBox cmbHora)
-        {
-            List<Map> horas = new List<Map>();
-
-            for(int i = 0; i <= 24; i++)
-            {
-                horas.Add(new Map
-                {
-                    Key  = i.ToString("00"),
-                    Value = i.ToString("00")
-                });
-            }
-
-            cmbHora.DataSource = horas;
-            cmbHora.DisplayMember = "Key";
-            cmbHora.ValueMember = "Value";
-            
-        }
-
-      
-
-        private void LlenaComboNumFunc()
-        {
-            try
-            {
-                funcionarios = (
-                from f in funcionarios
-                orderby f.numero_funcionario
-                select f
-            ).ToList();
-
-                if (funcionarios != null)
-                {
-                    cmbNumeroFuncionario.DataSource = funcionarios;
-                    cmbNumeroFuncionario.ValueMember = "numero_registro";
-                    cmbNumeroFuncionario.DisplayMember = "numero_funcionario";
-                }  
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-        private void LlenaComboNombreFunc()
-        {
-            try
-            {
-                funcionarios = (from f in funcionarios orderby f.nombre_funcionario, f.apellido_paterno, f.apellido_materno select f).ToList();
-
-                if (funcionarios != null)
-                {
-                    cmbPromotor.DataSource = funcionarios;
-                    cmbPromotor.ValueMember = "funcionario1";
-                    cmbPromotor.DisplayMember = "_nombreCompleto";
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-        private void LlenaComboplaza()
-        {
-            try
-            {
-                uors = (from uor in uors where uor.plaza != null orderby uor.plaza select uor).ToList();
-
-                if (uors != null)
-                {
-                                  
-                    cmbPlaza.DataSource = uors;
-                    cmbPlaza.ValueMember = "plaza";
-                    cmbPlaza.DisplayMember = "plaza";
-                }
-            }
-            catch(Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-
-        private void LlenaComboSucursal()
-        {
-            try
-            {
-                uors = (from uor in uors where uor.plaza != null orderby uor.plaza select uor).ToList();
-
-                if (uors != null)
-                {
-               
-                    cmbSucursal.DataSource = uors;
-                    cmbSucursal.ValueMember = "plaza";
-                    cmbSucursal.DisplayMember = "plaza";
-                }    
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-        private void LlenarComboProducto()
-        {
-            try
-            {
-                List<PRODUCTOS> productos = (from p in bdCatalogos.PRODUCTOS orderby p.Producto select p).ToList();
-
-                if (productos != null)
-                {
-                    productos.Insert(0, new PRODUCTOS { Producto = ". . .  "});
-
-                    cmbProducto.DataSource = productos;
-                    cmbProducto.ValueMember = "Id_Producto";
-                    cmbProducto.DisplayMember = "Producto";
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-        private void LlenarComboDivision()
-        {
-            try
-            {
-                try
-                {
-                    uors = (from uor in uors where uor.division != null orderby uor.division select uor).ToList();
-
-                    if (uors != null)
-                    {
-                                           
-                        cmbDivision.DataSource = uors;
-                        cmbDivision.ValueMember = "division";
-                        cmbDivision.DisplayMember = "division";
-                    }              
-                }
-                catch (Exception ex)
-                {
-                    Log.Escribe(ex);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-        private void LlenaComboBanca()
-        {
-            try
-            {
-                uors = (from uor in uors where uor.banca != null orderby uor.banca select uor).ToList();
-
-                if (uors != null)
-                {
-                                   
-                    cmbBanca.DataSource = uors;
-                    cmbBanca.ValueMember = "banca";
-                    cmbBanca.DisplayMember = "banca";
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-
+        /// <summary>
+        /// Llena el combobox con iniciales de consultores
+        /// </summary>
         private void LlenarComboConsultor()
         {
             //[NOTA]Corregir esta funcion y hacerlo como esta en el codigo viejo
@@ -1926,6 +1871,36 @@ namespace GOMAC.Views
             }
         }
 
+        /// <summary>
+        /// Llena combobox con los tipo s de solicitudes
+        /// </summary>
+        private void LlenaComboTipoSolicitud()
+        {
+            try
+            {
+                List<TIPO_SOLICITUD> tipos_solicitud =
+                    (from ts in bdbmtktp01.TIPO_SOLICITUD orderby ts.Descripcion_Solicitud ascending select ts).ToList();
+
+                if (tipos_solicitud != null)
+                {
+                    tipos_solicitud.Insert(0, new TIPO_SOLICITUD { Descripcion_Solicitud = default_cmb });
+                    cmbTipoSolicitud.DataSource = tipos_solicitud;
+                    cmbTipoSolicitud.ValueMember = "Id_Solicitud";
+                    cmbTipoSolicitud.DisplayMember = "Descripcion_Solicitud";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Llena combobox con los tipos de tramites
+        /// </summary>
+        /// <param name="ts"></param>
         private void LlenaComboTipoTramite(TIPO_SOLICITUD ts = default)
         {
             try
@@ -1933,10 +1908,10 @@ namespace GOMAC.Views
                 List<TIPO_TRAMITE> tipos_tramite =
                     (from tt in bdbmtktp01.TIPO_TRAMITE orderby tt.Descripcion_Tramite ascending select tt).ToList();
 
-                if(ts != default)
+                if (ts != default)
                 {
                     tipos_tramite = tipos_tramite
-                        .Where(w => w.Descripcion_Tramite.ToUpper().Contains(ts.Descripcion_Solicitud.ToUpper().Substring(0,5).Trim()))
+                        .Where(w => w.Descripcion_Tramite.ToUpper().Contains(ts.Descripcion_Solicitud.ToUpper().Substring(0, 5).Trim()))
                         .Select(s => s)
                         .ToList();
                 }
@@ -1956,118 +1931,130 @@ namespace GOMAC.Views
             }
         }
 
-        private void LlenaComboTipoSolicitud()
+        /// <summary>
+        /// Se ejecuta al seleccionar un radiobutton del grupo Originales
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rbcorrectos_CheckedChanged(object sender, EventArgs e)
         {
-            try
+            if(rbIncorrectos.Checked == true)
             {
-                List<TIPO_SOLICITUD> tipos_solicitud = 
-                    (from ts in bdbmtktp01.TIPO_SOLICITUD orderby ts.Descripcion_Solicitud ascending select ts).ToList();
-
-                if(tipos_solicitud != null)
+                btnConcluirSolicitud.Enabled = false;
+            }
+            else if(rbcorrectos.Checked == true)
+            {
+                btnConcluirSolicitud.Enabled = true;
+                int DepositoIni = 0; 
+                if(int.TryParse(txtDepositoIni.Text, out DepositoIni))
                 {
-                    tipos_solicitud.Insert(0, new TIPO_SOLICITUD { Descripcion_Solicitud = default_cmb });
-                    cmbTipoSolicitud.DataSource = tipos_solicitud;
-                    cmbTipoSolicitud.ValueMember = "Id_Solicitud";
-                    cmbTipoSolicitud.DisplayMember = "Descripcion_Solicitud";
+                    if(DepositoIni > 0)
+                    {
+                        btnConcluirSolicitud.Enabled = true;
+                    }
                 }
-
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
             }
         }
 
-        private void CargaConsulta()
+        /// <summary>
+        /// Se ejecuta al seleccionar un radiobutton del grupo Originales
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rbIncorrectos_CheckedChanged(object sender, EventArgs e)
         {
-            try
-            {
-                if(str_consultor.Trim() != "")
-                {
-                    se_carga = 0;
-                    tmrTraerDatos.Enabled = false;
-
-                    txtSolicitud.Text = num_solicitud.ToString();
-                    TraerDatos();
-                }
-               
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-            throw new NotImplementedException();
-        }
-
-        public void TxtNombreLostFocus(object sender, EventArgs e)
-        {
-            if (txtNombre.Text == "")
-            {
-                txtNombre.Text = "Nombre";
-                txtNombre.ForeColor = Color.LightGray;
-            }
-        }
-
-        public void TxtNombreGotFocus(object sender, EventArgs e)
-        {
-            if(txtNombre.Text == "Nombre")
-            {
-                txtNombre.Text = "";
-                txtNombre.ForeColor = Color.Black;
-            }
            
         }
 
 
-        public void TxtApellidoPLostFocus(object sender, EventArgs e)
+        /// <summary>
+        /// Se ejecuta al seleccionar un radiobutton del grupo de tipo de persona fisica / moral
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rbPersonaFisica_CheckedChanged(object sender, EventArgs e)
         {
-            if (txtApellidoP.Text == "")
+
+        }
+
+        /// <summary>
+        /// Se ejecuta al seleccionar un radiobutton del grupo de tipo de persona fisica / moral
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rbPersonaMoral_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Se ejecuta al seleccionar un radiobutton del grupo de existe ticket si/no
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rbExisteCuentaSi_CheckedChanged(object sender, EventArgs e)
+        {
+            if(rbExisteCuentaSi.Checked)
             {
-                txtApellidoP.Text = "Primer Apellido";
-                txtApellidoP.ForeColor = Color.LightGray;
+                cmbProducto.Enabled = false;
+                txtNombre.Enabled = false;
+                txtApellidoP.Enabled = false;
+                txtApellidoM.Enabled = false;
+                TxtDepositoTkt.Enabled = true;
+                rbPersonaFisica.Enabled = false;
+                rbPersonaMoral.Enabled = false;
             }
-        }
-
-        public void TxtApelllidoPGotFocus(object sender, EventArgs e)
-        {
-            if (txtApellidoP.Text == "Primer Apellido")
+            else if(rbExisteCuentaNo.Checked)
             {
-                txtApellidoP.Text = "";
-                txtApellidoP.ForeColor = Color.Black;
+                cmbProducto.Enabled = true;
+                txtNombre.Enabled = true;
+                txtApellidoP.Enabled = true;
+                txtApellidoM.Enabled = true;
+                TxtDepositoTkt.Enabled = true;
+                rbPersonaFisica.Enabled = true;
+                rbPersonaMoral.Enabled = true;
             }
 
+            if (txtCuenta.Enabled) txtCuenta.Focus();
+
+
+            cmbProducto.SelectedText = default_cmb;
+            txtNombre.Text = "";
+            txtApellidoP.Text = "";
+            txtApellidoM.Text = "";
+            TxtDepositoTkt.Text = "";
         }
 
-
-        public void TxtApellidoMLostFocus(object sender, EventArgs e)
+        /// <summary>
+        /// Se ejecuta al seleccionar un radiobutton del grupo de existe ticket si/no
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rbExisteCuentaNo_CheckedChanged(object sender, EventArgs e)
         {
-            if (txtApellidoM.Text == "")
-            {
-                txtApellidoM.Text = "Segundo Apellido";
-                txtApellidoM.ForeColor = Color.LightGray;
-            }
+           
         }
 
-        public void TxtApelllidoMGotFocus(object sender, EventArgs e)
+        /// <summary>
+        /// Se ejecuta al cambiar de pagina
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SSTabSeg_TabIndexChanged(object sender, EventArgs e)
         {
-            if (txtApellidoM.Text == "Segundo Apellido")
-            {
-                txtApellidoM.Text = "";
-                txtApellidoM.ForeColor = Color.Black;
-            }
-
+            intTab = SSTabSeg.SelectedIndex;
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
+
+        private void tmrTab_Tick(object sender, EventArgs e)
         {
-            this.Close();
+            //SSTabSeg.Tab = IIf(tmrTab.Tag = "", 0, tmrTab.Tag)
+            //tmrTab.Enabled = False
         }
 
-        private void tmrTraerDatos_Tick(object sender, EventArgs e)
-        {
-            TraerDatos();
-        }
-
+        /// <summary>
+        /// Carga datos de la solicitud
+        /// </summary>
         private void TraerDatos()
         {
             try
@@ -2534,7 +2521,7 @@ namespace GOMAC.Views
 
                     cmbTipoTramite.SelectedValue = seguimiento_doc.Id_Tramite;
 
-
+                    //DGI 27092007
                     if (cmbTipoSolicitud.SelectedIndex != 1)
                     {
                         lblDeposito.Visible = false;
@@ -2558,7 +2545,400 @@ namespace GOMAC.Views
             }
         }
 
-        private void LlenaDtgdwObservaciones()
+        /// <summary>
+        /// Limpia y resetea controles del form
+        /// </summary>
+        private void Limpiar()
+        {
+            cmbNumeroFuncionario_activo = false;
+            cmbConsultorMac_activo = false;
+            cmbProducto_activo = false;
+            cmbTipoSolicitud_activo = false; 
+            cmbTipoTramite_activo = false;
+
+            cmbConsultorMac.SelectedText = default_cmb;
+            cmbTipoSolicitud.SelectedText = default_cmb;
+            cmbTipoTramite.SelectedText = default_cmb;
+
+            cmbNumeroFuncionario.Tag = String.Empty;
+            txtSolicitud.Text = String.Empty;
+            dtpFechaCaptura.Value = default_dtp;
+
+            txtPuntos.Text = String.Empty;
+            rbCircuitoAuto.Checked = true;
+            txtCuenta.Text = String.Empty;
+            cmbProducto.SelectedText = default_cmb;
+            txtNombre.Text = String.Empty;
+            txtApellidoP.Text = String.Empty;
+            txtApellidoM.Text = String.Empty;
+            TxtDepositoTkt.Text = String.Empty;
+            cmbNumeroFuncionario.SelectedText = default_cmb;
+            cmbPromotor.SelectedText = String.Empty;
+            cmbBanca.SelectedText = String.Empty;
+            cmbDivision.SelectedText = String.Empty;
+            cmbPlaza.SelectedText = String.Empty;
+            lblStatus.Text = String.Empty;         
+            cmbHora1.SelectedText = "00";
+            cmbHora2.SelectedText = "00";
+            cmbHora3.SelectedText = "00";
+            cmbHora4.SelectedText = "00";
+            cmbHora5.SelectedText = "00";
+            cmbMinuto1.SelectedText = "00";
+            cmbMinuto2.SelectedText = "00";
+            cmbMinuto3.SelectedText = "00";
+            cmbMinuto4.SelectedText = "00";
+            cmbMinuto5.SelectedText = "00";
+            dtpFFormalizada.Value = default_dtp;
+            dtpFRecepDoc.Value = default_dtp;
+            dtpFAnalisisMac.Value = default_dtp;
+            dtpFRecepcion.Value = default_dtp;
+            dtpFAtencion.Value = default_dtp;
+            dtpDesbloqueo.Value = default_dtp;
+            dtpEnvio.Value = default_dtp;
+            dtpConcluir.Value = default_dtp;
+
+            LlenarFechaNumero();
+
+
+            //TxtNivelTiempo.text = ""
+            //TxtNivelDias.text = ""
+
+            txtDepositoIni.Text = String.Empty;
+            dtgvwObservaciones.DataSource = null;
+            dtgvwObservaciones.Refresh();
+            cmbConsultorMac.Enabled = true;
+            cmbTipoSolicitud.Enabled = true;
+            btnGuardar.Text = "Guardar";
+            btnCancelarSolicitud.Visible = false;
+
+            btnGuardar.Visible = true;
+            grpCircuito.Enabled = true;
+            cmbTipoTramite.Enabled = true;
+            grpTicket.Enabled = true;
+            grpTipoPersona.Enabled = true;
+
+            //If tmrTab.Tag = "" Then
+            //    SSTabSeg.Tab = 0
+            //Else
+            //    tmrTab.Tag = ""
+            //End If
+
+            rbExisteCuentaSi.Checked = false;
+            rbExisteCuentaNo.Checked = false;
+
+            cmbNumeroFuncionario.Enabled = true;
+            txtCuenta.Enabled = false;
+            btnNuevaObservacion.Enabled = true;
+            btnVerObservacion.Enabled = true;
+            txtDepositoIni.Enabled = true;
+            grpTipoPersona.Enabled = true;
+
+        }
+
+        private void dtpConcluir_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpConcluir.Value != dtpConcluir.MinDate)
+            {
+                grpCalendario.Tag = 6;
+            }
+            else
+            {
+                DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+
+                dtpConcluir.Value = fecha_servidor;
+                cmbHora1.SelectedValue = fecha_servidor.ToString("hh");
+                cmbMinuto1.SelectedValue = fecha_servidor.ToString("mm");
+
+            }
+        }
+
+
+        public FrmNueva_Solicitud(Frm_Login frmp)
+        {      
+            InitializeComponent();
+          
+            this.frmp = frmp;
+            this.bdbmtktp01 = new bmtktp01Entities();
+            this.bdCatalogos = new CATALOGOSEntities();
+            this.bdFuncionarios = new FUNCIONARIOSEntities();
+
+            txtNombre.Text = "Nombre";
+            txtApellidoP.Text = "Primer Apellido";
+            txtApellidoM.Text = "Segundo Apellido";
+        }
+
+       
+        
+
+      
+
+        private void CargarcomboMinuto(ComboBox cmbMinuto)
+        {
+            List<Map> minutos = new List<Map>();
+
+            for (int i = 0; i <= 60; i++)
+            {
+                minutos.Add(new Map
+                {
+                    Key = i.ToString("00"),
+                    Value = i.ToString("00")
+                });
+            }
+            
+            cmbMinuto.DataSource = minutos;
+            cmbMinuto.DisplayMember = "Key";
+            cmbMinuto.ValueMember = "Value";
+        }
+
+        private void CargarcomboHora(ComboBox cmbHora)
+        {
+            List<Map> horas = new List<Map>();
+
+            for(int i = 0; i <= 24; i++)
+            {
+                horas.Add(new Map
+                {
+                    Key  = i.ToString("00"),
+                    Value = i.ToString("00")
+                });
+            }
+
+            cmbHora.DataSource = horas;
+            cmbHora.DisplayMember = "Key";
+            cmbHora.ValueMember = "Value";
+            
+        }
+
+      
+
+        private void LlenaComboNumFunc()
+        {
+            try
+            {
+                funcionarios = (
+                from f in funcionarios
+                orderby f.numero_funcionario
+                select f
+            ).ToList();
+
+                if (funcionarios != null)
+                {
+                    cmbNumeroFuncionario.DataSource = funcionarios;
+                    cmbNumeroFuncionario.ValueMember = "numero_registro";
+                    cmbNumeroFuncionario.DisplayMember = "numero_funcionario";
+                }  
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void LlenaComboNombreFunc()
+        {
+            try
+            {
+                funcionarios = (from f in funcionarios orderby f.nombre_funcionario, f.apellido_paterno, f.apellido_materno select f).ToList();
+
+                if (funcionarios != null)
+                {
+                    cmbPromotor.DataSource = funcionarios;
+                    cmbPromotor.ValueMember = "funcionario1";
+                    cmbPromotor.DisplayMember = "_nombreCompleto";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void LlenaComboplaza()
+        {
+            try
+            {
+                uors = (from uor in uors where uor.plaza != null orderby uor.plaza select uor).ToList();
+
+                if (uors != null)
+                {
+                                  
+                    cmbPlaza.DataSource = uors;
+                    cmbPlaza.ValueMember = "plaza";
+                    cmbPlaza.DisplayMember = "plaza";
+                }
+            }
+            catch(Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+
+        private void LlenaComboSucursal()
+        {
+            try
+            {
+                uors = (from uor in uors where uor.plaza != null orderby uor.plaza select uor).ToList();
+
+                if (uors != null)
+                {
+               
+                    cmbSucursal.DataSource = uors;
+                    cmbSucursal.ValueMember = "plaza";
+                    cmbSucursal.DisplayMember = "plaza";
+                }    
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void LlenarComboProducto()
+        {
+            try
+            {
+                List<PRODUCTOS> productos = (from p in bdCatalogos.PRODUCTOS orderby p.Producto select p).ToList();
+
+                if (productos != null)
+                {
+                    productos.Insert(0, new PRODUCTOS { Producto = ". . .  "});
+
+                    cmbProducto.DataSource = productos;
+                    cmbProducto.ValueMember = "Id_Producto";
+                    cmbProducto.DisplayMember = "Producto";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void LlenarComboDivision()
+        {
+            try
+            {
+                try
+                {
+                    uors = (from uor in uors where uor.division != null orderby uor.division select uor).ToList();
+
+                    if (uors != null)
+                    {
+                                           
+                        cmbDivision.DataSource = uors;
+                        cmbDivision.ValueMember = "division";
+                        cmbDivision.DisplayMember = "division";
+                    }              
+                }
+                catch (Exception ex)
+                {
+                    Log.Escribe(ex);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void LlenaComboBanca()
+        {
+            try
+            {
+                uors = (from uor in uors where uor.banca != null orderby uor.banca select uor).ToList();
+
+                if (uors != null)
+                {
+                                   
+                    cmbBanca.DataSource = uors;
+                    cmbBanca.ValueMember = "banca";
+                    cmbBanca.DisplayMember = "banca";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+
+     
+       
+
+       
+
+      
+
+        public void TxtNombreLostFocus(object sender, EventArgs e)
+        {
+            if (txtNombre.Text == "")
+            {
+                txtNombre.Text = "Nombre";
+                txtNombre.ForeColor = Color.LightGray;
+            }
+        }
+
+        public void TxtNombreGotFocus(object sender, EventArgs e)
+        {
+            if(txtNombre.Text == "Nombre")
+            {
+                txtNombre.Text = "";
+                txtNombre.ForeColor = Color.Black;
+            }
+           
+        }
+
+
+        public void TxtApellidoPLostFocus(object sender, EventArgs e)
+        {
+            if (txtApellidoP.Text == "")
+            {
+                txtApellidoP.Text = "Primer Apellido";
+                txtApellidoP.ForeColor = Color.LightGray;
+            }
+        }
+
+        public void TxtApelllidoPGotFocus(object sender, EventArgs e)
+        {
+            if (txtApellidoP.Text == "Primer Apellido")
+            {
+                txtApellidoP.Text = "";
+                txtApellidoP.ForeColor = Color.Black;
+            }
+
+        }
+
+
+        public void TxtApellidoMLostFocus(object sender, EventArgs e)
+        {
+            if (txtApellidoM.Text == "")
+            {
+                txtApellidoM.Text = "Segundo Apellido";
+                txtApellidoM.ForeColor = Color.LightGray;
+            }
+        }
+
+        public void TxtApelllidoMGotFocus(object sender, EventArgs e)
+        {
+            if (txtApellidoM.Text == "Segundo Apellido")
+            {
+                txtApellidoM.Text = "";
+                txtApellidoM.ForeColor = Color.Black;
+            }
+
+        }
+
+        
+
+        private void tmrTraerDatos_Tick(object sender, EventArgs e)
+        {
+            TraerDatos();
+        }
+
+        
+
+        private int LlenaDtgdwObservaciones()
         {
             try
             {
@@ -2572,7 +2952,7 @@ namespace GOMAC.Views
                 if (observaciones == null)
                 {
                     MessageBox.Show("No se pudieron cargar las observaciones para la solicitud " + txtSolicitud.Text, "Error de carga.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    return -1;
                 }
 
                 dtgvwObservaciones.Enabled = true;
@@ -2596,12 +2976,14 @@ namespace GOMAC.Views
                 dtgvwObservaciones.DataSource = dt;
                 dtgvwObservaciones.Refresh();
 
+                return dt.Rows.Count;
 
 
             }
             catch (Exception ex)
             {
                 Log.Escribe(ex);
+                return -1;
             }
         }
 
@@ -2714,33 +3096,7 @@ namespace GOMAC.Views
             
         }
 
-        private void rbExisteCuentaSi_CheckedChanged(object sender, EventArgs e)
-        {
-            if(str_consultor == "")
-            {
-                if(rbExisteCuentaSi.Checked)
-                {
-                    txtCuenta.Enabled = false;
-                }
-            }
-        }
-
-        private void rbExisteCuentaNo_CheckedChanged(object sender, EventArgs e)
-        {
-            if (str_consultor == "")
-            {
-                if (rbExisteCuentaNo.Checked)
-                {
-                    txtCuenta.Enabled = true;
-                }
-            }
-
-            string ticket;
-
-            txtCuenta.Enabled = true;
-
-
-        }
+       
 
         private void cmbTipoTramite_Click(object sender, EventArgs e)
         {

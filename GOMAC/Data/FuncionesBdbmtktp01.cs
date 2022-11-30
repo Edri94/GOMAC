@@ -14,7 +14,7 @@ namespace GOMAC.Data
     {
         public static DateTime fecha_default; 
 
-        public virtual Mac_Inserta_Respuesta Mac_Inserta_Datos(int id_ConsultorMac, int id_Solicitud, int id_Tramite, int puntos, string circuito, string cuenta_Cliente, string sufijo_Kapiti, byte tipo_Persona, string nombre_Cliente, string apellido_Paterno, string apellido_Materno, decimal deposito_Inicial, string numero_Registro, string nombre_Promotor, string banca, string division, string plaza, string sucursal, string status, int num_Solicitud, DateTime fechaRepc_Doc, TimeSpan horaRepc_Doc, DateTime fechaAnalisis_Mac, TimeSpan horaAnalisis_Mac, DateTime fechaFormalizada, TimeSpan horaFormalizada, DateTime fechaRepc_Originales, TimeSpan horaRepc_Originales, DateTime fechaAten_Originales, TimeSpan horaAten_Originales, string originales, decimal deposito_Inicial_Ini, DateTime fecha_Desbloqueo, DateTime fecha_Envio, DateTime fecha_concluida, string existeTKT)
+        internal virtual Mac_Inserta_Respuesta Mac_Inserta_Datos(int id_ConsultorMac, int id_Solicitud, int id_Tramite, int puntos, string circuito, string cuenta_Cliente, string sufijo_Kapiti, byte tipo_Persona, string nombre_Cliente, string apellido_Paterno, string apellido_Materno, decimal deposito_Inicial, string numero_Registro, string nombre_Promotor, string banca, string division, string plaza, string sucursal, string status, int num_Solicitud, DateTime fechaRepc_Doc, TimeSpan horaRepc_Doc, DateTime fechaAnalisis_Mac, TimeSpan horaAnalisis_Mac, DateTime fechaFormalizada, TimeSpan horaFormalizada, DateTime fechaRepc_Originales, TimeSpan horaRepc_Originales, DateTime fechaAten_Originales, TimeSpan horaAten_Originales, string originales, decimal deposito_Inicial_Ini, DateTime fecha_Desbloqueo, DateTime fecha_Envio, DateTime fecha_concluida, string existeTKT)
         {
             DateTime FechaHoraCaptura = default;
             decimal Deposito_Inicial_Tkt;
@@ -26,6 +26,7 @@ namespace GOMAC.Data
             int Diferencia;
             DateTime Repc_Doc = default;
             DateTime Analisis_Mac = default;
+            int afectados = -1;
 
 
             using (var context = new bmtktp01Entities())
@@ -103,10 +104,10 @@ namespace GOMAC.Data
                         };
 
                         context.SEGUIMIENTO.Add(nuevo_seguimiento);
-                        int resp = context.SaveChanges();
+                        afectados = context.SaveChanges();
 
                        
-                        int seguimiento_identuty =  nuevo_seguimiento.Num_Solicitud;
+                        int seguimiento_identity =  nuevo_seguimiento.Num_Solicitud;
 
                         SEGUIMIENTO_DOCTOS nuevo_seguimientodoctos = new SEGUIMIENTO_DOCTOS{ 
                             Num_Solicitud = num_Solicitud,
@@ -123,7 +124,7 @@ namespace GOMAC.Data
                         };
 
                         context.SEGUIMIENTO_DOCTOS.Add(nuevo_seguimientodoctos);
-                        context.SaveChanges();
+                        afectados = context.SaveChanges();
 
                         int segdoctos_identity = nuevo_seguimiento.Num_Solicitud;
 
@@ -138,7 +139,7 @@ namespace GOMAC.Data
                         dbContextTransaction.Commit();
 
 
-                        return new Mac_Inserta_Respuesta { Codigo = 0, Diferiencia = diferiencia, FechaHora_Captura = DateTime.Now };
+                        return new Mac_Inserta_Respuesta { Codigo = afectados, Diferiencia = diferiencia, FechaHora_Captura = DateTime.Now };
                     }
                     catch(DbEntityValidationException  ex)
                     {
@@ -150,13 +151,13 @@ namespace GOMAC.Data
                                 Log.Escribe(error, "Error!!!!!!");
                             };
                         }
-                        return new Mac_Inserta_Respuesta { Codigo = 1, Diferiencia = TimeSpan.Zero, FechaHora_Captura = DateTime.Now };
+                        return new Mac_Inserta_Respuesta { Codigo = -1, Diferiencia = TimeSpan.Zero, FechaHora_Captura = DateTime.Now };
                     }
                     catch (Exception ex)
                     {
                         Log.Escribe(ex);
                         dbContextTransaction.Rollback();
-                        return new Mac_Inserta_Respuesta { Codigo = 1, Diferiencia = TimeSpan.Zero, FechaHora_Captura = DateTime.Now };
+                        return new Mac_Inserta_Respuesta { Codigo = -1, Diferiencia = TimeSpan.Zero, FechaHora_Captura = DateTime.Now };
                     }
 
                 }
@@ -176,6 +177,7 @@ namespace GOMAC.Data
             int Diferencia;
             DateTime Repc_Doc = default;
             DateTime Analisis_Mac = default;
+            int afectados = -1;
 
 
             using (var context = new bmtktp01Entities())
@@ -256,7 +258,7 @@ namespace GOMAC.Data
                         };
 
                         context.SEGUIMIENTO.Add(seguimiento);
-                        int resp = context.SaveChanges();
+                        afectados = context.SaveChanges();
 
 
                         int seguimiento_identity = seguimiento.Num_Solicitud;
@@ -278,7 +280,7 @@ namespace GOMAC.Data
                         };
 
                         context.SEGUIMIENTO_DOCTOS.Add(seguimiento_doctos);
-                        context.SaveChanges();
+                        afectados = context.SaveChanges();
 
                         int segdoctos_identity = seguimiento.Num_Solicitud;
 
@@ -293,7 +295,7 @@ namespace GOMAC.Data
                         dbContextTransaction.Commit();
 
 
-                        return new Mac_Actualiza_Respuesta { Codigo = 0, Diferiencia = diferiencia, FechaHora_Captura = DateTime.Now };
+                        return new Mac_Actualiza_Respuesta { Codigo = afectados, Diferiencia = diferiencia, FechaHora_Captura = DateTime.Now };
                     }
                     catch (DbEntityValidationException ex)
                     {
@@ -305,18 +307,61 @@ namespace GOMAC.Data
                                 Log.Escribe(error, "Error!!!!!!");
                             };
                         }
-                        return new Mac_Actualiza_Respuesta { Codigo = 1, Diferiencia = TimeSpan.Zero, FechaHora_Captura = DateTime.Now };
+                        return new Mac_Actualiza_Respuesta { Codigo = -1, Diferiencia = TimeSpan.Zero, FechaHora_Captura = DateTime.Now };
                     }
                     catch (Exception ex)
                     {
                         Log.Escribe(ex);
                         dbContextTransaction.Rollback();
-                        return new Mac_Actualiza_Respuesta { Codigo = 1, Diferiencia = TimeSpan.Zero, FechaHora_Captura = DateTime.Now };
+                        return new Mac_Actualiza_Respuesta { Codigo = -1, Diferiencia = TimeSpan.Zero, FechaHora_Captura = DateTime.Now };
                     }
 
                 }
 
             }
+        }
+
+        internal static int Actualiza_Docs(int numero_solicitud)
+        {
+            using (var context = new bmtktp01Entities())
+            {
+                using (var dbContextTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        SEGUIMIENTO_DOCTOS seguimeinto_docto = (from sd in context.SEGUIMIENTO_DOCTOS where sd.Num_Solicitud == numero_solicitud select sd).FirstOrDefault();
+                        SEGUIMIENTO seguimiento = (from s in context.SEGUIMIENTO where s.Num_Solicitud == numero_solicitud select s).FirstOrDefault();
+
+                        context.SEGUIMIENTO_DOCTOS.Add(seguimeinto_docto);
+
+                        int actualizados = -1;
+
+                        actualizados = context.SaveChanges();
+
+                        if (actualizados > 0)
+                        {
+                            actualizados = -1;
+
+                            context.SEGUIMIENTO.Add(seguimiento);
+                            actualizados = context.SaveChanges();
+
+                            if (actualizados > 0)
+                            {
+                                dbContextTransaction.Commit();
+                            }
+                        }
+                        return actualizados;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Escribe(ex);
+                        dbContextTransaction.Rollback();
+                        return -1;
+                    }
+                   
+                }
+            }
+            
         }
     }
 }

@@ -276,6 +276,12 @@
     <Compile Include="Views\Frm_Login.Designer.cs">
       <DependentUpon>Frm_Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Frm_NuevaObvservacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Frm_NuevaObvservacion.Designer.cs">
+      <DependentUpon>Frm_NuevaObvservacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Frm_NuevaSolicitud.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,11 +301,20 @@
     <Compile Include="Models\QueryParametro.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Frm_VistaObvservaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Frm_VistaObvservaciones.Designer.cs">
+      <DependentUpon>Frm_VistaObvservaciones.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Views\Frm_ConsultaSolicitud.resx">
       <DependentUpon>Frm_ConsultaSolicitud.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Frm_Login.resx">
       <DependentUpon>Frm_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Frm_NuevaObvservacion.resx">
+      <DependentUpon>Frm_NuevaObvservacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Frm_NuevaSolicitud.resx">
       <DependentUpon>Frm_NuevaSolicitud.cs</DependentUpon>
@@ -317,6 +332,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\Frm_VistaObvservaciones.resx">
+      <DependentUpon>Frm_VistaObvservaciones.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="Models\BdBmtktp01.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BdBmtktp01.Designer.cs</LastGenOutput>
