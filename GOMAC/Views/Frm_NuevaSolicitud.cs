@@ -33,6 +33,7 @@ namespace GOMAC.Views
         private NumberFormatInfo format_mxn = (NumberFormatInfo)CultureInfo.CreateSpecificCulture("es-MX").NumberFormat.Clone();
         private DataTable dt_observaciones;
         private int intTab;
+        private int TiempoServicioA, TiempoServicioM, TiempoAtencion;
 
         public string str_consultor;
         public int se_carga;
@@ -2059,6 +2060,8 @@ namespace GOMAC.Views
         {
             try
             {
+                int inttiemposervicio, intContador;
+
                 this.Text = (str_consultor.Trim() == "") ? "Captura de solicitud" : "Consulta de solicitud";
 
                 if (VerSeguimientoDoc(Int32.Parse(txtSolicitud.Text)) != null)
@@ -2521,7 +2524,7 @@ namespace GOMAC.Views
 
                     cmbTipoTramite.SelectedValue = seguimiento_doc.Id_Tramite;
 
-                    //DGI 27092007
+
                     if (cmbTipoSolicitud.SelectedIndex != 1)
                     {
                         lblDeposito.Visible = false;
@@ -2536,8 +2539,244 @@ namespace GOMAC.Views
 
                     LlenaDtgdwObservaciones();
 
+                    //SSTabSeg.TabEnabled(1) = True
+                    //SSTabSeg.TabEnabled(2) = True
+
+                    if (rbCircuitoAuto.Checked)
+                    {
+                        inttiemposervicio = TiempoServicioA;
+                    }
+                    else
+                    {
+                        inttiemposervicio = TiempoServicioM;
+                    }
+
+
+                    if (dtpFRecepDoc.Value != default_dtp && dtpFAnalisisMac.Value != default_dtp)
+                    {
+                        TimeSpan diferiencia = ((dtpFRecepDoc.Value.Date + (new TimeSpan(Int32.Parse(cmbHora1.SelectedValue.ToString()), Int32.Parse(cmbMinuto1.SelectedValue.ToString()), 0)))) - ((dtpFAnalisisMac.Value.Date + (new TimeSpan(Int32.Parse(cmbHora2.SelectedValue.ToString()), Int32.Parse(cmbMinuto2.SelectedValue.ToString()), 0))));
+                        if (diferiencia.Days < inttiemposervicio)
+                        {
+                            txtNivelTiempo.Text = "EN TIEMPO";
+                        }
+                        else
+                        {
+                            txtNivelTiempo.Text = "FUERA DE TIEMPO";
+                        }
+                    }
+
+                    if (dtpFAtencion.Value != default_dtp && dtpFAnalisisMac.Value != default_dtp)
+                    {
+                        TimeSpan diferiencia = ((dtpFRecepcion.Value.Date + (new TimeSpan(Int32.Parse(cmbHora4.SelectedValue.ToString()), Int32.Parse(cmbMinuto4.SelectedValue.ToString()), 0)))) - ((dtpFAtencion.Value.Date + (new TimeSpan(Int32.Parse(cmbHora5.SelectedValue.ToString()), Int32.Parse(cmbMinuto5.SelectedValue.ToString()), 0))));
+                        if (diferiencia.Days < TiempoAtencion)
+                        {
+                            txtNivelDias.Text = "EN TIEMPO";
+                        }
+                        else
+                        {
+                            txtNivelDias.Text = "FUERA DE TIEMPO";
+                        }
+                    }
+
+                    if(lblStatus.Text != "En proceso")
+                    {
+                        grpOriginales.Enabled = false;
+                        btnLimpiar.Visible = false;
+                        btnLimpiar.Enabled = false;
+                        dtpConcluir.Enabled = false;
+
+                        VisibleRbFechas(false);
+                    }
+
+                    if(((TIPO_SOLICITUD)cmbTipoSolicitud.SelectedItem).Descripcion_Solicitud != "ACTUALIZACION")
+                    {
+                        int DepositoIni = 0;
+                        if(rbcorrectos.Checked == true && int.TryParse(txtDepositoIni.Text, out DepositoIni))
+                        {
+                            if(DepositoIni > 0)
+                            {
+                                btnDesbloqueo.Visible = true;
+                                LblDesbloquep.Visible = true;
+                                dtpDesbloqueo.Visible = true;
+
+                                if (dtpDesbloqueo.Value != default_dtp)
+                                {
+                                    if (dtpConcluir.Value != default_dtp)
+                                    {
+                                        btnConcluirSolicitud.Enabled = true;
+                                    }
+                                    else
+                                    {
+                                        btnDesbloqueo.Visible = false;
+                                        btnConcluirSolicitud.Enabled = false;
+                                    }
+                                }
+                                else
+                                {
+                                    btnConcluirSolicitud.Enabled = false;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            btnConcluirSolicitud.Visible = false;
+                            LblDesbloquep.Visible = false;
+                            dtpDesbloqueo.Visible = false;
+
+                            if (((TIPO_SOLICITUD)cmbTipoSolicitud.SelectedItem).Id_Solicitud != 3) btnConcluirSolicitud.Enabled = false;
+                        }
+                    }
+                    else
+                    {
+                        if(dtpConcluir.Value != default_dtp)
+                        {
+                            btnConcluirSolicitud.Enabled = true;
+                        }
+                        else
+                        {
+                            btnConcluirSolicitud.Enabled = false;
+                        }
+                    }
+
+                    if(lblStatus.Text != "En proceso")
+                    {
+                        txtNombre.Enabled = false;
+                        txtApellidoP.Enabled = false;
+                        txtApellidoM.Enabled = false;
+                        TxtDepositoTkt.Enabled = false;
+                    }
+                }
+                else
+                {
+                    //SSTabSeg.TabEnabled(1) = False
+                    //SSTabSeg.TabEnabled(2) = False
+                    //Me.MousePointer = vbArrow
+                    MessageBox.Show("No existe la solicitud", "Obtencion de valores", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtSolicitud.Text = "";
+                    if(txtSolicitud.Enabled)
+                    {
+                        txtSolicitud.Focus();
+                    }
+                    //SSTabSeg.Tab = 0
                 }
 
+                //APAGAR TIMER
+                btnLimpiar.Visible = true;
+                tmrTraerDatos.Enabled = false;
+
+                txtSolicitud.Enabled = false;
+                //Me.MousePointer = vbArrow
+
+                if(lblStatus.Text == "En proceso")
+                {
+                    //Me.MousePointer = vbArrow
+                    grpCircuito.Enabled = true;
+
+                    HabilitarRbFechas(true);
+                    HabilitarCmbsTiempo(true);
+                    VisibleRbFechas(true);
+
+                    if(LblDesbloquep.Visible == true)
+                    {
+                        btnDesbloqueo.Visible = true;
+                        btnDesbloqueo.Enabled = true;
+                    }
+                    else
+                    {
+                        btnDesbloqueo.Visible = false;
+                        btnDesbloqueo.Enabled = false;
+                    }
+
+                    grpOriginales.Enabled = true;
+                    rbcorrectos.Enabled = true;
+                    rbIncorrectos.Enabled = true;
+                    btnConcluirSolicitud.Enabled = true;
+
+                    cmbTipoSolicitud.Enabled = true;
+                    lblDeposito.Visible = true;
+                    txtDepositoIni.Visible = true;
+                    txtDepositoIni.Enabled = true;
+                    txtApellidoP.Enabled = true;
+                    txtNombre.Enabled = true;
+                    txtApellidoM.Enabled = true;
+                    //Me.MousePointer = vbArrow
+                }
+                else
+                {
+                    //Me.MousePointer = vbArrow
+                    grpCircuito.Enabled = false;
+                    btnLimpiar.Visible = false;
+                    HabilitarRbFechas(true);
+                    HabilitarCmbsTiempo(true);
+                    VisibleRbFechas(true);
+
+                    btnDesbloqueo.Visible = false;
+                    btnDesbloqueo.Enabled = false;
+
+                    grpOriginales.Enabled = false;
+                    lblDeposito.Visible = false;
+                    txtDepositoIni.Visible = false;
+
+                    txtDepositoIni.Enabled = false;
+                    txtApellidoP.Enabled = false;
+                    txtNombre.Enabled = false;
+                    txtApellidoM.Enabled = false;
+                }
+                //Me.MousePointer = vbArrow
+
+                if(lblStatus.Text == "En proceso" || lblStatus.Text == "Cancelada" || lblStatus.Text == "Concluida")
+                {
+                    lblDeposito.Visible = true;
+                    txtDepositoIni.Visible = true;
+                    //Me.MousePointer = vbArrow
+                }
+
+                dtpFechaCaptura.Enabled = false;
+                dtpFechaCancelada.Enabled = false;
+                //Me.MousePointer = vbArrow
+
+                switch (lblStatus.Text)
+                {
+                    case "En proceso":
+                        dtgvwObservaciones.Enabled = true;
+                        btnCancelarSolicitud.Visible = true;
+                        btnGuardar.Text = "Modificar";
+                        btnGuardar.Visible = true;
+
+                        btnLimpiar.Visible = Visible;
+                        btnLimpiar.Enabled = false;
+                        btnVerObservacion.Enabled = true;
+                    break;
+                    case "Concluida":
+                        dtgvwObservaciones.Enabled = true;
+                        btnGuardar.Visible = false;
+                        btnCancelarSolicitud.Visible = false;
+                        cmbTipoSolicitud.Enabled = false;
+                        btnConcluirSolicitud.Enabled = false;
+                        btnLimpiar.Visible = false;
+                        btnLimpiar.Enabled = false;
+                        cmbProducto.Enabled = false;
+                        grpTipoPersona.Enabled = false;
+                        btnVerObservacion.Enabled = true;
+                        btnGuardar.Enabled = false;
+                        btnCancelarSolicitud.Enabled = false;
+                        btnGuardar.Visible = false;
+                        btnCancelarSolicitud.Visible = false;
+                        break;
+                    case "Cancelada":
+                        btnGuardar.Visible = false;
+                        btnCancelarSolicitud.Visible = false;
+                        cmbTipoSolicitud.Enabled = false;
+                        btnConcluirSolicitud.Enabled = false;
+                        btnLimpiar.Visible = false;
+                        cmbProducto.Enabled = true;
+                        btnVerObservacion.Enabled = true;
+                        grpTipoPersona.Enabled = false;
+                        dtgvwObservaciones.Enabled = true;
+                        btnGuardar.Enabled = false;
+                        btnCancelarSolicitud.Enabled = false;
+                    break;
+                }
             }
             catch (Exception ex)
             {
