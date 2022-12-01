@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TICKETModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CUENTA_EJE">
+    <Key>
+      <PropertyRef Name="producto_contratado" />
+    </Key>
+    <Property Name="producto_contratado" Type="Int32" Nullable="false" />
+    <Property Name="tipo_cuenta_eje" Type="Byte" Nullable="false" />
+    <Property Name="tipo_cuenta_anterior" Type="Byte" />
+    <NavigationProperty Name="PRODUCTO_CONTRATADO1" Relationship="Self.FK_CTA_EJE__PROD_CONTR" FromRole="CUENTA_EJE" ToRole="PRODUCTO_CONTRATADO" />
+    <NavigationProperty Name="TIPO_CUENTA_EJE1" Relationship="TICKETModel.FK_TipoCuentaEje" FromRole="CUENTA_EJE" ToRole="TIPO_CUENTA_EJE" />
+  </EntityType>
+  <EntityType Name="PRODUCTO_CONTRATADO">
+    <Key>
+      <PropertyRef Name="producto_contratado1" />
+    </Key>
+    <Property Name="producto_contratado1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="producto" Type="Int16" Nullable="false" />
+    <Property Name="cuenta_cliente" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="clave_producto_contratado" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="fecha_contratacion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="fecha_vencimiento" Type="DateTime" Precision="0" />
+    <Property Name="status_producto" Type="Int16" />
+    <Property Name="agencia" Type="Byte" />
+    <NavigationProperty Name="CUENTA_EJE" Relationship="Self.FK_CTA_EJE__PROD_CONTR" FromRole="PRODUCTO_CONTRATADO" ToRole="CUENTA_EJE" />
+  </EntityType>
+  <EntityType Name="TIPO_CUENTA_EJE">
+    <Key>
+      <PropertyRef Name="tipo_cuenta_eje1" />
+    </Key>
+    <Property Name="tipo_cuenta_eje1" Type="Byte" Nullable="false" />
+    <Property Name="descripcion_tipo" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="sufijo_kapiti" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CUENTA_EJE" Relationship="TICKETModel.FK_TipoCuentaEje" FromRole="TIPO_CUENTA_EJE" ToRole="CUENTA_EJE" />
+  </EntityType>
+  <Association Name="FK_CTA_EJE__PROD_CONTR">
+    <End Role="PRODUCTO_CONTRATADO" Type="Self.PRODUCTO_CONTRATADO" Multiplicity="1" />
+    <End Role="CUENTA_EJE" Type="Self.CUENTA_EJE" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCTO_CONTRATADO">
+        <PropertyRef Name="producto_contratado1" />
+      </Principal>
+      <Dependent Role="CUENTA_EJE">
+        <PropertyRef Name="producto_contratado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TICKETEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CUENTA_EJE" EntityType="Self.CUENTA_EJE" />
+    <EntitySet Name="PRODUCTO_CONTRATADO" EntityType="Self.PRODUCTO_CONTRATADO" />
+    <EntitySet Name="TIPO_CUENTA_EJE" EntityType="Self.TIPO_CUENTA_EJE" />
+    <AssociationSet Name="FK_CTA_EJE__PROD_CONTR" Association="Self.FK_CTA_EJE__PROD_CONTR">
+      <End Role="PRODUCTO_CONTRATADO" EntitySet="PRODUCTO_CONTRATADO" />
+      <End Role="CUENTA_EJE" EntitySet="CUENTA_EJE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TipoCuentaEje" Association="TICKETModel.FK_TipoCuentaEje">
+      <End Role="TIPO_CUENTA_EJE" EntitySet="TIPO_CUENTA_EJE" />
+      <End Role="CUENTA_EJE" EntitySet="CUENTA_EJE" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_TipoCuentaEje">
+    <End Type="TICKETModel.TIPO_CUENTA_EJE" Role="TIPO_CUENTA_EJE" Multiplicity="1" />
+    <End Type="TICKETModel.CUENTA_EJE" Role="CUENTA_EJE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_CUENTA_EJE">
+        <PropertyRef Name="tipo_cuenta_eje1" />
+      </Principal>
+      <Dependent Role="CUENTA_EJE">
+        <PropertyRef Name="tipo_cuenta_eje" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

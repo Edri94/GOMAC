@@ -1,6 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="CATALOGOSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CATALOGOS.dbo.CLIENTE' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="CLIENTE">
+    <Key>
+      <PropertyRef Name="cuenta_cliente" />
+      <PropertyRef Name="tratamiento" />
+      <PropertyRef Name="nombre_cliente" />
+      <PropertyRef Name="fecha_alta" />
+      <PropertyRef Name="funcionario" />
+      <PropertyRef Name="persona_moral" />
+    </Key>
+    <Property Name="cuenta_cliente" Type="char" MaxLength="6" Nullable="false" />
+    <Property Name="tratamiento" Type="char" MaxLength="5" Nullable="false" />
+    <Property Name="nombre_cliente" Type="char" MaxLength="40" Nullable="false" />
+    <Property Name="direccion_cliente" Type="varchar" MaxLength="180" />
+    <Property Name="cp_cliente" Type="char" MaxLength="10" />
+    <Property Name="telefono_cliente" Type="varchar" MaxLength="20" />
+    <Property Name="fax_cliente" Type="varchar" MaxLength="20" />
+    <Property Name="tipo_cliente" Type="char" MaxLength="2" />
+    <Property Name="fecha_alta" Type="smalldatetime" Nullable="false" />
+    <Property Name="fecha_baja" Type="smalldatetime" />
+    <Property Name="ubicacion" Type="smallint" />
+    <Property Name="funcionario" Type="int" Nullable="false" />
+    <Property Name="tipo_retencion" Type="tinyint" />
+    <Property Name="rfc" Type="char" MaxLength="15" />
+    <Property Name="apellido_paterno" Type="varchar" MaxLength="20" />
+    <Property Name="apellido_materno" Type="varchar" MaxLength="20" />
+    <Property Name="persona_moral" Type="tinyint" Nullable="false" />
+    <Property Name="UNIDAD_TEMP" Type="char" MaxLength="3" />
+    <Property Name="colonia_cliente" Type="varchar" MaxLength="30" />
+    <Property Name="cuenta_modificada" Type="tinyint" />
+    <Property Name="cuenta_mancomunada" Type="tinyint" />
+    <Property Name="cuenta_eje_pesos" Type="char" MaxLength="12" />
+    <Property Name="mnemonico" Type="char" MaxLength="9" />
+    <Property Name="deposito_inicial" Type="tinyint" />
+    <Property Name="descripcion_deposito_inicial" Type="varchar" MaxLength="50" />
+    <Property Name="cuenta_mercury" Type="char" MaxLength="6" />
+    <Property Name="monto_deposito_inicial" Type="numeric" Precision="16" Scale="6" />
+    <Property Name="documentacion" Type="smallint" />
+    <Property Name="agencia" Type="tinyint" />
+    <Property Name="tiene_chequera" Type="tinyint" />
+    <Property Name="cuenta_houston" Type="char" MaxLength="9" />
+    <Property Name="fecha_banklink" Type="smalldatetime" />
+    <Property Name="fecha_cuenta_pesos" Type="smalldatetime" />
+    <Property Name="funcionario_pesos" Type="int" />
+    <Property Name="deposito_inicial_fed" Type="numeric" Precision="16" Scale="6" />
+    <Property Name="deposito_inicial_suc" Type="numeric" Precision="16" Scale="6" />
+    <Property Name="func_pesos" Type="char" MaxLength="75" />
+    <Property Name="calle" Type="char" MaxLength="35" />
+    <Property Name="no_ext" Type="char" MaxLength="12" />
+    <Property Name="no_int" Type="char" MaxLength="12" />
+    <Property Name="componente" Type="char" MaxLength="25" />
+    <Property Name="del_o_municipio" Type="char" MaxLength="28" />
+    <Property Name="shortname" Type="char" MaxLength="16" />
+    <Property Name="curp" Type="char" MaxLength="15" />
+  </EntityType>
+  <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="DIAS_FERIADOS">
     <Key>
@@ -18,6 +74,54 @@ advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene defini
   </EntityType>
   <EntityContainer Name="CATALOGOSModelStoreContainer">
     <EntitySet Name="PRODUCTOS" EntityType="Self.PRODUCTOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [CLIENTE].[cuenta_cliente] AS [cuenta_cliente], 
+    [CLIENTE].[tratamiento] AS [tratamiento], 
+    [CLIENTE].[nombre_cliente] AS [nombre_cliente], 
+    [CLIENTE].[direccion_cliente] AS [direccion_cliente], 
+    [CLIENTE].[cp_cliente] AS [cp_cliente], 
+    [CLIENTE].[telefono_cliente] AS [telefono_cliente], 
+    [CLIENTE].[fax_cliente] AS [fax_cliente], 
+    [CLIENTE].[tipo_cliente] AS [tipo_cliente], 
+    [CLIENTE].[fecha_alta] AS [fecha_alta], 
+    [CLIENTE].[fecha_baja] AS [fecha_baja], 
+    [CLIENTE].[ubicacion] AS [ubicacion], 
+    [CLIENTE].[funcionario] AS [funcionario], 
+    [CLIENTE].[tipo_retencion] AS [tipo_retencion], 
+    [CLIENTE].[rfc] AS [rfc], 
+    [CLIENTE].[apellido_paterno] AS [apellido_paterno], 
+    [CLIENTE].[apellido_materno] AS [apellido_materno], 
+    [CLIENTE].[persona_moral] AS [persona_moral], 
+    [CLIENTE].[UNIDAD_TEMP] AS [UNIDAD_TEMP], 
+    [CLIENTE].[colonia_cliente] AS [colonia_cliente], 
+    [CLIENTE].[cuenta_modificada] AS [cuenta_modificada], 
+    [CLIENTE].[cuenta_mancomunada] AS [cuenta_mancomunada], 
+    [CLIENTE].[cuenta_eje_pesos] AS [cuenta_eje_pesos], 
+    [CLIENTE].[mnemonico] AS [mnemonico], 
+    [CLIENTE].[deposito_inicial] AS [deposito_inicial], 
+    [CLIENTE].[descripcion_deposito_inicial] AS [descripcion_deposito_inicial], 
+    [CLIENTE].[cuenta_mercury] AS [cuenta_mercury], 
+    [CLIENTE].[monto_deposito_inicial] AS [monto_deposito_inicial], 
+    [CLIENTE].[documentacion] AS [documentacion], 
+    [CLIENTE].[agencia] AS [agencia], 
+    [CLIENTE].[tiene_chequera] AS [tiene_chequera], 
+    [CLIENTE].[cuenta_houston] AS [cuenta_houston], 
+    [CLIENTE].[fecha_banklink] AS [fecha_banklink], 
+    [CLIENTE].[fecha_cuenta_pesos] AS [fecha_cuenta_pesos], 
+    [CLIENTE].[funcionario_pesos] AS [funcionario_pesos], 
+    [CLIENTE].[deposito_inicial_fed] AS [deposito_inicial_fed], 
+    [CLIENTE].[deposito_inicial_suc] AS [deposito_inicial_suc], 
+    [CLIENTE].[func_pesos] AS [func_pesos], 
+    [CLIENTE].[calle] AS [calle], 
+    [CLIENTE].[no_ext] AS [no_ext], 
+    [CLIENTE].[no_int] AS [no_int], 
+    [CLIENTE].[componente] AS [componente], 
+    [CLIENTE].[del_o_municipio] AS [del_o_municipio], 
+    [CLIENTE].[shortname] AS [shortname], 
+    [CLIENTE].[curp] AS [curp]
+    FROM [dbo].[CLIENTE] AS [CLIENTE]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="DIAS_FERIADOS" EntityType="Self.DIAS_FERIADOS" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [DIAS_FERIADOS].[fecha] AS [fecha], 

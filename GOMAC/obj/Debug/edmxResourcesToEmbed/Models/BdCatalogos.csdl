@@ -10,6 +10,7 @@
   <EntityContainer Name="CATALOGOSEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="DIAS_FERIADOS" EntityType="Self.DIAS_FERIADOS" />
     <EntitySet Name="PRODUCTOS" EntityType="CATALOGOSModel.PRODUCTOS" />
+    <EntitySet Name="CLIENTE" EntityType="CATALOGOSModel.CLIENTE" />
   </EntityContainer>
   <EntityType Name="PRODUCTOS">
     <Key>
@@ -17,5 +18,59 @@
     </Key>
     <Property Name="Id_Producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Producto" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CLIENTE">
+    <Key>
+      <PropertyRef Name="cuenta_cliente" />
+      <PropertyRef Name="tratamiento" />
+      <PropertyRef Name="nombre_cliente" />
+      <PropertyRef Name="fecha_alta" />
+      <PropertyRef Name="funcionario" />
+      <PropertyRef Name="persona_moral" />
+    </Key>
+    <Property Name="cuenta_cliente" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="tratamiento" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="nombre_cliente" Type="String" Nullable="false" MaxLength="40" FixedLength="true" Unicode="false" />
+    <Property Name="direccion_cliente" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
+    <Property Name="cp_cliente" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="telefono_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="fax_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="tipo_cliente" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="fecha_alta" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="fecha_baja" Type="DateTime" Precision="0" />
+    <Property Name="ubicacion" Type="Int16" />
+    <Property Name="funcionario" Type="Int32" Nullable="false" />
+    <Property Name="tipo_retencion" Type="Byte" />
+    <Property Name="rfc" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="apellido_paterno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="apellido_materno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="persona_moral" Type="Byte" Nullable="false" />
+    <Property Name="UNIDAD_TEMP" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="colonia_cliente" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="cuenta_modificada" Type="Byte" />
+    <Property Name="cuenta_mancomunada" Type="Byte" />
+    <Property Name="cuenta_eje_pesos" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+    <Property Name="mnemonico" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+    <Property Name="deposito_inicial" Type="Byte" />
+    <Property Name="descripcion_deposito_inicial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cuenta_mercury" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="monto_deposito_inicial" Type="Decimal" Precision="16" Scale="6" />
+    <Property Name="documentacion" Type="Int16" />
+    <Property Name="agencia" Type="Byte" />
+    <Property Name="tiene_chequera" Type="Byte" />
+    <Property Name="cuenta_houston" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+    <Property Name="fecha_banklink" Type="DateTime" Precision="0" />
+    <Property Name="fecha_cuenta_pesos" Type="DateTime" Precision="0" />
+    <Property Name="funcionario_pesos" Type="Int32" />
+    <Property Name="deposito_inicial_fed" Type="Decimal" Precision="16" Scale="6" />
+    <Property Name="deposito_inicial_suc" Type="Decimal" Precision="16" Scale="6" />
+    <Property Name="func_pesos" Type="String" MaxLength="75" FixedLength="true" Unicode="false" />
+    <Property Name="calle" Type="String" MaxLength="35" FixedLength="true" Unicode="false" />
+    <Property Name="no_ext" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+    <Property Name="no_int" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+    <Property Name="componente" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+    <Property Name="del_o_municipio" Type="String" MaxLength="28" FixedLength="true" Unicode="false" />
+    <Property Name="shortname" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+    <Property Name="curp" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
   </EntityType>
 </Schema>

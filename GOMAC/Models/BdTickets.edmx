@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TICKETModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CUENTA_EJE">
+          <Key>
+            <PropertyRef Name="producto_contratado" />
+          </Key>
+          <Property Name="producto_contratado" Type="int" Nullable="false" />
+          <Property Name="tipo_cuenta_eje" Type="tinyint" Nullable="false" />
+          <Property Name="tipo_cuenta_anterior" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="PRODUCTO_CONTRATADO">
+          <Key>
+            <PropertyRef Name="producto_contratado" />
+          </Key>
+          <Property Name="producto_contratado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="producto" Type="smallint" Nullable="false" />
+          <Property Name="cuenta_cliente" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="clave_producto_contratado" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="fecha_contratacion" Type="smalldatetime" Nullable="false" />
+          <Property Name="fecha_vencimiento" Type="smalldatetime" />
+          <Property Name="status_producto" Type="smallint" />
+          <Property Name="agencia" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="TIPO_CUENTA_EJE">
+          <Key>
+            <PropertyRef Name="tipo_cuenta_eje" />
+          </Key>
+          <Property Name="tipo_cuenta_eje" Type="tinyint" Nullable="false" />
+          <Property Name="descripcion_tipo" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="sufijo_kapiti" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CTA_EJE__PROD_CONTR">
+          <End Role="PRODUCTO_CONTRATADO" Type="Self.PRODUCTO_CONTRATADO" Multiplicity="1" />
+          <End Role="CUENTA_EJE" Type="Self.CUENTA_EJE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO_CONTRATADO">
+              <PropertyRef Name="producto_contratado" />
+            </Principal>
+            <Dependent Role="CUENTA_EJE">
+              <PropertyRef Name="producto_contratado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoCuentaEje">
+          <End Role="TIPO_CUENTA_EJE" Type="Self.TIPO_CUENTA_EJE" Multiplicity="1" />
+          <End Role="CUENTA_EJE" Type="Self.CUENTA_EJE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_CUENTA_EJE">
+              <PropertyRef Name="tipo_cuenta_eje" />
+            </Principal>
+            <Dependent Role="CUENTA_EJE">
+              <PropertyRef Name="tipo_cuenta_eje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TICKETModelStoreContainer">
+          <EntitySet Name="CUENTA_EJE" EntityType="Self.CUENTA_EJE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCTO_CONTRATADO" EntityType="Self.PRODUCTO_CONTRATADO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_CUENTA_EJE" EntityType="Self.TIPO_CUENTA_EJE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CTA_EJE__PROD_CONTR" Association="Self.FK_CTA_EJE__PROD_CONTR">
+            <End Role="PRODUCTO_CONTRATADO" EntitySet="PRODUCTO_CONTRATADO" />
+            <End Role="CUENTA_EJE" EntitySet="CUENTA_EJE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoCuentaEje" Association="Self.FK_TipoCuentaEje">
+            <End Role="TIPO_CUENTA_EJE" EntitySet="TIPO_CUENTA_EJE" />
+            <End Role="CUENTA_EJE" EntitySet="CUENTA_EJE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TICKETModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CUENTA_EJE">
+          <Key>
+            <PropertyRef Name="producto_contratado" />
+          </Key>
+          <Property Name="producto_contratado" Type="Int32" Nullable="false" />
+          <Property Name="tipo_cuenta_eje" Type="Byte" Nullable="false" />
+          <Property Name="tipo_cuenta_anterior" Type="Byte" />
+          <NavigationProperty Name="PRODUCTO_CONTRATADO1" Relationship="Self.FK_CTA_EJE__PROD_CONTR" FromRole="CUENTA_EJE" ToRole="PRODUCTO_CONTRATADO" />
+          <NavigationProperty Name="TIPO_CUENTA_EJE1" Relationship="TICKETModel.FK_TipoCuentaEje" FromRole="CUENTA_EJE" ToRole="TIPO_CUENTA_EJE" />
+        </EntityType>
+        <EntityType Name="PRODUCTO_CONTRATADO">
+          <Key>
+            <PropertyRef Name="producto_contratado1" />
+          </Key>
+          <Property Name="producto_contratado1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="producto" Type="Int16" Nullable="false" />
+          <Property Name="cuenta_cliente" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="clave_producto_contratado" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="fecha_contratacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fecha_vencimiento" Type="DateTime" Precision="0" />
+          <Property Name="status_producto" Type="Int16" />
+          <Property Name="agencia" Type="Byte" />
+          <NavigationProperty Name="CUENTA_EJE" Relationship="Self.FK_CTA_EJE__PROD_CONTR" FromRole="PRODUCTO_CONTRATADO" ToRole="CUENTA_EJE" />
+        </EntityType>
+        <EntityType Name="TIPO_CUENTA_EJE">
+          <Key>
+            <PropertyRef Name="tipo_cuenta_eje1" />
+          </Key>
+          <Property Name="tipo_cuenta_eje1" Type="Byte" Nullable="false" />
+          <Property Name="descripcion_tipo" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="sufijo_kapiti" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CUENTA_EJE" Relationship="TICKETModel.FK_TipoCuentaEje" FromRole="TIPO_CUENTA_EJE" ToRole="CUENTA_EJE" />
+        </EntityType>
+        <Association Name="FK_CTA_EJE__PROD_CONTR">
+          <End Role="PRODUCTO_CONTRATADO" Type="Self.PRODUCTO_CONTRATADO" Multiplicity="1" />
+          <End Role="CUENTA_EJE" Type="Self.CUENTA_EJE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO_CONTRATADO">
+              <PropertyRef Name="producto_contratado1" />
+            </Principal>
+            <Dependent Role="CUENTA_EJE">
+              <PropertyRef Name="producto_contratado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TICKETEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CUENTA_EJE" EntityType="Self.CUENTA_EJE" />
+          <EntitySet Name="PRODUCTO_CONTRATADO" EntityType="Self.PRODUCTO_CONTRATADO" />
+          <EntitySet Name="TIPO_CUENTA_EJE" EntityType="Self.TIPO_CUENTA_EJE" />
+          <AssociationSet Name="FK_CTA_EJE__PROD_CONTR" Association="Self.FK_CTA_EJE__PROD_CONTR">
+            <End Role="PRODUCTO_CONTRATADO" EntitySet="PRODUCTO_CONTRATADO" />
+            <End Role="CUENTA_EJE" EntitySet="CUENTA_EJE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoCuentaEje" Association="TICKETModel.FK_TipoCuentaEje">
+            <End Role="TIPO_CUENTA_EJE" EntitySet="TIPO_CUENTA_EJE" />
+            <End Role="CUENTA_EJE" EntitySet="CUENTA_EJE" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_TipoCuentaEje">
+          <End Type="TICKETModel.TIPO_CUENTA_EJE" Role="TIPO_CUENTA_EJE" Multiplicity="1" />
+          <End Type="TICKETModel.CUENTA_EJE" Role="CUENTA_EJE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_CUENTA_EJE">
+              <PropertyRef Name="tipo_cuenta_eje1" />
+            </Principal>
+            <Dependent Role="CUENTA_EJE">
+              <PropertyRef Name="tipo_cuenta_eje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TICKETModelStoreContainer" CdmEntityContainer="TICKETEntities">
+          <EntitySetMapping Name="CUENTA_EJE">
+            <EntityTypeMapping TypeName="TICKETModel.CUENTA_EJE">
+              <MappingFragment StoreEntitySet="CUENTA_EJE">
+                <ScalarProperty Name="producto_contratado" ColumnName="producto_contratado" />
+                <ScalarProperty Name="tipo_cuenta_eje" ColumnName="tipo_cuenta_eje" />
+                <ScalarProperty Name="tipo_cuenta_anterior" ColumnName="tipo_cuenta_anterior" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTO_CONTRATADO">
+            <EntityTypeMapping TypeName="TICKETModel.PRODUCTO_CONTRATADO">
+              <MappingFragment StoreEntitySet="PRODUCTO_CONTRATADO">
+                <ScalarProperty Name="producto_contratado1" ColumnName="producto_contratado" />
+                <ScalarProperty Name="producto" ColumnName="producto" />
+                <ScalarProperty Name="cuenta_cliente" ColumnName="cuenta_cliente" />
+                <ScalarProperty Name="clave_producto_contratado" ColumnName="clave_producto_contratado" />
+                <ScalarProperty Name="fecha_contratacion" ColumnName="fecha_contratacion" />
+                <ScalarProperty Name="fecha_vencimiento" ColumnName="fecha_vencimiento" />
+                <ScalarProperty Name="status_producto" ColumnName="status_producto" />
+                <ScalarProperty Name="agencia" ColumnName="agencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPO_CUENTA_EJE">
+            <EntityTypeMapping TypeName="TICKETModel.TIPO_CUENTA_EJE">
+              <MappingFragment StoreEntitySet="TIPO_CUENTA_EJE">
+                <ScalarProperty Name="tipo_cuenta_eje1" ColumnName="tipo_cuenta_eje" />
+                <ScalarProperty Name="descripcion_tipo" ColumnName="descripcion_tipo" />
+                <ScalarProperty Name="sufijo_kapiti" ColumnName="sufijo_kapiti" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

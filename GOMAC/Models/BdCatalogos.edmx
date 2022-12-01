@@ -6,6 +6,62 @@
     <edmx:StorageModels>
     <Schema Namespace="CATALOGOSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CATALOGOS.dbo.CLIENTE' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="cuenta_cliente" />
+            <PropertyRef Name="tratamiento" />
+            <PropertyRef Name="nombre_cliente" />
+            <PropertyRef Name="fecha_alta" />
+            <PropertyRef Name="funcionario" />
+            <PropertyRef Name="persona_moral" />
+          </Key>
+          <Property Name="cuenta_cliente" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="tratamiento" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="nombre_cliente" Type="char" MaxLength="40" Nullable="false" />
+          <Property Name="direccion_cliente" Type="varchar" MaxLength="180" />
+          <Property Name="cp_cliente" Type="char" MaxLength="10" />
+          <Property Name="telefono_cliente" Type="varchar" MaxLength="20" />
+          <Property Name="fax_cliente" Type="varchar" MaxLength="20" />
+          <Property Name="tipo_cliente" Type="char" MaxLength="2" />
+          <Property Name="fecha_alta" Type="smalldatetime" Nullable="false" />
+          <Property Name="fecha_baja" Type="smalldatetime" />
+          <Property Name="ubicacion" Type="smallint" />
+          <Property Name="funcionario" Type="int" Nullable="false" />
+          <Property Name="tipo_retencion" Type="tinyint" />
+          <Property Name="rfc" Type="char" MaxLength="15" />
+          <Property Name="apellido_paterno" Type="varchar" MaxLength="20" />
+          <Property Name="apellido_materno" Type="varchar" MaxLength="20" />
+          <Property Name="persona_moral" Type="tinyint" Nullable="false" />
+          <Property Name="UNIDAD_TEMP" Type="char" MaxLength="3" />
+          <Property Name="colonia_cliente" Type="varchar" MaxLength="30" />
+          <Property Name="cuenta_modificada" Type="tinyint" />
+          <Property Name="cuenta_mancomunada" Type="tinyint" />
+          <Property Name="cuenta_eje_pesos" Type="char" MaxLength="12" />
+          <Property Name="mnemonico" Type="char" MaxLength="9" />
+          <Property Name="deposito_inicial" Type="tinyint" />
+          <Property Name="descripcion_deposito_inicial" Type="varchar" MaxLength="50" />
+          <Property Name="cuenta_mercury" Type="char" MaxLength="6" />
+          <Property Name="monto_deposito_inicial" Type="numeric" Precision="16" Scale="6" />
+          <Property Name="documentacion" Type="smallint" />
+          <Property Name="agencia" Type="tinyint" />
+          <Property Name="tiene_chequera" Type="tinyint" />
+          <Property Name="cuenta_houston" Type="char" MaxLength="9" />
+          <Property Name="fecha_banklink" Type="smalldatetime" />
+          <Property Name="fecha_cuenta_pesos" Type="smalldatetime" />
+          <Property Name="funcionario_pesos" Type="int" />
+          <Property Name="deposito_inicial_fed" Type="numeric" Precision="16" Scale="6" />
+          <Property Name="deposito_inicial_suc" Type="numeric" Precision="16" Scale="6" />
+          <Property Name="func_pesos" Type="char" MaxLength="75" />
+          <Property Name="calle" Type="char" MaxLength="35" />
+          <Property Name="no_ext" Type="char" MaxLength="12" />
+          <Property Name="no_int" Type="char" MaxLength="12" />
+          <Property Name="componente" Type="char" MaxLength="25" />
+          <Property Name="del_o_municipio" Type="char" MaxLength="28" />
+          <Property Name="shortname" Type="char" MaxLength="16" />
+          <Property Name="curp" Type="char" MaxLength="15" />
+        </EntityType>
+        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="DIAS_FERIADOS">
           <Key>
@@ -23,6 +79,54 @@ advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene defini
         </EntityType>
         <EntityContainer Name="CATALOGOSModelStoreContainer">
           <EntitySet Name="PRODUCTOS" EntityType="Self.PRODUCTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CLIENTE].[cuenta_cliente] AS [cuenta_cliente], 
+    [CLIENTE].[tratamiento] AS [tratamiento], 
+    [CLIENTE].[nombre_cliente] AS [nombre_cliente], 
+    [CLIENTE].[direccion_cliente] AS [direccion_cliente], 
+    [CLIENTE].[cp_cliente] AS [cp_cliente], 
+    [CLIENTE].[telefono_cliente] AS [telefono_cliente], 
+    [CLIENTE].[fax_cliente] AS [fax_cliente], 
+    [CLIENTE].[tipo_cliente] AS [tipo_cliente], 
+    [CLIENTE].[fecha_alta] AS [fecha_alta], 
+    [CLIENTE].[fecha_baja] AS [fecha_baja], 
+    [CLIENTE].[ubicacion] AS [ubicacion], 
+    [CLIENTE].[funcionario] AS [funcionario], 
+    [CLIENTE].[tipo_retencion] AS [tipo_retencion], 
+    [CLIENTE].[rfc] AS [rfc], 
+    [CLIENTE].[apellido_paterno] AS [apellido_paterno], 
+    [CLIENTE].[apellido_materno] AS [apellido_materno], 
+    [CLIENTE].[persona_moral] AS [persona_moral], 
+    [CLIENTE].[UNIDAD_TEMP] AS [UNIDAD_TEMP], 
+    [CLIENTE].[colonia_cliente] AS [colonia_cliente], 
+    [CLIENTE].[cuenta_modificada] AS [cuenta_modificada], 
+    [CLIENTE].[cuenta_mancomunada] AS [cuenta_mancomunada], 
+    [CLIENTE].[cuenta_eje_pesos] AS [cuenta_eje_pesos], 
+    [CLIENTE].[mnemonico] AS [mnemonico], 
+    [CLIENTE].[deposito_inicial] AS [deposito_inicial], 
+    [CLIENTE].[descripcion_deposito_inicial] AS [descripcion_deposito_inicial], 
+    [CLIENTE].[cuenta_mercury] AS [cuenta_mercury], 
+    [CLIENTE].[monto_deposito_inicial] AS [monto_deposito_inicial], 
+    [CLIENTE].[documentacion] AS [documentacion], 
+    [CLIENTE].[agencia] AS [agencia], 
+    [CLIENTE].[tiene_chequera] AS [tiene_chequera], 
+    [CLIENTE].[cuenta_houston] AS [cuenta_houston], 
+    [CLIENTE].[fecha_banklink] AS [fecha_banklink], 
+    [CLIENTE].[fecha_cuenta_pesos] AS [fecha_cuenta_pesos], 
+    [CLIENTE].[funcionario_pesos] AS [funcionario_pesos], 
+    [CLIENTE].[deposito_inicial_fed] AS [deposito_inicial_fed], 
+    [CLIENTE].[deposito_inicial_suc] AS [deposito_inicial_suc], 
+    [CLIENTE].[func_pesos] AS [func_pesos], 
+    [CLIENTE].[calle] AS [calle], 
+    [CLIENTE].[no_ext] AS [no_ext], 
+    [CLIENTE].[no_int] AS [no_int], 
+    [CLIENTE].[componente] AS [componente], 
+    [CLIENTE].[del_o_municipio] AS [del_o_municipio], 
+    [CLIENTE].[shortname] AS [shortname], 
+    [CLIENTE].[curp] AS [curp]
+    FROM [dbo].[CLIENTE] AS [CLIENTE]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="DIAS_FERIADOS" EntityType="Self.DIAS_FERIADOS" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [DIAS_FERIADOS].[fecha] AS [fecha], 
@@ -44,6 +148,7 @@ advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene defini
         <EntityContainer Name="CATALOGOSEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DIAS_FERIADOS" EntityType="Self.DIAS_FERIADOS" />
           <EntitySet Name="PRODUCTOS" EntityType="CATALOGOSModel.PRODUCTOS" />
+          <EntitySet Name="CLIENTE" EntityType="CATALOGOSModel.CLIENTE" />
         </EntityContainer>
         <EntityType Name="PRODUCTOS">
           <Key>
@@ -51,6 +156,60 @@ advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene defini
           </Key>
           <Property Name="Id_Producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Producto" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="cuenta_cliente" />
+            <PropertyRef Name="tratamiento" />
+            <PropertyRef Name="nombre_cliente" />
+            <PropertyRef Name="fecha_alta" />
+            <PropertyRef Name="funcionario" />
+            <PropertyRef Name="persona_moral" />
+          </Key>
+          <Property Name="cuenta_cliente" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="tratamiento" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="nombre_cliente" Type="String" Nullable="false" MaxLength="40" FixedLength="true" Unicode="false" />
+          <Property Name="direccion_cliente" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Name="cp_cliente" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="telefono_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fax_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_cliente" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="fecha_alta" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fecha_baja" Type="DateTime" Precision="0" />
+          <Property Name="ubicacion" Type="Int16" />
+          <Property Name="funcionario" Type="Int32" Nullable="false" />
+          <Property Name="tipo_retencion" Type="Byte" />
+          <Property Name="rfc" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="apellido_paterno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="apellido_materno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="persona_moral" Type="Byte" Nullable="false" />
+          <Property Name="UNIDAD_TEMP" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="colonia_cliente" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="cuenta_modificada" Type="Byte" />
+          <Property Name="cuenta_mancomunada" Type="Byte" />
+          <Property Name="cuenta_eje_pesos" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="mnemonico" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="deposito_inicial" Type="Byte" />
+          <Property Name="descripcion_deposito_inicial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cuenta_mercury" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="monto_deposito_inicial" Type="Decimal" Precision="16" Scale="6" />
+          <Property Name="documentacion" Type="Int16" />
+          <Property Name="agencia" Type="Byte" />
+          <Property Name="tiene_chequera" Type="Byte" />
+          <Property Name="cuenta_houston" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="fecha_banklink" Type="DateTime" Precision="0" />
+          <Property Name="fecha_cuenta_pesos" Type="DateTime" Precision="0" />
+          <Property Name="funcionario_pesos" Type="Int32" />
+          <Property Name="deposito_inicial_fed" Type="Decimal" Precision="16" Scale="6" />
+          <Property Name="deposito_inicial_suc" Type="Decimal" Precision="16" Scale="6" />
+          <Property Name="func_pesos" Type="String" MaxLength="75" FixedLength="true" Unicode="false" />
+          <Property Name="calle" Type="String" MaxLength="35" FixedLength="true" Unicode="false" />
+          <Property Name="no_ext" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="no_int" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="componente" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+          <Property Name="del_o_municipio" Type="String" MaxLength="28" FixedLength="true" Unicode="false" />
+          <Property Name="shortname" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+          <Property Name="curp" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -71,6 +230,56 @@ advertencia 6002: La tabla o vista 'CATALOGOS.dbo.DIAS_FERIADOS' no tiene defini
               <MappingFragment StoreEntitySet="PRODUCTOS">
                 <ScalarProperty Name="Producto" ColumnName="Producto" />
                 <ScalarProperty Name="Id_Producto" ColumnName="Id_Producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENTE">
+            <EntityTypeMapping TypeName="CATALOGOSModel.CLIENTE">
+              <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="curp" ColumnName="curp" />
+                <ScalarProperty Name="shortname" ColumnName="shortname" />
+                <ScalarProperty Name="del_o_municipio" ColumnName="del_o_municipio" />
+                <ScalarProperty Name="componente" ColumnName="componente" />
+                <ScalarProperty Name="no_int" ColumnName="no_int" />
+                <ScalarProperty Name="no_ext" ColumnName="no_ext" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="func_pesos" ColumnName="func_pesos" />
+                <ScalarProperty Name="deposito_inicial_suc" ColumnName="deposito_inicial_suc" />
+                <ScalarProperty Name="deposito_inicial_fed" ColumnName="deposito_inicial_fed" />
+                <ScalarProperty Name="funcionario_pesos" ColumnName="funcionario_pesos" />
+                <ScalarProperty Name="fecha_cuenta_pesos" ColumnName="fecha_cuenta_pesos" />
+                <ScalarProperty Name="fecha_banklink" ColumnName="fecha_banklink" />
+                <ScalarProperty Name="cuenta_houston" ColumnName="cuenta_houston" />
+                <ScalarProperty Name="tiene_chequera" ColumnName="tiene_chequera" />
+                <ScalarProperty Name="agencia" ColumnName="agencia" />
+                <ScalarProperty Name="documentacion" ColumnName="documentacion" />
+                <ScalarProperty Name="monto_deposito_inicial" ColumnName="monto_deposito_inicial" />
+                <ScalarProperty Name="cuenta_mercury" ColumnName="cuenta_mercury" />
+                <ScalarProperty Name="descripcion_deposito_inicial" ColumnName="descripcion_deposito_inicial" />
+                <ScalarProperty Name="deposito_inicial" ColumnName="deposito_inicial" />
+                <ScalarProperty Name="mnemonico" ColumnName="mnemonico" />
+                <ScalarProperty Name="cuenta_eje_pesos" ColumnName="cuenta_eje_pesos" />
+                <ScalarProperty Name="cuenta_mancomunada" ColumnName="cuenta_mancomunada" />
+                <ScalarProperty Name="cuenta_modificada" ColumnName="cuenta_modificada" />
+                <ScalarProperty Name="colonia_cliente" ColumnName="colonia_cliente" />
+                <ScalarProperty Name="UNIDAD_TEMP" ColumnName="UNIDAD_TEMP" />
+                <ScalarProperty Name="persona_moral" ColumnName="persona_moral" />
+                <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
+                <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+                <ScalarProperty Name="rfc" ColumnName="rfc" />
+                <ScalarProperty Name="tipo_retencion" ColumnName="tipo_retencion" />
+                <ScalarProperty Name="funcionario" ColumnName="funcionario" />
+                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+                <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="tipo_cliente" ColumnName="tipo_cliente" />
+                <ScalarProperty Name="fax_cliente" ColumnName="fax_cliente" />
+                <ScalarProperty Name="telefono_cliente" ColumnName="telefono_cliente" />
+                <ScalarProperty Name="cp_cliente" ColumnName="cp_cliente" />
+                <ScalarProperty Name="direccion_cliente" ColumnName="direccion_cliente" />
+                <ScalarProperty Name="nombre_cliente" ColumnName="nombre_cliente" />
+                <ScalarProperty Name="tratamiento" ColumnName="tratamiento" />
+                <ScalarProperty Name="cuenta_cliente" ColumnName="cuenta_cliente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

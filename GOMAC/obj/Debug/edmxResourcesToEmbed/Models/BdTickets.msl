@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TICKETModelStoreContainer" CdmEntityContainer="TICKETEntities">
+    <EntitySetMapping Name="CUENTA_EJE">
+      <EntityTypeMapping TypeName="TICKETModel.CUENTA_EJE">
+        <MappingFragment StoreEntitySet="CUENTA_EJE">
+          <ScalarProperty Name="producto_contratado" ColumnName="producto_contratado" />
+          <ScalarProperty Name="tipo_cuenta_eje" ColumnName="tipo_cuenta_eje" />
+          <ScalarProperty Name="tipo_cuenta_anterior" ColumnName="tipo_cuenta_anterior" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCTO_CONTRATADO">
+      <EntityTypeMapping TypeName="TICKETModel.PRODUCTO_CONTRATADO">
+        <MappingFragment StoreEntitySet="PRODUCTO_CONTRATADO">
+          <ScalarProperty Name="producto_contratado1" ColumnName="producto_contratado" />
+          <ScalarProperty Name="producto" ColumnName="producto" />
+          <ScalarProperty Name="cuenta_cliente" ColumnName="cuenta_cliente" />
+          <ScalarProperty Name="clave_producto_contratado" ColumnName="clave_producto_contratado" />
+          <ScalarProperty Name="fecha_contratacion" ColumnName="fecha_contratacion" />
+          <ScalarProperty Name="fecha_vencimiento" ColumnName="fecha_vencimiento" />
+          <ScalarProperty Name="status_producto" ColumnName="status_producto" />
+          <ScalarProperty Name="agencia" ColumnName="agencia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TIPO_CUENTA_EJE">
+      <EntityTypeMapping TypeName="TICKETModel.TIPO_CUENTA_EJE">
+        <MappingFragment StoreEntitySet="TIPO_CUENTA_EJE">
+          <ScalarProperty Name="tipo_cuenta_eje1" ColumnName="tipo_cuenta_eje" />
+          <ScalarProperty Name="descripcion_tipo" ColumnName="descripcion_tipo" />
+          <ScalarProperty Name="sufijo_kapiti" ColumnName="sufijo_kapiti" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

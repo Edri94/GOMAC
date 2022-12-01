@@ -17,5 +17,55 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CLIENTE">
+      <EntityTypeMapping TypeName="CATALOGOSModel.CLIENTE">
+        <MappingFragment StoreEntitySet="CLIENTE">
+          <ScalarProperty Name="curp" ColumnName="curp" />
+          <ScalarProperty Name="shortname" ColumnName="shortname" />
+          <ScalarProperty Name="del_o_municipio" ColumnName="del_o_municipio" />
+          <ScalarProperty Name="componente" ColumnName="componente" />
+          <ScalarProperty Name="no_int" ColumnName="no_int" />
+          <ScalarProperty Name="no_ext" ColumnName="no_ext" />
+          <ScalarProperty Name="calle" ColumnName="calle" />
+          <ScalarProperty Name="func_pesos" ColumnName="func_pesos" />
+          <ScalarProperty Name="deposito_inicial_suc" ColumnName="deposito_inicial_suc" />
+          <ScalarProperty Name="deposito_inicial_fed" ColumnName="deposito_inicial_fed" />
+          <ScalarProperty Name="funcionario_pesos" ColumnName="funcionario_pesos" />
+          <ScalarProperty Name="fecha_cuenta_pesos" ColumnName="fecha_cuenta_pesos" />
+          <ScalarProperty Name="fecha_banklink" ColumnName="fecha_banklink" />
+          <ScalarProperty Name="cuenta_houston" ColumnName="cuenta_houston" />
+          <ScalarProperty Name="tiene_chequera" ColumnName="tiene_chequera" />
+          <ScalarProperty Name="agencia" ColumnName="agencia" />
+          <ScalarProperty Name="documentacion" ColumnName="documentacion" />
+          <ScalarProperty Name="monto_deposito_inicial" ColumnName="monto_deposito_inicial" />
+          <ScalarProperty Name="cuenta_mercury" ColumnName="cuenta_mercury" />
+          <ScalarProperty Name="descripcion_deposito_inicial" ColumnName="descripcion_deposito_inicial" />
+          <ScalarProperty Name="deposito_inicial" ColumnName="deposito_inicial" />
+          <ScalarProperty Name="mnemonico" ColumnName="mnemonico" />
+          <ScalarProperty Name="cuenta_eje_pesos" ColumnName="cuenta_eje_pesos" />
+          <ScalarProperty Name="cuenta_mancomunada" ColumnName="cuenta_mancomunada" />
+          <ScalarProperty Name="cuenta_modificada" ColumnName="cuenta_modificada" />
+          <ScalarProperty Name="colonia_cliente" ColumnName="colonia_cliente" />
+          <ScalarProperty Name="UNIDAD_TEMP" ColumnName="UNIDAD_TEMP" />
+          <ScalarProperty Name="persona_moral" ColumnName="persona_moral" />
+          <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
+          <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+          <ScalarProperty Name="rfc" ColumnName="rfc" />
+          <ScalarProperty Name="tipo_retencion" ColumnName="tipo_retencion" />
+          <ScalarProperty Name="funcionario" ColumnName="funcionario" />
+          <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+          <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+          <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+          <ScalarProperty Name="tipo_cliente" ColumnName="tipo_cliente" />
+          <ScalarProperty Name="fax_cliente" ColumnName="fax_cliente" />
+          <ScalarProperty Name="telefono_cliente" ColumnName="telefono_cliente" />
+          <ScalarProperty Name="cp_cliente" ColumnName="cp_cliente" />
+          <ScalarProperty Name="direccion_cliente" ColumnName="direccion_cliente" />
+          <ScalarProperty Name="nombre_cliente" ColumnName="nombre_cliente" />
+          <ScalarProperty Name="tratamiento" ColumnName="tratamiento" />
+          <ScalarProperty Name="cuenta_cliente" ColumnName="cuenta_cliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

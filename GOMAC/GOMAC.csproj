@@ -139,11 +139,32 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BdFuncionarios.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\BdTickets.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdTickets.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BdTickets.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdTickets.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BdTickets.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdTickets.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CLIENTE.cs">
+      <DependentUpon>BdCatalogos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CONECT.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CONSULTORES.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CUENTA_EJE.cs">
+      <DependentUpon>BdTickets.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DIAS_FERIADOS.cs">
       <DependentUpon>BdCatalogos.tt</DependentUpon>
@@ -189,6 +210,9 @@
     <Compile Include="Models\PRODUCTOS.cs">
       <DependentUpon>BdCatalogos.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PRODUCTO_CONTRATADO.cs">
+      <DependentUpon>BdTickets.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SECTORES.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
     </Compile>
@@ -200,6 +224,9 @@
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TIPO_CUENTA_EJE.cs">
+      <DependentUpon>BdTickets.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_MOV_PERFIL.cs">
       <DependentUpon>BdBmtktp01.tt</DependentUpon>
@@ -356,6 +383,13 @@
     <None Include="Models\BdFuncionarios.edmx.diagram">
       <DependentUpon>BdFuncionarios.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="Models\BdTickets.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BdTickets.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\BdTickets.edmx.diagram">
+      <DependentUpon>BdTickets.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -403,6 +437,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BdFuncionarios.edmx</DependentUpon>
       <LastGenOutput>BdFuncionarios.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BdTickets.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BdTickets.edmx</DependentUpon>
+      <LastGenOutput>BdTickets.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BdTickets.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BdTickets.edmx</DependentUpon>
+      <LastGenOutput>BdTickets.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\bbva-logo-3.ico" />
     <Content Include="Resources\bbva_logo.jpg" />

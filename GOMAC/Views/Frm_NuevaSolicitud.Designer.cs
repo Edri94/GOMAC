@@ -307,7 +307,7 @@ namespace GOMAC.Views
             this.grpTicket.Size = new System.Drawing.Size(392, 120);
             this.grpTicket.TabIndex = 4;
             this.grpTicket.TabStop = false;
-            this.grpTicket.Text = "Existe Cuenta en Tocket?";
+            this.grpTicket.Text = "Existe Cuenta en Ticket?";
             // 
             // rbExisteCuentaNo
             // 
@@ -374,6 +374,7 @@ namespace GOMAC.Views
             this.txtCuenta.Name = "txtCuenta";
             this.txtCuenta.Size = new System.Drawing.Size(196, 26);
             this.txtCuenta.TabIndex = 10;
+            this.txtCuenta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCuenta_KeyPress);
             // 
             // grpCircuito
             // 
@@ -714,6 +715,7 @@ namespace GOMAC.Views
             this.txtDepositoIni.Name = "txtDepositoIni";
             this.txtDepositoIni.Size = new System.Drawing.Size(286, 26);
             this.txtDepositoIni.TabIndex = 0;
+            this.txtDepositoIni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDepositoIni_KeyPress);
             // 
             // LblDesbloquep
             // 
@@ -1240,6 +1242,7 @@ namespace GOMAC.Views
             this.TxtDepositoTkt.Name = "TxtDepositoTkt";
             this.TxtDepositoTkt.Size = new System.Drawing.Size(367, 26);
             this.TxtDepositoTkt.TabIndex = 0;
+            this.TxtDepositoTkt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtDepositoTkt_KeyPress);
             // 
             // txtApellidoM
             // 
@@ -1342,6 +1345,10 @@ namespace GOMAC.Views
             // tmrTab
             // 
             this.tmrTab.Tick += new System.EventHandler(this.tmrTab_Tick);
+            // 
+            // tmtValidarBoton
+            // 
+            this.tmtValidarBoton.Tick += new System.EventHandler(this.tmtValidarBoton_Tick);
             // 
             // FrmNueva_Solicitud
             // 

@@ -19,14 +19,19 @@ namespace GOMAC.Views
 {
     public partial class FrmNueva_Solicitud : Form 
     {
+        public string str_consultor;
+        public int se_carga;
+        public int num_solicitud;
+
         private Frm_Login frmp;
         private bmtktp01Entities bdbmtktp01;
         private CATALOGOSEntities bdCatalogos;
         private FUNCIONARIOSEntities bdFuncionarios;
-        private SEGUIMIENTO seguimiento_doc;
+        private TICKETEntities bdTickets;      
 
         private List<FUNCIONARIO> funcionarios;
         private List<UNIDAD_ORGANIZACIONAL_RESUMEN> uors;
+        private SEGUIMIENTO seguimiento_doc;
 
         private string default_cmb = ". . . ";
         private DateTime default_dtp = DateTimePicker.MinimumDateTime;
@@ -34,12 +39,7 @@ namespace GOMAC.Views
         private DataTable dt_observaciones;
         private int intTab;
         private int TiempoServicioA, TiempoServicioM, TiempoAtencion;
-
-        public string str_consultor;
-        public int se_carga;
-        public int num_solicitud;
-
-        bool cmbNumeroFuncionario_activo = false, cmbConsultorMac_activo = false, cmbProducto_activo = false, cmbTipoSolicitud_activo = false, cmbTipoTramite_activo = false;
+        private bool cmbNumeroFuncionario_activo = false, cmbConsultorMac_activo = false, cmbProducto_activo = false, cmbTipoSolicitud_activo = false, cmbTipoTramite_activo = false;
 
         /// <summary>
         /// Se ejecuta al escoger una fecha en el calendario
@@ -1612,6 +1612,9 @@ namespace GOMAC.Views
 
             txtApellidoM.GotFocus += new EventHandler(this.TxtApelllidoMGotFocus);
             txtApellidoM.LostFocus += new EventHandler(this.TxtApellidoMLostFocus);
+
+            txtCuenta.LostFocus += new EventHandler(this.TxtCuentaLostFocus);
+            txtDepositoIni.LostFocus += new EventHandler(this.TxtDepositoIniLostFocus);
             //************************************************************************************
 
             if (str_consultor.Trim() != "")
@@ -1670,9 +1673,9 @@ namespace GOMAC.Views
 
                 LlenaComboBanca();
                 LlenaComboplaza();
-                LlenarComboDivision();
+                LlenaComboDivision();
                 LlenaComboSucursal();
-                LlenarComboProducto();
+                LlenaComboProducto();
 
 
                 LlenaComboTipoSolicitud();
@@ -2785,6 +2788,361 @@ namespace GOMAC.Views
         }
 
         /// <summary>
+        /// Se ejecuta por lapso de tiempo parea traer datos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tmrTraerDatos_Tick(object sender, EventArgs e)
+        {
+            TraerDatos();
+        }
+
+        /// <summary>
+        /// Se ejecutapor lapso de tiempo para validar estado de ciertos xontroles del formulario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tmtValidarBoton_Tick(object sender, EventArgs e)
+        {
+            if(rbPersonaFisica.Checked)
+            {
+                if(cmbConsultorMac.SelectedIndex > -1 
+                    && cmbTipoSolicitud.SelectedIndex > -1 
+                    && cmbTipoTramite.SelectedIndex > -1 
+                    && txtCuenta.Text != ""
+                    && cmbProducto.SelectedIndex > -1
+                    && txtNombre.Text != ""
+                    && txtApellidoP.Text != "" 
+                    && txtApellidoM.Text != "" 
+                    && TxtDepositoTkt.Text != "")
+                {
+                    btnGuardar.Enabled = true;
+                }
+                else
+                {
+                    btnGuardar.Enabled = false;
+                }
+            }
+            else
+            {
+                if (cmbConsultorMac.SelectedIndex > -1 
+                    && cmbTipoSolicitud.SelectedIndex > -1 
+                    && cmbTipoTramite.SelectedIndex > -1 
+                    && txtCuenta.Text != ""
+                    && cmbProducto.SelectedIndex > -1
+                    && txtNombre.Text != ""
+                    && TxtDepositoTkt.Text != "")
+                {
+                    btnGuardar.Enabled = true;
+                }
+                else
+                {
+                    btnGuardar.Enabled = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Llena combobox con  las bancas que hay
+        /// </summary>
+        private void LlenaComboBanca()
+        {
+            try
+            {
+                uors = (from uor in uors where uor.banca != null orderby uor.banca select uor).ToList();
+
+                if (uors != null)
+                {
+
+                    cmbBanca.DataSource = uors;
+                    cmbBanca.ValueMember = "banca";
+                    cmbBanca.DisplayMember = "banca";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        /// <summary>
+        /// Llena combobox con nombre de funcionario
+        /// </summary>
+        private void LlenaComboNombreFunc()
+        {
+            try
+            {
+                funcionarios = (from f in funcionarios orderby f.nombre_funcionario, f.apellido_paterno, f.apellido_materno select f).ToList();
+
+                if (funcionarios != null)
+                {
+                    cmbPromotor.DataSource = funcionarios;
+                    cmbPromotor.ValueMember = "funcionario1";
+                    cmbPromotor.DisplayMember = "_nombreCompleto";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        /// <summary>
+        /// Llena combobox con  sucursales
+        /// </summary>
+        private void LlenaComboSucursal()
+        {
+            try
+            {
+                uors = (from uor in uors where uor.plaza != null orderby uor.plaza select uor).ToList();
+
+                if (uors != null)
+                {
+
+                    cmbSucursal.DataSource = uors;
+                    cmbSucursal.ValueMember = "plaza";
+                    cmbSucursal.DisplayMember = "plaza";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+        /// <summary>
+        /// Llena combobox con plazas
+        /// </summary>
+        private void LlenaComboplaza()
+        {
+            try
+            {
+                uors = (from uor in uors where uor.plaza != null orderby uor.plaza select uor).ToList();
+
+                if (uors != null)
+                {
+
+                    cmbPlaza.DataSource = uors;
+                    cmbPlaza.ValueMember = "plaza";
+                    cmbPlaza.DisplayMember = "plaza";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        /// <summary>
+        /// Llena combobox producto
+        /// </summary>
+        private void LlenaComboProducto()
+        {
+            try
+            {
+                List<PRODUCTOS> productos = (from p in bdCatalogos.PRODUCTOS orderby p.Producto select p).ToList();
+
+                if (productos != null)
+                {
+                    productos.Insert(0, new PRODUCTOS { Producto = ". . .  " });
+
+                    cmbProducto.DataSource = productos;
+                    cmbProducto.ValueMember = "Id_Producto";
+                    cmbProducto.DisplayMember = "Producto";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        /// <summary>
+        /// Llenar ocmbobox con las divisiones
+        /// </summary>
+        private void LlenaComboDivision()
+        {  
+            try
+            {
+                uors = (from uor in uors where uor.division != null orderby uor.division select uor).ToList();
+
+                if (uors != null)
+                {
+
+                    cmbDivision.DataSource = uors;
+                    cmbDivision.ValueMember = "division";
+                    cmbDivision.DisplayMember = "division";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+            
+        }
+
+        /// <summary>
+        /// Llenar combobox con numeros de funcionarios
+        /// </summary>
+        private void LlenaComboNumFunc()
+        {
+            try
+            {
+                funcionarios = (
+                from f in funcionarios
+                orderby f.numero_funcionario
+                select f
+            ).ToList();
+
+                if (funcionarios != null)
+                {
+                    cmbNumeroFuncionario.DataSource = funcionarios;
+                    cmbNumeroFuncionario.ValueMember = "numero_registro";
+                    cmbNumeroFuncionario.DisplayMember = "numero_funcionario";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
+        }
+
+        private void txtCuenta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            int numero_cuenta;
+
+            if (e.KeyChar == (char)13 && cmbProducto.Enabled == false && int.TryParse(txtCuenta.Text, out numero_cuenta))
+            {
+                if (txtCuenta.Tag.ToString() == "")
+                {
+                    CLIENTE cliente = bdCatalogos.CLIENTE.Where(w => w.cuenta_cliente == txtCuenta.Text).Select(s => s).FirstOrDefault();
+
+                    if (cliente != null)
+                    {
+                        PRODUCTO_CONTRATADO producto_contratado =
+                            bdTickets.PRODUCTO_CONTRATADO
+                            .Join(bdTickets.CUENTA_EJE, pc => pc.producto_contratado1, ce => ce.producto_contratado, (pc, ce) => pc)
+                            .Join(bdTickets.TIPO_CUENTA_EJE, ce => ce.CUENTA_EJE.tipo_cuenta_eje, tce => tce.tipo_cuenta_eje1, (ce, tce) => ce)
+                            .Where(w => w.cuenta_cliente == cliente.cuenta_cliente)
+                            .FirstOrDefault();
+
+                        if (producto_contratado != null)
+                        {
+                            cmbProducto.Enabled = true;
+
+                            cmbProducto.SelectedText = producto_contratado.CUENTA_EJE.TIPO_CUENTA_EJE1.sufijo_kapiti;
+
+                            if (cliente.persona_moral == 0)
+                            {
+                                if (rbPersonaFisica.Enabled)
+                                {
+                                    rbPersonaFisica.Checked = true;
+                                }
+                            }
+                            else if (cliente.persona_moral == 1)
+                            {
+                                if (rbPersonaMoral.Enabled)
+                                {
+                                    rbPersonaMoral.Checked = true;
+                                }
+                            }
+
+                            TxtDepositoTkt.Text = "";
+                            txtNombre.Text = cliente.nombre_cliente.TrimEnd();
+                            txtApellidoP.Text = cliente.apellido_paterno.TrimEnd();
+                            txtApellidoM.Text = cliente.apellido_materno.TrimEnd();
+
+                            txtCuenta.Enabled = true;
+                            cmbProducto.Enabled = false;
+                            txtNombre.Enabled = false;
+                            txtApellidoP.Enabled = false;
+                            txtApellidoM.Enabled = false;
+                            TxtDepositoTkt.Enabled = true;
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se pudo cargar los datos del cliente con cuenta " + txtCuenta.Text, "Error de carga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                    }
+                }
+            }
+            else if ((e.KeyChar < (char)48 || e.KeyChar > (char)57) && e.KeyChar != (char)8)
+            {
+                e.KeyChar = (char)0;
+            }
+
+        }
+
+        public void TxtCuentaLostFocus(object sender, EventArgs e)
+        {
+            txtCuenta_KeyPress(this, new KeyPressEventArgs((char)(Keys.Enter)));
+
+            if (str_consultor == "")
+            {
+                if (txtCuenta.Text == "")
+                {
+                    cmbProducto.Enabled = false;
+                }
+                else
+                {
+                    cmbProducto.Enabled = true;
+                }
+            }
+        }
+
+        private void txtDepositoIni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar < (char)48 || e.KeyChar > (char)57) && e.KeyChar != (char)8)
+            {
+                if (e.KeyChar == (char)46)
+                {
+                    if (txtDepositoIni.Text.Count(f => (f == '.')) > 0)
+                    {
+                        e.KeyChar = (char)0;
+                    }
+                }
+                else
+                {
+                    e.KeyChar = (char)0;
+                }
+
+            }
+        }
+
+        public void TxtDepositoIniLostFocus(object sender, EventArgs e)
+        {
+            txtDepositoIni.Text = decimal.Parse(txtDepositoIni.Text).ToString("C", format_mxn);
+        }
+
+        private void TxtDepositoTkt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar < (char)48 || e.KeyChar > (char)57) && e.KeyChar != (char)8)
+            {
+                if (e.KeyChar == (char)46)
+                {
+                    if (TxtDepositoTkt.Text.Count(f => (f == '.')) > 0)
+                    {
+                        e.KeyChar = (char)0;
+                    }
+                }
+                else
+                {
+                    e.KeyChar = (char)0;
+                }
+
+            }
+        }
+
+        public void TxtDepositoTktLostFocus(object sender, EventArgs e)
+        {
+            TxtDepositoTkt.Text = decimal.Parse(TxtDepositoTkt.Text).ToString("C", format_mxn);
+        }
+
+
+
+        /// <summary>
         /// Limpia y resetea controles del form
         /// </summary>
         private void Limpiar()
@@ -2900,6 +3258,7 @@ namespace GOMAC.Views
             this.bdbmtktp01 = new bmtktp01Entities();
             this.bdCatalogos = new CATALOGOSEntities();
             this.bdFuncionarios = new FUNCIONARIOSEntities();
+            this.bdTickets = new TICKETEntities();
 
             txtNombre.Text = "Nombre";
             txtApellidoP.Text = "Primer Apellido";
@@ -2948,166 +3307,7 @@ namespace GOMAC.Views
             
         }
 
-      
-
-        private void LlenaComboNumFunc()
-        {
-            try
-            {
-                funcionarios = (
-                from f in funcionarios
-                orderby f.numero_funcionario
-                select f
-            ).ToList();
-
-                if (funcionarios != null)
-                {
-                    cmbNumeroFuncionario.DataSource = funcionarios;
-                    cmbNumeroFuncionario.ValueMember = "numero_registro";
-                    cmbNumeroFuncionario.DisplayMember = "numero_funcionario";
-                }  
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-        private void LlenaComboNombreFunc()
-        {
-            try
-            {
-                funcionarios = (from f in funcionarios orderby f.nombre_funcionario, f.apellido_paterno, f.apellido_materno select f).ToList();
-
-                if (funcionarios != null)
-                {
-                    cmbPromotor.DataSource = funcionarios;
-                    cmbPromotor.ValueMember = "funcionario1";
-                    cmbPromotor.DisplayMember = "_nombreCompleto";
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-        private void LlenaComboplaza()
-        {
-            try
-            {
-                uors = (from uor in uors where uor.plaza != null orderby uor.plaza select uor).ToList();
-
-                if (uors != null)
-                {
-                                  
-                    cmbPlaza.DataSource = uors;
-                    cmbPlaza.ValueMember = "plaza";
-                    cmbPlaza.DisplayMember = "plaza";
-                }
-            }
-            catch(Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-
-        private void LlenaComboSucursal()
-        {
-            try
-            {
-                uors = (from uor in uors where uor.plaza != null orderby uor.plaza select uor).ToList();
-
-                if (uors != null)
-                {
-               
-                    cmbSucursal.DataSource = uors;
-                    cmbSucursal.ValueMember = "plaza";
-                    cmbSucursal.DisplayMember = "plaza";
-                }    
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-        private void LlenarComboProducto()
-        {
-            try
-            {
-                List<PRODUCTOS> productos = (from p in bdCatalogos.PRODUCTOS orderby p.Producto select p).ToList();
-
-                if (productos != null)
-                {
-                    productos.Insert(0, new PRODUCTOS { Producto = ". . .  "});
-
-                    cmbProducto.DataSource = productos;
-                    cmbProducto.ValueMember = "Id_Producto";
-                    cmbProducto.DisplayMember = "Producto";
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-        private void LlenarComboDivision()
-        {
-            try
-            {
-                try
-                {
-                    uors = (from uor in uors where uor.division != null orderby uor.division select uor).ToList();
-
-                    if (uors != null)
-                    {
-                                           
-                        cmbDivision.DataSource = uors;
-                        cmbDivision.ValueMember = "division";
-                        cmbDivision.DisplayMember = "division";
-                    }              
-                }
-                catch (Exception ex)
-                {
-                    Log.Escribe(ex);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-        private void LlenaComboBanca()
-        {
-            try
-            {
-                uors = (from uor in uors where uor.banca != null orderby uor.banca select uor).ToList();
-
-                if (uors != null)
-                {
-                                   
-                    cmbBanca.DataSource = uors;
-                    cmbBanca.ValueMember = "banca";
-                    cmbBanca.DisplayMember = "banca";
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Escribe(ex);
-            }
-        }
-
-
-     
-       
-
-       
-
-      
+        
 
         public void TxtNombreLostFocus(object sender, EventArgs e)
         {
@@ -3170,11 +3370,7 @@ namespace GOMAC.Views
 
         
 
-        private void tmrTraerDatos_Tick(object sender, EventArgs e)
-        {
-            TraerDatos();
-        }
-
+       
         
 
         private int LlenaDtgdwObservaciones()
@@ -3325,6 +3521,8 @@ namespace GOMAC.Views
             }
 
         }
+
+       
 
         private void cmbSucursal_SelectedIndexChanged(object sender, EventArgs e)
         {

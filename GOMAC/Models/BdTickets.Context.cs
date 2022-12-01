@@ -13,10 +13,10 @@ namespace GOMAC.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CATALOGOSEntities : DbContext
+    public partial class TICKETEntities : DbContext
     {
-        public CATALOGOSEntities()
-            : base("name=CATALOGOSEntities")
+        public TICKETEntities()
+            : base("name=TICKETEntities")
         {
         }
     
@@ -25,8 +25,8 @@ namespace GOMAC.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<DIAS_FERIADOS> DIAS_FERIADOS { get; set; }
-        public virtual DbSet<PRODUCTOS> PRODUCTOS { get; set; }
-        public virtual DbSet<CLIENTE> CLIENTE { get; set; }
+        public virtual DbSet<CUENTA_EJE> CUENTA_EJE { get; set; }
+        public virtual DbSet<PRODUCTO_CONTRATADO> PRODUCTO_CONTRATADO { get; set; }
+        public virtual DbSet<TIPO_CUENTA_EJE> TIPO_CUENTA_EJE { get; set; }
     }
 }
