@@ -1700,19 +1700,33 @@ namespace GOMAC.Views
 
                 uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { banca = ". . .  ", plaza = ". . .  ", division = ". . .  ", sucursal = ". . .  " });
 
-                LlenaComboNumFunc();
-                LlenaComboNombreFunc();
+                //LlenaComboNumFunc();               
+                LlenaCombo(cmbNumeroFuncionario, funcionarios.OrderBy(o => o.numero_funcionario).ToList(), "numero_registro", "numero_funcionario");
+                //LlenaComboNombreFunc();
+                LlenaCombo(cmbPromotor, funcionarios.OrderBy(o => o.nombre_funcionario).ThenBy(o => o.apellido_paterno).ThenBy(o => o.apellido_materno).ToList(), "funcionario1", "_nombreCompleto");
+                
 
-                LlenaComboBanca();
-                LlenaComboplaza();
-                LlenaComboDivision();
-                LlenaComboSucursal();
-                LlenaComboProducto();
+                //LlenaComboBanca();
+                LlenaCombo(cmbBanca, uors.OrderBy(o => o.banca).Where( w => w.banca != null).ToList(), "banca", "banca");
+                //LlenaComboplaza();
+                LlenaCombo(cmbPlaza, uors.OrderBy(o => o.plaza).Where(w => w.plaza != null).ToList(), "plaza", "plaza");
+                //LlenaComboDivision();
+                LlenaCombo(cmbDivision, uors.OrderBy(o => o.division).Where(w => w.division != null).ToList(), "division", "division");
+                //LlenaComboSucursal();
+                LlenaCombo(cmbSucursal, uors.OrderBy(o => o.plaza).Where(w => w.plaza != null).ToList(), "plaza", "plaza");
+                //LlenaComboProducto();
+                List<PRODUCTOS> productos = bdCatalogos.PRODUCTOS.OrderBy(o => o.Producto).ToList();           
+                productos.Insert(0, new PRODUCTOS { Producto = ". . .  " });
+                LlenaCombo(cmbProducto, productos, "Id_Producto", "Producto");
 
-
-                LlenaComboTipoSolicitud();
+                
+                //LlenaComboTipoSolicitud();
+                LlenaCombo(cmbTipoSolicitud, bdbmtktp01.TIPO_SOLICITUD.OrderBy(o => o.Descripcion_Solicitud).ToList(), "Id_Solicitud", "Descripcion_Solicitud");
                 LlenaComboTipoTramite();
-                LlenarComboConsultor();
+                //LlenarComboConsultor();
+                List<CONSULTORES> consultores = bdbmtktp01.CONSULTORES.OrderBy(o => o.Iniciales_ConsultorMac).ToList();
+                consultores.Insert(0, new CONSULTORES { Iniciales_ConsultorMac = default_cmb });
+                LlenaCombo(cmbConsultorMac, consultores, "Id_ConsultorMac", "Iniciales_ConsultorMac");
 
                 dtpFRecepDoc.Value = dtpFRecepDoc.MinDate;
                 dtpFAnalisisMac.Value = dtpFAnalisisMac.MinDate;
@@ -1879,6 +1893,23 @@ namespace GOMAC.Views
             dtpFechaCaptura.Enabled = false;
             txtPuntos.Enabled = false;
             dtpFechaCancelada.Enabled = false;
+        }
+
+        private void LlenaCombo<T>(ComboBox cmb, List<T> lista, string value_member, string display_member)
+        {
+            try
+            {
+                if (lista != null)
+                {
+                    cmb.DataSource = lista;
+                    cmb.ValueMember = value_member;
+                    cmb.DisplayMember = display_member;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
         }
 
         /// <summary>
@@ -3020,10 +3051,10 @@ namespace GOMAC.Views
             try
             {
                 funcionarios = (
-                from f in funcionarios
-                orderby f.numero_funcionario
-                select f
-            ).ToList();
+                    from f in funcionarios
+                    orderby f.numero_funcionario
+                    select f
+                ).ToList();
 
                 if (funcionarios != null)
                 {
