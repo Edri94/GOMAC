@@ -73,16 +73,14 @@
     <Property Name="fechamov" Type="date" />
     <Property Name="horamov" Type="time" Precision="0" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'bmtktp01.dbo.OBSERVACIONES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="OBSERVACIONES">
     <Key>
-      <PropertyRef Name="Num_Solicitud" />
-      <PropertyRef Name="Observaciones" />
+      <PropertyRef Name="Id_Observacion" />
     </Key>
     <Property Name="Num_Solicitud" Type="int" Nullable="false" />
     <Property Name="Observaciones" Type="text" Nullable="false" />
     <Property Name="Fecha_Observ" Type="datetime" />
+    <Property Name="Id_Observacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="OPERACION_PIU">
     <Key>
@@ -92,6 +90,22 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.OBSERVACIONES' no tiene definid
     <Property Name="operacion_piu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="fecha_operacion" Type="smalldatetime" Nullable="false" />
   </EntityType>
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.OPERACIONESPERFIL' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="OPERACIONESPERFIL">
+          <Property Name="id_usuario" Type="int" />
+          <Property Name="idperfil" Type="int" />
+          <Property Name="idsector" Type="int" />
+          <Property Name="operacion" Type="varchar" MaxLength="1024" />
+          <Property Name="fechaopera" Type="date" />
+        </EntityType>-->
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.OPERACIONESUSUARIO' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="OPERACIONESUSUARIO">
+          <Property Name="id_usuario" Type="int" />
+          <Property Name="operacion" Type="varchar" MaxLength="1024" />
+          <Property Name="fechaopera" Type="date" />
+        </EntityType>-->
   <EntityType Name="PERFIL">
     <Key>
       <PropertyRef Name="id_perfil" />
@@ -245,6 +259,11 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.log_conect' no tiene definida n
     <Property Name="fecha_de_desconexion" Type="date" />
   </EntityType>
   <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.ver_banca' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="ver_banca">
+          <Property Name="BANCA" Type="varchar" MaxLength="75" />
+        </EntityType>-->
+  <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_conect' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="ver_conect">
     <Key>
@@ -295,6 +314,11 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_consultores' no tiene defin
     <Property Name="Ap_ConsultorMac" Type="varchar" MaxLength="40" />
     <Property Name="Am_ConsultorMac" Type="varchar" MaxLength="40" />
   </EntityType>
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.ver_division' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="ver_division">
+          <Property Name="DIVISION" Type="varchar" MaxLength="75" />
+        </EntityType>-->
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'bmtktp01.dbo.VER_FUNCIONARIOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="VER_FUNCIONARIOS">
@@ -384,6 +408,16 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_perfiles' no tiene definida
     <Property Name="nombre" Type="nvarchar" MaxLength="15" Nullable="false" />
   </EntityType>
   <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.ver_plaza' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="ver_plaza">
+          <Property Name="PLAZA" Type="varchar" MaxLength="75" />
+        </EntityType>-->
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.ver_promotor' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="ver_promotor">
+          <Property Name="PROMOTOR" Type="varchar" MaxLength="77" />
+        </EntityType>-->
+  <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_sectores' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="ver_sectores">
     <Key>
@@ -393,6 +427,11 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_sectores' no tiene definida
     <Property Name="id_sector" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="sector" Type="nvarchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'bmtktp01.dbo.ver_sucursal' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="ver_sucursal">
+          <Property Name="SUCURSAL" Type="varchar" MaxLength="75" />
+        </EntityType>-->
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_Tipo_Solicitud' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="ver_Tipo_Solicitud">
@@ -672,48 +711,6 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="Mac_Cancela" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="Num_Solicitud" Type="int" Mode="In" />
-  </Function>
-  <Function Name="Mac_Inserta_Datos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="Id_ConsultorMac" Type="int" Mode="In" />
-    <Parameter Name="Id_Solicitud" Type="int" Mode="In" />
-    <Parameter Name="Id_Tramite" Type="int" Mode="In" />
-    <Parameter Name="Puntos" Type="int" Mode="In" />
-    <Parameter Name="Circuito" Type="char" Mode="In" />
-    <Parameter Name="Cuenta_Cliente" Type="char" Mode="In" />
-    <Parameter Name="Sufijo_Kapiti" Type="char" Mode="In" />
-    <Parameter Name="Tipo_Persona" Type="tinyint" Mode="In" />
-    <Parameter Name="Nombre_Cliente" Type="char" Mode="In" />
-    <Parameter Name="Apellido_Paterno" Type="char" Mode="In" />
-    <Parameter Name="Apellido_Materno" Type="char" Mode="In" />
-    <Parameter Name="Deposito_Inicial" Type="varchar" Mode="In" />
-    <Parameter Name="Numero_Registro" Type="char" Mode="In" />
-    <Parameter Name="Nombre_Promotor" Type="char" Mode="In" />
-    <Parameter Name="Banca" Type="char" Mode="In" />
-    <Parameter Name="Division" Type="char" Mode="In" />
-    <Parameter Name="Plaza" Type="char" Mode="In" />
-    <Parameter Name="Sucursal" Type="char" Mode="In" />
-    <Parameter Name="Status" Type="char" Mode="In" />
-    <Parameter Name="Num_Solicitud" Type="int" Mode="In" />
-    <Parameter Name="FechaRepc_Doc" Type="varchar" Mode="In" />
-    <Parameter Name="HoraRepc_Doc" Type="varchar" Mode="In" />
-    <Parameter Name="FechaAnalisis_Mac" Type="varchar" Mode="In" />
-    <Parameter Name="HoraAnalisis_Mac" Type="varchar" Mode="In" />
-    <Parameter Name="FechaFormalizada" Type="varchar" Mode="In" />
-    <Parameter Name="HoraFormalizada" Type="varchar" Mode="In" />
-    <Parameter Name="FechaRepc_Originales" Type="varchar" Mode="In" />
-    <Parameter Name="HoraRepc_Originales" Type="varchar" Mode="In" />
-    <Parameter Name="FechaAten_Originales" Type="varchar" Mode="In" />
-    <Parameter Name="HoraAten_Originales" Type="varchar" Mode="In" />
-    <Parameter Name="Originales" Type="varchar" Mode="In" />
-    <Parameter Name="Deposito_Inicial_Ini" Type="numeric" Mode="In" />
-    <Parameter Name="Fecha_Desbloqueo" Type="varchar" Mode="In" />
-    <Parameter Name="Fecha_Envio" Type="varchar" Mode="In" />
-    <Parameter Name="Fecha_concluida" Type="varchar" Mode="In" />
-    <Parameter Name="ExisteTKT" Type="char" Mode="In" />
-  </Function>
-  <Function Name="Mac_Obtiene_FechaServidor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="bmtktp01ModelStoreContainer">
     <EntitySet Name="CONECT" EntityType="Self.CONECT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CONSULTORES" EntityType="Self.CONSULTORES" Schema="dbo" store:Type="Tables" />
@@ -721,6 +718,7 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
     <EntitySet Name="HISTORIALPWD" EntityType="Self.HISTORIALPWD" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MOVIMIENTOS_PERFIL" EntityType="Self.MOVIMIENTOS_PERFIL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MOVIMIENTOS_USUARIO" EntityType="Self.MOVIMIENTOS_USUARIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OBSERVACIONES" EntityType="Self.OBSERVACIONES" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OPERACION_PIU" EntityType="Self.OPERACION_PIU" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PERFIL" EntityType="Self.PERFIL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SECTORES" EntityType="Self.SECTORES" Schema="dbo" store:Type="Tables" />
@@ -733,13 +731,6 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
     <EntitySet Name="TIPO_STATUS" EntityType="Self.TIPO_STATUS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_TRAMITE" EntityType="Self.TIPO_TRAMITE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="OBSERVACIONES" EntityType="Self.OBSERVACIONES" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [OBSERVACIONES].[Num_Solicitud] AS [Num_Solicitud], 
-    [OBSERVACIONES].[Observaciones] AS [Observaciones], 
-    [OBSERVACIONES].[Fecha_Observ] AS [Fecha_Observ]
-    FROM [dbo].[OBSERVACIONES] AS [OBSERVACIONES]</DefiningQuery>
-    </EntitySet>
     <EntitySet Name="PERFIL_SECTOR" EntityType="Self.PERFIL_SECTOR" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [PERFIL_SECTOR].[id_perfil] AS [id_perfil], 

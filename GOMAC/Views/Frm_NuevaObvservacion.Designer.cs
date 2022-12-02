@@ -71,6 +71,7 @@ namespace GOMAC.Views
             this.Controls.Add(this.txtCapturaObserv);
             this.Name = "Frm_NuevaObvservacion";
             this.Text = "Observaciones de Solicitud";
+            this.Load += new System.EventHandler(this.Frm_NuevaObvservacion_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

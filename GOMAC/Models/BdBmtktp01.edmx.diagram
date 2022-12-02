@@ -4,27 +4,42 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fd7a6a23e77548fe9f67f383a9e81cba" Name="Diagram1">
+      <Diagram DiagramId="993f5777fc334674ad758adcbd7de6aa" Name="Diagram1">
         <EntityTypeShape EntityType="bmtktp01Model.CONECT" Width="1.5" PointX="8.25" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.CONSULTORES" Width="1.5" PointX="3.75" PointY="12.875" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.dtproperties" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.HISTORIALPWD" Width="1.5" PointX="8.25" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.MOVIMIENTOS_PERFIL" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.MOVIMIENTOS_USUARIO" Width="1.5" PointX="11.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.OBSERVACIONES" Width="1.5" PointX="15.25" PointY="13.125" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.OPERACION_PIU" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.PERFIL" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.SECTORES" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="bmtktp01Model.SEGUIMIENTO" Width="1.5" PointX="13" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="bmtktp01Model.SEGUIMIENTO_DOCTOS" Width="1.5" PointX="15.25" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.SEGUIMIENTO" Width="1.5" PointX="13" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.SEGUIMIENTO_DOCTOS" Width="1.5" PointX="15.25" PointY="15.875" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.sysdiagrams" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.TIPO_MOV_PERFIL" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.TIPO_MOV_USUARIO" Width="1.5" PointX="9" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="bmtktp01Model.TIPO_SOLICITUD" Width="1.5" PointX="10.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.TIPO_SOLICITUD" Width="1.5" PointX="10.75" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.TIPO_STATUS" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bmtktp01Model.TIPO_TRAMITE" Width="1.5" PointX="10.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.TIPO_TRAMITE" Width="1.5" PointX="10.75" PointY="12.5" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.USUARIO" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="bmtktp01Model.OBSERVACIONES" Width="1.5" PointX="15.25" PointY="17.625" IsExpanded="true" />
         <EntityTypeShape EntityType="bmtktp01Model.PERFIL_SECTOR" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.log_conect" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_conect" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_conect2" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_consultores" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.VER_FUNCIONARIOS" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_mov_perfil" Width="1.5" PointX="13.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_mov_solicitudes" Width="1.5" PointX="5.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_mov_usuario" Width="1.5" PointX="13.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_perfil_sector" Width="1.5" PointX="7.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_perfiles" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_sectores" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_Tipo_Solicitud" Width="1.5" PointX="15.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_Tipo_Tramite" Width="1.5" PointX="15.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_usuarios" Width="1.5" PointX="2.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bmtktp01Model.ver_usuarios2" Width="1.5" PointX="7.75" PointY="16.75" IsExpanded="true" />
         <AssociationConnector Association="bmtktp01Model.fk_usuario2" ManuallyRouted="false" />
         <AssociationConnector Association="bmtktp01Model.fk_Consultmac" ManuallyRouted="false" />
         <AssociationConnector Association="bmtktp01Model.fk_idusuario" ManuallyRouted="false" />
@@ -35,28 +50,13 @@
         <AssociationConnector Association="bmtktp01Model.fk_movimientousuario" ManuallyRouted="false" />
         <AssociationConnector Association="bmtktp01Model.fk_usuario5" ManuallyRouted="false" />
         <AssociationConnector Association="bmtktp01Model.fk_usuario6" ManuallyRouted="false" />
+        <AssociationConnector Association="bmtktp01Model.FK_OBSERVACIONES_SEGUIMIENTO" ManuallyRouted="false" />
         <AssociationConnector Association="bmtktp01Model.fk_perfil" ManuallyRouted="false" />
         <AssociationConnector Association="bmtktp01Model.fk_perfil2" ManuallyRouted="false" />
         <AssociationConnector Association="bmtktp01Model.fk_sectores" ManuallyRouted="false" />
-        <AssociationConnector Association="bmtktp01Model.FK_OBSERVACIONES_SEGUIMIENTO" ManuallyRouted="false" />
         <AssociationConnector Association="bmtktp01Model.FK_SEGUIMIENTO_DOCTOS_SEGUIMIENTO" ManuallyRouted="false" />
         <AssociationConnector Association="bmtktp01Model.FK_SEGUIMIENTO_TIPO_SOLICITUD" ManuallyRouted="false" />
         <AssociationConnector Association="bmtktp01Model.FK_SEGUIMIENTO_TIPO_TRAMITE" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="bmtktp01Model.log_conect" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_conect" Width="1.5" PointX="10.75" PointY="0.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_conect2" Width="1.5" PointX="11.75" PointY="4.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_consultores" Width="1.5" PointX="12.75" PointY="0.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.VER_FUNCIONARIOS" Width="1.5" PointX="13.75" PointY="3.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_mov_perfil" Width="1.5" PointX="13.75" PointY="6.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_mov_solicitudes" Width="1.5" PointX="6.75" PointY="13.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_mov_usuario" Width="1.5" PointX="0.75" PointY="14.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_perfil_sector" Width="1.5" PointX="13.75" PointY="10.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_perfiles" Width="1.5" PointX="14.75" PointY="0.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_sectores" Width="1.5" PointX="15.75" PointY="3.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_Tipo_Solicitud" Width="1.5" PointX="15.75" PointY="6.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_Tipo_Tramite" Width="1.5" PointX="15.75" PointY="9.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_usuarios" Width="1.5" PointX="2.75" PointY="16.75" />
-        <EntityTypeShape EntityType="bmtktp01Model.ver_usuarios2" Width="1.5" PointX="17.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

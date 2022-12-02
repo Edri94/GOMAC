@@ -94,20 +94,20 @@
     <Compile Include="Data\ConexionBD.cs" />
     <Compile Include="Data\FuncionesBD.cs" />
     <Compile Include="Data\FuncionesBdbmtktp01.cs" />
-    <Compile Include="Models\BdBmtktp01.Context.cs">
+    <Compile Include="Models\bdbmtktp01.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BdBmtktp01.Context.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BdBmtktp01.cs">
+    <Compile Include="Models\bdbmtktp01.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BdBmtktp01.Designer.cs">
+    <Compile Include="Models\bdbmtktp01.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BdBmtktp01.edmx</DependentUpon>
+      <DependentUpon>bdbmtktp01.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\BdCatalogos.Context.cs">
       <AutoGen>True</AutoGen>
@@ -158,10 +158,10 @@
       <DependentUpon>BdCatalogos.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CONECT.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CONSULTORES.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CUENTA_EJE.cs">
       <DependentUpon>BdTickets.tt</DependentUpon>
@@ -170,42 +170,36 @@
       <DependentUpon>BdCatalogos.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\dtproperties.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FUNCIONARIO.cs">
       <DependentUpon>BdFuncionarios.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HISTORIALPWD.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\log_conect.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Mac_Actualiza_Respuesta.cs" />
-    <Compile Include="Models\Mac_Cancela_Result.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Mac_Inserta_Datos_Result.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Mac_Inserta_Respuesta.cs" />
     <Compile Include="Models\MOVIMIENTOS_PERFIL.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MOVIMIENTOS_USUARIO.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OBSERVACIONES.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OPERACION_PIU.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PERFIL.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PERFIL_SECTOR.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PRODUCTOS.cs">
       <DependentUpon>BdCatalogos.tt</DependentUpon>
@@ -214,82 +208,82 @@
       <DependentUpon>BdTickets.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SECTORES.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SEGUIMIENTO.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SEGUIMIENTO_DOCTOS.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_CUENTA_EJE.cs">
       <DependentUpon>BdTickets.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_MOV_PERFIL.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_MOV_USUARIO.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_SOLICITUD.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_STATUS.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_TRAMITE.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UNIDAD_ORGANIZACIONAL_RESUMEN.cs">
       <DependentUpon>BdFuncionarios.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\USUARIO.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_conect.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_conect2.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_consultores.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VER_FUNCIONARIOS.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_mov_perfil.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_mov_solicitudes.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_mov_usuario.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_perfiles.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_perfil_sector.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_sectores.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_Tipo_Solicitud.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_Tipo_Tramite.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_usuarios.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ver_usuarios2.cs">
-      <DependentUpon>BdBmtktp01.tt</DependentUpon>
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\Frm_ConsultaSolicitud.cs">
       <SubType>Form</SubType>
@@ -362,17 +356,17 @@
     <EmbeddedResource Include="Views\Frm_VistaObvservaciones.resx">
       <DependentUpon>Frm_VistaObvservaciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="Models\BdBmtktp01.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BdBmtktp01.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Models\BdBmtktp01.edmx.diagram">
-      <DependentUpon>BdBmtktp01.edmx</DependentUpon>
-    </None>
     <EntityDeploy Include="Models\BdCatalogos.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BdCatalogos.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="Models\bdbmtktp01.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>bdbmtktp01.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\bdbmtktp01.edmx.diagram">
+      <DependentUpon>bdbmtktp01.edmx</DependentUpon>
+    </None>
     <None Include="Models\BdCatalogos.edmx.diagram">
       <DependentUpon>BdCatalogos.edmx</DependentUpon>
     </None>
@@ -408,15 +402,15 @@
     <Folder Include="Processes\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\BdBmtktp01.Context.tt">
+    <Content Include="Models\bdbmtktp01.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BdBmtktp01.edmx</DependentUpon>
-      <LastGenOutput>BdBmtktp01.Context.cs</LastGenOutput>
+      <DependentUpon>bdbmtktp01.edmx</DependentUpon>
+      <LastGenOutput>bdbmtktp01.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\BdBmtktp01.tt">
+    <Content Include="Models\bdbmtktp01.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BdBmtktp01.edmx</DependentUpon>
-      <LastGenOutput>BdBmtktp01.cs</LastGenOutput>
+      <DependentUpon>bdbmtktp01.edmx</DependentUpon>
+      <LastGenOutput>bdbmtktp01.cs</LastGenOutput>
     </Content>
     <Content Include="Models\BdCatalogos.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

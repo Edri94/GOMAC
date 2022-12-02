@@ -22,12 +22,14 @@ namespace GOMAC.Views
         public string str_consultor;
         public int se_carga;
         public int num_solicitud;
+        public List<OBSERVACIONES> lst_observaciones;
 
         private Frm_Login frmp;
         private bmtktp01Entities bdbmtktp01;
         private CATALOGOSEntities bdCatalogos;
         private FUNCIONARIOSEntities bdFuncionarios;
-        private TICKETEntities bdTickets;      
+        private TICKETEntities bdTickets;
+        private FuncionesBdbmtktp01 bdFuncBmtktp01;
 
         private List<FUNCIONARIO> funcionarios;
         private List<UNIDAD_ORGANIZACIONAL_RESUMEN> uors;
@@ -431,7 +433,7 @@ namespace GOMAC.Views
                 }
                 else
                 {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+                    DateTime fecha_servidor = DateTime.Now;
 
                     dtpFFormalizada.Value = fecha_servidor;
                     cmbHora3.SelectedValue = fecha_servidor.ToString("hh");
@@ -456,7 +458,7 @@ namespace GOMAC.Views
                 }
                 else
                 {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+                    DateTime fecha_servidor = DateTime.Now;
 
                     dtpFRecepcion.Value = fecha_servidor;
                     cmbHora4.SelectedValue = fecha_servidor.ToString("hh");
@@ -481,7 +483,7 @@ namespace GOMAC.Views
                 }
                 else
                 {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+                    DateTime fecha_servidor = DateTime.Now;
 
                     dtpFAtencion.Value = fecha_servidor;
                     cmbHora5.SelectedValue = fecha_servidor.ToString("hh");
@@ -507,7 +509,7 @@ namespace GOMAC.Views
                 }
                 else
                 {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+                    DateTime fecha_servidor = DateTime.Now;
 
                     dtpDesbloqueo.Value = fecha_servidor;
                 }
@@ -529,7 +531,7 @@ namespace GOMAC.Views
                 }
                 else
                 {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+                    DateTime fecha_servidor = DateTime.Now;
 
                     dtpEnvio.Value = fecha_servidor;
                 }
@@ -551,7 +553,7 @@ namespace GOMAC.Views
                 }
                 else
                 {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+                    DateTime fecha_servidor = DateTime.Now;
 
                     dtpFRecepDoc.Value = fecha_servidor;
                     cmbHora1.SelectedValue = fecha_servidor.ToString("hh");
@@ -576,7 +578,7 @@ namespace GOMAC.Views
                 }
                 else
                 {
-                    DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+                    DateTime fecha_servidor = DateTime.Now;
 
                     dtpFAnalisisMac.Value = fecha_servidor;
                     cmbHora2.SelectedValue = fecha_servidor.ToString("hh");
@@ -705,12 +707,12 @@ namespace GOMAC.Views
                             int puntos = Int32.Parse(txtPuntos.Text);
                             string circuito = (rbCircuitoAuto.Checked) ? "A" : "M";
                             string cuenta_Cliente = txtCuenta.Text;
-                            string sufijo_Kapiti = cmbProducto.Text;
+                            string sufijo_Kapiti = cmbProducto.Text.Trim();
                             byte tipo_Persona = (byte)((rbPersonaFisica.Checked) ? 0 : 1);
                             string nombre_Cliente = txtNombre.Text;
                             string apellido_Paterno = txtApellidoP.Text;
                             string apellido_Materno = txtApellidoM.Text;
-                            decimal deposito_Inicial = decimal.Parse(TxtDepositoTkt.Text);
+                            decimal deposito_Inicial = decimal.Parse(TxtDepositoTkt.Text.Replace("$", ""));
                             string numero_Registro = cmbNumeroFuncionario.Text;
                             string nombre_Promotor = cmbPromotor.Text;
                             string banca = cmbBanca.Text;
@@ -730,7 +732,7 @@ namespace GOMAC.Views
                             DateTime fechaAten_Originales = dtpFAtencion.Value; ;
                             TimeSpan horaAten_Originales = new TimeSpan(Int32.Parse(cmbHora5.SelectedValue.ToString()), Int32.Parse(cmbMinuto5.SelectedValue.ToString()), 0);
                             string originales = "-1";
-                            decimal deposito_Inicial_Ini = decimal.Parse(txtDepositoIni.Text);
+                            decimal deposito_Inicial_Ini = decimal.Parse(txtDepositoIni.Text.Replace("$", ""));
                             DateTime fecha_Desbloqueo = dtpDesbloqueo.Value;
                             DateTime fecha_Envio = dtpEnvio.Value;
                             DateTime fecha_concluida = dtpConcluir.Value;
@@ -813,15 +815,21 @@ namespace GOMAC.Views
 
                                 txtSolicitud.Enabled = true;
 
-                                foreach (DataGridViewRow fila in dtgvwObservaciones.Rows)
-                                {
-                                    int insertado = 0;
-                                    OBSERVACIONES observacion = new OBSERVACIONES { Num_Solicitud = Int32.Parse(txtSolicitud.Text), Observaciones1 = fila.Cells[""].Value.ToString(), Fecha_Observ = DateTime.Now };
 
-                                    bdbmtktp01.OBSERVACIONES.Add(observacion);
+                                ////Opcion 1
+                                //foreach (DataGridViewRow fila in dtgvwObservaciones.Rows)
+                                //{
+                                //    int insertado = 0;
+                                //    OBSERVACIONES observacion = new OBSERVACIONES { Num_Solicitud = Int32.Parse(txtSolicitud.Text), Observaciones1 = fila.Cells[""].Value.ToString(), Fecha_Observ = DateTime.Now };
 
-                                    insertado = bdbmtktp01.SaveChanges();
-                                }
+                                //    bdbmtktp01.OBSERVACIONES.Add(observacion);
+
+                                //    insertado = bdbmtktp01.SaveChanges();
+                                //}
+
+                                //Opcion 2
+                                context.OBSERVACIONES.AddRange(lst_observaciones);
+                                context.SaveChanges();
 
                                 txtSolicitud.Enabled = false;
                                 lblStatus.Text = "En proceso";
@@ -996,7 +1004,7 @@ namespace GOMAC.Views
                             }
                             else
                             {
-                                MessageBox.Show("Error al ingresar la operacion" + respuesta.FechaHora_Captura, "Error!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show("Error al ingresar la operacion " + respuesta.FechaHora_Captura, "Error!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                             tmtValidarBoton.Enabled = true;
                         }
@@ -1241,11 +1249,35 @@ namespace GOMAC.Views
         /// <param name="e"></param>
         private void btnNuevaObservacion_Click(object sender, EventArgs e)
         {
-            Frm_NuevaObvservacion frm = new Frm_NuevaObvservacion();
+            Frm_NuevaObvservacion frm = new Frm_NuevaObvservacion(this);
             frm.ShowDialog();
             if(frm.observacion != "")
             {
-                string observaciones = frm.observacion;
+                int numero_solicitud = 0;
+                if(int.TryParse(txtSolicitud.Text, out numero_solicitud))
+                {
+                    lst_observaciones.Add(new OBSERVACIONES { Num_Solicitud = numero_solicitud, Fecha_Observ = DateTime.Now, Observaciones1 = frm.observacion });
+                }
+
+                DataTable dt = new DataTable();
+                dt.Clear();
+                dt.Columns.Add("Observaciones");
+                dt.Columns.Add("Fecha Observacion");
+
+                foreach (OBSERVACIONES observacion in lst_observaciones)
+                {
+                    DataRow dr = dt.NewRow();
+
+                    dr["Observaciones"] = observacion.Observaciones1;
+                    dr["Fecha Observacion"] = observacion.Fecha_Observ;
+
+                    dt.Rows.Add(dr);
+                }
+
+                dtgvwObservaciones.DataSource = null;
+                dtgvwObservaciones.DataSource = dt;
+                dtgvwObservaciones.Columns["Observaciones"].Width = 800;
+                dtgvwObservaciones.Refresh();
             }
         }
 
@@ -1601,7 +1633,7 @@ namespace GOMAC.Views
             tt1.SetToolTip(this.cmbNumeroFuncionario, "Presiona ENTER para efectuar busqueda con el numero de funcionario");
 
             FuncionesBdbmtktp01.fecha_default = DateTimePicker.MinimumDateTime;
-
+            lst_observaciones = new List<OBSERVACIONES>();
 
             //***PLACE HOLDERS********************************************************************
             txtNombre.GotFocus += new EventHandler(this.TxtNombreGotFocus);
@@ -3012,7 +3044,7 @@ namespace GOMAC.Views
 
             if (e.KeyChar == (char)13 && cmbProducto.Enabled == false && int.TryParse(txtCuenta.Text, out numero_cuenta))
             {
-                if (txtCuenta.Tag.ToString() == "")
+                if (txtCuenta.Tag == null)
                 {
                     CLIENTE cliente = bdCatalogos.CLIENTE.Where(w => w.cuenta_cliente == txtCuenta.Text).Select(s => s).FirstOrDefault();
 
@@ -3029,7 +3061,7 @@ namespace GOMAC.Views
                         {
                             cmbProducto.Enabled = true;
 
-                            cmbProducto.SelectedText = producto_contratado.CUENTA_EJE.TIPO_CUENTA_EJE1.sufijo_kapiti;
+                            cmbProducto.SelectedItem = bdCatalogos.PRODUCTOS.Where(w => w.Producto.Contains(producto_contratado.CUENTA_EJE.TIPO_CUENTA_EJE1.sufijo_kapiti)).FirstOrDefault();
 
                             if (cliente.persona_moral == 0)
                             {
@@ -3066,9 +3098,10 @@ namespace GOMAC.Views
                         }
 
                     }
+                    txtCuenta.Tag = "";
                 }
             }
-            else if ((e.KeyChar < (char)48 || e.KeyChar > (char)57) && e.KeyChar != (char)8)
+            if ((e.KeyChar < (char)48 || e.KeyChar > (char)57) && e.KeyChar != (char)8)
             {
                 e.KeyChar = (char)0;
             }
@@ -3113,7 +3146,12 @@ namespace GOMAC.Views
 
         public void TxtDepositoIniLostFocus(object sender, EventArgs e)
         {
-            txtDepositoIni.Text = decimal.Parse(txtDepositoIni.Text).ToString("C", format_mxn);
+            decimal deposito = 0;
+
+            if(decimal.TryParse(txtDepositoIni.Text, out deposito))
+            {
+                txtDepositoIni.Text = decimal.Parse(txtDepositoIni.Text).ToString("C", format_mxn);
+            }   
         }
 
         private void TxtDepositoTkt_KeyPress(object sender, KeyPressEventArgs e)
@@ -3140,7 +3178,30 @@ namespace GOMAC.Views
             TxtDepositoTkt.Text = decimal.Parse(TxtDepositoTkt.Text).ToString("C", format_mxn);
         }
 
+        private void dtpDesbloqueo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = (char)0;
+        }
 
+        private void dtpEnvio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = (char)0;
+        }
+
+        private void dtpFAtencion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = (char)0;
+        }
+
+        private void dtpFFormalizada_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = (char)0;
+        }
+
+        private void dtpFRecepcion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = (char)0;
+        }
 
         /// <summary>
         /// Limpia y resetea controles del form
@@ -3232,6 +3293,30 @@ namespace GOMAC.Views
 
         }
 
+        private void txtSolicitud_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)13)
+            {
+                TraerDatos();
+                if(frmp.activa == 1)
+                {
+                    btnLimpiar.Visible = false;
+                    btnLimpiar.Enabled = false;
+                }
+                else
+                {
+                    btnLimpiar.Visible = true;
+                    btnLimpiar.Enabled = true;
+                }
+            }
+
+            if ((e.KeyChar < (char)48 || e.KeyChar > (char)57) && e.KeyChar != (char)8)
+            {
+                e.KeyChar = (char)0;
+            }
+        }
+
+
         private void dtpConcluir_ValueChanged(object sender, EventArgs e)
         {
             if (dtpConcluir.Value != dtpConcluir.MinDate)
@@ -3240,7 +3325,7 @@ namespace GOMAC.Views
             }
             else
             {
-                DateTime fecha_servidor = bdbmtktp01.Mac_Obtiene_FechaServidor().FirstOrDefault().Value;
+                DateTime fecha_servidor = DateTime.Now;
 
                 dtpConcluir.Value = fecha_servidor;
                 cmbHora1.SelectedValue = fecha_servidor.ToString("hh");
@@ -3315,6 +3400,10 @@ namespace GOMAC.Views
             {
                 txtNombre.Text = "Nombre";
                 txtNombre.ForeColor = Color.LightGray;
+            }
+            else
+            {
+                txtNombre.Text = txtNombre.Text.ToUpper();
             }
         }
 
@@ -3522,10 +3611,9 @@ namespace GOMAC.Views
 
         }
 
-       
-
         private void cmbSucursal_SelectedIndexChanged(object sender, EventArgs e)
         {
+
         }
 
         private void cmbConsultorMac_SelectedIndexChanged(object sender, EventArgs e)

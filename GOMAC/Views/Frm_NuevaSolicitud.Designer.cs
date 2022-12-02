@@ -233,6 +233,7 @@ namespace GOMAC.Views
             this.txtSolicitud.Name = "txtSolicitud";
             this.txtSolicitud.Size = new System.Drawing.Size(286, 26);
             this.txtSolicitud.TabIndex = 0;
+            this.txtSolicitud.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSolicitud_KeyPress);
             // 
             // groupBox2
             // 
@@ -751,6 +752,7 @@ namespace GOMAC.Views
             this.dtpDesbloqueo.Name = "dtpDesbloqueo";
             this.dtpDesbloqueo.Size = new System.Drawing.Size(258, 26);
             this.dtpDesbloqueo.TabIndex = 10;
+            this.dtpDesbloqueo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtpDesbloqueo_KeyPress);
             // 
             // label8
             // 
@@ -812,6 +814,7 @@ namespace GOMAC.Views
             this.dtpEnvio.Name = "dtpEnvio";
             this.dtpEnvio.Size = new System.Drawing.Size(258, 26);
             this.dtpEnvio.TabIndex = 10;
+            this.dtpEnvio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtpEnvio_KeyPress);
             // 
             // dtpFechaCancelada
             // 
@@ -998,6 +1001,7 @@ namespace GOMAC.Views
             this.dtpFAtencion.Name = "dtpFAtencion";
             this.dtpFAtencion.Size = new System.Drawing.Size(188, 26);
             this.dtpFAtencion.TabIndex = 10;
+            this.dtpFAtencion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtpFAtencion_KeyPress);
             // 
             // cmbMinuto3
             // 
@@ -1014,6 +1018,7 @@ namespace GOMAC.Views
             this.dtpFRecepcion.Name = "dtpFRecepcion";
             this.dtpFRecepcion.Size = new System.Drawing.Size(188, 26);
             this.dtpFRecepcion.TabIndex = 10;
+            this.dtpFRecepcion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtpFRecepcion_KeyPress);
             // 
             // cmbMinuto4
             // 
@@ -1030,6 +1035,7 @@ namespace GOMAC.Views
             this.dtpFFormalizada.Name = "dtpFFormalizada";
             this.dtpFFormalizada.Size = new System.Drawing.Size(188, 26);
             this.dtpFFormalizada.TabIndex = 10;
+            this.dtpFFormalizada.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtpFFormalizada_KeyPress);
             // 
             // cmbMinuto5
             // 

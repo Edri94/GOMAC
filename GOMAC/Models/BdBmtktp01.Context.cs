@@ -12,8 +12,6 @@ namespace GOMAC.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class bmtktp01Entities : DbContext
     {
@@ -33,6 +31,7 @@ namespace GOMAC.Models
         public virtual DbSet<HISTORIALPWD> HISTORIALPWD { get; set; }
         public virtual DbSet<MOVIMIENTOS_PERFIL> MOVIMIENTOS_PERFIL { get; set; }
         public virtual DbSet<MOVIMIENTOS_USUARIO> MOVIMIENTOS_USUARIO { get; set; }
+        public virtual DbSet<OBSERVACIONES> OBSERVACIONES { get; set; }
         public virtual DbSet<OPERACION_PIU> OPERACION_PIU { get; set; }
         public virtual DbSet<PERFIL> PERFIL { get; set; }
         public virtual DbSet<SECTORES> SECTORES { get; set; }
@@ -45,7 +44,6 @@ namespace GOMAC.Models
         public virtual DbSet<TIPO_STATUS> TIPO_STATUS { get; set; }
         public virtual DbSet<TIPO_TRAMITE> TIPO_TRAMITE { get; set; }
         public virtual DbSet<USUARIO> USUARIO { get; set; }
-        public virtual DbSet<OBSERVACIONES> OBSERVACIONES { get; set; }
         public virtual DbSet<PERFIL_SECTOR> PERFIL_SECTOR { get; set; }
         public virtual DbSet<log_conect> log_conect { get; set; }
         public virtual DbSet<ver_conect> ver_conect { get; set; }
@@ -62,168 +60,5 @@ namespace GOMAC.Models
         public virtual DbSet<ver_Tipo_Tramite> ver_Tipo_Tramite { get; set; }
         public virtual DbSet<ver_usuarios> ver_usuarios { get; set; }
         public virtual DbSet<ver_usuarios2> ver_usuarios2 { get; set; }
-    
-        public virtual ObjectResult<Mac_Inserta_Datos_Result> Mac_Inserta_Datos(Nullable<int> id_ConsultorMac, Nullable<int> id_Solicitud, Nullable<int> id_Tramite, Nullable<int> puntos, string circuito, string cuenta_Cliente, string sufijo_Kapiti, Nullable<byte> tipo_Persona, string nombre_Cliente, string apellido_Paterno, string apellido_Materno, string deposito_Inicial, string numero_Registro, string nombre_Promotor, string banca, string division, string plaza, string sucursal, string status, Nullable<int> num_Solicitud, string fechaRepc_Doc, string horaRepc_Doc, string fechaAnalisis_Mac, string horaAnalisis_Mac, string fechaFormalizada, string horaFormalizada, string fechaRepc_Originales, string horaRepc_Originales, string fechaAten_Originales, string horaAten_Originales, string originales, Nullable<decimal> deposito_Inicial_Ini, string fecha_Desbloqueo, string fecha_Envio, string fecha_concluida, string existeTKT)
-        {
-            var id_ConsultorMacParameter = id_ConsultorMac.HasValue ?
-                new ObjectParameter("Id_ConsultorMac", id_ConsultorMac) :
-                new ObjectParameter("Id_ConsultorMac", typeof(int));
-    
-            var id_SolicitudParameter = id_Solicitud.HasValue ?
-                new ObjectParameter("Id_Solicitud", id_Solicitud) :
-                new ObjectParameter("Id_Solicitud", typeof(int));
-    
-            var id_TramiteParameter = id_Tramite.HasValue ?
-                new ObjectParameter("Id_Tramite", id_Tramite) :
-                new ObjectParameter("Id_Tramite", typeof(int));
-    
-            var puntosParameter = puntos.HasValue ?
-                new ObjectParameter("Puntos", puntos) :
-                new ObjectParameter("Puntos", typeof(int));
-    
-            var circuitoParameter = circuito != null ?
-                new ObjectParameter("Circuito", circuito) :
-                new ObjectParameter("Circuito", typeof(string));
-    
-            var cuenta_ClienteParameter = cuenta_Cliente != null ?
-                new ObjectParameter("Cuenta_Cliente", cuenta_Cliente) :
-                new ObjectParameter("Cuenta_Cliente", typeof(string));
-    
-            var sufijo_KapitiParameter = sufijo_Kapiti != null ?
-                new ObjectParameter("Sufijo_Kapiti", sufijo_Kapiti) :
-                new ObjectParameter("Sufijo_Kapiti", typeof(string));
-    
-            var tipo_PersonaParameter = tipo_Persona.HasValue ?
-                new ObjectParameter("Tipo_Persona", tipo_Persona) :
-                new ObjectParameter("Tipo_Persona", typeof(byte));
-    
-            var nombre_ClienteParameter = nombre_Cliente != null ?
-                new ObjectParameter("Nombre_Cliente", nombre_Cliente) :
-                new ObjectParameter("Nombre_Cliente", typeof(string));
-    
-            var apellido_PaternoParameter = apellido_Paterno != null ?
-                new ObjectParameter("Apellido_Paterno", apellido_Paterno) :
-                new ObjectParameter("Apellido_Paterno", typeof(string));
-    
-            var apellido_MaternoParameter = apellido_Materno != null ?
-                new ObjectParameter("Apellido_Materno", apellido_Materno) :
-                new ObjectParameter("Apellido_Materno", typeof(string));
-    
-            var deposito_InicialParameter = deposito_Inicial != null ?
-                new ObjectParameter("Deposito_Inicial", deposito_Inicial) :
-                new ObjectParameter("Deposito_Inicial", typeof(string));
-    
-            var numero_RegistroParameter = numero_Registro != null ?
-                new ObjectParameter("Numero_Registro", numero_Registro) :
-                new ObjectParameter("Numero_Registro", typeof(string));
-    
-            var nombre_PromotorParameter = nombre_Promotor != null ?
-                new ObjectParameter("Nombre_Promotor", nombre_Promotor) :
-                new ObjectParameter("Nombre_Promotor", typeof(string));
-    
-            var bancaParameter = banca != null ?
-                new ObjectParameter("Banca", banca) :
-                new ObjectParameter("Banca", typeof(string));
-    
-            var divisionParameter = division != null ?
-                new ObjectParameter("Division", division) :
-                new ObjectParameter("Division", typeof(string));
-    
-            var plazaParameter = plaza != null ?
-                new ObjectParameter("Plaza", plaza) :
-                new ObjectParameter("Plaza", typeof(string));
-    
-            var sucursalParameter = sucursal != null ?
-                new ObjectParameter("Sucursal", sucursal) :
-                new ObjectParameter("Sucursal", typeof(string));
-    
-            var statusParameter = status != null ?
-                new ObjectParameter("Status", status) :
-                new ObjectParameter("Status", typeof(string));
-    
-            var num_SolicitudParameter = num_Solicitud.HasValue ?
-                new ObjectParameter("Num_Solicitud", num_Solicitud) :
-                new ObjectParameter("Num_Solicitud", typeof(int));
-    
-            var fechaRepc_DocParameter = fechaRepc_Doc != null ?
-                new ObjectParameter("FechaRepc_Doc", fechaRepc_Doc) :
-                new ObjectParameter("FechaRepc_Doc", typeof(string));
-    
-            var horaRepc_DocParameter = horaRepc_Doc != null ?
-                new ObjectParameter("HoraRepc_Doc", horaRepc_Doc) :
-                new ObjectParameter("HoraRepc_Doc", typeof(string));
-    
-            var fechaAnalisis_MacParameter = fechaAnalisis_Mac != null ?
-                new ObjectParameter("FechaAnalisis_Mac", fechaAnalisis_Mac) :
-                new ObjectParameter("FechaAnalisis_Mac", typeof(string));
-    
-            var horaAnalisis_MacParameter = horaAnalisis_Mac != null ?
-                new ObjectParameter("HoraAnalisis_Mac", horaAnalisis_Mac) :
-                new ObjectParameter("HoraAnalisis_Mac", typeof(string));
-    
-            var fechaFormalizadaParameter = fechaFormalizada != null ?
-                new ObjectParameter("FechaFormalizada", fechaFormalizada) :
-                new ObjectParameter("FechaFormalizada", typeof(string));
-    
-            var horaFormalizadaParameter = horaFormalizada != null ?
-                new ObjectParameter("HoraFormalizada", horaFormalizada) :
-                new ObjectParameter("HoraFormalizada", typeof(string));
-    
-            var fechaRepc_OriginalesParameter = fechaRepc_Originales != null ?
-                new ObjectParameter("FechaRepc_Originales", fechaRepc_Originales) :
-                new ObjectParameter("FechaRepc_Originales", typeof(string));
-    
-            var horaRepc_OriginalesParameter = horaRepc_Originales != null ?
-                new ObjectParameter("HoraRepc_Originales", horaRepc_Originales) :
-                new ObjectParameter("HoraRepc_Originales", typeof(string));
-    
-            var fechaAten_OriginalesParameter = fechaAten_Originales != null ?
-                new ObjectParameter("FechaAten_Originales", fechaAten_Originales) :
-                new ObjectParameter("FechaAten_Originales", typeof(string));
-    
-            var horaAten_OriginalesParameter = horaAten_Originales != null ?
-                new ObjectParameter("HoraAten_Originales", horaAten_Originales) :
-                new ObjectParameter("HoraAten_Originales", typeof(string));
-    
-            var originalesParameter = originales != null ?
-                new ObjectParameter("Originales", originales) :
-                new ObjectParameter("Originales", typeof(string));
-    
-            var deposito_Inicial_IniParameter = deposito_Inicial_Ini.HasValue ?
-                new ObjectParameter("Deposito_Inicial_Ini", deposito_Inicial_Ini) :
-                new ObjectParameter("Deposito_Inicial_Ini", typeof(decimal));
-    
-            var fecha_DesbloqueoParameter = fecha_Desbloqueo != null ?
-                new ObjectParameter("Fecha_Desbloqueo", fecha_Desbloqueo) :
-                new ObjectParameter("Fecha_Desbloqueo", typeof(string));
-    
-            var fecha_EnvioParameter = fecha_Envio != null ?
-                new ObjectParameter("Fecha_Envio", fecha_Envio) :
-                new ObjectParameter("Fecha_Envio", typeof(string));
-    
-            var fecha_concluidaParameter = fecha_concluida != null ?
-                new ObjectParameter("Fecha_concluida", fecha_concluida) :
-                new ObjectParameter("Fecha_concluida", typeof(string));
-    
-            var existeTKTParameter = existeTKT != null ?
-                new ObjectParameter("ExisteTKT", existeTKT) :
-                new ObjectParameter("ExisteTKT", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Mac_Inserta_Datos_Result>("Mac_Inserta_Datos", id_ConsultorMacParameter, id_SolicitudParameter, id_TramiteParameter, puntosParameter, circuitoParameter, cuenta_ClienteParameter, sufijo_KapitiParameter, tipo_PersonaParameter, nombre_ClienteParameter, apellido_PaternoParameter, apellido_MaternoParameter, deposito_InicialParameter, numero_RegistroParameter, nombre_PromotorParameter, bancaParameter, divisionParameter, plazaParameter, sucursalParameter, statusParameter, num_SolicitudParameter, fechaRepc_DocParameter, horaRepc_DocParameter, fechaAnalisis_MacParameter, horaAnalisis_MacParameter, fechaFormalizadaParameter, horaFormalizadaParameter, fechaRepc_OriginalesParameter, horaRepc_OriginalesParameter, fechaAten_OriginalesParameter, horaAten_OriginalesParameter, originalesParameter, deposito_Inicial_IniParameter, fecha_DesbloqueoParameter, fecha_EnvioParameter, fecha_concluidaParameter, existeTKTParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<System.DateTime>> Mac_Obtiene_FechaServidor()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("Mac_Obtiene_FechaServidor");
-        }
-    
-        public virtual ObjectResult<Mac_Cancela_Result> Mac_Cancela(Nullable<int> num_Solicitud)
-        {
-            var num_SolicitudParameter = num_Solicitud.HasValue ?
-                new ObjectParameter("Num_Solicitud", num_Solicitud) :
-                new ObjectParameter("Num_Solicitud", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Mac_Cancela_Result>("Mac_Cancela", num_SolicitudParameter);
-        }
     }
 }

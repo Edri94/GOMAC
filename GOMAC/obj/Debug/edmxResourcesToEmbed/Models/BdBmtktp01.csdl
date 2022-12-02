@@ -83,6 +83,16 @@
     <NavigationProperty Name="USUARIO" Relationship="Self.fk_usuario5" FromRole="MOVIMIENTOS_USUARIO" ToRole="USUARIO" />
     <NavigationProperty Name="USUARIO1" Relationship="Self.fk_usuario6" FromRole="MOVIMIENTOS_USUARIO" ToRole="USUARIO" />
   </EntityType>
+  <EntityType Name="OBSERVACIONES">
+    <Key>
+      <PropertyRef Name="Id_Observacion" />
+    </Key>
+    <Property Name="Num_Solicitud" Type="Int32" Nullable="false" />
+    <Property Name="Observaciones1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fecha_Observ" Type="DateTime" Precision="3" />
+    <Property Name="Id_Observacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="SEGUIMIENTO" Relationship="Self.FK_OBSERVACIONES_SEGUIMIENTO" FromRole="OBSERVACIONES" ToRole="SEGUIMIENTO" />
+  </EntityType>
   <EntityType Name="OPERACION_PIU">
     <Key>
       <PropertyRef Name="operacion_piu1" />
@@ -234,16 +244,6 @@
     <NavigationProperty Name="MOVIMIENTOS_USUARIO1" Relationship="Self.fk_usuario6" FromRole="USUARIO" ToRole="MOVIMIENTOS_USUARIO" />
     <NavigationProperty Name="PERFIL" Relationship="Self.fk_perfil2" FromRole="USUARIO" ToRole="PERFIL" />
   </EntityType>
-  <EntityType Name="OBSERVACIONES">
-    <Key>
-      <PropertyRef Name="Num_Solicitud" />
-      <PropertyRef Name="Observaciones1" />
-    </Key>
-    <Property Name="Num_Solicitud" Type="Int32" Nullable="false" />
-    <Property Name="Observaciones1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Fecha_Observ" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="SEGUIMIENTO" Relationship="Self.FK_OBSERVACIONES_SEGUIMIENTO" FromRole="OBSERVACIONES" ToRole="SEGUIMIENTO" />
-  </EntityType>
   <EntityType Name="PERFIL_SECTOR">
     <Key>
       <PropertyRef Name="id_perfil" />
@@ -254,6 +254,219 @@
     <Property Name="permitido" Type="Boolean" />
     <NavigationProperty Name="PERFIL" Relationship="Self.fk_perfil" FromRole="PERFIL_SECTOR" ToRole="PERFIL" />
     <NavigationProperty Name="SECTORES" Relationship="Self.fk_sectores" FromRole="PERFIL_SECTOR" ToRole="SECTORES" />
+  </EntityType>
+  <EntityType Name="log_conect">
+    <Key>
+      <PropertyRef Name="id_conect" />
+      <PropertyRef Name="login" />
+      <PropertyRef Name="conectado" />
+      <PropertyRef Name="equipo" />
+      <PropertyRef Name="ip" />
+      <PropertyRef Name="fecha_de_conexion" />
+    </Key>
+    <Property Name="id_conect" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="conectado" Type="Boolean" Nullable="false" />
+    <Property Name="equipo" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ip" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_de_conexion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="fecha_de_desconexion" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="ver_conect">
+    <Key>
+      <PropertyRef Name="id_conect" />
+      <PropertyRef Name="id_usuario" />
+      <PropertyRef Name="equipo" />
+      <PropertyRef Name="ip" />
+      <PropertyRef Name="fechaconect" />
+    </Key>
+    <Property Name="id_conect" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_usuario" Type="Int32" Nullable="false" />
+    <Property Name="equipo" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ip" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fechaconect" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="horaconect" Type="Time" Precision="0" />
+    <Property Name="fechadesconect" Type="DateTime" Precision="0" />
+    <Property Name="horadesconect" Type="Time" Precision="0" />
+  </EntityType>
+  <EntityType Name="ver_conect2">
+    <Key>
+      <PropertyRef Name="C_Conexion" />
+      <PropertyRef Name="Usuario" />
+      <PropertyRef Name="Equipo" />
+      <PropertyRef Name="Direccion_IP" />
+      <PropertyRef Name="Fecha_de_conexion" />
+    </Key>
+    <Property Name="C_Conexion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usuario" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Equipo" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direccion_IP" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fecha_de_conexion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Hora_de_conexion" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_de_desconexion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Hora_de_desconexion" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ver_consultores">
+    <Key>
+      <PropertyRef Name="Id_ConsultorMac" />
+      <PropertyRef Name="Iniciales_ConsultorMac" />
+    </Key>
+    <Property Name="Id_ConsultorMac" Type="Int32" Nullable="false" />
+    <Property Name="Iniciales_ConsultorMac" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Nom_ConsultorMac" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Ap_ConsultorMac" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Am_ConsultorMac" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="VER_FUNCIONARIOS">
+    <Key>
+      <PropertyRef Name="NUMERO_FUNCIONARIO" />
+    </Key>
+    <Property Name="NUMERO_FUNCIONARIO" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="PROMOTOR" Type="String" MaxLength="77" FixedLength="false" Unicode="false" />
+    <Property Name="BANCA" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <Property Name="DIVISION" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <Property Name="PLAZA" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+    <Property Name="SUCURSAL" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ver_mov_perfil">
+    <Key>
+      <PropertyRef Name="C_Movimiento" />
+      <PropertyRef Name="Usuario" />
+      <PropertyRef Name="Perfil" />
+      <PropertyRef Name="Sector" />
+      <PropertyRef Name="Permiso_anterior" />
+      <PropertyRef Name="Permiso_actual" />
+      <PropertyRef Name="fecha_del_movimiento" />
+    </Key>
+    <Property Name="C_Movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usuario" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Perfil" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Movimiento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Sector" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Permiso_anterior" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Permiso_actual" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_del_movimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Hora_del_cambio" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ver_mov_solicitudes">
+    <Key>
+      <PropertyRef Name="Num_Solicitud" />
+      <PropertyRef Name="Descripcion_Status" />
+    </Key>
+    <Property Name="Num_Solicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cuenta_Cliente" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Captura" Type="DateTime" Precision="3" />
+    <Property Name="Nombre_Cliente" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Apellido_Paterno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Apellido_Materno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion_Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ver_mov_usuario">
+    <Key>
+      <PropertyRef Name="C_Movimiento" />
+      <PropertyRef Name="Usuario_que_realizo_el_movimiento" />
+      <PropertyRef Name="Usuario_modificado" />
+    </Key>
+    <Property Name="C_Movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usuario_que_realizo_el_movimiento" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Usuario_modificado" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Movimiento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Dato_anterio" Type="String" MaxLength="230" FixedLength="false" Unicode="false" />
+    <Property Name="Dato_actual" Type="String" MaxLength="230" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_del_movimiento" Type="DateTime" Precision="0" />
+    <Property Name="Hora_del_movimiento" Type="Time" Precision="0" />
+  </EntityType>
+  <EntityType Name="ver_perfil_sector">
+    <Key>
+      <PropertyRef Name="id_perfil" />
+      <PropertyRef Name="id_sector" />
+    </Key>
+    <Property Name="id_perfil" Type="Int32" Nullable="false" />
+    <Property Name="id_sector" Type="Int32" Nullable="false" />
+    <Property Name="permitido" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="ver_perfiles">
+    <Key>
+      <PropertyRef Name="id_perfil" />
+      <PropertyRef Name="nombre" />
+    </Key>
+    <Property Name="id_perfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ver_sectores">
+    <Key>
+      <PropertyRef Name="id_sector" />
+      <PropertyRef Name="sector" />
+    </Key>
+    <Property Name="id_sector" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sector" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ver_Tipo_Solicitud">
+    <Key>
+      <PropertyRef Name="Id_Solicitud" />
+      <PropertyRef Name="Descripcion_Solicitud" />
+    </Key>
+    <Property Name="Id_Solicitud" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion_Solicitud" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ver_Tipo_Tramite">
+    <Key>
+      <PropertyRef Name="Id_Tramite" />
+      <PropertyRef Name="Descripcion_Tramite" />
+      <PropertyRef Name="Puntos" />
+    </Key>
+    <Property Name="Id_Tramite" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion_Tramite" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Puntos" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ver_usuarios">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+      <PropertyRef Name="id_perfil" />
+      <PropertyRef Name="login" />
+      <PropertyRef Name="pwd" />
+      <PropertyRef Name="fechaexpira" />
+      <PropertyRef Name="habilitado" />
+      <PropertyRef Name="bloqueado" />
+      <PropertyRef Name="fechacreacion" />
+      <PropertyRef Name="conectado" />
+    </Key>
+    <Property Name="id_usuario" Type="Int32" Nullable="false" />
+    <Property Name="id_perfil" Type="Int32" Nullable="false" />
+    <Property Name="login" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="pwd" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="fechaexpira" Type="Boolean" Nullable="false" />
+    <Property Name="fecha_de_expiracion" Type="DateTime" Precision="0" />
+    <Property Name="habilitado" Type="Boolean" Nullable="false" />
+    <Property Name="bloqueado" Type="Boolean" Nullable="false" />
+    <Property Name="fechacreacion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="conectado" Type="Boolean" Nullable="false" />
+    <Property Name="nuevoinicio" Type="Boolean" />
+    <Property Name="resetpwd" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="ver_usuarios2">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+      <PropertyRef Name="id_perfil" />
+      <PropertyRef Name="login" />
+      <PropertyRef Name="pwd" />
+      <PropertyRef Name="fechaexpira" />
+      <PropertyRef Name="habilitado" />
+      <PropertyRef Name="bloqueado" />
+      <PropertyRef Name="conectado" />
+    </Key>
+    <Property Name="id_usuario" Type="Int32" Nullable="false" />
+    <Property Name="id_perfil" Type="Int32" Nullable="false" />
+    <Property Name="login" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="pwd" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="fechaexpira" Type="Boolean" Nullable="false" />
+    <Property Name="fecha_de_expiracion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="habilitado" Type="Boolean" Nullable="false" />
+    <Property Name="bloqueado" Type="Boolean" Nullable="false" />
+    <Property Name="fechacreacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="conectado" Type="Boolean" Nullable="false" />
+    <Property Name="nuevoinicio" Type="Boolean" />
+    <Property Name="resetpwd" Type="Boolean" />
   </EntityType>
   <Association Name="fk_usuario2">
     <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
@@ -375,6 +588,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_OBSERVACIONES_SEGUIMIENTO">
+    <End Role="SEGUIMIENTO" Type="Self.SEGUIMIENTO" Multiplicity="1" />
+    <End Role="OBSERVACIONES" Type="Self.OBSERVACIONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SEGUIMIENTO">
+        <PropertyRef Name="Num_Solicitud" />
+      </Principal>
+      <Dependent Role="OBSERVACIONES">
+        <PropertyRef Name="Num_Solicitud" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_perfil">
     <End Role="PERFIL" Type="Self.PERFIL" Multiplicity="1" />
     <End Role="PERFIL_SECTOR" Type="Self.PERFIL_SECTOR" Multiplicity="*" />
@@ -408,18 +633,6 @@
       </Principal>
       <Dependent Role="PERFIL_SECTOR">
         <PropertyRef Name="id_sector" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_OBSERVACIONES_SEGUIMIENTO">
-    <End Role="SEGUIMIENTO" Type="Self.SEGUIMIENTO" Multiplicity="1" />
-    <End Role="OBSERVACIONES" Type="Self.OBSERVACIONES" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SEGUIMIENTO">
-        <PropertyRef Name="Num_Solicitud" />
-      </Principal>
-      <Dependent Role="OBSERVACIONES">
-        <PropertyRef Name="Num_Solicitud" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -466,6 +679,7 @@
     <EntitySet Name="HISTORIALPWD" EntityType="Self.HISTORIALPWD" />
     <EntitySet Name="MOVIMIENTOS_PERFIL" EntityType="Self.MOVIMIENTOS_PERFIL" />
     <EntitySet Name="MOVIMIENTOS_USUARIO" EntityType="Self.MOVIMIENTOS_USUARIO" />
+    <EntitySet Name="OBSERVACIONES" EntityType="Self.OBSERVACIONES" />
     <EntitySet Name="OPERACION_PIU" EntityType="Self.OPERACION_PIU" />
     <EntitySet Name="PERFIL" EntityType="Self.PERFIL" />
     <EntitySet Name="SECTORES" EntityType="Self.SECTORES" />
@@ -478,8 +692,22 @@
     <EntitySet Name="TIPO_STATUS" EntityType="Self.TIPO_STATUS" />
     <EntitySet Name="TIPO_TRAMITE" EntityType="Self.TIPO_TRAMITE" />
     <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
-    <EntitySet Name="OBSERVACIONES" EntityType="Self.OBSERVACIONES" />
     <EntitySet Name="PERFIL_SECTOR" EntityType="Self.PERFIL_SECTOR" />
+    <EntitySet Name="log_conect" EntityType="Self.log_conect" />
+    <EntitySet Name="ver_conect" EntityType="Self.ver_conect" />
+    <EntitySet Name="ver_conect2" EntityType="Self.ver_conect2" />
+    <EntitySet Name="ver_consultores" EntityType="Self.ver_consultores" />
+    <EntitySet Name="VER_FUNCIONARIOS" EntityType="Self.VER_FUNCIONARIOS" />
+    <EntitySet Name="ver_mov_perfil" EntityType="Self.ver_mov_perfil" />
+    <EntitySet Name="ver_mov_solicitudes" EntityType="Self.ver_mov_solicitudes" />
+    <EntitySet Name="ver_mov_usuario" EntityType="Self.ver_mov_usuario" />
+    <EntitySet Name="ver_perfil_sector" EntityType="Self.ver_perfil_sector" />
+    <EntitySet Name="ver_perfiles" EntityType="Self.ver_perfiles" />
+    <EntitySet Name="ver_sectores" EntityType="Self.ver_sectores" />
+    <EntitySet Name="ver_Tipo_Solicitud" EntityType="Self.ver_Tipo_Solicitud" />
+    <EntitySet Name="ver_Tipo_Tramite" EntityType="Self.ver_Tipo_Tramite" />
+    <EntitySet Name="ver_usuarios" EntityType="Self.ver_usuarios" />
+    <EntitySet Name="ver_usuarios2" EntityType="Self.ver_usuarios2" />
     <AssociationSet Name="fk_usuario2" Association="Self.fk_usuario2">
       <End Role="USUARIO" EntitySet="USUARIO" />
       <End Role="CONECT" EntitySet="CONECT" />
@@ -520,6 +748,10 @@
       <End Role="USUARIO" EntitySet="USUARIO" />
       <End Role="MOVIMIENTOS_USUARIO" EntitySet="MOVIMIENTOS_USUARIO" />
     </AssociationSet>
+    <AssociationSet Name="FK_OBSERVACIONES_SEGUIMIENTO" Association="Self.FK_OBSERVACIONES_SEGUIMIENTO">
+      <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
+      <End Role="OBSERVACIONES" EntitySet="OBSERVACIONES" />
+    </AssociationSet>
     <AssociationSet Name="fk_perfil" Association="Self.fk_perfil">
       <End Role="PERFIL" EntitySet="PERFIL" />
       <End Role="PERFIL_SECTOR" EntitySet="PERFIL_SECTOR" />
@@ -531,10 +763,6 @@
     <AssociationSet Name="fk_sectores" Association="Self.fk_sectores">
       <End Role="SECTORES" EntitySet="SECTORES" />
       <End Role="PERFIL_SECTOR" EntitySet="PERFIL_SECTOR" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OBSERVACIONES_SEGUIMIENTO" Association="Self.FK_OBSERVACIONES_SEGUIMIENTO">
-      <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
-      <End Role="OBSERVACIONES" EntitySet="OBSERVACIONES" />
     </AssociationSet>
     <AssociationSet Name="FK_SEGUIMIENTO_DOCTOS_SEGUIMIENTO" Association="Self.FK_SEGUIMIENTO_DOCTOS_SEGUIMIENTO">
       <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
@@ -548,284 +776,5 @@
       <End Role="TIPO_TRAMITE" EntitySet="TIPO_TRAMITE" />
       <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
     </AssociationSet>
-    <EntitySet Name="log_conect" EntityType="bmtktp01Model.log_conect" />
-    <EntitySet Name="ver_conect" EntityType="bmtktp01Model.ver_conect" />
-    <EntitySet Name="ver_conect2" EntityType="bmtktp01Model.ver_conect2" />
-    <EntitySet Name="ver_consultores" EntityType="bmtktp01Model.ver_consultores" />
-    <EntitySet Name="VER_FUNCIONARIOS" EntityType="bmtktp01Model.VER_FUNCIONARIOS" />
-    <EntitySet Name="ver_mov_perfil" EntityType="bmtktp01Model.ver_mov_perfil" />
-    <EntitySet Name="ver_mov_solicitudes" EntityType="bmtktp01Model.ver_mov_solicitudes" />
-    <EntitySet Name="ver_mov_usuario" EntityType="bmtktp01Model.ver_mov_usuario" />
-    <EntitySet Name="ver_perfil_sector" EntityType="bmtktp01Model.ver_perfil_sector" />
-    <EntitySet Name="ver_perfiles" EntityType="bmtktp01Model.ver_perfiles" />
-    <EntitySet Name="ver_sectores" EntityType="bmtktp01Model.ver_sectores" />
-    <EntitySet Name="ver_Tipo_Solicitud" EntityType="bmtktp01Model.ver_Tipo_Solicitud" />
-    <EntitySet Name="ver_Tipo_Tramite" EntityType="bmtktp01Model.ver_Tipo_Tramite" />
-    <EntitySet Name="ver_usuarios" EntityType="bmtktp01Model.ver_usuarios" />
-    <EntitySet Name="ver_usuarios2" EntityType="bmtktp01Model.ver_usuarios2" />
-    <FunctionImport Name="Mac_Inserta_Datos" ReturnType="Collection(bmtktp01Model.Mac_Inserta_Datos_Result)">
-      <Parameter Name="Id_ConsultorMac" Mode="In" Type="Int32" />
-      <Parameter Name="Id_Solicitud" Mode="In" Type="Int32" />
-      <Parameter Name="Id_Tramite" Mode="In" Type="Int32" />
-      <Parameter Name="Puntos" Mode="In" Type="Int32" />
-      <Parameter Name="Circuito" Mode="In" Type="String" />
-      <Parameter Name="Cuenta_Cliente" Mode="In" Type="String" />
-      <Parameter Name="Sufijo_Kapiti" Mode="In" Type="String" />
-      <Parameter Name="Tipo_Persona" Mode="In" Type="Byte" />
-      <Parameter Name="Nombre_Cliente" Mode="In" Type="String" />
-      <Parameter Name="Apellido_Paterno" Mode="In" Type="String" />
-      <Parameter Name="Apellido_Materno" Mode="In" Type="String" />
-      <Parameter Name="Deposito_Inicial" Mode="In" Type="String" />
-      <Parameter Name="Numero_Registro" Mode="In" Type="String" />
-      <Parameter Name="Nombre_Promotor" Mode="In" Type="String" />
-      <Parameter Name="Banca" Mode="In" Type="String" />
-      <Parameter Name="Division" Mode="In" Type="String" />
-      <Parameter Name="Plaza" Mode="In" Type="String" />
-      <Parameter Name="Sucursal" Mode="In" Type="String" />
-      <Parameter Name="Status" Mode="In" Type="String" />
-      <Parameter Name="Num_Solicitud" Mode="In" Type="Int32" />
-      <Parameter Name="FechaRepc_Doc" Mode="In" Type="String" />
-      <Parameter Name="HoraRepc_Doc" Mode="In" Type="String" />
-      <Parameter Name="FechaAnalisis_Mac" Mode="In" Type="String" />
-      <Parameter Name="HoraAnalisis_Mac" Mode="In" Type="String" />
-      <Parameter Name="FechaFormalizada" Mode="In" Type="String" />
-      <Parameter Name="HoraFormalizada" Mode="In" Type="String" />
-      <Parameter Name="FechaRepc_Originales" Mode="In" Type="String" />
-      <Parameter Name="HoraRepc_Originales" Mode="In" Type="String" />
-      <Parameter Name="FechaAten_Originales" Mode="In" Type="String" />
-      <Parameter Name="HoraAten_Originales" Mode="In" Type="String" />
-      <Parameter Name="Originales" Mode="In" Type="String" />
-      <Parameter Name="Deposito_Inicial_Ini" Mode="In" Type="Decimal" />
-      <Parameter Name="Fecha_Desbloqueo" Mode="In" Type="String" />
-      <Parameter Name="Fecha_Envio" Mode="In" Type="String" />
-      <Parameter Name="Fecha_concluida" Mode="In" Type="String" />
-      <Parameter Name="ExisteTKT" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="Mac_Obtiene_FechaServidor" ReturnType="Collection(DateTime)" />
-    <FunctionImport Name="Mac_Cancela" ReturnType="Collection(bmtktp01Model.Mac_Cancela_Result)">
-      <Parameter Name="Num_Solicitud" Mode="In" Type="Int32" />
-    </FunctionImport>
   </EntityContainer>
-  <EntityType Name="log_conect">
-    <Key>
-      <PropertyRef Name="id_conect" />
-      <PropertyRef Name="login" />
-      <PropertyRef Name="conectado" />
-      <PropertyRef Name="equipo" />
-      <PropertyRef Name="ip" />
-      <PropertyRef Name="fecha_de_conexion" />
-    </Key>
-    <Property Name="id_conect" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="login" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="conectado" Type="Boolean" Nullable="false" />
-    <Property Name="equipo" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
-    <Property Name="ip" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
-    <Property Name="fecha_de_conexion" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="fecha_de_desconexion" Type="DateTime" Precision="0" />
-  </EntityType>
-  <EntityType Name="ver_conect">
-    <Key>
-      <PropertyRef Name="id_conect" />
-      <PropertyRef Name="id_usuario" />
-      <PropertyRef Name="equipo" />
-      <PropertyRef Name="ip" />
-      <PropertyRef Name="fechaconect" />
-    </Key>
-    <Property Name="id_conect" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="id_usuario" Type="Int32" Nullable="false" />
-    <Property Name="equipo" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
-    <Property Name="ip" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
-    <Property Name="fechaconect" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="horaconect" Type="Time" Precision="0" />
-    <Property Name="fechadesconect" Type="DateTime" Precision="0" />
-    <Property Name="horadesconect" Type="Time" Precision="0" />
-  </EntityType>
-  <EntityType Name="ver_conect2">
-    <Key>
-      <PropertyRef Name="C_Conexion" />
-      <PropertyRef Name="Usuario" />
-      <PropertyRef Name="Equipo" />
-      <PropertyRef Name="Direccion_IP" />
-      <PropertyRef Name="Fecha_de_conexion" />
-    </Key>
-    <Property Name="C_Conexion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Usuario" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="Equipo" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
-    <Property Name="Direccion_IP" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
-    <Property Name="Fecha_de_conexion" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="Hora_de_conexion" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-    <Property Name="Fecha_de_desconexion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Hora_de_desconexion" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="ver_consultores">
-    <Key>
-      <PropertyRef Name="Id_ConsultorMac" />
-      <PropertyRef Name="Iniciales_ConsultorMac" />
-    </Key>
-    <Property Name="Id_ConsultorMac" Type="Int32" Nullable="false" />
-    <Property Name="Iniciales_ConsultorMac" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
-    <Property Name="Nom_ConsultorMac" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-    <Property Name="Ap_ConsultorMac" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-    <Property Name="Am_ConsultorMac" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="VER_FUNCIONARIOS">
-    <Key>
-      <PropertyRef Name="NUMERO_FUNCIONARIO" />
-    </Key>
-    <Property Name="NUMERO_FUNCIONARIO" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
-    <Property Name="PROMOTOR" Type="String" MaxLength="77" FixedLength="false" Unicode="false" />
-    <Property Name="BANCA" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-    <Property Name="DIVISION" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-    <Property Name="PLAZA" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-    <Property Name="SUCURSAL" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="ver_mov_perfil">
-    <Key>
-      <PropertyRef Name="C_Movimiento" />
-      <PropertyRef Name="Usuario" />
-      <PropertyRef Name="Perfil" />
-      <PropertyRef Name="Sector" />
-      <PropertyRef Name="Permiso_anterior" />
-      <PropertyRef Name="Permiso_actual" />
-      <PropertyRef Name="fecha_del_movimiento" />
-    </Key>
-    <Property Name="C_Movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Usuario" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="Perfil" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-    <Property Name="Movimiento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Sector" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="Permiso_anterior" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Permiso_actual" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="fecha_del_movimiento" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="Hora_del_cambio" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="ver_mov_solicitudes">
-    <Key>
-      <PropertyRef Name="Num_Solicitud" />
-      <PropertyRef Name="Descripcion_Status" />
-    </Key>
-    <Property Name="Num_Solicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Cuenta_Cliente" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-    <Property Name="Fecha_Captura" Type="DateTime" Precision="3" />
-    <Property Name="Nombre_Cliente" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-    <Property Name="Apellido_Paterno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="Apellido_Materno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="Descripcion_Status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="ver_mov_usuario">
-    <Key>
-      <PropertyRef Name="C_Movimiento" />
-      <PropertyRef Name="Usuario_que_realizo_el_movimiento" />
-      <PropertyRef Name="Usuario_modificado" />
-    </Key>
-    <Property Name="C_Movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Usuario_que_realizo_el_movimiento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="Usuario_modificado" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="Movimiento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Dato_anterio" Type="String" MaxLength="230" FixedLength="false" Unicode="false" />
-    <Property Name="Dato_actual" Type="String" MaxLength="230" FixedLength="false" Unicode="false" />
-    <Property Name="Fecha_del_movimiento" Type="DateTime" Precision="0" />
-    <Property Name="Hora_del_movimiento" Type="Time" Precision="0" />
-  </EntityType>
-  <EntityType Name="ver_perfil_sector">
-    <Key>
-      <PropertyRef Name="id_perfil" />
-      <PropertyRef Name="id_sector" />
-    </Key>
-    <Property Name="id_perfil" Type="Int32" Nullable="false" />
-    <Property Name="id_sector" Type="Int32" Nullable="false" />
-    <Property Name="permitido" Type="Boolean" />
-  </EntityType>
-  <EntityType Name="ver_perfiles">
-    <Key>
-      <PropertyRef Name="id_perfil" />
-      <PropertyRef Name="nombre" />
-    </Key>
-    <Property Name="id_perfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nombre" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="ver_sectores">
-    <Key>
-      <PropertyRef Name="id_sector" />
-      <PropertyRef Name="sector" />
-    </Key>
-    <Property Name="id_sector" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="sector" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="ver_Tipo_Solicitud">
-    <Key>
-      <PropertyRef Name="Id_Solicitud" />
-      <PropertyRef Name="Descripcion_Solicitud" />
-    </Key>
-    <Property Name="Id_Solicitud" Type="Int32" Nullable="false" />
-    <Property Name="Descripcion_Solicitud" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="ver_Tipo_Tramite">
-    <Key>
-      <PropertyRef Name="Id_Tramite" />
-      <PropertyRef Name="Descripcion_Tramite" />
-      <PropertyRef Name="Puntos" />
-    </Key>
-    <Property Name="Id_Tramite" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Descripcion_Tramite" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-    <Property Name="Puntos" Type="Int32" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ver_usuarios">
-    <Key>
-      <PropertyRef Name="id_usuario" />
-      <PropertyRef Name="id_perfil" />
-      <PropertyRef Name="login" />
-      <PropertyRef Name="pwd" />
-      <PropertyRef Name="fechaexpira" />
-      <PropertyRef Name="habilitado" />
-      <PropertyRef Name="bloqueado" />
-      <PropertyRef Name="fechacreacion" />
-      <PropertyRef Name="conectado" />
-    </Key>
-    <Property Name="id_usuario" Type="Int32" Nullable="false" />
-    <Property Name="id_perfil" Type="Int32" Nullable="false" />
-    <Property Name="login" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="pwd" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="fechaexpira" Type="Boolean" Nullable="false" />
-    <Property Name="fecha_de_expiracion" Type="DateTime" Precision="0" />
-    <Property Name="habilitado" Type="Boolean" Nullable="false" />
-    <Property Name="bloqueado" Type="Boolean" Nullable="false" />
-    <Property Name="fechacreacion" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="conectado" Type="Boolean" Nullable="false" />
-    <Property Name="nuevoinicio" Type="Boolean" />
-    <Property Name="resetpwd" Type="Boolean" />
-  </EntityType>
-  <EntityType Name="ver_usuarios2">
-    <Key>
-      <PropertyRef Name="id_usuario" />
-      <PropertyRef Name="id_perfil" />
-      <PropertyRef Name="login" />
-      <PropertyRef Name="pwd" />
-      <PropertyRef Name="fechaexpira" />
-      <PropertyRef Name="habilitado" />
-      <PropertyRef Name="bloqueado" />
-      <PropertyRef Name="conectado" />
-    </Key>
-    <Property Name="id_usuario" Type="Int32" Nullable="false" />
-    <Property Name="id_perfil" Type="Int32" Nullable="false" />
-    <Property Name="login" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="pwd" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="fechaexpira" Type="Boolean" Nullable="false" />
-    <Property Name="fecha_de_expiracion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="habilitado" Type="Boolean" Nullable="false" />
-    <Property Name="bloqueado" Type="Boolean" Nullable="false" />
-    <Property Name="fechacreacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="conectado" Type="Boolean" Nullable="false" />
-    <Property Name="nuevoinicio" Type="Boolean" />
-    <Property Name="resetpwd" Type="Boolean" />
-  </EntityType>
-  <ComplexType Name="Mac_Inserta_Datos_Result">
-    <Property Type="String" Name="Column1" Nullable="false" MaxLength="1" />
-    <Property Type="String" Name="Column2" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="Column3" Nullable="true" MaxLength="5" />
-  </ComplexType>
-  <ComplexType Name="Mac_Cancela_Result">
-    <Property Type="Int32" Name="Column1" Nullable="false" />
-    <Property Type="String" Name="Column2" Nullable="true" MaxLength="20" />
-  </ComplexType>
 </Schema>

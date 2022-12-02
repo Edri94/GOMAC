@@ -17,6 +17,7 @@ namespace GOMAC.Models
         public int Num_Solicitud { get; set; }
         public string Observaciones1 { get; set; }
         public Nullable<System.DateTime> Fecha_Observ { get; set; }
+        public int Id_Observacion { get; set; }
     
         public virtual SEGUIMIENTO SEGUIMIENTO { get; set; }
     }

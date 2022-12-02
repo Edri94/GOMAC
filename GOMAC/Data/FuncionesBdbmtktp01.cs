@@ -18,14 +18,14 @@ namespace GOMAC.Data
         {
             DateTime FechaHoraCaptura = default;
             decimal Deposito_Inicial_Tkt;
-            DateTime Formalizada = default;
-            DateTime Repc_Originales = default;
-            DateTime Aten_Originales = default;
-            DateTime Desbloqueo_Sistemas = default;
-            DateTime Envio_Agencia = default;
-            int Diferencia;
-            DateTime Repc_Doc = default;
-            DateTime Analisis_Mac = default;
+            DateTime Formalizada = fecha_default;
+            DateTime Repc_Originales = fecha_default;
+            DateTime Aten_Originales = fecha_default;
+            DateTime Desbloqueo_Sistemas = fecha_default;
+            DateTime Envio_Agencia = fecha_default;
+            TimeSpan diferencia = TimeSpan.Zero;
+            DateTime Repc_Doc = fecha_default;
+            DateTime Analisis_Mac = fecha_default;
             int afectados = -1;
 
 
@@ -106,40 +106,43 @@ namespace GOMAC.Data
                         context.SEGUIMIENTO.Add(nuevo_seguimiento);
                         afectados = context.SaveChanges();
 
-                       
-                        int seguimiento_identity =  nuevo_seguimiento.Num_Solicitud;
 
-                        SEGUIMIENTO_DOCTOS nuevo_seguimientodoctos = new SEGUIMIENTO_DOCTOS{ 
-                            Num_Solicitud = num_Solicitud,
-                            Repc_Doc = Repc_Doc,
-                            Formalizada = Formalizada,
-                            Repc_Originales = Repc_Originales,
-                            Aten_Originales = Aten_Originales,
-                            Originales = originales,
-                            Deposito_Inicial = deposito_Inicial,
-                            Desbloqueo_Sistemas = Desbloqueo_Sistemas,
-                            Envio_Agencia = Envio_Agencia,
-                            Concluida = fecha_concluida,
-                            Analisis_Mac = Analisis_Mac
-                        };
+                        SEGUIMIENTO seguimiento_guardado = context.SEGUIMIENTO.Where(w => w.Num_Solicitud == nuevo_seguimiento.Num_Solicitud).FirstOrDefault();
 
-                        context.SEGUIMIENTO_DOCTOS.Add(nuevo_seguimientodoctos);
-                        afectados = context.SaveChanges();
-
-                        int segdoctos_identity = nuevo_seguimiento.Num_Solicitud;
-
-                        TimeSpan diferiencia = TimeSpan.Zero;
-
-                        if (fechaAnalisis_Mac != fecha_default)
+                        if(seguimiento_guardado != null)
                         {
-                            diferiencia = (fechaRepc_Doc - fechaAnalisis_Mac);
+                            SEGUIMIENTO_DOCTOS nuevo_seguimientodoctos = new SEGUIMIENTO_DOCTOS
+                            {
+                                Num_Solicitud = seguimiento_guardado.Num_Solicitud,
+                                Repc_Doc = Repc_Doc,
+                                Formalizada = Formalizada,
+                                Repc_Originales = Repc_Originales,
+                                Aten_Originales = Aten_Originales,
+                                Originales = originales,
+                                Deposito_Inicial = deposito_Inicial,
+                                Desbloqueo_Sistemas = Desbloqueo_Sistemas,
+                                Envio_Agencia = Envio_Agencia,
+                                Concluida = fecha_concluida,
+                                Analisis_Mac = Analisis_Mac,
+                                SEGUIMIENTO = seguimiento_guardado
+                            };
 
+                            context.SEGUIMIENTO_DOCTOS.Add(nuevo_seguimientodoctos);
+                            afectados = context.SaveChanges();
+
+                            int segdoctos_identity = nuevo_seguimiento.Num_Solicitud;
+
+
+                            if (fechaAnalisis_Mac != fecha_default)
+                            {
+                                diferencia = (fechaRepc_Doc - fechaAnalisis_Mac);
+
+                            }
+
+                            dbContextTransaction.Commit();
                         }
+                        return new Mac_Inserta_Respuesta { Codigo = afectados, Diferiencia = diferencia, FechaHora_Captura = DateTime.Now };
 
-                        dbContextTransaction.Commit();
-
-
-                        return new Mac_Inserta_Respuesta { Codigo = afectados, Diferiencia = diferiencia, FechaHora_Captura = DateTime.Now };
                     }
                     catch(DbEntityValidationException  ex)
                     {
@@ -156,6 +159,7 @@ namespace GOMAC.Data
                     catch (Exception ex)
                     {
                         Log.Escribe(ex);
+                        Log.Escribe(ex.InnerException);
                         dbContextTransaction.Rollback();
                         return new Mac_Inserta_Respuesta { Codigo = -1, Diferiencia = TimeSpan.Zero, FechaHora_Captura = DateTime.Now };
                     }
@@ -362,6 +366,11 @@ namespace GOMAC.Data
                 }
             }
             
+        }
+
+        internal object Mac_Obtiene_FechaServidor()
+        {
+            throw new NotImplementedException();
         }
     }
 }
