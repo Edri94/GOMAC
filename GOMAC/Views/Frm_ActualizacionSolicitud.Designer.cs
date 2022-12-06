@@ -75,6 +75,8 @@ namespace GOMAC.Views
             this.txtIdSolicitud.Name = "txtIdSolicitud";
             this.txtIdSolicitud.Size = new System.Drawing.Size(379, 26);
             this.txtIdSolicitud.TabIndex = 1;
+            this.txtIdSolicitud.UseWaitCursor = true;
+            this.txtIdSolicitud.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIdSolicitud_KeyPress);
             // 
             // label1
             // 
@@ -84,6 +86,7 @@ namespace GOMAC.Views
             this.label1.Size = new System.Drawing.Size(47, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Folio:";
+            this.label1.UseWaitCursor = true;
             // 
             // label2
             // 
@@ -153,6 +156,7 @@ namespace GOMAC.Views
             this.btnActualizar.TabIndex = 2;
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // btnCancelar
             // 
@@ -162,6 +166,7 @@ namespace GOMAC.Views
             this.btnCancelar.TabIndex = 2;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // lblStatus
             // 
