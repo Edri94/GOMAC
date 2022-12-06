@@ -28,6 +28,7 @@ namespace GOMAC.Views
         private Frm_Login frml;
         private FrmNueva_Solicitud frm_nuevasolicitud;
         private Frm_ConsultaSolicitud frm_consultasolicitud;
+        private Frm_ActualizacionSolicitud frm_actualizacionsolicitud;
         
 
         public Frm_PantallaPrincipal(Frm_Login frml)
@@ -128,6 +129,24 @@ namespace GOMAC.Views
         private void tmtHora_Tick(object sender, EventArgs e)
         {
 
+        }
+
+        private void actualizarSolicitudToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (frml.usuario_loggeado != null)
+            {
+                if (frm_actualizacionsolicitud != null)
+                {
+                    frm_actualizacionsolicitud.Close();
+                    frm_actualizacionsolicitud = null;
+                }
+
+                frm_actualizacionsolicitud = new Frm_ActualizacionSolicitud(frml);
+
+                frm_actualizacionsolicitud.MdiParent = this;
+                //frm_actualizacionsolicitud.str_consultor = "";
+                frm_actualizacionsolicitud.Show();
+            }
         }
     }
 }

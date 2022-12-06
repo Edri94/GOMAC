@@ -52,6 +52,8 @@ namespace GOMAC.Views
             this.conexionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inact = new System.Windows.Forms.Timer(this.components);
             this.tmtHora = new System.Windows.Forms.Timer(this.components);
+            this.actualizarSolicitudToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,10 +66,11 @@ namespace GOMAC.Views
             this.nuevaSolicitudToolStripMenuItem,
             this.consultaSolicitudToolStripMenuItem,
             this.actualizarSolicitudToolStripMenuItem,
-            this.administradorToolStripMenuItem});
+            this.administradorToolStripMenuItem,
+            this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1200, 35);
+            this.menuStrip1.Size = new System.Drawing.Size(1200, 33);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -84,19 +87,19 @@ namespace GOMAC.Views
             // loginToolStripMenuItem
             // 
             this.loginToolStripMenuItem.Name = "loginToolStripMenuItem";
-            this.loginToolStripMenuItem.Size = new System.Drawing.Size(158, 34);
+            this.loginToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.loginToolStripMenuItem.Text = "Login";
             // 
             // perfilToolStripMenuItem
             // 
             this.perfilToolStripMenuItem.Name = "perfilToolStripMenuItem";
-            this.perfilToolStripMenuItem.Size = new System.Drawing.Size(158, 34);
+            this.perfilToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.perfilToolStripMenuItem.Text = "Perfil";
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(158, 34);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.salirToolStripMenuItem.Text = "Salir";
             // 
             // nuevaSolicitudToolStripMenuItem
@@ -115,9 +118,11 @@ namespace GOMAC.Views
             // 
             // actualizarSolicitudToolStripMenuItem
             // 
+            this.actualizarSolicitudToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.actualizarSolicitudToolStripMenuItem1});
             this.actualizarSolicitudToolStripMenuItem.Name = "actualizarSolicitudToolStripMenuItem";
-            this.actualizarSolicitudToolStripMenuItem.Size = new System.Drawing.Size(177, 29);
-            this.actualizarSolicitudToolStripMenuItem.Text = "Actualizar Solicitud";
+            this.actualizarSolicitudToolStripMenuItem.Size = new System.Drawing.Size(133, 29);
+            this.actualizarSolicitudToolStripMenuItem.Text = "Herramientas";
             // 
             // administradorToolStripMenuItem
             // 
@@ -135,7 +140,7 @@ namespace GOMAC.Views
             this.altaToolStripMenuItem,
             this.mantenimientoToolStripMenuItem});
             this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
-            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(176, 34);
+            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.usuarioToolStripMenuItem.Text = "Usuario";
             // 
             // altaToolStripMenuItem
@@ -156,7 +161,7 @@ namespace GOMAC.Views
             this.altaToolStripMenuItem1,
             this.mantenimientoToolStripMenuItem1});
             this.perfilesToolStripMenuItem.Name = "perfilesToolStripMenuItem";
-            this.perfilesToolStripMenuItem.Size = new System.Drawing.Size(176, 34);
+            this.perfilesToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.perfilesToolStripMenuItem.Text = "Perfiles";
             // 
             // altaToolStripMenuItem1
@@ -178,7 +183,7 @@ namespace GOMAC.Views
             this.perfilesToolStripMenuItem1,
             this.conexionesToolStripMenuItem});
             this.reporteToolStripMenuItem.Name = "reporteToolStripMenuItem";
-            this.reporteToolStripMenuItem.Size = new System.Drawing.Size(176, 34);
+            this.reporteToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.reporteToolStripMenuItem.Text = "Reporte";
             // 
             // usuariosToolStripMenuItem
@@ -206,6 +211,19 @@ namespace GOMAC.Views
             // tmtHora
             // 
             this.tmtHora.Tick += new System.EventHandler(this.tmtHora_Tick);
+            // 
+            // actualizarSolicitudToolStripMenuItem1
+            // 
+            this.actualizarSolicitudToolStripMenuItem1.Name = "actualizarSolicitudToolStripMenuItem1";
+            this.actualizarSolicitudToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.actualizarSolicitudToolStripMenuItem1.Text = "Actualizar Solicitud";
+            this.actualizarSolicitudToolStripMenuItem1.Click += new System.EventHandler(this.actualizarSolicitudToolStripMenuItem1_Click);
+            // 
+            // ayudaToolStripMenuItem
+            // 
+            this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(79, 29);
+            this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
             // Frm_PantallaPrincipal
             // 
@@ -254,5 +272,7 @@ namespace GOMAC.Views
         private System.Windows.Forms.ToolStripMenuItem conexionesToolStripMenuItem;
         private System.Windows.Forms.Timer inact;
         private System.Windows.Forms.Timer tmtHora;
+        private System.Windows.Forms.ToolStripMenuItem actualizarSolicitudToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
     }
 }

@@ -33,3 +33,4 @@ C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.exe
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.pdb
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.Views.Frm_NuevaObvservacion.resources
 C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.Views.Frm_VistaObvservaciones.resources
+C:\Users\MI05332\source\repos\GOMAC\GOMAC\obj\Debug\GOMAC.Views.Frm_ActualizacionSolicitud.resources

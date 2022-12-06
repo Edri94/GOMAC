@@ -285,6 +285,12 @@
     <Compile Include="Models\ver_usuarios2.cs">
       <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
+    <Compile Include="Views\Frm_ActualizacionSolicitud.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Frm_ActualizacionSolicitud.Designer.cs">
+      <DependentUpon>Frm_ActualizacionSolicitud.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Frm_ConsultaSolicitud.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -328,6 +334,9 @@
     <Compile Include="Views\Frm_VistaObvservaciones.Designer.cs">
       <DependentUpon>Frm_VistaObvservaciones.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\Frm_ActualizacionSolicitud.resx">
+      <DependentUpon>Frm_ActualizacionSolicitud.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Frm_ConsultaSolicitud.resx">
       <DependentUpon>Frm_ConsultaSolicitud.cs</DependentUpon>
     </EmbeddedResource>
