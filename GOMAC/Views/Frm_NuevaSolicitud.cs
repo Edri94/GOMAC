@@ -64,44 +64,52 @@ namespace GOMAC.Views
                     }
                     else
                     {
-                        int tag = Int32.Parse(grpCalendario.Tag.ToString());
-
-                        switch (tag)
+                        if (grpCalendario.Tag != null)
                         {
-                            case 1:
-                                dtpFFormalizada.Value = Calendario.SelectionRange.Start;
-                            break;
+                            int tag = Int32.Parse(grpCalendario.Tag.ToString());
 
-                            case 2:
-                                dtpFRecepcion.Value = Calendario.SelectionRange.Start;
-                            break;
+                            switch (tag)
+                            {
+                                case 1:
+                                    dtpFFormalizada.Value = Calendario.SelectionRange.Start;
+                                    break;
 
-                            case 3:
-                                dtpFAtencion.Value = Calendario.SelectionRange.Start;
-                            break;
+                                case 2:
+                                    dtpFRecepcion.Value = Calendario.SelectionRange.Start;
+                                    break;
 
-                            case 4:
-                                dtpDesbloqueo.Value = Calendario.SelectionRange.Start;
-                            break;
+                                case 3:
+                                    dtpFAtencion.Value = Calendario.SelectionRange.Start;
+                                    break;
 
-                            case 5:
-                                dtpEnvio.Value = Calendario.SelectionRange.Start;
-                            break;
-                            
-                            case 6:
-                                dtpConcluir.Value = Calendario.SelectionRange.Start;
-                            break;
-                            
-                            case 7:
-                                dtpFRecepDoc.Value = Calendario.SelectionRange.Start;
-                            break;
+                                case 4:
+                                    dtpDesbloqueo.Value = Calendario.SelectionRange.Start;
+                                    break;
 
-                            case 8:
-                                dtpFAnalisisMac.Value = Calendario.SelectionRange.Start;
-                            break;                              
+                                case 5:
+                                    dtpEnvio.Value = Calendario.SelectionRange.Start;
+                                    break;
+
+                                case 6:
+                                    dtpConcluir.Value = Calendario.SelectionRange.Start;
+                                    break;
+
+                                case 7:
+                                    dtpFRecepDoc.Value = Calendario.SelectionRange.Start;
+                                    break;
+
+                                case 8:
+                                    dtpFAnalisisMac.Value = Calendario.SelectionRange.Start;
+                                    break;
+                            }
+                            grpCalendario.Tag = null;
+                            grpCalendario.Visible = false;
                         }
-                        grpCalendario.Tag = null;
-                        grpCalendario.Visible = false;
+                        else
+                        {
+                            MessageBox.Show("Error Calendario");
+                            return;
+                        }
                     }
                 }
                 else
@@ -797,7 +805,8 @@ namespace GOMAC.Views
                                 fecha_Desbloqueo,
                                 fecha_Envio,
                                 fecha_concluida,
-                                existeTKT
+                                existeTKT,
+                                lst_observaciones
                             );
 
                             dtpEnvio.Enabled = false;
@@ -848,8 +857,8 @@ namespace GOMAC.Views
                                 //}
 
                                 //Opcion 2
-                                context.OBSERVACIONES.AddRange(lst_observaciones);
-                                context.SaveChanges();
+                                //context.OBSERVACIONES.AddRange(lst_observaciones);
+                                //context.SaveChanges();
 
                                 txtSolicitud.Enabled = false;
                                 lblStatus.Text = "En proceso";
@@ -1203,7 +1212,7 @@ namespace GOMAC.Views
                                 foreach (DataGridViewRow fila in dtgvwObservaciones.Rows)
                                 {
                                     int insertado = 0;
-                                    OBSERVACIONES observacion = new OBSERVACIONES { SEGUIMIENTO = (ICollection<SEGUIMIENTO>)frmp.solicitud_selec, Observaciones1 = fila.Cells[""].Value.ToString(), Fecha_Observ = DateTime.Now };
+                                    OBSERVACIONES observacion = new OBSERVACIONES { Observaciones1 = fila.Cells[""].Value.ToString(), Fecha_Observ = DateTime.Now };
 
                                     bdbmtktp01.OBSERVACIONES.Add(observacion);
 
@@ -1273,7 +1282,7 @@ namespace GOMAC.Views
             if(frm.observacion != "")
             {
              
-                lst_observaciones.Add(new OBSERVACIONES { SEGUIMIENTO = (ICollection<SEGUIMIENTO>)frmp.solicitud_selec, Fecha_Observ = DateTime.Now, Observaciones1 = frm.observacion });
+                lst_observaciones.Add(new OBSERVACIONES{ Fecha_Observ = DateTime.Now, Observaciones1 = frm.observacion});
                 
 
                 DataTable dt = new DataTable();
@@ -2898,6 +2907,11 @@ namespace GOMAC.Views
         {
             int numero_cuenta;
 
+            if(txtCuenta.Text.Length >= 6)
+            {
+                e.KeyChar = (char)0;
+            }
+
             if (e.KeyChar == (char)13 && cmbProducto.Enabled == false && int.TryParse(txtCuenta.Text, out numero_cuenta))
             {
                 if (txtCuenta.Tag == null)
@@ -3343,11 +3357,12 @@ namespace GOMAC.Views
 
 
 
-                SEGUIMIENTO observaciones = (
-                     from s in bdbmtktp01.SEGUIMIENTO
-                     where s.Num_Solicitud == frmp.solicitud_selec.Num_Solicitud
-                     select s
-                 ).FirstOrDefault();
+                List<OBSERVACIONES> observaciones = (
+                     from o in bdbmtktp01.OBSERVACIONES
+                     join so in bdbmtktp01.SEGUIMIENTO_OBSERVACIONES on o.Id_Observacion equals so.Id_Observacion
+                     where so.Num_Solicitud == frmp.solicitud_selec.Num_Solicitud
+                     select o
+                 ).ToList();
 
                 if (observaciones == null)
                 {
@@ -3363,7 +3378,7 @@ namespace GOMAC.Views
                 dt.Columns.Add("Observaciones");
                 dt.Columns.Add("Fecha Observacion");
 
-                foreach (OBSERVACIONES observacion in observaciones.OBSERVACIONES)
+                foreach (OBSERVACIONES observacion in observaciones)
                 {
                     DataRow dr = dt.NewRow();
 

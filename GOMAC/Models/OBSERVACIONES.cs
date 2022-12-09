@@ -17,7 +17,7 @@ namespace GOMAC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OBSERVACIONES()
         {
-            this.SEGUIMIENTO = new HashSet<SEGUIMIENTO>();
+            this.SEGUIMIENTO_OBSERVACIONES = new HashSet<SEGUIMIENTO_OBSERVACIONES>();
         }
     
         public string Observaciones1 { get; set; }
@@ -25,6 +25,6 @@ namespace GOMAC.Models
         public int Id_Observacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SEGUIMIENTO> SEGUIMIENTO { get; set; }
+        public virtual ICollection<SEGUIMIENTO_OBSERVACIONES> SEGUIMIENTO_OBSERVACIONES { get; set; }
     }
 }

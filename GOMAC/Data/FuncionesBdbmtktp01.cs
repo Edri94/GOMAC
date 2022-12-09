@@ -14,7 +14,7 @@ namespace GOMAC.Data
     {
         public static DateTime fecha_default; 
 
-        internal virtual Mac_Inserta_Respuesta Mac_Inserta_Datos(int id_ConsultorMac, int id_Solicitud, int id_Tramite, int puntos, string circuito, string cuenta_Cliente, string sufijo_Kapiti, byte tipo_Persona, string nombre_Cliente, string apellido_Paterno, string apellido_Materno, decimal deposito_Inicial, string numero_Registro, string nombre_Promotor, string banca, string division, string plaza, string sucursal, string status, int num_Solicitud, DateTime fechaRepc_Doc, TimeSpan horaRepc_Doc, DateTime fechaAnalisis_Mac, TimeSpan horaAnalisis_Mac, DateTime fechaFormalizada, TimeSpan horaFormalizada, DateTime fechaRepc_Originales, TimeSpan horaRepc_Originales, DateTime fechaAten_Originales, TimeSpan horaAten_Originales, string originales, decimal deposito_Inicial_Ini, DateTime fecha_Desbloqueo, DateTime fecha_Envio, DateTime fecha_concluida, string existeTKT)
+        internal virtual Mac_Inserta_Respuesta Mac_Inserta_Datos(int id_ConsultorMac, int id_Solicitud, int id_Tramite, int puntos, string circuito, string cuenta_Cliente, string sufijo_Kapiti, byte tipo_Persona, string nombre_Cliente, string apellido_Paterno, string apellido_Materno, decimal deposito_Inicial, string numero_Registro, string nombre_Promotor, string banca, string division, string plaza, string sucursal, string status, int num_Solicitud, DateTime fechaRepc_Doc, TimeSpan horaRepc_Doc, DateTime fechaAnalisis_Mac, TimeSpan horaAnalisis_Mac, DateTime fechaFormalizada, TimeSpan horaFormalizada, DateTime fechaRepc_Originales, TimeSpan horaRepc_Originales, DateTime fechaAten_Originales, TimeSpan horaAten_Originales, string originales, decimal deposito_Inicial_Ini, DateTime fecha_Desbloqueo, DateTime fecha_Envio, DateTime fecha_concluida, string existeTKT, List<OBSERVACIONES> lstObservaciones)
         {
             DateTime FechaHoraCaptura = default;
             decimal Deposito_Inicial_Tkt;
@@ -101,17 +101,31 @@ namespace GOMAC.Data
                             Sucursal = sucursal.ToUpper(),
                             Status = status.ToUpper(),
                             Fecha_Captura = DateTime.Now,
-                            ExisteTKT = existeTKT
-                            
+                            ExisteTKT = existeTKT,
                         };
 
                         context.SEGUIMIENTO.Add(nuevo_seguimiento);
                         afectados = context.SaveChanges();
 
 
+                        context.OBSERVACIONES.AddRange(lstObservaciones);
+                        context.SaveChanges();
+
                         SEGUIMIENTO seguimiento_guardado = context.SEGUIMIENTO.Where(w => w.Num_Solicitud == nuevo_seguimiento.Num_Solicitud).FirstOrDefault();
 
-                        if(seguimiento_guardado != null)
+
+                        List<SEGUIMIENTO_OBSERVACIONES> observaciones_seg = new List<SEGUIMIENTO_OBSERVACIONES>();
+
+                        foreach (OBSERVACIONES observacion in lstObservaciones)
+                        {
+                            observaciones_seg.Add(new SEGUIMIENTO_OBSERVACIONES { Num_Solicitud = seguimiento_guardado.Num_Solicitud, Id_Observacion = observacion.Id_Observacion });
+                        }
+
+
+                        context.SEGUIMIENTO_OBSERVACIONES.AddRange(observaciones_seg);
+                        context.SaveChanges();
+
+                        if (seguimiento_guardado != null)
                         {
                             SEGUIMIENTO_DOCTOS nuevo_seguimientodoctos = new SEGUIMIENTO_DOCTOS
                             {

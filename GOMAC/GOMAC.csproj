@@ -240,6 +240,9 @@
     <Compile Include="Models\SEGUIMIENTO_DOCTOS.cs">
       <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SEGUIMIENTO_OBSERVACIONES.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_buscarsolicitud_Result.cs">
       <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
