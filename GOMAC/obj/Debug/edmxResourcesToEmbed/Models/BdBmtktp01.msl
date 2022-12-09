@@ -82,7 +82,6 @@
     <EntitySetMapping Name="OBSERVACIONES">
       <EntityTypeMapping TypeName="bmtktp01Model.OBSERVACIONES">
         <MappingFragment StoreEntitySet="OBSERVACIONES">
-          <ScalarProperty Name="Num_Solicitud" ColumnName="Num_Solicitud" />
           <ScalarProperty Name="Observaciones1" ColumnName="Observaciones" />
           <ScalarProperty Name="Fecha_Observ" ColumnName="Fecha_Observ" />
           <ScalarProperty Name="Id_Observacion" ColumnName="Id_Observacion" />
@@ -424,5 +423,249 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="SEGUIMIENTO_OBSERVACIONES" TypeName="bmtktp01Model.SEGUIMIENTO_OBSERVACIONES" StoreEntitySet="SEGUIMIENTO_OBSERVACIONES">
+      <EndProperty Name="OBSERVACIONES">
+        <ScalarProperty Name="Id_Observacion" ColumnName="Id_Observacion" />
+      </EndProperty>
+      <EndProperty Name="SEGUIMIENTO">
+        <ScalarProperty Name="Num_Solicitud" ColumnName="Num_Solicitud" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="dt_addtosourcecontrol" FunctionName="bmtktp01Model.Store.dt_addtosourcecontrol" />
+    <FunctionImportMapping FunctionImportName="dt_addtosourcecontrol_u" FunctionName="bmtktp01Model.Store.dt_addtosourcecontrol_u" />
+    <FunctionImportMapping FunctionImportName="dt_adduserobject" FunctionName="bmtktp01Model.Store.dt_adduserobject" />
+    <FunctionImportMapping FunctionImportName="dt_adduserobject_vcs" FunctionName="bmtktp01Model.Store.dt_adduserobject_vcs" />
+    <FunctionImportMapping FunctionImportName="dt_checkinobject" FunctionName="bmtktp01Model.Store.dt_checkinobject" />
+    <FunctionImportMapping FunctionImportName="dt_checkinobject_u" FunctionName="bmtktp01Model.Store.dt_checkinobject_u" />
+    <FunctionImportMapping FunctionImportName="dt_checkoutobject" FunctionName="bmtktp01Model.Store.dt_checkoutobject" />
+    <FunctionImportMapping FunctionImportName="dt_checkoutobject_u" FunctionName="bmtktp01Model.Store.dt_checkoutobject_u" />
+    <FunctionImportMapping FunctionImportName="dt_displayoaerror" FunctionName="bmtktp01Model.Store.dt_displayoaerror" />
+    <FunctionImportMapping FunctionImportName="dt_displayoaerror_u" FunctionName="bmtktp01Model.Store.dt_displayoaerror_u" />
+    <FunctionImportMapping FunctionImportName="dt_droppropertiesbyid" FunctionName="bmtktp01Model.Store.dt_droppropertiesbyid" />
+    <FunctionImportMapping FunctionImportName="dt_dropuserobjectbyid" FunctionName="bmtktp01Model.Store.dt_dropuserobjectbyid" />
+    <FunctionImportMapping FunctionImportName="dt_generateansiname" FunctionName="bmtktp01Model.Store.dt_generateansiname" />
+    <FunctionImportMapping FunctionImportName="dt_getobjwithprop" FunctionName="bmtktp01Model.Store.dt_getobjwithprop" />
+    <FunctionImportMapping FunctionImportName="dt_getobjwithprop_u" FunctionName="bmtktp01Model.Store.dt_getobjwithprop_u" />
+    <FunctionImportMapping FunctionImportName="dt_getpropertiesbyid" FunctionName="bmtktp01Model.Store.dt_getpropertiesbyid">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.dt_getpropertiesbyid_Result">
+          <ScalarProperty Name="property" ColumnName="property" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="lvalue" ColumnName="lvalue" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="dt_getpropertiesbyid_u" FunctionName="bmtktp01Model.Store.dt_getpropertiesbyid_u">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.dt_getpropertiesbyid_u_Result">
+          <ScalarProperty Name="property" ColumnName="property" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="uvalue" ColumnName="uvalue" />
+          <ScalarProperty Name="lvalue" ColumnName="lvalue" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="dt_getpropertiesbyid_vcs" FunctionName="bmtktp01Model.Store.dt_getpropertiesbyid_vcs" />
+    <FunctionImportMapping FunctionImportName="dt_getpropertiesbyid_vcs_u" FunctionName="bmtktp01Model.Store.dt_getpropertiesbyid_vcs_u" />
+    <FunctionImportMapping FunctionImportName="dt_isundersourcecontrol" FunctionName="bmtktp01Model.Store.dt_isundersourcecontrol" />
+    <FunctionImportMapping FunctionImportName="dt_isundersourcecontrol_u" FunctionName="bmtktp01Model.Store.dt_isundersourcecontrol_u" />
+    <FunctionImportMapping FunctionImportName="dt_removefromsourcecontrol" FunctionName="bmtktp01Model.Store.dt_removefromsourcecontrol" />
+    <FunctionImportMapping FunctionImportName="dt_setpropertybyid" FunctionName="bmtktp01Model.Store.dt_setpropertybyid" />
+    <FunctionImportMapping FunctionImportName="dt_setpropertybyid_u" FunctionName="bmtktp01Model.Store.dt_setpropertybyid_u" />
+    <FunctionImportMapping FunctionImportName="dt_validateloginparams" FunctionName="bmtktp01Model.Store.dt_validateloginparams" />
+    <FunctionImportMapping FunctionImportName="dt_validateloginparams_u" FunctionName="bmtktp01Model.Store.dt_validateloginparams_u" />
+    <FunctionImportMapping FunctionImportName="dt_vcsenabled" FunctionName="bmtktp01Model.Store.dt_vcsenabled" />
+    <FunctionImportMapping FunctionImportName="dt_verstamp006" FunctionName="bmtktp01Model.Store.dt_verstamp006" />
+    <FunctionImportMapping FunctionImportName="dt_whocheckedout" FunctionName="bmtktp01Model.Store.dt_whocheckedout" />
+    <FunctionImportMapping FunctionImportName="dt_whocheckedout_u" FunctionName="bmtktp01Model.Store.dt_whocheckedout_u" />
+    <FunctionImportMapping FunctionImportName="Mac_Actualiza_Datos" FunctionName="bmtktp01Model.Store.Mac_Actualiza_Datos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.Mac_Actualiza_Datos_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="Column2" ColumnName="Column2" />
+          <ScalarProperty Name="Column3" ColumnName="Column3" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Mac_Cancela" FunctionName="bmtktp01Model.Store.Mac_Cancela">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.Mac_Cancela_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="Column2" ColumnName="Column2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Mac_Consecutivo" FunctionName="bmtktp01Model.Store.Mac_Consecutivo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.Mac_Consecutivo_Result">
+          <ScalarProperty Name="Solicitud" ColumnName="Solicitud" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Mac_DatosCliente" FunctionName="bmtktp01Model.Store.Mac_DatosCliente">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.Mac_DatosCliente_Result">
+          <ScalarProperty Name="SUFIJO_KAPITI" ColumnName="SUFIJO_KAPITI" />
+          <ScalarProperty Name="TIPO_PERSONA" ColumnName="TIPO_PERSONA" />
+          <ScalarProperty Name="NOMBRE_CLIENTE" ColumnName="NOMBRE_CLIENTE" />
+          <ScalarProperty Name="APELLIDO_PATERNO" ColumnName="APELLIDO_PATERNO" />
+          <ScalarProperty Name="APELLIDO_MATERNO" ColumnName="APELLIDO_MATERNO" />
+          <ScalarProperty Name="DEPOSITO_INICIAL" ColumnName="DEPOSITO_INICIAL" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Mac_DatosCuenta" FunctionName="bmtktp01Model.Store.Mac_DatosCuenta" />
+    <FunctionImportMapping FunctionImportName="Mac_DatosFuncionario" FunctionName="bmtktp01Model.Store.Mac_DatosFuncionario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.Mac_DatosFuncionario_Result">
+          <ScalarProperty Name="NUMERO_REGISTRO" ColumnName="NUMERO_REGISTRO" />
+          <ScalarProperty Name="PROMOTOR" ColumnName="PROMOTOR" />
+          <ScalarProperty Name="BANCA" ColumnName="BANCA" />
+          <ScalarProperty Name="DIVISION" ColumnName="DIVISION" />
+          <ScalarProperty Name="PLAZA" ColumnName="PLAZA" />
+          <ScalarProperty Name="SUCURSAL" ColumnName="SUCURSAL" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Mac_Inserta_Datos" FunctionName="bmtktp01Model.Store.Mac_Inserta_Datos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.Mac_Inserta_Datos_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="Column2" ColumnName="Column2" />
+          <ScalarProperty Name="Column3" ColumnName="Column3" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Mac_Inserta_Seguimiento" FunctionName="bmtktp01Model.Store.Mac_Inserta_Seguimiento" />
+    <FunctionImportMapping FunctionImportName="Mac_Obtiene_FechaServidor" FunctionName="bmtktp01Model.Store.Mac_Obtiene_FechaServidor" />
+    <FunctionImportMapping FunctionImportName="solicitud_cuenta" FunctionName="bmtktp01Model.Store.solicitud_cuenta" />
+    <FunctionImportMapping FunctionImportName="sp_a_kyc_obt_InfGralFun" FunctionName="bmtktp01Model.Store.sp_a_kyc_obt_InfGralFun" />
+    <FunctionImportMapping FunctionImportName="sp_actualiza_bloqueado_usuario" FunctionName="bmtktp01Model.Store.sp_actualiza_bloqueado_usuario" />
+    <FunctionImportMapping FunctionImportName="sp_actualiza_cierre_inesperado" FunctionName="bmtktp01Model.Store.sp_actualiza_cierre_inesperado" />
+    <FunctionImportMapping FunctionImportName="sp_actualiza_conectado_usuario" FunctionName="bmtktp01Model.Store.sp_actualiza_conectado_usuario" />
+    <FunctionImportMapping FunctionImportName="sp_actualiza_fecha_de_expiracion_usuario" FunctionName="bmtktp01Model.Store.sp_actualiza_fecha_de_expiracion_usuario" />
+    <FunctionImportMapping FunctionImportName="sp_actualiza_fechaexpira_usuario" FunctionName="bmtktp01Model.Store.sp_actualiza_fechaexpira_usuario" />
+    <FunctionImportMapping FunctionImportName="sp_actualiza_habilitado_usuario" FunctionName="bmtktp01Model.Store.sp_actualiza_habilitado_usuario" />
+    <FunctionImportMapping FunctionImportName="sp_actualiza_Perfil_sector" FunctionName="bmtktp01Model.Store.sp_actualiza_Perfil_sector" />
+    <FunctionImportMapping FunctionImportName="sp_actualiza_perfil_usuario" FunctionName="bmtktp01Model.Store.sp_actualiza_perfil_usuario" />
+    <FunctionImportMapping FunctionImportName="sp_actualiza_resetpwd" FunctionName="bmtktp01Model.Store.sp_actualiza_resetpwd" />
+    <FunctionImportMapping FunctionImportName="sp_actualizaconect" FunctionName="bmtktp01Model.Store.sp_actualizaconect" />
+    <FunctionImportMapping FunctionImportName="sp_actualizadocs" FunctionName="bmtktp01Model.Store.sp_actualizadocs" />
+    <FunctionImportMapping FunctionImportName="sp_actualizanuevoinicio" FunctionName="bmtktp01Model.Store.sp_actualizanuevoinicio" />
+    <FunctionImportMapping FunctionImportName="sp_actualizapwd" FunctionName="bmtktp01Model.Store.sp_actualizapwd" />
+    <FunctionImportMapping FunctionImportName="sp_actualizarsolicitud" FunctionName="bmtktp01Model.Store.sp_actualizarsolicitud" />
+    <FunctionImportMapping FunctionImportName="sp_alta_mov_perfil" FunctionName="bmtktp01Model.Store.sp_alta_mov_perfil" />
+    <FunctionImportMapping FunctionImportName="sp_alta_mov_usuario" FunctionName="bmtktp01Model.Store.sp_alta_mov_usuario" />
+    <FunctionImportMapping FunctionImportName="sp_Alta_perfil" FunctionName="bmtktp01Model.Store.sp_Alta_perfil" />
+    <FunctionImportMapping FunctionImportName="sp_altausuario" FunctionName="bmtktp01Model.Store.sp_altausuario" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="bmtktp01Model.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_buscarsolicitud" FunctionName="bmtktp01Model.Store.sp_buscarsolicitud">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.sp_buscarsolicitud_Result">
+          <ScalarProperty Name="Num_Solicitud" ColumnName="Num_Solicitud" />
+          <ScalarProperty Name="Cuenta_Cliente" ColumnName="Cuenta_Cliente" />
+          <ScalarProperty Name="Nombre_Cliente" ColumnName="Nombre_Cliente" />
+          <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
+          <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
+          <ScalarProperty Name="Id_Status" ColumnName="Id_Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_cierre_conecciones" FunctionName="bmtktp01Model.Store.sp_cierre_conecciones" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="bmtktp01Model.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_desconectar" FunctionName="bmtktp01Model.Store.sp_desconectar" />
+    <FunctionImportMapping FunctionImportName="sp_DIAS_FERIADOS" FunctionName="bmtktp01Model.Store.sp_DIAS_FERIADOS" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="bmtktp01Model.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="bmtktp01Model.Store.sp_helpdiagramdefinition" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="bmtktp01Model.Store.sp_helpdiagrams" />
+    <FunctionImportMapping FunctionImportName="sp_insertaconect" FunctionName="bmtktp01Model.Store.sp_insertaconect" />
+    <FunctionImportMapping FunctionImportName="sp_insertar_observaciones" FunctionName="bmtktp01Model.Store.sp_insertar_observaciones" />
+    <FunctionImportMapping FunctionImportName="SP_MAC_ConcatenarOBS" FunctionName="bmtktp01Model.Store.SP_MAC_ConcatenarOBS" />
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="bmtktp01Model.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_resetpwd" FunctionName="bmtktp01Model.Store.sp_resetpwd" />
+    <FunctionImportMapping FunctionImportName="sp_sectores" FunctionName="bmtktp01Model.Store.sp_sectores">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.sp_sectores_Result">
+          <ScalarProperty Name="id_sector" ColumnName="id_sector" />
+          <ScalarProperty Name="sector" ColumnName="sector" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_seguimiento" FunctionName="bmtktp01Model.Store.sp_seguimiento" />
+    <FunctionImportMapping FunctionImportName="sp_TIPO_STATUS" FunctionName="bmtktp01Model.Store.sp_TIPO_STATUS" />
+    <FunctionImportMapping FunctionImportName="sp_ultimaconect" FunctionName="bmtktp01Model.Store.sp_ultimaconect" />
+    <FunctionImportMapping FunctionImportName="sp_ultimaconect_mes" FunctionName="bmtktp01Model.Store.sp_ultimaconect_mes" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="bmtktp01Model.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="sp_verperfil_sector" FunctionName="bmtktp01Model.Store.sp_verperfil_sector">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.sp_verperfil_sector_Result">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="sector" ColumnName="sector" />
+          <ScalarProperty Name="permitido" ColumnName="permitido" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_verseguimientodoc" FunctionName="bmtktp01Model.Store.sp_verseguimientodoc">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.sp_verseguimientodoc_Result">
+          <ScalarProperty Name="Num_Solicitud" ColumnName="Num_Solicitud" />
+          <ScalarProperty Name="Fecha_Captura" ColumnName="Fecha_Captura" />
+          <ScalarProperty Name="Id_ConsultorMac" ColumnName="Id_ConsultorMac" />
+          <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
+          <ScalarProperty Name="Id_Tramite" ColumnName="Id_Tramite" />
+          <ScalarProperty Name="ExisteTKT" ColumnName="ExisteTKT" />
+          <ScalarProperty Name="Puntos" ColumnName="Puntos" />
+          <ScalarProperty Name="Circuito" ColumnName="Circuito" />
+          <ScalarProperty Name="Cuenta_Cliente" ColumnName="Cuenta_Cliente" />
+          <ScalarProperty Name="Sufijo_Kapiti" ColumnName="Sufijo_Kapiti" />
+          <ScalarProperty Name="Tipo_Persona" ColumnName="Tipo_Persona" />
+          <ScalarProperty Name="Nombre_Cliente" ColumnName="Nombre_Cliente" />
+          <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
+          <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
+          <ScalarProperty Name="Deposito_InicialTKT" ColumnName="Deposito_InicialTKT" />
+          <ScalarProperty Name="Numero_Registro" ColumnName="Numero_Registro" />
+          <ScalarProperty Name="Nombre_Promotor" ColumnName="Nombre_Promotor" />
+          <ScalarProperty Name="Banca" ColumnName="Banca" />
+          <ScalarProperty Name="Division" ColumnName="Division" />
+          <ScalarProperty Name="Plaza" ColumnName="Plaza" />
+          <ScalarProperty Name="Sucursal" ColumnName="Sucursal" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Num_Solicitud1" ColumnName="Num_Solicitud1" />
+          <ScalarProperty Name="Repc_Doc" ColumnName="Repc_Doc" />
+          <ScalarProperty Name="Analisis_Mac" ColumnName="Analisis_Mac" />
+          <ScalarProperty Name="Formalizada" ColumnName="Formalizada" />
+          <ScalarProperty Name="Repc_Originales" ColumnName="Repc_Originales" />
+          <ScalarProperty Name="Aten_Originales" ColumnName="Aten_Originales" />
+          <ScalarProperty Name="Originales" ColumnName="Originales" />
+          <ScalarProperty Name="Nivel_Servicico" ColumnName="Nivel_Servicico" />
+          <ScalarProperty Name="Deposito_Inicial" ColumnName="Deposito_Inicial" />
+          <ScalarProperty Name="Desbloqueo_Sistemas" ColumnName="Desbloqueo_Sistemas" />
+          <ScalarProperty Name="Envio_Agencia" ColumnName="Envio_Agencia" />
+          <ScalarProperty Name="Concluida" ColumnName="Concluida" />
+          <ScalarProperty Name="Cancelacion" ColumnName="Cancelacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_verseguimientodoc_observaciones" FunctionName="bmtktp01Model.Store.sp_verseguimientodoc_observaciones" />
+    <FunctionImportMapping FunctionImportName="sp_verusuario" FunctionName="bmtktp01Model.Store.sp_verusuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bmtktp01Model.sp_verusuario_Result">
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="pwd" ColumnName="pwd" />
+          <ScalarProperty Name="fechaexpira" ColumnName="fechaexpira" />
+          <ScalarProperty Name="fecha_de_expiracion" ColumnName="fecha_de_expiracion" />
+          <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+          <ScalarProperty Name="bloqueado" ColumnName="bloqueado" />
+          <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+          <ScalarProperty Name="conectado" ColumnName="conectado" />
+          <ScalarProperty Name="nuevoinicio" ColumnName="nuevoinicio" />
+          <ScalarProperty Name="resetpwd" ColumnName="resetpwd" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

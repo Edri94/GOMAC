@@ -87,11 +87,10 @@
     <Key>
       <PropertyRef Name="Id_Observacion" />
     </Key>
-    <Property Name="Num_Solicitud" Type="Int32" Nullable="false" />
     <Property Name="Observaciones1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Fecha_Observ" Type="DateTime" Precision="3" />
     <Property Name="Id_Observacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="SEGUIMIENTO" Relationship="Self.FK_OBSERVACIONES_SEGUIMIENTO" FromRole="OBSERVACIONES" ToRole="SEGUIMIENTO" />
+    <NavigationProperty Name="SEGUIMIENTO" Relationship="Self.SEGUIMIENTO_OBSERVACIONES" FromRole="OBSERVACIONES" ToRole="SEGUIMIENTO" />
   </EntityType>
   <EntityType Name="OPERACION_PIU">
     <Key>
@@ -146,10 +145,10 @@
     <Property Name="Plaza" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="Sucursal" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="OBSERVACIONES" Relationship="Self.FK_OBSERVACIONES_SEGUIMIENTO" FromRole="SEGUIMIENTO" ToRole="OBSERVACIONES" />
     <NavigationProperty Name="SEGUIMIENTO_DOCTOS" Relationship="Self.FK_SEGUIMIENTO_DOCTOS_SEGUIMIENTO" FromRole="SEGUIMIENTO" ToRole="SEGUIMIENTO_DOCTOS" />
     <NavigationProperty Name="TIPO_SOLICITUD" Relationship="Self.FK_SEGUIMIENTO_TIPO_SOLICITUD" FromRole="SEGUIMIENTO" ToRole="TIPO_SOLICITUD" />
     <NavigationProperty Name="TIPO_TRAMITE" Relationship="Self.FK_SEGUIMIENTO_TIPO_TRAMITE" FromRole="SEGUIMIENTO" ToRole="TIPO_TRAMITE" />
+    <NavigationProperty Name="OBSERVACIONES" Relationship="Self.SEGUIMIENTO_OBSERVACIONES" FromRole="SEGUIMIENTO" ToRole="OBSERVACIONES" />
   </EntityType>
   <EntityType Name="SEGUIMIENTO_DOCTOS">
     <Key>
@@ -588,18 +587,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_OBSERVACIONES_SEGUIMIENTO">
-    <End Role="SEGUIMIENTO" Type="Self.SEGUIMIENTO" Multiplicity="1" />
-    <End Role="OBSERVACIONES" Type="Self.OBSERVACIONES" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SEGUIMIENTO">
-        <PropertyRef Name="Num_Solicitud" />
-      </Principal>
-      <Dependent Role="OBSERVACIONES">
-        <PropertyRef Name="Num_Solicitud" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="fk_perfil">
     <End Role="PERFIL" Type="Self.PERFIL" Multiplicity="1" />
     <End Role="PERFIL_SECTOR" Type="Self.PERFIL_SECTOR" Multiplicity="*" />
@@ -671,6 +658,10 @@
         <PropertyRef Name="Id_Tramite" />
       </Dependent>
     </ReferentialConstraint>
+  </Association>
+  <Association Name="SEGUIMIENTO_OBSERVACIONES">
+    <End Role="OBSERVACIONES" Type="Self.OBSERVACIONES" Multiplicity="*" />
+    <End Role="SEGUIMIENTO" Type="Self.SEGUIMIENTO" Multiplicity="*" />
   </Association>
   <EntityContainer Name="bmtktp01Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="CONECT" EntityType="Self.CONECT" />
@@ -748,10 +739,6 @@
       <End Role="USUARIO" EntitySet="USUARIO" />
       <End Role="MOVIMIENTOS_USUARIO" EntitySet="MOVIMIENTOS_USUARIO" />
     </AssociationSet>
-    <AssociationSet Name="FK_OBSERVACIONES_SEGUIMIENTO" Association="Self.FK_OBSERVACIONES_SEGUIMIENTO">
-      <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
-      <End Role="OBSERVACIONES" EntitySet="OBSERVACIONES" />
-    </AssociationSet>
     <AssociationSet Name="fk_perfil" Association="Self.fk_perfil">
       <End Role="PERFIL" EntitySet="PERFIL" />
       <End Role="PERFIL_SECTOR" EntitySet="PERFIL_SECTOR" />
@@ -776,5 +763,560 @@
       <End Role="TIPO_TRAMITE" EntitySet="TIPO_TRAMITE" />
       <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
     </AssociationSet>
+    <AssociationSet Name="SEGUIMIENTO_OBSERVACIONES" Association="Self.SEGUIMIENTO_OBSERVACIONES">
+      <End Role="OBSERVACIONES" EntitySet="OBSERVACIONES" />
+      <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
+    </AssociationSet>
+    <FunctionImport Name="dt_addtosourcecontrol">
+      <Parameter Name="vchSourceSafeINI" Mode="In" Type="String" />
+      <Parameter Name="vchProjectName" Mode="In" Type="String" />
+      <Parameter Name="vchComment" Mode="In" Type="String" />
+      <Parameter Name="vchLoginName" Mode="In" Type="String" />
+      <Parameter Name="vchPassword" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_addtosourcecontrol_u">
+      <Parameter Name="vchSourceSafeINI" Mode="In" Type="String" />
+      <Parameter Name="vchProjectName" Mode="In" Type="String" />
+      <Parameter Name="vchComment" Mode="In" Type="String" />
+      <Parameter Name="vchLoginName" Mode="In" Type="String" />
+      <Parameter Name="vchPassword" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_adduserobject" />
+    <FunctionImport Name="dt_adduserobject_vcs">
+      <Parameter Name="vchProperty" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_checkinobject">
+      <Parameter Name="chObjectType" Mode="In" Type="String" />
+      <Parameter Name="vchObjectName" Mode="In" Type="String" />
+      <Parameter Name="vchComment" Mode="In" Type="String" />
+      <Parameter Name="vchLoginName" Mode="In" Type="String" />
+      <Parameter Name="vchPassword" Mode="In" Type="String" />
+      <Parameter Name="iVCSFlags" Mode="In" Type="Int32" />
+      <Parameter Name="iActionFlag" Mode="In" Type="Int32" />
+      <Parameter Name="txStream1" Mode="In" Type="String" />
+      <Parameter Name="txStream2" Mode="In" Type="String" />
+      <Parameter Name="txStream3" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_checkinobject_u">
+      <Parameter Name="chObjectType" Mode="In" Type="String" />
+      <Parameter Name="vchObjectName" Mode="In" Type="String" />
+      <Parameter Name="vchComment" Mode="In" Type="String" />
+      <Parameter Name="vchLoginName" Mode="In" Type="String" />
+      <Parameter Name="vchPassword" Mode="In" Type="String" />
+      <Parameter Name="iVCSFlags" Mode="In" Type="Int32" />
+      <Parameter Name="iActionFlag" Mode="In" Type="Int32" />
+      <Parameter Name="txStream1" Mode="In" Type="String" />
+      <Parameter Name="txStream2" Mode="In" Type="String" />
+      <Parameter Name="txStream3" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_checkoutobject">
+      <Parameter Name="chObjectType" Mode="In" Type="String" />
+      <Parameter Name="vchObjectName" Mode="In" Type="String" />
+      <Parameter Name="vchComment" Mode="In" Type="String" />
+      <Parameter Name="vchLoginName" Mode="In" Type="String" />
+      <Parameter Name="vchPassword" Mode="In" Type="String" />
+      <Parameter Name="iVCSFlags" Mode="In" Type="Int32" />
+      <Parameter Name="iActionFlag" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="dt_checkoutobject_u">
+      <Parameter Name="chObjectType" Mode="In" Type="String" />
+      <Parameter Name="vchObjectName" Mode="In" Type="String" />
+      <Parameter Name="vchComment" Mode="In" Type="String" />
+      <Parameter Name="vchLoginName" Mode="In" Type="String" />
+      <Parameter Name="vchPassword" Mode="In" Type="String" />
+      <Parameter Name="iVCSFlags" Mode="In" Type="Int32" />
+      <Parameter Name="iActionFlag" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="dt_displayoaerror">
+      <Parameter Name="iObject" Mode="In" Type="Int32" />
+      <Parameter Name="iresult" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="dt_displayoaerror_u">
+      <Parameter Name="iObject" Mode="In" Type="Int32" />
+      <Parameter Name="iresult" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="dt_droppropertiesbyid">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="property" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_dropuserobjectbyid">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="dt_generateansiname">
+      <Parameter Name="name" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_getobjwithprop" ReturnType="Collection(Int32)">
+      <Parameter Name="property" Mode="In" Type="String" />
+      <Parameter Name="value" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_getobjwithprop_u" ReturnType="Collection(Int32)">
+      <Parameter Name="property" Mode="In" Type="String" />
+      <Parameter Name="uvalue" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_getpropertiesbyid" ReturnType="Collection(bmtktp01Model.dt_getpropertiesbyid_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="property" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_getpropertiesbyid_u" ReturnType="Collection(bmtktp01Model.dt_getpropertiesbyid_u_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="property" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_getpropertiesbyid_vcs">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="property" Mode="In" Type="String" />
+      <Parameter Name="value" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_getpropertiesbyid_vcs_u">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="property" Mode="In" Type="String" />
+      <Parameter Name="value" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_isundersourcecontrol">
+      <Parameter Name="vchLoginName" Mode="In" Type="String" />
+      <Parameter Name="vchPassword" Mode="In" Type="String" />
+      <Parameter Name="iWhoToo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="dt_isundersourcecontrol_u">
+      <Parameter Name="vchLoginName" Mode="In" Type="String" />
+      <Parameter Name="vchPassword" Mode="In" Type="String" />
+      <Parameter Name="iWhoToo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="dt_removefromsourcecontrol" />
+    <FunctionImport Name="dt_setpropertybyid">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="property" Mode="In" Type="String" />
+      <Parameter Name="value" Mode="In" Type="String" />
+      <Parameter Name="lvalue" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="dt_setpropertybyid_u">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="property" Mode="In" Type="String" />
+      <Parameter Name="uvalue" Mode="In" Type="String" />
+      <Parameter Name="lvalue" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="dt_validateloginparams">
+      <Parameter Name="vchLoginName" Mode="In" Type="String" />
+      <Parameter Name="vchPassword" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_validateloginparams_u">
+      <Parameter Name="vchLoginName" Mode="In" Type="String" />
+      <Parameter Name="vchPassword" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_vcsenabled" />
+    <FunctionImport Name="dt_verstamp006" ReturnType="Collection(Int32)" />
+    <FunctionImport Name="dt_whocheckedout">
+      <Parameter Name="chObjectType" Mode="In" Type="String" />
+      <Parameter Name="vchObjectName" Mode="In" Type="String" />
+      <Parameter Name="vchLoginName" Mode="In" Type="String" />
+      <Parameter Name="vchPassword" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="dt_whocheckedout_u">
+      <Parameter Name="chObjectType" Mode="In" Type="String" />
+      <Parameter Name="vchObjectName" Mode="In" Type="String" />
+      <Parameter Name="vchLoginName" Mode="In" Type="String" />
+      <Parameter Name="vchPassword" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Mac_Actualiza_Datos" ReturnType="Collection(bmtktp01Model.Mac_Actualiza_Datos_Result)">
+      <Parameter Name="Num_Solicitud" Mode="In" Type="Int32" />
+      <Parameter Name="Id_ConsultorMac" Mode="In" Type="Int32" />
+      <Parameter Name="Id_Solicitud" Mode="In" Type="Int32" />
+      <Parameter Name="Id_Tramite" Mode="In" Type="Int32" />
+      <Parameter Name="Puntos" Mode="In" Type="Int32" />
+      <Parameter Name="Circuito" Mode="In" Type="String" />
+      <Parameter Name="Cuenta_Cliente" Mode="In" Type="String" />
+      <Parameter Name="Sufijo_Kapiti" Mode="In" Type="String" />
+      <Parameter Name="Tipo_Persona" Mode="In" Type="Byte" />
+      <Parameter Name="Nombre_Cliente" Mode="In" Type="String" />
+      <Parameter Name="Apellido_Paterno" Mode="In" Type="String" />
+      <Parameter Name="Apellido_Materno" Mode="In" Type="String" />
+      <Parameter Name="Deposito_Inicial" Mode="In" Type="String" />
+      <Parameter Name="Numero_Registro" Mode="In" Type="String" />
+      <Parameter Name="Nombre_Promotor" Mode="In" Type="String" />
+      <Parameter Name="Banca" Mode="In" Type="String" />
+      <Parameter Name="Division" Mode="In" Type="String" />
+      <Parameter Name="Plaza" Mode="In" Type="String" />
+      <Parameter Name="Sucursal" Mode="In" Type="String" />
+      <Parameter Name="Status" Mode="In" Type="String" />
+      <Parameter Name="FechaRepc_Doc" Mode="In" Type="String" />
+      <Parameter Name="HoraRepc_Doc" Mode="In" Type="String" />
+      <Parameter Name="FechaAnalisis_Mac" Mode="In" Type="String" />
+      <Parameter Name="HoraAnalisis_Mac" Mode="In" Type="String" />
+      <Parameter Name="FechaFormalizada" Mode="In" Type="String" />
+      <Parameter Name="HoraFormalizada" Mode="In" Type="String" />
+      <Parameter Name="FechaRepc_Originales" Mode="In" Type="String" />
+      <Parameter Name="HoraRepc_Originales" Mode="In" Type="String" />
+      <Parameter Name="FechaAten_Originales" Mode="In" Type="String" />
+      <Parameter Name="HoraAten_Originales" Mode="In" Type="String" />
+      <Parameter Name="Originales" Mode="In" Type="String" />
+      <Parameter Name="Deposito_Inicial_Ini" Mode="In" Type="Decimal" />
+      <Parameter Name="Fecha_Desbloqueo" Mode="In" Type="String" />
+      <Parameter Name="Fecha_Envio" Mode="In" Type="String" />
+      <Parameter Name="Fecha_concluida" Mode="In" Type="String" />
+      <Parameter Name="ExisteTKT" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Mac_Cancela" ReturnType="Collection(bmtktp01Model.Mac_Cancela_Result)">
+      <Parameter Name="Num_Solicitud" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Mac_Consecutivo" ReturnType="Collection(bmtktp01Model.Mac_Consecutivo_Result)" />
+    <FunctionImport Name="Mac_DatosCliente" ReturnType="Collection(bmtktp01Model.Mac_DatosCliente_Result)">
+      <Parameter Name="CUENTA_CLIENTE" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Mac_DatosCuenta">
+      <Parameter Name="CUENTA_CLIENTE" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Mac_DatosFuncionario" ReturnType="Collection(bmtktp01Model.Mac_DatosFuncionario_Result)">
+      <Parameter Name="NUMERO_FUNCIONARIO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Mac_Inserta_Datos" ReturnType="Collection(bmtktp01Model.Mac_Inserta_Datos_Result)">
+      <Parameter Name="Id_ConsultorMac" Mode="In" Type="Int32" />
+      <Parameter Name="Id_Solicitud" Mode="In" Type="Int32" />
+      <Parameter Name="Id_Tramite" Mode="In" Type="Int32" />
+      <Parameter Name="Puntos" Mode="In" Type="Int32" />
+      <Parameter Name="Circuito" Mode="In" Type="String" />
+      <Parameter Name="Cuenta_Cliente" Mode="In" Type="String" />
+      <Parameter Name="Sufijo_Kapiti" Mode="In" Type="String" />
+      <Parameter Name="Tipo_Persona" Mode="In" Type="Byte" />
+      <Parameter Name="Nombre_Cliente" Mode="In" Type="String" />
+      <Parameter Name="Apellido_Paterno" Mode="In" Type="String" />
+      <Parameter Name="Apellido_Materno" Mode="In" Type="String" />
+      <Parameter Name="Deposito_Inicial" Mode="In" Type="String" />
+      <Parameter Name="Numero_Registro" Mode="In" Type="String" />
+      <Parameter Name="Nombre_Promotor" Mode="In" Type="String" />
+      <Parameter Name="Banca" Mode="In" Type="String" />
+      <Parameter Name="Division" Mode="In" Type="String" />
+      <Parameter Name="Plaza" Mode="In" Type="String" />
+      <Parameter Name="Sucursal" Mode="In" Type="String" />
+      <Parameter Name="Status" Mode="In" Type="String" />
+      <Parameter Name="Num_Solicitud" Mode="In" Type="Int32" />
+      <Parameter Name="FechaRepc_Doc" Mode="In" Type="String" />
+      <Parameter Name="HoraRepc_Doc" Mode="In" Type="String" />
+      <Parameter Name="FechaAnalisis_Mac" Mode="In" Type="String" />
+      <Parameter Name="HoraAnalisis_Mac" Mode="In" Type="String" />
+      <Parameter Name="FechaFormalizada" Mode="In" Type="String" />
+      <Parameter Name="HoraFormalizada" Mode="In" Type="String" />
+      <Parameter Name="FechaRepc_Originales" Mode="In" Type="String" />
+      <Parameter Name="HoraRepc_Originales" Mode="In" Type="String" />
+      <Parameter Name="FechaAten_Originales" Mode="In" Type="String" />
+      <Parameter Name="HoraAten_Originales" Mode="In" Type="String" />
+      <Parameter Name="Originales" Mode="In" Type="String" />
+      <Parameter Name="Deposito_Inicial_Ini" Mode="In" Type="Decimal" />
+      <Parameter Name="Fecha_Desbloqueo" Mode="In" Type="String" />
+      <Parameter Name="Fecha_Envio" Mode="In" Type="String" />
+      <Parameter Name="Fecha_concluida" Mode="In" Type="String" />
+      <Parameter Name="ExisteTKT" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Mac_Inserta_Seguimiento">
+      <Parameter Name="Num_Solicitud" Mode="In" Type="Int32" />
+      <Parameter Name="FechaFormalizada" Mode="In" Type="String" />
+      <Parameter Name="HoraFormalizada" Mode="In" Type="String" />
+      <Parameter Name="FechaRepc_Originales" Mode="In" Type="String" />
+      <Parameter Name="HoraRepc_Originales" Mode="In" Type="String" />
+      <Parameter Name="FechaAten_Originales" Mode="In" Type="String" />
+      <Parameter Name="HoraAten_Originales" Mode="In" Type="String" />
+      <Parameter Name="Originales" Mode="In" Type="String" />
+      <Parameter Name="Deposito_Inicial_Ini" Mode="In" Type="String" />
+      <Parameter Name="Fecha_Desbloqueo" Mode="In" Type="String" />
+      <Parameter Name="Fecha_Envio" Mode="In" Type="String" />
+      <Parameter Name="Fecha_concluida" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Mac_Obtiene_FechaServidor" ReturnType="Collection(DateTime)" />
+    <FunctionImport Name="solicitud_cuenta" />
+    <FunctionImport Name="sp_a_kyc_obt_InfGralFun">
+      <Parameter Name="CD_FUN" Mode="In" Type="Int32" />
+      <Parameter Name="CD_NUM_FUN" Mode="InOut" Type="String" />
+      <Parameter Name="NB_NOMBRE" Mode="InOut" Type="String" />
+      <Parameter Name="NB_BANCA" Mode="InOut" Type="String" />
+      <Parameter Name="NB_PLAZA" Mode="InOut" Type="String" />
+      <Parameter Name="NB_SUCURS" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualiza_bloqueado_usuario" ReturnType="Collection(Int32)">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="bloqueado" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualiza_cierre_inesperado">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="tiempo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualiza_conectado_usuario" ReturnType="Collection(Int32)">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="conect" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualiza_fecha_de_expiracion_usuario">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="fecha_de_expiracion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualiza_fechaexpira_usuario" ReturnType="Collection(Int32)">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="fechaexpira" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualiza_habilitado_usuario" ReturnType="Collection(Int32)">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="habilitado" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualiza_Perfil_sector" ReturnType="Collection(Int32)">
+      <Parameter Name="perfil" Mode="In" Type="String" />
+      <Parameter Name="sector" Mode="In" Type="Int32" />
+      <Parameter Name="permitido" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualiza_perfil_usuario">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="perfil" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualiza_resetpwd">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="rpwd" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualizaconect">
+      <Parameter Name="iduser" Mode="In" Type="Int32" />
+      <Parameter Name="fechaconect" Mode="In" Type="String" />
+      <Parameter Name="horaconect" Mode="In" Type="String" />
+      <Parameter Name="fechadesconect" Mode="In" Type="String" />
+      <Parameter Name="horadesconect" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualizadocs" ReturnType="Collection(String)">
+      <Parameter Name="status" Mode="In" Type="Int32" />
+      <Parameter Name="solicitud" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualizanuevoinicio">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="nuevo" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualizapwd" ReturnType="Collection(Int32)">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="newpwd" Mode="In" Type="String" />
+      <Parameter Name="oldpwd" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_actualizarsolicitud" ReturnType="Collection(Int32)">
+      <Parameter Name="numerosoli" Mode="In" Type="Int32" />
+      <Parameter Name="status" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alta_mov_perfil">
+      <Parameter Name="perfil" Mode="In" Type="String" />
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="id_mov" Mode="In" Type="Int32" />
+      <Parameter Name="id_sector" Mode="In" Type="Int32" />
+      <Parameter Name="permisoanterio" Mode="In" Type="String" />
+      <Parameter Name="permisoactual" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alta_mov_usuario">
+      <Parameter Name="loginmodificador" Mode="In" Type="String" />
+      <Parameter Name="loginmodificado" Mode="In" Type="String" />
+      <Parameter Name="movimiento" Mode="In" Type="String" />
+      <Parameter Name="datosanterio" Mode="In" Type="String" />
+      <Parameter Name="datosctual" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Alta_perfil" ReturnType="Collection(Int32)">
+      <Parameter Name="nombreperfil" Mode="In" Type="String" />
+      <Parameter Name="sector" Mode="In" Type="String" />
+      <Parameter Name="permitido" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="sp_altausuario" ReturnType="Collection(Int32)">
+      <Parameter Name="nombreperfil" Mode="In" Type="String" />
+      <Parameter Name="iniciales" Mode="In" Type="String" />
+      <Parameter Name="nombre" Mode="In" Type="String" />
+      <Parameter Name="appaterno" Mode="In" Type="String" />
+      <Parameter Name="apmaterno" Mode="In" Type="String" />
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="fechaexpira" Mode="In" Type="Int32" />
+      <Parameter Name="fecha_de_expiracion" Mode="In" Type="String" />
+      <Parameter Name="habilitado" Mode="In" Type="Boolean" />
+      <Parameter Name="bloqueado" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_buscarsolicitud" ReturnType="Collection(bmtktp01Model.sp_buscarsolicitud_Result)">
+      <Parameter Name="numerosoli" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_cierre_conecciones" />
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_desconectar">
+      <Parameter Name="login" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DIAS_FERIADOS">
+      <Parameter Name="fecha" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_insertaconect">
+      <Parameter Name="iduser" Mode="In" Type="Int32" />
+      <Parameter Name="equipo" Mode="In" Type="String" />
+      <Parameter Name="ip" Mode="In" Type="String" />
+      <Parameter Name="fechaconect" Mode="In" Type="String" />
+      <Parameter Name="horaconect" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_insertar_observaciones">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="texto" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_MAC_ConcatenarOBS">
+      <Parameter Name="Num_Solicitud" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_resetpwd" ReturnType="Collection(Int32)">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="fecha" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_sectores" ReturnType="Collection(bmtktp01Model.sp_sectores_Result)" />
+    <FunctionImport Name="sp_seguimiento" />
+    <FunctionImport Name="sp_TIPO_STATUS" />
+    <FunctionImport Name="sp_ultimaconect" ReturnType="Collection(Int32)">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="fecha" Mode="In" Type="String" />
+      <Parameter Name="mes" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ultimaconect_mes" ReturnType="Collection(Int32)">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="fecha" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="sp_verperfil_sector" ReturnType="Collection(bmtktp01Model.sp_verperfil_sector_Result)">
+      <Parameter Name="nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_verseguimientodoc" ReturnType="Collection(bmtktp01Model.sp_verseguimientodoc_Result)">
+      <Parameter Name="solicitud" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_verseguimientodoc_observaciones">
+      <Parameter Name="solicitud" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_verusuario" ReturnType="Collection(bmtktp01Model.sp_verusuario_Result)">
+      <Parameter Name="login2" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="dt_getpropertiesbyid_Result">
+    <Property Type="String" Name="property" Nullable="false" MaxLength="64" />
+    <Property Type="Int32" Name="version" Nullable="false" />
+    <Property Type="String" Name="value" Nullable="true" MaxLength="255" />
+    <Property Type="Binary" Name="lvalue" Nullable="true" MaxLength="Max" />
+  </ComplexType>
+  <ComplexType Name="dt_getpropertiesbyid_u_Result">
+    <Property Type="String" Name="property" Nullable="false" MaxLength="64" />
+    <Property Type="Int32" Name="version" Nullable="false" />
+    <Property Type="String" Name="uvalue" Nullable="true" MaxLength="255" />
+    <Property Type="Binary" Name="lvalue" Nullable="true" MaxLength="Max" />
+  </ComplexType>
+  <ComplexType Name="Mac_Actualiza_Datos_Result">
+    <Property Type="String" Name="Column1" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="Column2" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Column3" Nullable="true" MaxLength="5" />
+  </ComplexType>
+  <ComplexType Name="Mac_Cancela_Result">
+    <Property Type="Int32" Name="Column1" Nullable="false" />
+    <Property Type="String" Name="Column2" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="Mac_Consecutivo_Result">
+    <Property Type="Int32" Name="Solicitud" Nullable="false" />
+    <Property Type="String" Name="Fecha" Nullable="true" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="Mac_DatosCliente_Result">
+    <Property Type="String" Name="SUFIJO_KAPITI" Nullable="false" MaxLength="3" />
+    <Property Type="Byte" Name="TIPO_PERSONA" Nullable="false" />
+    <Property Type="String" Name="NOMBRE_CLIENTE" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="APELLIDO_PATERNO" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="APELLIDO_MATERNO" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="DEPOSITO_INICIAL" Nullable="false" Precision="16" Scale="6" />
+  </ComplexType>
+  <ComplexType Name="Mac_DatosFuncionario_Result">
+    <Property Type="String" Name="NUMERO_REGISTRO" Nullable="false" MaxLength="8" />
+    <Property Type="String" Name="PROMOTOR" Nullable="true" MaxLength="77" />
+    <Property Type="String" Name="BANCA" Nullable="true" MaxLength="75" />
+    <Property Type="String" Name="DIVISION" Nullable="true" MaxLength="75" />
+    <Property Type="String" Name="PLAZA" Nullable="true" MaxLength="75" />
+    <Property Type="String" Name="SUCURSAL" Nullable="true" MaxLength="75" />
+  </ComplexType>
+  <ComplexType Name="Mac_Inserta_Datos_Result">
+    <Property Type="String" Name="Column1" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="Column2" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Column3" Nullable="true" MaxLength="5" />
+  </ComplexType>
+  <ComplexType Name="sp_buscarsolicitud_Result">
+    <Property Type="Int32" Name="Num_Solicitud" Nullable="false" />
+    <Property Type="String" Name="Cuenta_Cliente" Nullable="true" MaxLength="6" />
+    <Property Type="String" Name="Nombre_Cliente" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="Apellido_Paterno" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Apellido_Materno" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="Id_Status" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_sectores_Result">
+    <Property Type="Int32" Name="id_sector" Nullable="false" />
+    <Property Type="String" Name="sector" Nullable="false" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="sp_verperfil_sector_Result">
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="sector" Nullable="false" MaxLength="10" />
+    <Property Type="Boolean" Name="permitido" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_verseguimientodoc_Result">
+    <Property Type="Int32" Name="Num_Solicitud" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha_Captura" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Id_ConsultorMac" Nullable="true" />
+    <Property Type="Int32" Name="Id_Solicitud" Nullable="true" />
+    <Property Type="Int32" Name="Id_Tramite" Nullable="true" />
+    <Property Type="String" Name="ExisteTKT" Nullable="true" MaxLength="1" />
+    <Property Type="Int32" Name="Puntos" Nullable="true" />
+    <Property Type="String" Name="Circuito" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="Cuenta_Cliente" Nullable="true" MaxLength="6" />
+    <Property Type="String" Name="Sufijo_Kapiti" Nullable="true" MaxLength="3" />
+    <Property Type="Byte" Name="Tipo_Persona" Nullable="true" />
+    <Property Type="String" Name="Nombre_Cliente" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="Apellido_Paterno" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Apellido_Materno" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="Deposito_InicialTKT" Nullable="true" Precision="19" />
+    <Property Type="String" Name="Numero_Registro" Nullable="true" MaxLength="8" />
+    <Property Type="String" Name="Nombre_Promotor" Nullable="true" MaxLength="80" />
+    <Property Type="String" Name="Banca" Nullable="true" MaxLength="45" />
+    <Property Type="String" Name="Division" Nullable="true" MaxLength="45" />
+    <Property Type="String" Name="Plaza" Nullable="true" MaxLength="45" />
+    <Property Type="String" Name="Sucursal" Nullable="true" MaxLength="45" />
+    <Property Type="String" Name="Status" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="Num_Solicitud1" Nullable="false" />
+    <Property Type="DateTime" Name="Repc_Doc" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="Analisis_Mac" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="Formalizada" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="Repc_Originales" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="Aten_Originales" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Originales" Nullable="true" MaxLength="2" />
+    <Property Type="String" Name="Nivel_Servicico" Nullable="true" MaxLength="5" />
+    <Property Type="Decimal" Name="Deposito_Inicial" Nullable="true" Precision="19" Scale="4" />
+    <Property Type="DateTime" Name="Desbloqueo_Sistemas" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="Envio_Agencia" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="Concluida" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="Cancelacion" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_verusuario_Result">
+    <Property Type="Int32" Name="id_usuario" Nullable="false" />
+    <Property Type="Int32" Name="id_perfil" Nullable="false" />
+    <Property Type="String" Name="login" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="pwd" Nullable="false" MaxLength="4000" />
+    <Property Type="Boolean" Name="fechaexpira" Nullable="false" />
+    <Property Type="String" Name="fecha_de_expiracion" Nullable="true" MaxLength="10" />
+    <Property Type="Boolean" Name="habilitado" Nullable="false" />
+    <Property Type="Boolean" Name="bloqueado" Nullable="false" />
+    <Property Type="String" Name="fechacreacion" Nullable="true" MaxLength="10" />
+    <Property Type="Boolean" Name="conectado" Nullable="false" />
+    <Property Type="Boolean" Name="nuevoinicio" Nullable="true" />
+    <Property Type="Boolean" Name="resetpwd" Nullable="true" />
+  </ComplexType>
 </Schema>

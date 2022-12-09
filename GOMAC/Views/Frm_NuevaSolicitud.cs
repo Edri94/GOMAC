@@ -1031,7 +1031,7 @@ namespace GOMAC.Views
                     }
                     else if (btnGuardar.Text == "Modificar")
                     {
-                        if (MessageBox.Show($"Esta seguro de querer cancelar la solicitud No. {frmp.solicitud_selec.Num_Solicitud}", "Confirmar cancelacion", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show($"¿Esta seguro que desea modificar la informacion del No. de folio: {frmp.solicitud_selec.Num_Solicitud}", "Alerta modificacion", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             if (dtpFAnalisisMac.Value != default_dtp)
                             {
@@ -1101,7 +1101,7 @@ namespace GOMAC.Views
                             string nombre_Cliente = txtNombre.Text;
                             string apellido_Paterno = txtApellidoP.Text;
                             string apellido_Materno = txtApellidoM.Text;
-                            decimal deposito_Inicial = decimal.Parse(TxtDepositoTkt.Text);
+                            decimal deposito_Inicial = decimal.Parse(TxtDepositoTkt.Text.Replace("$", ""));
                             string numero_Registro = cmbNumeroFuncionario.Text;
                             string nombre_Promotor = cmbPromotor.Text;
                             string banca = cmbBanca.Text;
@@ -1120,7 +1120,7 @@ namespace GOMAC.Views
                             DateTime fechaAten_Originales = dtpFAtencion.Value; ;
                             TimeSpan horaAten_Originales = new TimeSpan(Int32.Parse(cmbHora5.SelectedValue.ToString()), Int32.Parse(cmbMinuto5.SelectedValue.ToString()), 0);
                             string originales = "-1";
-                            decimal deposito_Inicial_Ini = decimal.Parse(txtDepositoIni.Text);
+                            decimal deposito_Inicial_Ini = decimal.Parse(txtDepositoIni.Text.Replace("$", ""));
                             DateTime fecha_Desbloqueo = dtpDesbloqueo.Value;
                             DateTime fecha_Envio = dtpEnvio.Value;
                             DateTime fecha_concluida = dtpConcluir.Value;
@@ -1203,7 +1203,7 @@ namespace GOMAC.Views
                                 foreach (DataGridViewRow fila in dtgvwObservaciones.Rows)
                                 {
                                     int insertado = 0;
-                                    OBSERVACIONES observacion = new OBSERVACIONES { Num_Solicitud = frmp.solicitud_selec.Num_Solicitud, Observaciones1 = fila.Cells[""].Value.ToString(), Fecha_Observ = DateTime.Now };
+                                    OBSERVACIONES observacion = new OBSERVACIONES { SEGUIMIENTO = (ICollection<SEGUIMIENTO>)frmp.solicitud_selec, Observaciones1 = fila.Cells[""].Value.ToString(), Fecha_Observ = DateTime.Now };
 
                                     bdbmtktp01.OBSERVACIONES.Add(observacion);
 
@@ -1273,7 +1273,7 @@ namespace GOMAC.Views
             if(frm.observacion != "")
             {
              
-                lst_observaciones.Add(new OBSERVACIONES { Num_Solicitud = frmp.solicitud_selec.Num_Solicitud, Fecha_Observ = DateTime.Now, Observaciones1 = frm.observacion });
+                lst_observaciones.Add(new OBSERVACIONES { SEGUIMIENTO = (ICollection<SEGUIMIENTO>)frmp.solicitud_selec, Fecha_Observ = DateTime.Now, Observaciones1 = frm.observacion });
                 
 
                 DataTable dt = new DataTable();
@@ -1425,17 +1425,17 @@ namespace GOMAC.Views
             {
                 this.Text = "Consulta de Solicitudes Sistema GO-MAC";
 
-                switch (lblStatus.Text)
-                {
-                    case "Nueva":
-                        CargaConsulta();
-                        break;
+                //switch (lblStatus.Text)
+                //{
+                //    case "Nueva":
+                //        CargaConsulta();
+                //        break;
 
-                    default:
-                        MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        this.Close();
-                        break;
-                }
+                //    default:
+                //        MessageBox.Show("!!!  No se pudo cargar la informacion, intente nueva mente.  ¡¡¡", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //        this.Close();
+                //        break;
+                //}
             }
 
             if (frmp.activa == 1)
@@ -1721,6 +1721,7 @@ namespace GOMAC.Views
                     btnFAtencion.Enabled = true;
 
                 }
+                return;
 
             }
             else
@@ -1728,7 +1729,7 @@ namespace GOMAC.Views
                 switch (lblStatus.Text)
                 {
                     case "Nueva":
-                        MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("¡No se pudo cargar la informacion, intente nueva mente!", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         this.Close();
                     break;
                 }
@@ -1783,7 +1784,7 @@ namespace GOMAC.Views
                 //FrmNombreCliente.MousePointer = 11
 
                 txtSolicitud.Text = frmp.solicitud_selec.Num_Solicitud.ToString();
-                CargaConsulta();
+                //CargaConsulta();
 
                 //Me.MousePointer = 0
                 //Frame2.MousePointer = 0
@@ -1910,7 +1911,7 @@ namespace GOMAC.Views
                 //LlenaComboProducto();
                 List<PRODUCTOS> productos = bdCatalogos.PRODUCTOS.OrderBy(o => o.Producto).ToList();
                 productos.Insert(0, new PRODUCTOS { Producto = ". . .  " });
-                LlenaCombo(cmbProducto, productos, "Id_Producto", "Producto");
+                LlenaCombo(cmbProducto, productos, "Producto", "Producto");
 
 
                 //LlenaComboTipoSolicitud();
@@ -2147,9 +2148,12 @@ namespace GOMAC.Views
                     //Datos Cuenta
                     dtpFechaCaptura.Value = (seguimiento_doc.Fecha_Captura.HasValue) ? seguimiento_doc.Fecha_Captura.Value : dtpFechaCaptura.MinDate;
 
-                    cmbConsultorMac.SelectedIndex = (seguimiento_doc.Id_ConsultorMac.HasValue) ? seguimiento_doc.Id_ConsultorMac.Value : -1;
+                    //cmbConsultorMac.SelectedIndex = (seguimiento_doc.Id_ConsultorMac.HasValue) ? seguimiento_doc.Id_ConsultorMac.Value : -1;
+                    cmbConsultorMac.SelectedValue = (seguimiento_doc.Id_ConsultorMac.HasValue) ? frmp.consultor_selec.Id_ConsultorMac : default;
 
-                    cmbTipoSolicitud.SelectedIndex = (seguimiento_doc.Id_Solicitud.HasValue) ? seguimiento_doc.Id_Solicitud.Value : -1;
+                    cmbTipoSolicitud.SelectedValue = (seguimiento_doc.Id_Solicitud.HasValue) ? seguimiento_doc.Id_Solicitud.Value : -1;
+
+                    
 
 
                     if (seguimiento_doc.ExisteTKT.ToUpper() == "S")
@@ -2282,7 +2286,7 @@ namespace GOMAC.Views
                     txtCuenta.Tag = 1;
                     txtCuenta.Text = seguimiento_doc.Cuenta_Cliente;
 
-                    cmbProducto.SelectedText = seguimiento_doc.Sufijo_Kapiti;
+                    cmbProducto.SelectedValue = seguimiento_doc.Sufijo_Kapiti.Trim();
 
 
                     if (seguimiento_doc.Tipo_Persona == 0)
@@ -2313,7 +2317,7 @@ namespace GOMAC.Views
 
 
                     //Datos Funcionario
-                    cmbNumeroFuncionario.SelectedText = seguimiento_doc.Numero_Registro;
+                    cmbNumeroFuncionario.SelectedValue = seguimiento_doc.Numero_Registro;
                     cmbNumeroFuncionario.Tag = seguimiento_doc.Numero_Registro;
                     cmbPromotor.Text = seguimiento_doc.Nombre_Promotor;
                     cmbPromotor.Enabled = false;
@@ -2525,7 +2529,7 @@ namespace GOMAC.Views
                         txtDepositoIni.Enabled = false;
                     }
 
-                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Desbloqueo_Sistemas.Value == new DateTime(1900, 1, 1))
+                    if (!seguimiento_doc.SEGUIMIENTO_DOCTOS.Desbloqueo_Sistemas.HasValue)
                     {
                         dtpDesbloqueo.Enabled = true;
                         dtpDesbloqueo.Value = default_dtp;
@@ -2539,7 +2543,7 @@ namespace GOMAC.Views
                     }
 
 
-                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Envio_Agencia.Value == new DateTime(1900, 1, 1))
+                    if (!seguimiento_doc.SEGUIMIENTO_DOCTOS.Envio_Agencia.HasValue)
                     {
                         dtpEnvio.Value = default_dtp;
                         dtpEnvio.Enabled = false;
@@ -2552,7 +2556,7 @@ namespace GOMAC.Views
                     }
 
 
-                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Cancelacion.Value == new DateTime(1900, 1, 1))
+                    if (!seguimiento_doc.SEGUIMIENTO_DOCTOS.Cancelacion.HasValue)
                     {
                         dtpFechaCancelada.Value = default_dtp;
                     }
@@ -2562,7 +2566,7 @@ namespace GOMAC.Views
                     }
 
 
-                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Concluida.Value == new DateTime(1900, 1, 1))
+                    if (!seguimiento_doc.SEGUIMIENTO_DOCTOS.Concluida.HasValue)
                     {
                         dtpConcluir.Value = default_dtp;
                     }
@@ -2841,7 +2845,7 @@ namespace GOMAC.Views
         /// <param name="e"></param>
         private void tmrTraerDatos_Tick(object sender, EventArgs e)
         {
-            TraerDatos();
+            //TraerDatos();
         }
 
         /// <summary>
@@ -2851,42 +2855,42 @@ namespace GOMAC.Views
         /// <param name="e"></param>
         private void tmtValidarBoton_Tick(object sender, EventArgs e)
         {
-            if(rbPersonaFisica.Checked)
-            {
-                if(cmbConsultorMac.SelectedIndex > -1 
-                    && cmbTipoSolicitud.SelectedIndex > -1 
-                    && cmbTipoTramite.SelectedIndex > -1 
-                    && txtCuenta.Text != ""
-                    && cmbProducto.SelectedIndex > -1
-                    && txtNombre.Text != ""
-                    && txtApellidoP.Text != "" 
-                    && txtApellidoM.Text != "" 
-                    && TxtDepositoTkt.Text != "")
-                {
-                    btnGuardar.Enabled = true;
-                }
-                else
-                {
-                    btnGuardar.Enabled = false;
-                }
-            }
-            else
-            {
-                if (cmbConsultorMac.SelectedIndex > -1 
-                    && cmbTipoSolicitud.SelectedIndex > -1 
-                    && cmbTipoTramite.SelectedIndex > -1 
-                    && txtCuenta.Text != ""
-                    && cmbProducto.SelectedIndex > -1
-                    && txtNombre.Text != ""
-                    && TxtDepositoTkt.Text != "")
-                {
-                    btnGuardar.Enabled = true;
-                }
-                else
-                {
-                    btnGuardar.Enabled = false;
-                }
-            }
+            //if(rbPersonaFisica.Checked)
+            //{
+            //    if(cmbConsultorMac.SelectedIndex > -1 
+            //        && cmbTipoSolicitud.SelectedIndex > -1 
+            //        && cmbTipoTramite.SelectedIndex > -1 
+            //        && txtCuenta.Text != ""
+            //        && cmbProducto.SelectedIndex > -1
+            //        && txtNombre.Text != ""
+            //        && txtApellidoP.Text != "" 
+            //        && txtApellidoM.Text != "" 
+            //        && TxtDepositoTkt.Text != "")
+            //    {
+            //        btnGuardar.Enabled = true;
+            //    }
+            //    else
+            //    {
+            //        btnGuardar.Enabled = false;
+            //    }
+            //}
+            //else
+            //{
+            //    if (cmbConsultorMac.SelectedIndex > -1 
+            //        && cmbTipoSolicitud.SelectedIndex > -1 
+            //        && cmbTipoTramite.SelectedIndex > -1 
+            //        && txtCuenta.Text != ""
+            //        && cmbProducto.SelectedIndex > -1
+            //        && txtNombre.Text != ""
+            //        && TxtDepositoTkt.Text != "")
+            //    {
+            //        btnGuardar.Enabled = true;
+            //    }
+            //    else
+            //    {
+            //        btnGuardar.Enabled = false;
+            //    }
+            //}
         }
 
 
@@ -3330,12 +3334,20 @@ namespace GOMAC.Views
         {
             try
             {
+                //SEGUIMIENTO observaciones = (
+                //       from s in bdbmtktp01.SEGUIMIENTO
+                //       join o in bdbmtktp01.OBSERVACIONES on s.Num_Solicitud equals o.Num_Solicitud
+                //       where s.Num_Solicitud == frmp.solicitud_selec.Num_Solicitud
+                //       select s
+                //   ).FirstOrDefault();
+
+
+
                 SEGUIMIENTO observaciones = (
-                       from s in bdbmtktp01.SEGUIMIENTO
-                       join o in bdbmtktp01.OBSERVACIONES on s.Num_Solicitud equals o.Num_Solicitud
-                       where s.Num_Solicitud == frmp.solicitud_selec.Num_Solicitud
-                       select s
-                   ).FirstOrDefault();
+                     from s in bdbmtktp01.SEGUIMIENTO
+                     where s.Num_Solicitud == frmp.solicitud_selec.Num_Solicitud
+                     select s
+                 ).FirstOrDefault();
 
                 if (observaciones == null)
                 {

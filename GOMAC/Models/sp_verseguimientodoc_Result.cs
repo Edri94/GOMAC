@@ -10,16 +10,9 @@
 namespace GOMAC.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class SEGUIMIENTO
+    public partial class sp_verseguimientodoc_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SEGUIMIENTO()
-        {
-            this.OBSERVACIONES = new HashSet<OBSERVACIONES>();
-        }
-    
         public int Num_Solicitud { get; set; }
         public Nullable<System.DateTime> Fecha_Captura { get; set; }
         public Nullable<int> Id_ConsultorMac { get; set; }
@@ -42,11 +35,18 @@ namespace GOMAC.Models
         public string Plaza { get; set; }
         public string Sucursal { get; set; }
         public string Status { get; set; }
-    
-        public virtual SEGUIMIENTO_DOCTOS SEGUIMIENTO_DOCTOS { get; set; }
-        public virtual TIPO_SOLICITUD TIPO_SOLICITUD { get; set; }
-        public virtual TIPO_TRAMITE TIPO_TRAMITE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OBSERVACIONES> OBSERVACIONES { get; set; }
+        public int Num_Solicitud1 { get; set; }
+        public Nullable<System.DateTime> Repc_Doc { get; set; }
+        public Nullable<System.DateTime> Analisis_Mac { get; set; }
+        public Nullable<System.DateTime> Formalizada { get; set; }
+        public Nullable<System.DateTime> Repc_Originales { get; set; }
+        public Nullable<System.DateTime> Aten_Originales { get; set; }
+        public string Originales { get; set; }
+        public string Nivel_Servicico { get; set; }
+        public Nullable<decimal> Deposito_Inicial { get; set; }
+        public Nullable<System.DateTime> Desbloqueo_Sistemas { get; set; }
+        public Nullable<System.DateTime> Envio_Agencia { get; set; }
+        public Nullable<System.DateTime> Concluida { get; set; }
+        public Nullable<System.DateTime> Cancelacion { get; set; }
     }
 }

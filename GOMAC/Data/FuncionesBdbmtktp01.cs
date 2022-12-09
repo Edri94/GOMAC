@@ -88,6 +88,7 @@ namespace GOMAC.Data
                             Circuito = circuito,
                             Cuenta_Cliente = cuenta_Cliente,
                             Sufijo_Kapiti = sufijo_Kapiti.ToUpper(),
+                            Tipo_Persona = tipo_Persona,
                             Nombre_Cliente = nombre_Cliente.ToUpper(),
                             Apellido_Paterno = apellido_Paterno.ToUpper(),
                             Apellido_Materno = apellido_Materno.ToUpper(),
@@ -101,6 +102,7 @@ namespace GOMAC.Data
                             Status = status.ToUpper(),
                             Fecha_Captura = DateTime.Now,
                             ExisteTKT = existeTKT
+                            
                         };
 
                         context.SEGUIMIENTO.Add(nuevo_seguimiento);
@@ -178,7 +180,7 @@ namespace GOMAC.Data
             DateTime Aten_Originales = default;
             DateTime Desbloqueo_Sistemas = default;
             DateTime Envio_Agencia = default;
-            int Diferencia;
+            TimeSpan diferencia = TimeSpan.Zero;
             DateTime Repc_Doc = default;
             DateTime Analisis_Mac = default;
             int afectados = -1;
@@ -190,7 +192,7 @@ namespace GOMAC.Data
                 {
                     try
                     {
-                        SEGUIMIENTO seguimiento = (from s in context.SEGUIMIENTO where s.Num_Solicitud == num_Solicitud select s).FirstOrDefault();
+                        SEGUIMIENTO seguimiento_actualizar = (from s in context.SEGUIMIENTO where s.Num_Solicitud == num_Solicitud select s).FirstOrDefault();
 
 
                         FechaHoraCaptura = DateTime.Now;
@@ -237,69 +239,71 @@ namespace GOMAC.Data
                             fecha_concluida = fecha_concluida.Date;
                         }
 
-                        seguimiento = new SEGUIMIENTO
-                        {
-                            Id_ConsultorMac = id_ConsultorMac,
-                            Id_Solicitud = id_Solicitud,
-                            Id_Tramite = id_Tramite,
-                            Puntos = puntos,
-                            Circuito = circuito,
-                            Cuenta_Cliente = cuenta_Cliente,
-                            Sufijo_Kapiti = sufijo_Kapiti.ToUpper(),
-                            Nombre_Cliente = nombre_Cliente.ToUpper(),
-                            Apellido_Paterno = apellido_Paterno.ToUpper(),
-                            Apellido_Materno = apellido_Materno.ToUpper(),
-                            Deposito_InicialTKT = deposito_Inicial,
-                            Numero_Registro = numero_Registro,
-                            Nombre_Promotor = nombre_Promotor.ToUpper(),
-                            Banca = banca.ToUpper(),
-                            Division = division.ToUpper(),
-                            Plaza = plaza.ToUpper(),
-                            Sucursal = sucursal.ToUpper(),
-                            Status = status.ToUpper(),
-                            Fecha_Captura = DateTime.Now,
-                            ExisteTKT = existeTKT
-                        };
+                        seguimiento_actualizar.Id_ConsultorMac = id_ConsultorMac;
+                        seguimiento_actualizar.Id_Solicitud = id_Solicitud;
+                        seguimiento_actualizar.Id_Tramite = id_Tramite;
+                        seguimiento_actualizar.Puntos = puntos;
+                        seguimiento_actualizar.Circuito = circuito;
+                        seguimiento_actualizar.Cuenta_Cliente = cuenta_Cliente;
+                        seguimiento_actualizar.Sufijo_Kapiti = sufijo_Kapiti.ToUpper();
+                        seguimiento_actualizar.Tipo_Persona = tipo_Persona;
+                        seguimiento_actualizar.Nombre_Cliente = nombre_Cliente.ToUpper();
+                        seguimiento_actualizar.Apellido_Paterno = apellido_Paterno.ToUpper();
+                        seguimiento_actualizar.Apellido_Materno = apellido_Materno.ToUpper();
+                        seguimiento_actualizar.Deposito_InicialTKT = deposito_Inicial;
+                        seguimiento_actualizar.Numero_Registro = numero_Registro;
+                        seguimiento_actualizar.Nombre_Promotor = nombre_Promotor.ToUpper();
+                        seguimiento_actualizar.Banca = banca.ToUpper();
+                        seguimiento_actualizar.Division = division.ToUpper();
+                        seguimiento_actualizar.Plaza = plaza.ToUpper();
+                        seguimiento_actualizar.Sucursal = sucursal.ToUpper();
+                        seguimiento_actualizar.Status = status.ToUpper();
+                        seguimiento_actualizar.Fecha_Captura = DateTime.Now;
+                        seguimiento_actualizar.ExisteTKT = existeTKT;
 
-                        context.SEGUIMIENTO.Add(seguimiento);
+
+                        context.SEGUIMIENTO.Add(seguimiento_actualizar);
                         afectados = context.SaveChanges();
 
+                        SEGUIMIENTO seguimiento_actualizado = context.SEGUIMIENTO.Where(w => w.Num_Solicitud == seguimiento_actualizar.Num_Solicitud).FirstOrDefault();
 
-                        int seguimiento_identity = seguimiento.Num_Solicitud;
-
-                        SEGUIMIENTO_DOCTOS seguimiento_doctos = (from sd in context.SEGUIMIENTO_DOCTOS where sd.Num_Solicitud == num_Solicitud select sd).FirstOrDefault();
-
-                        seguimiento_doctos = new SEGUIMIENTO_DOCTOS
+                        if (seguimiento_actualizado != null)
                         {
-                            Repc_Doc = Repc_Doc,
-                            Formalizada = Formalizada,
-                            Repc_Originales = Repc_Originales,
-                            Aten_Originales = Aten_Originales,
-                            Originales = originales,
-                            Deposito_Inicial = deposito_Inicial,
-                            Desbloqueo_Sistemas = Desbloqueo_Sistemas,
-                            Envio_Agencia = Envio_Agencia,
-                            Concluida = fecha_concluida,
-                            Analisis_Mac = Analisis_Mac
-                        };
+                            SEGUIMIENTO_DOCTOS actualizar_seguimientodoctos = (from sd in context.SEGUIMIENTO_DOCTOS where sd.Num_Solicitud == seguimiento_actualizado.Num_Solicitud select sd).FirstOrDefault();
 
-                        context.SEGUIMIENTO_DOCTOS.Add(seguimiento_doctos);
-                        afectados = context.SaveChanges();
+                            actualizar_seguimientodoctos = new SEGUIMIENTO_DOCTOS
+                            {
+                                Num_Solicitud = seguimiento_actualizado.Num_Solicitud,
+                                Repc_Doc = Repc_Doc,
+                                Formalizada = Formalizada,
+                                Repc_Originales = Repc_Originales,
+                                Aten_Originales = Aten_Originales,
+                                Originales = originales,
+                                Deposito_Inicial = deposito_Inicial,
+                                Desbloqueo_Sistemas = Desbloqueo_Sistemas,
+                                Envio_Agencia = Envio_Agencia,
+                                Concluida = fecha_concluida,
+                                Analisis_Mac = Analisis_Mac,
+                                SEGUIMIENTO = seguimiento_actualizado
+                            };
 
-                        int segdoctos_identity = seguimiento.Num_Solicitud;
 
-                        TimeSpan diferiencia = TimeSpan.Zero;
+                            context.SEGUIMIENTO_DOCTOS.Add(actualizar_seguimientodoctos);
+                            afectados = context.SaveChanges();
 
-                        if (fechaAnalisis_Mac != fecha_default)
-                        {
-                            diferiencia = (fechaRepc_Doc - fechaAnalisis_Mac);
+                            int segdoctos_identity = actualizar_seguimientodoctos.Num_Solicitud;
+
+
+                            if (fechaAnalisis_Mac != fecha_default)
+                            {
+                                diferencia = (fechaRepc_Doc - fechaAnalisis_Mac);
+
+                            }
+
+                            dbContextTransaction.Commit();
 
                         }
-
-                        dbContextTransaction.Commit();
-
-
-                        return new Mac_Actualiza_Respuesta { Codigo = afectados, Diferiencia = diferiencia, FechaHora_Captura = DateTime.Now };
+                        return new Mac_Actualiza_Respuesta { Codigo = afectados, Diferiencia = diferencia, FechaHora_Captura = DateTime.Now };
                     }
                     catch (DbEntityValidationException ex)
                     {

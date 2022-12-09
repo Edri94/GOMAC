@@ -77,7 +77,6 @@
     <Key>
       <PropertyRef Name="Id_Observacion" />
     </Key>
-    <Property Name="Num_Solicitud" Type="int" Nullable="false" />
     <Property Name="Observaciones" Type="text" Nullable="false" />
     <Property Name="Fecha_Observ" Type="datetime" />
     <Property Name="Id_Observacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
@@ -175,6 +174,16 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.PERFIL_SECTOR' no tiene definid
     <Property Name="Envio_Agencia" Type="datetime" />
     <Property Name="Concluida" Type="datetime" />
     <Property Name="Cancelacion" Type="datetime" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bmtktp01.dbo.SEGUIMIENTO_OBSERVACIONES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="SEGUIMIENTO_OBSERVACIONES">
+    <Key>
+      <PropertyRef Name="Num_Solicitud" />
+      <PropertyRef Name="Id_Observacion" />
+    </Key>
+    <Property Name="Num_Solicitud" Type="int" Nullable="false" />
+    <Property Name="Id_Observacion" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -507,6 +516,30 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
     <Property Name="nuevoinicio" Type="bit" />
     <Property Name="resetpwd" Type="bit" />
   </EntityType>
+  <Association Name="FK__SEGUIMIEN__Id_Ob__192BAC54">
+    <End Role="OBSERVACIONES" Type="Self.OBSERVACIONES" Multiplicity="1" />
+    <End Role="SEGUIMIENTO_OBSERVACIONES" Type="Self.SEGUIMIENTO_OBSERVACIONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OBSERVACIONES">
+        <PropertyRef Name="Id_Observacion" />
+      </Principal>
+      <Dependent Role="SEGUIMIENTO_OBSERVACIONES">
+        <PropertyRef Name="Id_Observacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SEGUIMIEN__Num_S__1837881B">
+    <End Role="SEGUIMIENTO" Type="Self.SEGUIMIENTO" Multiplicity="1" />
+    <End Role="SEGUIMIENTO_OBSERVACIONES" Type="Self.SEGUIMIENTO_OBSERVACIONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SEGUIMIENTO">
+        <PropertyRef Name="Num_Solicitud" />
+      </Principal>
+      <Dependent Role="SEGUIMIENTO_OBSERVACIONES">
+        <PropertyRef Name="Num_Solicitud" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_Consultmac">
     <End Role="CONSULTORES" Type="Self.CONSULTORES" Multiplicity="1" />
     <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
@@ -552,18 +585,6 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
       </Principal>
       <Dependent Role="MOVIMIENTOS_USUARIO">
         <PropertyRef Name="id_mov" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_OBSERVACIONES_SEGUIMIENTO">
-    <End Role="SEGUIMIENTO" Type="Self.SEGUIMIENTO" Multiplicity="1" />
-    <End Role="OBSERVACIONES" Type="Self.OBSERVACIONES" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SEGUIMIENTO">
-        <PropertyRef Name="Num_Solicitud" />
-      </Principal>
-      <Dependent Role="OBSERVACIONES">
-        <PropertyRef Name="Num_Solicitud" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -711,6 +732,447 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="dt_addtosourcecontrol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="vchSourceSafeINI" Type="varchar" Mode="In" />
+    <Parameter Name="vchProjectName" Type="varchar" Mode="In" />
+    <Parameter Name="vchComment" Type="varchar" Mode="In" />
+    <Parameter Name="vchLoginName" Type="varchar" Mode="In" />
+    <Parameter Name="vchPassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="dt_addtosourcecontrol_u" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="vchSourceSafeINI" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchProjectName" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchComment" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchLoginName" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchPassword" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="dt_adduserobject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="dt_adduserobject_vcs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="vchProperty" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="dt_checkinobject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="chObjectType" Type="char" Mode="In" />
+    <Parameter Name="vchObjectName" Type="varchar" Mode="In" />
+    <Parameter Name="vchComment" Type="varchar" Mode="In" />
+    <Parameter Name="vchLoginName" Type="varchar" Mode="In" />
+    <Parameter Name="vchPassword" Type="varchar" Mode="In" />
+    <Parameter Name="iVCSFlags" Type="int" Mode="In" />
+    <Parameter Name="iActionFlag" Type="int" Mode="In" />
+    <Parameter Name="txStream1" Type="text" Mode="In" />
+    <Parameter Name="txStream2" Type="text" Mode="In" />
+    <Parameter Name="txStream3" Type="text" Mode="In" />
+  </Function>
+  <Function Name="dt_checkinobject_u" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="chObjectType" Type="char" Mode="In" />
+    <Parameter Name="vchObjectName" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchComment" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchLoginName" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchPassword" Type="nvarchar" Mode="In" />
+    <Parameter Name="iVCSFlags" Type="int" Mode="In" />
+    <Parameter Name="iActionFlag" Type="int" Mode="In" />
+    <Parameter Name="txStream1" Type="text" Mode="In" />
+    <Parameter Name="txStream2" Type="text" Mode="In" />
+    <Parameter Name="txStream3" Type="text" Mode="In" />
+  </Function>
+  <Function Name="dt_checkoutobject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="chObjectType" Type="char" Mode="In" />
+    <Parameter Name="vchObjectName" Type="varchar" Mode="In" />
+    <Parameter Name="vchComment" Type="varchar" Mode="In" />
+    <Parameter Name="vchLoginName" Type="varchar" Mode="In" />
+    <Parameter Name="vchPassword" Type="varchar" Mode="In" />
+    <Parameter Name="iVCSFlags" Type="int" Mode="In" />
+    <Parameter Name="iActionFlag" Type="int" Mode="In" />
+  </Function>
+  <Function Name="dt_checkoutobject_u" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="chObjectType" Type="char" Mode="In" />
+    <Parameter Name="vchObjectName" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchComment" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchLoginName" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchPassword" Type="nvarchar" Mode="In" />
+    <Parameter Name="iVCSFlags" Type="int" Mode="In" />
+    <Parameter Name="iActionFlag" Type="int" Mode="In" />
+  </Function>
+  <Function Name="dt_displayoaerror" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="iObject" Type="int" Mode="In" />
+    <Parameter Name="iresult" Type="int" Mode="In" />
+  </Function>
+  <Function Name="dt_displayoaerror_u" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="iObject" Type="int" Mode="In" />
+    <Parameter Name="iresult" Type="int" Mode="In" />
+  </Function>
+  <Function Name="dt_droppropertiesbyid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="property" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="dt_dropuserobjectbyid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="dt_generateansiname" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="name" Type="varchar" Mode="InOut" />
+  </Function>
+  <Function Name="dt_getobjwithprop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="property" Type="varchar" Mode="In" />
+    <Parameter Name="value" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="dt_getobjwithprop_u" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="property" Type="varchar" Mode="In" />
+    <Parameter Name="uvalue" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="dt_getpropertiesbyid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="property" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="dt_getpropertiesbyid_u" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="property" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="dt_getpropertiesbyid_vcs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="property" Type="varchar" Mode="In" />
+    <Parameter Name="value" Type="varchar" Mode="InOut" />
+  </Function>
+  <Function Name="dt_getpropertiesbyid_vcs_u" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="property" Type="varchar" Mode="In" />
+    <Parameter Name="value" Type="nvarchar" Mode="InOut" />
+  </Function>
+  <Function Name="dt_isundersourcecontrol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="vchLoginName" Type="varchar" Mode="In" />
+    <Parameter Name="vchPassword" Type="varchar" Mode="In" />
+    <Parameter Name="iWhoToo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="dt_isundersourcecontrol_u" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="vchLoginName" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchPassword" Type="nvarchar" Mode="In" />
+    <Parameter Name="iWhoToo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="dt_removefromsourcecontrol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="dt_setpropertybyid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="property" Type="varchar" Mode="In" />
+    <Parameter Name="value" Type="varchar" Mode="In" />
+    <Parameter Name="lvalue" Type="image" Mode="In" />
+  </Function>
+  <Function Name="dt_setpropertybyid_u" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="property" Type="varchar" Mode="In" />
+    <Parameter Name="uvalue" Type="nvarchar" Mode="In" />
+    <Parameter Name="lvalue" Type="image" Mode="In" />
+  </Function>
+  <Function Name="dt_validateloginparams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="vchLoginName" Type="varchar" Mode="In" />
+    <Parameter Name="vchPassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="dt_validateloginparams_u" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="vchLoginName" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchPassword" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="dt_vcsenabled" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="dt_verstamp006" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="dt_whocheckedout" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="chObjectType" Type="char" Mode="In" />
+    <Parameter Name="vchObjectName" Type="varchar" Mode="In" />
+    <Parameter Name="vchLoginName" Type="varchar" Mode="In" />
+    <Parameter Name="vchPassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="dt_whocheckedout_u" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="chObjectType" Type="char" Mode="In" />
+    <Parameter Name="vchObjectName" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchLoginName" Type="nvarchar" Mode="In" />
+    <Parameter Name="vchPassword" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="fn_verifica_login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+    <Parameter Name="login" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Mac_Actualiza_Datos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Num_Solicitud" Type="int" Mode="In" />
+    <Parameter Name="Id_ConsultorMac" Type="int" Mode="In" />
+    <Parameter Name="Id_Solicitud" Type="int" Mode="In" />
+    <Parameter Name="Id_Tramite" Type="int" Mode="In" />
+    <Parameter Name="Puntos" Type="int" Mode="In" />
+    <Parameter Name="Circuito" Type="char" Mode="In" />
+    <Parameter Name="Cuenta_Cliente" Type="varchar" Mode="In" />
+    <Parameter Name="Sufijo_Kapiti" Type="varchar" Mode="In" />
+    <Parameter Name="Tipo_Persona" Type="tinyint" Mode="In" />
+    <Parameter Name="Nombre_Cliente" Type="char" Mode="In" />
+    <Parameter Name="Apellido_Paterno" Type="varchar" Mode="In" />
+    <Parameter Name="Apellido_Materno" Type="varchar" Mode="In" />
+    <Parameter Name="Deposito_Inicial" Type="varchar" Mode="In" />
+    <Parameter Name="Numero_Registro" Type="varchar" Mode="In" />
+    <Parameter Name="Nombre_Promotor" Type="varchar" Mode="In" />
+    <Parameter Name="Banca" Type="varchar" Mode="In" />
+    <Parameter Name="Division" Type="varchar" Mode="In" />
+    <Parameter Name="Plaza" Type="varchar" Mode="In" />
+    <Parameter Name="Sucursal" Type="varchar" Mode="In" />
+    <Parameter Name="Status" Type="varchar" Mode="In" />
+    <Parameter Name="FechaRepc_Doc" Type="varchar" Mode="In" />
+    <Parameter Name="HoraRepc_Doc" Type="varchar" Mode="In" />
+    <Parameter Name="FechaAnalisis_Mac" Type="varchar" Mode="In" />
+    <Parameter Name="HoraAnalisis_Mac" Type="varchar" Mode="In" />
+    <Parameter Name="FechaFormalizada" Type="varchar" Mode="In" />
+    <Parameter Name="HoraFormalizada" Type="varchar" Mode="In" />
+    <Parameter Name="FechaRepc_Originales" Type="varchar" Mode="In" />
+    <Parameter Name="HoraRepc_Originales" Type="varchar" Mode="In" />
+    <Parameter Name="FechaAten_Originales" Type="varchar" Mode="In" />
+    <Parameter Name="HoraAten_Originales" Type="varchar" Mode="In" />
+    <Parameter Name="Originales" Type="varchar" Mode="In" />
+    <Parameter Name="Deposito_Inicial_Ini" Type="numeric" Mode="In" />
+    <Parameter Name="Fecha_Desbloqueo" Type="varchar" Mode="In" />
+    <Parameter Name="Fecha_Envio" Type="varchar" Mode="In" />
+    <Parameter Name="Fecha_concluida" Type="varchar" Mode="In" />
+    <Parameter Name="ExisteTKT" Type="char" Mode="In" />
+  </Function>
+  <Function Name="Mac_Cancela" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Num_Solicitud" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Mac_Consecutivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Mac_DatosCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CUENTA_CLIENTE" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Mac_DatosCuenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CUENTA_CLIENTE" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Mac_DatosFuncionario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NUMERO_FUNCIONARIO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Mac_Inserta_Datos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id_ConsultorMac" Type="int" Mode="In" />
+    <Parameter Name="Id_Solicitud" Type="int" Mode="In" />
+    <Parameter Name="Id_Tramite" Type="int" Mode="In" />
+    <Parameter Name="Puntos" Type="int" Mode="In" />
+    <Parameter Name="Circuito" Type="char" Mode="In" />
+    <Parameter Name="Cuenta_Cliente" Type="char" Mode="In" />
+    <Parameter Name="Sufijo_Kapiti" Type="char" Mode="In" />
+    <Parameter Name="Tipo_Persona" Type="tinyint" Mode="In" />
+    <Parameter Name="Nombre_Cliente" Type="char" Mode="In" />
+    <Parameter Name="Apellido_Paterno" Type="char" Mode="In" />
+    <Parameter Name="Apellido_Materno" Type="char" Mode="In" />
+    <Parameter Name="Deposito_Inicial" Type="varchar" Mode="In" />
+    <Parameter Name="Numero_Registro" Type="char" Mode="In" />
+    <Parameter Name="Nombre_Promotor" Type="char" Mode="In" />
+    <Parameter Name="Banca" Type="char" Mode="In" />
+    <Parameter Name="Division" Type="char" Mode="In" />
+    <Parameter Name="Plaza" Type="char" Mode="In" />
+    <Parameter Name="Sucursal" Type="char" Mode="In" />
+    <Parameter Name="Status" Type="char" Mode="In" />
+    <Parameter Name="Num_Solicitud" Type="int" Mode="In" />
+    <Parameter Name="FechaRepc_Doc" Type="varchar" Mode="In" />
+    <Parameter Name="HoraRepc_Doc" Type="varchar" Mode="In" />
+    <Parameter Name="FechaAnalisis_Mac" Type="varchar" Mode="In" />
+    <Parameter Name="HoraAnalisis_Mac" Type="varchar" Mode="In" />
+    <Parameter Name="FechaFormalizada" Type="varchar" Mode="In" />
+    <Parameter Name="HoraFormalizada" Type="varchar" Mode="In" />
+    <Parameter Name="FechaRepc_Originales" Type="varchar" Mode="In" />
+    <Parameter Name="HoraRepc_Originales" Type="varchar" Mode="In" />
+    <Parameter Name="FechaAten_Originales" Type="varchar" Mode="In" />
+    <Parameter Name="HoraAten_Originales" Type="varchar" Mode="In" />
+    <Parameter Name="Originales" Type="varchar" Mode="In" />
+    <Parameter Name="Deposito_Inicial_Ini" Type="numeric" Mode="In" />
+    <Parameter Name="Fecha_Desbloqueo" Type="varchar" Mode="In" />
+    <Parameter Name="Fecha_Envio" Type="varchar" Mode="In" />
+    <Parameter Name="Fecha_concluida" Type="varchar" Mode="In" />
+    <Parameter Name="ExisteTKT" Type="char" Mode="In" />
+  </Function>
+  <Function Name="Mac_Inserta_Seguimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Num_Solicitud" Type="int" Mode="In" />
+    <Parameter Name="FechaFormalizada" Type="varchar" Mode="In" />
+    <Parameter Name="HoraFormalizada" Type="varchar" Mode="In" />
+    <Parameter Name="FechaRepc_Originales" Type="varchar" Mode="In" />
+    <Parameter Name="HoraRepc_Originales" Type="varchar" Mode="In" />
+    <Parameter Name="FechaAten_Originales" Type="varchar" Mode="In" />
+    <Parameter Name="HoraAten_Originales" Type="varchar" Mode="In" />
+    <Parameter Name="Originales" Type="char" Mode="In" />
+    <Parameter Name="Deposito_Inicial_Ini" Type="varchar" Mode="In" />
+    <Parameter Name="Fecha_Desbloqueo" Type="varchar" Mode="In" />
+    <Parameter Name="Fecha_Envio" Type="varchar" Mode="In" />
+    <Parameter Name="Fecha_concluida" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Mac_Obtiene_FechaServidor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="solicitud_cuenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_a_kyc_obt_InfGralFun" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CD_FUN" Type="int" Mode="In" />
+    <Parameter Name="CD_NUM_FUN" Type="char" Mode="InOut" />
+    <Parameter Name="NB_NOMBRE" Type="char" Mode="InOut" />
+    <Parameter Name="NB_BANCA" Type="char" Mode="InOut" />
+    <Parameter Name="NB_PLAZA" Type="char" Mode="InOut" />
+    <Parameter Name="NB_SUCURS" Type="char" Mode="InOut" />
+  </Function>
+  <Function Name="sp_actualiza_bloqueado_usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="nvarchar" Mode="In" />
+    <Parameter Name="bloqueado" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="sp_actualiza_cierre_inesperado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="tiempo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_actualiza_conectado_usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="nvarchar" Mode="In" />
+    <Parameter Name="conect" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="sp_actualiza_fecha_de_expiracion_usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="nvarchar" Mode="In" />
+    <Parameter Name="fecha_de_expiracion" Type="date" Mode="In" />
+  </Function>
+  <Function Name="sp_actualiza_fechaexpira_usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="nvarchar" Mode="In" />
+    <Parameter Name="fechaexpira" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="sp_actualiza_habilitado_usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="nvarchar" Mode="In" />
+    <Parameter Name="habilitado" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="sp_actualiza_Perfil_sector" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="perfil" Type="nvarchar" Mode="In" />
+    <Parameter Name="sector" Type="int" Mode="In" />
+    <Parameter Name="permitido" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="sp_actualiza_perfil_usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="perfil" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_actualiza_resetpwd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="rpwd" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="sp_actualizaconect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="iduser" Type="int" Mode="In" />
+    <Parameter Name="fechaconect" Type="varchar" Mode="In" />
+    <Parameter Name="horaconect" Type="varchar" Mode="In" />
+    <Parameter Name="fechadesconect" Type="varchar" Mode="In" />
+    <Parameter Name="horadesconect" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_actualizadocs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="status" Type="int" Mode="In" />
+    <Parameter Name="solicitud" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_actualizanuevoinicio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="nuevo" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="sp_actualizapwd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="nvarchar" Mode="In" />
+    <Parameter Name="newpwd" Type="nvarchar" Mode="In" />
+    <Parameter Name="oldpwd" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_actualizarsolicitud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="numerosoli" Type="int" Mode="In" />
+    <Parameter Name="status" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_alta_mov_perfil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="perfil" Type="varchar" Mode="In" />
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="id_mov" Type="int" Mode="In" />
+    <Parameter Name="id_sector" Type="int" Mode="In" />
+    <Parameter Name="permisoanterio" Type="varchar" Mode="In" />
+    <Parameter Name="permisoactual" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_alta_mov_usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="loginmodificador" Type="varchar" Mode="In" />
+    <Parameter Name="loginmodificado" Type="varchar" Mode="In" />
+    <Parameter Name="movimiento" Type="varchar" Mode="In" />
+    <Parameter Name="datosanterio" Type="varchar" Mode="In" />
+    <Parameter Name="datosctual" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_Alta_perfil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nombreperfil" Type="nvarchar" Mode="In" />
+    <Parameter Name="sector" Type="nvarchar" Mode="In" />
+    <Parameter Name="permitido" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="sp_altausuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nombreperfil" Type="nvarchar" Mode="In" />
+    <Parameter Name="iniciales" Type="varchar" Mode="In" />
+    <Parameter Name="nombre" Type="nvarchar" Mode="In" />
+    <Parameter Name="appaterno" Type="nvarchar" Mode="In" />
+    <Parameter Name="apmaterno" Type="nvarchar" Mode="In" />
+    <Parameter Name="login" Type="nvarchar" Mode="In" />
+    <Parameter Name="fechaexpira" Type="int" Mode="In" />
+    <Parameter Name="fecha_de_expiracion" Type="varchar" Mode="In" />
+    <Parameter Name="habilitado" Type="bit" Mode="In" />
+    <Parameter Name="bloqueado" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_buscarsolicitud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="numerosoli" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_cierre_conecciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_desconectar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_DIAS_FERIADOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fecha" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_insertaconect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="iduser" Type="int" Mode="In" />
+    <Parameter Name="equipo" Type="varchar" Mode="In" />
+    <Parameter Name="ip" Type="varchar" Mode="In" />
+    <Parameter Name="fechaconect" Type="varchar" Mode="In" />
+    <Parameter Name="horaconect" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_insertar_observaciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="texto" Type="text" Mode="In" />
+  </Function>
+  <Function Name="SP_MAC_ConcatenarOBS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Num_Solicitud" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_resetpwd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="fecha" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_sectores" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_seguimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_TIPO_STATUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ultimaconect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="fecha" Type="varchar" Mode="In" />
+    <Parameter Name="mes" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ultimaconect_mes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="fecha" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_verperfil_sector" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nombre" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_verseguimientodoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="solicitud" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_verseguimientodoc_observaciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="solicitud" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_verusuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login2" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="bmtktp01ModelStoreContainer">
     <EntitySet Name="CONECT" EntityType="Self.CONECT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CONSULTORES" EntityType="Self.CONSULTORES" Schema="dbo" store:Type="Tables" />
@@ -737,6 +1199,12 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
     [PERFIL_SECTOR].[id_sector] AS [id_sector], 
     [PERFIL_SECTOR].[permitido] AS [permitido]
     FROM [dbo].[PERFIL_SECTOR] AS [PERFIL_SECTOR]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="SEGUIMIENTO_OBSERVACIONES" EntityType="Self.SEGUIMIENTO_OBSERVACIONES" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [SEGUIMIENTO_OBSERVACIONES].[Num_Solicitud] AS [Num_Solicitud], 
+    [SEGUIMIENTO_OBSERVACIONES].[Id_Observacion] AS [Id_Observacion]
+    FROM [dbo].[SEGUIMIENTO_OBSERVACIONES] AS [SEGUIMIENTO_OBSERVACIONES]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="log_conect" EntityType="Self.log_conect" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -892,6 +1360,14 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
     [ver_usuarios2].[resetpwd] AS [resetpwd]
     FROM [dbo].[ver_usuarios2] AS [ver_usuarios2]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK__SEGUIMIEN__Id_Ob__192BAC54" Association="Self.FK__SEGUIMIEN__Id_Ob__192BAC54">
+      <End Role="OBSERVACIONES" EntitySet="OBSERVACIONES" />
+      <End Role="SEGUIMIENTO_OBSERVACIONES" EntitySet="SEGUIMIENTO_OBSERVACIONES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SEGUIMIEN__Num_S__1837881B" Association="Self.FK__SEGUIMIEN__Num_S__1837881B">
+      <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
+      <End Role="SEGUIMIENTO_OBSERVACIONES" EntitySet="SEGUIMIENTO_OBSERVACIONES" />
+    </AssociationSet>
     <AssociationSet Name="fk_Consultmac" Association="Self.fk_Consultmac">
       <End Role="CONSULTORES" EntitySet="CONSULTORES" />
       <End Role="USUARIO" EntitySet="USUARIO" />
@@ -907,10 +1383,6 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
     <AssociationSet Name="fk_movimientousuario" Association="Self.fk_movimientousuario">
       <End Role="TIPO_MOV_USUARIO" EntitySet="TIPO_MOV_USUARIO" />
       <End Role="MOVIMIENTOS_USUARIO" EntitySet="MOVIMIENTOS_USUARIO" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OBSERVACIONES_SEGUIMIENTO" Association="Self.FK_OBSERVACIONES_SEGUIMIENTO">
-      <End Role="SEGUIMIENTO" EntitySet="SEGUIMIENTO" />
-      <End Role="OBSERVACIONES" EntitySet="OBSERVACIONES" />
     </AssociationSet>
     <AssociationSet Name="fk_perfil" Association="Self.fk_perfil">
       <End Role="PERFIL" EntitySet="PERFIL" />

@@ -14,11 +14,17 @@ namespace GOMAC.Models
     
     public partial class OBSERVACIONES
     {
-        public int Num_Solicitud { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public OBSERVACIONES()
+        {
+            this.SEGUIMIENTO = new HashSet<SEGUIMIENTO>();
+        }
+    
         public string Observaciones1 { get; set; }
         public Nullable<System.DateTime> Fecha_Observ { get; set; }
         public int Id_Observacion { get; set; }
     
-        public virtual SEGUIMIENTO SEGUIMIENTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SEGUIMIENTO> SEGUIMIENTO { get; set; }
     }
 }

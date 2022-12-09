@@ -12,6 +12,8 @@ namespace GOMAC.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class bmtktp01Entities : DbContext
     {
@@ -60,5 +62,1520 @@ namespace GOMAC.Models
         public virtual DbSet<ver_Tipo_Tramite> ver_Tipo_Tramite { get; set; }
         public virtual DbSet<ver_usuarios> ver_usuarios { get; set; }
         public virtual DbSet<ver_usuarios2> ver_usuarios2 { get; set; }
+    
+        public virtual int dt_addtosourcecontrol(string vchSourceSafeINI, string vchProjectName, string vchComment, string vchLoginName, string vchPassword)
+        {
+            var vchSourceSafeINIParameter = vchSourceSafeINI != null ?
+                new ObjectParameter("vchSourceSafeINI", vchSourceSafeINI) :
+                new ObjectParameter("vchSourceSafeINI", typeof(string));
+    
+            var vchProjectNameParameter = vchProjectName != null ?
+                new ObjectParameter("vchProjectName", vchProjectName) :
+                new ObjectParameter("vchProjectName", typeof(string));
+    
+            var vchCommentParameter = vchComment != null ?
+                new ObjectParameter("vchComment", vchComment) :
+                new ObjectParameter("vchComment", typeof(string));
+    
+            var vchLoginNameParameter = vchLoginName != null ?
+                new ObjectParameter("vchLoginName", vchLoginName) :
+                new ObjectParameter("vchLoginName", typeof(string));
+    
+            var vchPasswordParameter = vchPassword != null ?
+                new ObjectParameter("vchPassword", vchPassword) :
+                new ObjectParameter("vchPassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_addtosourcecontrol", vchSourceSafeINIParameter, vchProjectNameParameter, vchCommentParameter, vchLoginNameParameter, vchPasswordParameter);
+        }
+    
+        public virtual int dt_addtosourcecontrol_u(string vchSourceSafeINI, string vchProjectName, string vchComment, string vchLoginName, string vchPassword)
+        {
+            var vchSourceSafeINIParameter = vchSourceSafeINI != null ?
+                new ObjectParameter("vchSourceSafeINI", vchSourceSafeINI) :
+                new ObjectParameter("vchSourceSafeINI", typeof(string));
+    
+            var vchProjectNameParameter = vchProjectName != null ?
+                new ObjectParameter("vchProjectName", vchProjectName) :
+                new ObjectParameter("vchProjectName", typeof(string));
+    
+            var vchCommentParameter = vchComment != null ?
+                new ObjectParameter("vchComment", vchComment) :
+                new ObjectParameter("vchComment", typeof(string));
+    
+            var vchLoginNameParameter = vchLoginName != null ?
+                new ObjectParameter("vchLoginName", vchLoginName) :
+                new ObjectParameter("vchLoginName", typeof(string));
+    
+            var vchPasswordParameter = vchPassword != null ?
+                new ObjectParameter("vchPassword", vchPassword) :
+                new ObjectParameter("vchPassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_addtosourcecontrol_u", vchSourceSafeINIParameter, vchProjectNameParameter, vchCommentParameter, vchLoginNameParameter, vchPasswordParameter);
+        }
+    
+        public virtual int dt_adduserobject()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_adduserobject");
+        }
+    
+        public virtual int dt_adduserobject_vcs(string vchProperty)
+        {
+            var vchPropertyParameter = vchProperty != null ?
+                new ObjectParameter("vchProperty", vchProperty) :
+                new ObjectParameter("vchProperty", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_adduserobject_vcs", vchPropertyParameter);
+        }
+    
+        public virtual int dt_checkinobject(string chObjectType, string vchObjectName, string vchComment, string vchLoginName, string vchPassword, Nullable<int> iVCSFlags, Nullable<int> iActionFlag, string txStream1, string txStream2, string txStream3)
+        {
+            var chObjectTypeParameter = chObjectType != null ?
+                new ObjectParameter("chObjectType", chObjectType) :
+                new ObjectParameter("chObjectType", typeof(string));
+    
+            var vchObjectNameParameter = vchObjectName != null ?
+                new ObjectParameter("vchObjectName", vchObjectName) :
+                new ObjectParameter("vchObjectName", typeof(string));
+    
+            var vchCommentParameter = vchComment != null ?
+                new ObjectParameter("vchComment", vchComment) :
+                new ObjectParameter("vchComment", typeof(string));
+    
+            var vchLoginNameParameter = vchLoginName != null ?
+                new ObjectParameter("vchLoginName", vchLoginName) :
+                new ObjectParameter("vchLoginName", typeof(string));
+    
+            var vchPasswordParameter = vchPassword != null ?
+                new ObjectParameter("vchPassword", vchPassword) :
+                new ObjectParameter("vchPassword", typeof(string));
+    
+            var iVCSFlagsParameter = iVCSFlags.HasValue ?
+                new ObjectParameter("iVCSFlags", iVCSFlags) :
+                new ObjectParameter("iVCSFlags", typeof(int));
+    
+            var iActionFlagParameter = iActionFlag.HasValue ?
+                new ObjectParameter("iActionFlag", iActionFlag) :
+                new ObjectParameter("iActionFlag", typeof(int));
+    
+            var txStream1Parameter = txStream1 != null ?
+                new ObjectParameter("txStream1", txStream1) :
+                new ObjectParameter("txStream1", typeof(string));
+    
+            var txStream2Parameter = txStream2 != null ?
+                new ObjectParameter("txStream2", txStream2) :
+                new ObjectParameter("txStream2", typeof(string));
+    
+            var txStream3Parameter = txStream3 != null ?
+                new ObjectParameter("txStream3", txStream3) :
+                new ObjectParameter("txStream3", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_checkinobject", chObjectTypeParameter, vchObjectNameParameter, vchCommentParameter, vchLoginNameParameter, vchPasswordParameter, iVCSFlagsParameter, iActionFlagParameter, txStream1Parameter, txStream2Parameter, txStream3Parameter);
+        }
+    
+        public virtual int dt_checkinobject_u(string chObjectType, string vchObjectName, string vchComment, string vchLoginName, string vchPassword, Nullable<int> iVCSFlags, Nullable<int> iActionFlag, string txStream1, string txStream2, string txStream3)
+        {
+            var chObjectTypeParameter = chObjectType != null ?
+                new ObjectParameter("chObjectType", chObjectType) :
+                new ObjectParameter("chObjectType", typeof(string));
+    
+            var vchObjectNameParameter = vchObjectName != null ?
+                new ObjectParameter("vchObjectName", vchObjectName) :
+                new ObjectParameter("vchObjectName", typeof(string));
+    
+            var vchCommentParameter = vchComment != null ?
+                new ObjectParameter("vchComment", vchComment) :
+                new ObjectParameter("vchComment", typeof(string));
+    
+            var vchLoginNameParameter = vchLoginName != null ?
+                new ObjectParameter("vchLoginName", vchLoginName) :
+                new ObjectParameter("vchLoginName", typeof(string));
+    
+            var vchPasswordParameter = vchPassword != null ?
+                new ObjectParameter("vchPassword", vchPassword) :
+                new ObjectParameter("vchPassword", typeof(string));
+    
+            var iVCSFlagsParameter = iVCSFlags.HasValue ?
+                new ObjectParameter("iVCSFlags", iVCSFlags) :
+                new ObjectParameter("iVCSFlags", typeof(int));
+    
+            var iActionFlagParameter = iActionFlag.HasValue ?
+                new ObjectParameter("iActionFlag", iActionFlag) :
+                new ObjectParameter("iActionFlag", typeof(int));
+    
+            var txStream1Parameter = txStream1 != null ?
+                new ObjectParameter("txStream1", txStream1) :
+                new ObjectParameter("txStream1", typeof(string));
+    
+            var txStream2Parameter = txStream2 != null ?
+                new ObjectParameter("txStream2", txStream2) :
+                new ObjectParameter("txStream2", typeof(string));
+    
+            var txStream3Parameter = txStream3 != null ?
+                new ObjectParameter("txStream3", txStream3) :
+                new ObjectParameter("txStream3", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_checkinobject_u", chObjectTypeParameter, vchObjectNameParameter, vchCommentParameter, vchLoginNameParameter, vchPasswordParameter, iVCSFlagsParameter, iActionFlagParameter, txStream1Parameter, txStream2Parameter, txStream3Parameter);
+        }
+    
+        public virtual int dt_checkoutobject(string chObjectType, string vchObjectName, string vchComment, string vchLoginName, string vchPassword, Nullable<int> iVCSFlags, Nullable<int> iActionFlag)
+        {
+            var chObjectTypeParameter = chObjectType != null ?
+                new ObjectParameter("chObjectType", chObjectType) :
+                new ObjectParameter("chObjectType", typeof(string));
+    
+            var vchObjectNameParameter = vchObjectName != null ?
+                new ObjectParameter("vchObjectName", vchObjectName) :
+                new ObjectParameter("vchObjectName", typeof(string));
+    
+            var vchCommentParameter = vchComment != null ?
+                new ObjectParameter("vchComment", vchComment) :
+                new ObjectParameter("vchComment", typeof(string));
+    
+            var vchLoginNameParameter = vchLoginName != null ?
+                new ObjectParameter("vchLoginName", vchLoginName) :
+                new ObjectParameter("vchLoginName", typeof(string));
+    
+            var vchPasswordParameter = vchPassword != null ?
+                new ObjectParameter("vchPassword", vchPassword) :
+                new ObjectParameter("vchPassword", typeof(string));
+    
+            var iVCSFlagsParameter = iVCSFlags.HasValue ?
+                new ObjectParameter("iVCSFlags", iVCSFlags) :
+                new ObjectParameter("iVCSFlags", typeof(int));
+    
+            var iActionFlagParameter = iActionFlag.HasValue ?
+                new ObjectParameter("iActionFlag", iActionFlag) :
+                new ObjectParameter("iActionFlag", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_checkoutobject", chObjectTypeParameter, vchObjectNameParameter, vchCommentParameter, vchLoginNameParameter, vchPasswordParameter, iVCSFlagsParameter, iActionFlagParameter);
+        }
+    
+        public virtual int dt_checkoutobject_u(string chObjectType, string vchObjectName, string vchComment, string vchLoginName, string vchPassword, Nullable<int> iVCSFlags, Nullable<int> iActionFlag)
+        {
+            var chObjectTypeParameter = chObjectType != null ?
+                new ObjectParameter("chObjectType", chObjectType) :
+                new ObjectParameter("chObjectType", typeof(string));
+    
+            var vchObjectNameParameter = vchObjectName != null ?
+                new ObjectParameter("vchObjectName", vchObjectName) :
+                new ObjectParameter("vchObjectName", typeof(string));
+    
+            var vchCommentParameter = vchComment != null ?
+                new ObjectParameter("vchComment", vchComment) :
+                new ObjectParameter("vchComment", typeof(string));
+    
+            var vchLoginNameParameter = vchLoginName != null ?
+                new ObjectParameter("vchLoginName", vchLoginName) :
+                new ObjectParameter("vchLoginName", typeof(string));
+    
+            var vchPasswordParameter = vchPassword != null ?
+                new ObjectParameter("vchPassword", vchPassword) :
+                new ObjectParameter("vchPassword", typeof(string));
+    
+            var iVCSFlagsParameter = iVCSFlags.HasValue ?
+                new ObjectParameter("iVCSFlags", iVCSFlags) :
+                new ObjectParameter("iVCSFlags", typeof(int));
+    
+            var iActionFlagParameter = iActionFlag.HasValue ?
+                new ObjectParameter("iActionFlag", iActionFlag) :
+                new ObjectParameter("iActionFlag", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_checkoutobject_u", chObjectTypeParameter, vchObjectNameParameter, vchCommentParameter, vchLoginNameParameter, vchPasswordParameter, iVCSFlagsParameter, iActionFlagParameter);
+        }
+    
+        public virtual int dt_displayoaerror(Nullable<int> iObject, Nullable<int> iresult)
+        {
+            var iObjectParameter = iObject.HasValue ?
+                new ObjectParameter("iObject", iObject) :
+                new ObjectParameter("iObject", typeof(int));
+    
+            var iresultParameter = iresult.HasValue ?
+                new ObjectParameter("iresult", iresult) :
+                new ObjectParameter("iresult", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_displayoaerror", iObjectParameter, iresultParameter);
+        }
+    
+        public virtual int dt_displayoaerror_u(Nullable<int> iObject, Nullable<int> iresult)
+        {
+            var iObjectParameter = iObject.HasValue ?
+                new ObjectParameter("iObject", iObject) :
+                new ObjectParameter("iObject", typeof(int));
+    
+            var iresultParameter = iresult.HasValue ?
+                new ObjectParameter("iresult", iresult) :
+                new ObjectParameter("iresult", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_displayoaerror_u", iObjectParameter, iresultParameter);
+        }
+    
+        public virtual int dt_droppropertiesbyid(Nullable<int> id, string property)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var propertyParameter = property != null ?
+                new ObjectParameter("property", property) :
+                new ObjectParameter("property", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_droppropertiesbyid", idParameter, propertyParameter);
+        }
+    
+        public virtual int dt_dropuserobjectbyid(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_dropuserobjectbyid", idParameter);
+        }
+    
+        public virtual int dt_generateansiname(ObjectParameter name)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_generateansiname", name);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> dt_getobjwithprop(string property, string value)
+        {
+            var propertyParameter = property != null ?
+                new ObjectParameter("property", property) :
+                new ObjectParameter("property", typeof(string));
+    
+            var valueParameter = value != null ?
+                new ObjectParameter("value", value) :
+                new ObjectParameter("value", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("dt_getobjwithprop", propertyParameter, valueParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> dt_getobjwithprop_u(string property, string uvalue)
+        {
+            var propertyParameter = property != null ?
+                new ObjectParameter("property", property) :
+                new ObjectParameter("property", typeof(string));
+    
+            var uvalueParameter = uvalue != null ?
+                new ObjectParameter("uvalue", uvalue) :
+                new ObjectParameter("uvalue", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("dt_getobjwithprop_u", propertyParameter, uvalueParameter);
+        }
+    
+        public virtual ObjectResult<dt_getpropertiesbyid_Result> dt_getpropertiesbyid(Nullable<int> id, string property)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var propertyParameter = property != null ?
+                new ObjectParameter("property", property) :
+                new ObjectParameter("property", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<dt_getpropertiesbyid_Result>("dt_getpropertiesbyid", idParameter, propertyParameter);
+        }
+    
+        public virtual ObjectResult<dt_getpropertiesbyid_u_Result> dt_getpropertiesbyid_u(Nullable<int> id, string property)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var propertyParameter = property != null ?
+                new ObjectParameter("property", property) :
+                new ObjectParameter("property", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<dt_getpropertiesbyid_u_Result>("dt_getpropertiesbyid_u", idParameter, propertyParameter);
+        }
+    
+        public virtual int dt_getpropertiesbyid_vcs(Nullable<int> id, string property, ObjectParameter value)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var propertyParameter = property != null ?
+                new ObjectParameter("property", property) :
+                new ObjectParameter("property", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_getpropertiesbyid_vcs", idParameter, propertyParameter, value);
+        }
+    
+        public virtual int dt_getpropertiesbyid_vcs_u(Nullable<int> id, string property, ObjectParameter value)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var propertyParameter = property != null ?
+                new ObjectParameter("property", property) :
+                new ObjectParameter("property", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_getpropertiesbyid_vcs_u", idParameter, propertyParameter, value);
+        }
+    
+        public virtual int dt_isundersourcecontrol(string vchLoginName, string vchPassword, Nullable<int> iWhoToo)
+        {
+            var vchLoginNameParameter = vchLoginName != null ?
+                new ObjectParameter("vchLoginName", vchLoginName) :
+                new ObjectParameter("vchLoginName", typeof(string));
+    
+            var vchPasswordParameter = vchPassword != null ?
+                new ObjectParameter("vchPassword", vchPassword) :
+                new ObjectParameter("vchPassword", typeof(string));
+    
+            var iWhoTooParameter = iWhoToo.HasValue ?
+                new ObjectParameter("iWhoToo", iWhoToo) :
+                new ObjectParameter("iWhoToo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_isundersourcecontrol", vchLoginNameParameter, vchPasswordParameter, iWhoTooParameter);
+        }
+    
+        public virtual int dt_isundersourcecontrol_u(string vchLoginName, string vchPassword, Nullable<int> iWhoToo)
+        {
+            var vchLoginNameParameter = vchLoginName != null ?
+                new ObjectParameter("vchLoginName", vchLoginName) :
+                new ObjectParameter("vchLoginName", typeof(string));
+    
+            var vchPasswordParameter = vchPassword != null ?
+                new ObjectParameter("vchPassword", vchPassword) :
+                new ObjectParameter("vchPassword", typeof(string));
+    
+            var iWhoTooParameter = iWhoToo.HasValue ?
+                new ObjectParameter("iWhoToo", iWhoToo) :
+                new ObjectParameter("iWhoToo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_isundersourcecontrol_u", vchLoginNameParameter, vchPasswordParameter, iWhoTooParameter);
+        }
+    
+        public virtual int dt_removefromsourcecontrol()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_removefromsourcecontrol");
+        }
+    
+        public virtual int dt_setpropertybyid(Nullable<int> id, string property, string value, byte[] lvalue)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var propertyParameter = property != null ?
+                new ObjectParameter("property", property) :
+                new ObjectParameter("property", typeof(string));
+    
+            var valueParameter = value != null ?
+                new ObjectParameter("value", value) :
+                new ObjectParameter("value", typeof(string));
+    
+            var lvalueParameter = lvalue != null ?
+                new ObjectParameter("lvalue", lvalue) :
+                new ObjectParameter("lvalue", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_setpropertybyid", idParameter, propertyParameter, valueParameter, lvalueParameter);
+        }
+    
+        public virtual int dt_setpropertybyid_u(Nullable<int> id, string property, string uvalue, byte[] lvalue)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var propertyParameter = property != null ?
+                new ObjectParameter("property", property) :
+                new ObjectParameter("property", typeof(string));
+    
+            var uvalueParameter = uvalue != null ?
+                new ObjectParameter("uvalue", uvalue) :
+                new ObjectParameter("uvalue", typeof(string));
+    
+            var lvalueParameter = lvalue != null ?
+                new ObjectParameter("lvalue", lvalue) :
+                new ObjectParameter("lvalue", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_setpropertybyid_u", idParameter, propertyParameter, uvalueParameter, lvalueParameter);
+        }
+    
+        public virtual int dt_validateloginparams(string vchLoginName, string vchPassword)
+        {
+            var vchLoginNameParameter = vchLoginName != null ?
+                new ObjectParameter("vchLoginName", vchLoginName) :
+                new ObjectParameter("vchLoginName", typeof(string));
+    
+            var vchPasswordParameter = vchPassword != null ?
+                new ObjectParameter("vchPassword", vchPassword) :
+                new ObjectParameter("vchPassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_validateloginparams", vchLoginNameParameter, vchPasswordParameter);
+        }
+    
+        public virtual int dt_validateloginparams_u(string vchLoginName, string vchPassword)
+        {
+            var vchLoginNameParameter = vchLoginName != null ?
+                new ObjectParameter("vchLoginName", vchLoginName) :
+                new ObjectParameter("vchLoginName", typeof(string));
+    
+            var vchPasswordParameter = vchPassword != null ?
+                new ObjectParameter("vchPassword", vchPassword) :
+                new ObjectParameter("vchPassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_validateloginparams_u", vchLoginNameParameter, vchPasswordParameter);
+        }
+    
+        public virtual int dt_vcsenabled()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_vcsenabled");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> dt_verstamp006()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("dt_verstamp006");
+        }
+    
+        public virtual int dt_whocheckedout(string chObjectType, string vchObjectName, string vchLoginName, string vchPassword)
+        {
+            var chObjectTypeParameter = chObjectType != null ?
+                new ObjectParameter("chObjectType", chObjectType) :
+                new ObjectParameter("chObjectType", typeof(string));
+    
+            var vchObjectNameParameter = vchObjectName != null ?
+                new ObjectParameter("vchObjectName", vchObjectName) :
+                new ObjectParameter("vchObjectName", typeof(string));
+    
+            var vchLoginNameParameter = vchLoginName != null ?
+                new ObjectParameter("vchLoginName", vchLoginName) :
+                new ObjectParameter("vchLoginName", typeof(string));
+    
+            var vchPasswordParameter = vchPassword != null ?
+                new ObjectParameter("vchPassword", vchPassword) :
+                new ObjectParameter("vchPassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_whocheckedout", chObjectTypeParameter, vchObjectNameParameter, vchLoginNameParameter, vchPasswordParameter);
+        }
+    
+        public virtual int dt_whocheckedout_u(string chObjectType, string vchObjectName, string vchLoginName, string vchPassword)
+        {
+            var chObjectTypeParameter = chObjectType != null ?
+                new ObjectParameter("chObjectType", chObjectType) :
+                new ObjectParameter("chObjectType", typeof(string));
+    
+            var vchObjectNameParameter = vchObjectName != null ?
+                new ObjectParameter("vchObjectName", vchObjectName) :
+                new ObjectParameter("vchObjectName", typeof(string));
+    
+            var vchLoginNameParameter = vchLoginName != null ?
+                new ObjectParameter("vchLoginName", vchLoginName) :
+                new ObjectParameter("vchLoginName", typeof(string));
+    
+            var vchPasswordParameter = vchPassword != null ?
+                new ObjectParameter("vchPassword", vchPassword) :
+                new ObjectParameter("vchPassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dt_whocheckedout_u", chObjectTypeParameter, vchObjectNameParameter, vchLoginNameParameter, vchPasswordParameter);
+        }
+    
+        public virtual ObjectResult<Mac_Actualiza_Datos_Result> Mac_Actualiza_Datos(Nullable<int> num_Solicitud, Nullable<int> id_ConsultorMac, Nullable<int> id_Solicitud, Nullable<int> id_Tramite, Nullable<int> puntos, string circuito, string cuenta_Cliente, string sufijo_Kapiti, Nullable<byte> tipo_Persona, string nombre_Cliente, string apellido_Paterno, string apellido_Materno, string deposito_Inicial, string numero_Registro, string nombre_Promotor, string banca, string division, string plaza, string sucursal, string status, string fechaRepc_Doc, string horaRepc_Doc, string fechaAnalisis_Mac, string horaAnalisis_Mac, string fechaFormalizada, string horaFormalizada, string fechaRepc_Originales, string horaRepc_Originales, string fechaAten_Originales, string horaAten_Originales, string originales, Nullable<decimal> deposito_Inicial_Ini, string fecha_Desbloqueo, string fecha_Envio, string fecha_concluida, string existeTKT)
+        {
+            var num_SolicitudParameter = num_Solicitud.HasValue ?
+                new ObjectParameter("Num_Solicitud", num_Solicitud) :
+                new ObjectParameter("Num_Solicitud", typeof(int));
+    
+            var id_ConsultorMacParameter = id_ConsultorMac.HasValue ?
+                new ObjectParameter("Id_ConsultorMac", id_ConsultorMac) :
+                new ObjectParameter("Id_ConsultorMac", typeof(int));
+    
+            var id_SolicitudParameter = id_Solicitud.HasValue ?
+                new ObjectParameter("Id_Solicitud", id_Solicitud) :
+                new ObjectParameter("Id_Solicitud", typeof(int));
+    
+            var id_TramiteParameter = id_Tramite.HasValue ?
+                new ObjectParameter("Id_Tramite", id_Tramite) :
+                new ObjectParameter("Id_Tramite", typeof(int));
+    
+            var puntosParameter = puntos.HasValue ?
+                new ObjectParameter("Puntos", puntos) :
+                new ObjectParameter("Puntos", typeof(int));
+    
+            var circuitoParameter = circuito != null ?
+                new ObjectParameter("Circuito", circuito) :
+                new ObjectParameter("Circuito", typeof(string));
+    
+            var cuenta_ClienteParameter = cuenta_Cliente != null ?
+                new ObjectParameter("Cuenta_Cliente", cuenta_Cliente) :
+                new ObjectParameter("Cuenta_Cliente", typeof(string));
+    
+            var sufijo_KapitiParameter = sufijo_Kapiti != null ?
+                new ObjectParameter("Sufijo_Kapiti", sufijo_Kapiti) :
+                new ObjectParameter("Sufijo_Kapiti", typeof(string));
+    
+            var tipo_PersonaParameter = tipo_Persona.HasValue ?
+                new ObjectParameter("Tipo_Persona", tipo_Persona) :
+                new ObjectParameter("Tipo_Persona", typeof(byte));
+    
+            var nombre_ClienteParameter = nombre_Cliente != null ?
+                new ObjectParameter("Nombre_Cliente", nombre_Cliente) :
+                new ObjectParameter("Nombre_Cliente", typeof(string));
+    
+            var apellido_PaternoParameter = apellido_Paterno != null ?
+                new ObjectParameter("Apellido_Paterno", apellido_Paterno) :
+                new ObjectParameter("Apellido_Paterno", typeof(string));
+    
+            var apellido_MaternoParameter = apellido_Materno != null ?
+                new ObjectParameter("Apellido_Materno", apellido_Materno) :
+                new ObjectParameter("Apellido_Materno", typeof(string));
+    
+            var deposito_InicialParameter = deposito_Inicial != null ?
+                new ObjectParameter("Deposito_Inicial", deposito_Inicial) :
+                new ObjectParameter("Deposito_Inicial", typeof(string));
+    
+            var numero_RegistroParameter = numero_Registro != null ?
+                new ObjectParameter("Numero_Registro", numero_Registro) :
+                new ObjectParameter("Numero_Registro", typeof(string));
+    
+            var nombre_PromotorParameter = nombre_Promotor != null ?
+                new ObjectParameter("Nombre_Promotor", nombre_Promotor) :
+                new ObjectParameter("Nombre_Promotor", typeof(string));
+    
+            var bancaParameter = banca != null ?
+                new ObjectParameter("Banca", banca) :
+                new ObjectParameter("Banca", typeof(string));
+    
+            var divisionParameter = division != null ?
+                new ObjectParameter("Division", division) :
+                new ObjectParameter("Division", typeof(string));
+    
+            var plazaParameter = plaza != null ?
+                new ObjectParameter("Plaza", plaza) :
+                new ObjectParameter("Plaza", typeof(string));
+    
+            var sucursalParameter = sucursal != null ?
+                new ObjectParameter("Sucursal", sucursal) :
+                new ObjectParameter("Sucursal", typeof(string));
+    
+            var statusParameter = status != null ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(string));
+    
+            var fechaRepc_DocParameter = fechaRepc_Doc != null ?
+                new ObjectParameter("FechaRepc_Doc", fechaRepc_Doc) :
+                new ObjectParameter("FechaRepc_Doc", typeof(string));
+    
+            var horaRepc_DocParameter = horaRepc_Doc != null ?
+                new ObjectParameter("HoraRepc_Doc", horaRepc_Doc) :
+                new ObjectParameter("HoraRepc_Doc", typeof(string));
+    
+            var fechaAnalisis_MacParameter = fechaAnalisis_Mac != null ?
+                new ObjectParameter("FechaAnalisis_Mac", fechaAnalisis_Mac) :
+                new ObjectParameter("FechaAnalisis_Mac", typeof(string));
+    
+            var horaAnalisis_MacParameter = horaAnalisis_Mac != null ?
+                new ObjectParameter("HoraAnalisis_Mac", horaAnalisis_Mac) :
+                new ObjectParameter("HoraAnalisis_Mac", typeof(string));
+    
+            var fechaFormalizadaParameter = fechaFormalizada != null ?
+                new ObjectParameter("FechaFormalizada", fechaFormalizada) :
+                new ObjectParameter("FechaFormalizada", typeof(string));
+    
+            var horaFormalizadaParameter = horaFormalizada != null ?
+                new ObjectParameter("HoraFormalizada", horaFormalizada) :
+                new ObjectParameter("HoraFormalizada", typeof(string));
+    
+            var fechaRepc_OriginalesParameter = fechaRepc_Originales != null ?
+                new ObjectParameter("FechaRepc_Originales", fechaRepc_Originales) :
+                new ObjectParameter("FechaRepc_Originales", typeof(string));
+    
+            var horaRepc_OriginalesParameter = horaRepc_Originales != null ?
+                new ObjectParameter("HoraRepc_Originales", horaRepc_Originales) :
+                new ObjectParameter("HoraRepc_Originales", typeof(string));
+    
+            var fechaAten_OriginalesParameter = fechaAten_Originales != null ?
+                new ObjectParameter("FechaAten_Originales", fechaAten_Originales) :
+                new ObjectParameter("FechaAten_Originales", typeof(string));
+    
+            var horaAten_OriginalesParameter = horaAten_Originales != null ?
+                new ObjectParameter("HoraAten_Originales", horaAten_Originales) :
+                new ObjectParameter("HoraAten_Originales", typeof(string));
+    
+            var originalesParameter = originales != null ?
+                new ObjectParameter("Originales", originales) :
+                new ObjectParameter("Originales", typeof(string));
+    
+            var deposito_Inicial_IniParameter = deposito_Inicial_Ini.HasValue ?
+                new ObjectParameter("Deposito_Inicial_Ini", deposito_Inicial_Ini) :
+                new ObjectParameter("Deposito_Inicial_Ini", typeof(decimal));
+    
+            var fecha_DesbloqueoParameter = fecha_Desbloqueo != null ?
+                new ObjectParameter("Fecha_Desbloqueo", fecha_Desbloqueo) :
+                new ObjectParameter("Fecha_Desbloqueo", typeof(string));
+    
+            var fecha_EnvioParameter = fecha_Envio != null ?
+                new ObjectParameter("Fecha_Envio", fecha_Envio) :
+                new ObjectParameter("Fecha_Envio", typeof(string));
+    
+            var fecha_concluidaParameter = fecha_concluida != null ?
+                new ObjectParameter("Fecha_concluida", fecha_concluida) :
+                new ObjectParameter("Fecha_concluida", typeof(string));
+    
+            var existeTKTParameter = existeTKT != null ?
+                new ObjectParameter("ExisteTKT", existeTKT) :
+                new ObjectParameter("ExisteTKT", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Mac_Actualiza_Datos_Result>("Mac_Actualiza_Datos", num_SolicitudParameter, id_ConsultorMacParameter, id_SolicitudParameter, id_TramiteParameter, puntosParameter, circuitoParameter, cuenta_ClienteParameter, sufijo_KapitiParameter, tipo_PersonaParameter, nombre_ClienteParameter, apellido_PaternoParameter, apellido_MaternoParameter, deposito_InicialParameter, numero_RegistroParameter, nombre_PromotorParameter, bancaParameter, divisionParameter, plazaParameter, sucursalParameter, statusParameter, fechaRepc_DocParameter, horaRepc_DocParameter, fechaAnalisis_MacParameter, horaAnalisis_MacParameter, fechaFormalizadaParameter, horaFormalizadaParameter, fechaRepc_OriginalesParameter, horaRepc_OriginalesParameter, fechaAten_OriginalesParameter, horaAten_OriginalesParameter, originalesParameter, deposito_Inicial_IniParameter, fecha_DesbloqueoParameter, fecha_EnvioParameter, fecha_concluidaParameter, existeTKTParameter);
+        }
+    
+        public virtual ObjectResult<Mac_Cancela_Result> Mac_Cancela(Nullable<int> num_Solicitud)
+        {
+            var num_SolicitudParameter = num_Solicitud.HasValue ?
+                new ObjectParameter("Num_Solicitud", num_Solicitud) :
+                new ObjectParameter("Num_Solicitud", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Mac_Cancela_Result>("Mac_Cancela", num_SolicitudParameter);
+        }
+    
+        public virtual ObjectResult<Mac_Consecutivo_Result> Mac_Consecutivo()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Mac_Consecutivo_Result>("Mac_Consecutivo");
+        }
+    
+        public virtual ObjectResult<Mac_DatosCliente_Result> Mac_DatosCliente(Nullable<int> cUENTA_CLIENTE)
+        {
+            var cUENTA_CLIENTEParameter = cUENTA_CLIENTE.HasValue ?
+                new ObjectParameter("CUENTA_CLIENTE", cUENTA_CLIENTE) :
+                new ObjectParameter("CUENTA_CLIENTE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Mac_DatosCliente_Result>("Mac_DatosCliente", cUENTA_CLIENTEParameter);
+        }
+    
+        public virtual int Mac_DatosCuenta(Nullable<int> cUENTA_CLIENTE)
+        {
+            var cUENTA_CLIENTEParameter = cUENTA_CLIENTE.HasValue ?
+                new ObjectParameter("CUENTA_CLIENTE", cUENTA_CLIENTE) :
+                new ObjectParameter("CUENTA_CLIENTE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Mac_DatosCuenta", cUENTA_CLIENTEParameter);
+        }
+    
+        public virtual ObjectResult<Mac_DatosFuncionario_Result> Mac_DatosFuncionario(Nullable<int> nUMERO_FUNCIONARIO)
+        {
+            var nUMERO_FUNCIONARIOParameter = nUMERO_FUNCIONARIO.HasValue ?
+                new ObjectParameter("NUMERO_FUNCIONARIO", nUMERO_FUNCIONARIO) :
+                new ObjectParameter("NUMERO_FUNCIONARIO", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Mac_DatosFuncionario_Result>("Mac_DatosFuncionario", nUMERO_FUNCIONARIOParameter);
+        }
+    
+        public virtual ObjectResult<Mac_Inserta_Datos_Result> Mac_Inserta_Datos(Nullable<int> id_ConsultorMac, Nullable<int> id_Solicitud, Nullable<int> id_Tramite, Nullable<int> puntos, string circuito, string cuenta_Cliente, string sufijo_Kapiti, Nullable<byte> tipo_Persona, string nombre_Cliente, string apellido_Paterno, string apellido_Materno, string deposito_Inicial, string numero_Registro, string nombre_Promotor, string banca, string division, string plaza, string sucursal, string status, Nullable<int> num_Solicitud, string fechaRepc_Doc, string horaRepc_Doc, string fechaAnalisis_Mac, string horaAnalisis_Mac, string fechaFormalizada, string horaFormalizada, string fechaRepc_Originales, string horaRepc_Originales, string fechaAten_Originales, string horaAten_Originales, string originales, Nullable<decimal> deposito_Inicial_Ini, string fecha_Desbloqueo, string fecha_Envio, string fecha_concluida, string existeTKT)
+        {
+            var id_ConsultorMacParameter = id_ConsultorMac.HasValue ?
+                new ObjectParameter("Id_ConsultorMac", id_ConsultorMac) :
+                new ObjectParameter("Id_ConsultorMac", typeof(int));
+    
+            var id_SolicitudParameter = id_Solicitud.HasValue ?
+                new ObjectParameter("Id_Solicitud", id_Solicitud) :
+                new ObjectParameter("Id_Solicitud", typeof(int));
+    
+            var id_TramiteParameter = id_Tramite.HasValue ?
+                new ObjectParameter("Id_Tramite", id_Tramite) :
+                new ObjectParameter("Id_Tramite", typeof(int));
+    
+            var puntosParameter = puntos.HasValue ?
+                new ObjectParameter("Puntos", puntos) :
+                new ObjectParameter("Puntos", typeof(int));
+    
+            var circuitoParameter = circuito != null ?
+                new ObjectParameter("Circuito", circuito) :
+                new ObjectParameter("Circuito", typeof(string));
+    
+            var cuenta_ClienteParameter = cuenta_Cliente != null ?
+                new ObjectParameter("Cuenta_Cliente", cuenta_Cliente) :
+                new ObjectParameter("Cuenta_Cliente", typeof(string));
+    
+            var sufijo_KapitiParameter = sufijo_Kapiti != null ?
+                new ObjectParameter("Sufijo_Kapiti", sufijo_Kapiti) :
+                new ObjectParameter("Sufijo_Kapiti", typeof(string));
+    
+            var tipo_PersonaParameter = tipo_Persona.HasValue ?
+                new ObjectParameter("Tipo_Persona", tipo_Persona) :
+                new ObjectParameter("Tipo_Persona", typeof(byte));
+    
+            var nombre_ClienteParameter = nombre_Cliente != null ?
+                new ObjectParameter("Nombre_Cliente", nombre_Cliente) :
+                new ObjectParameter("Nombre_Cliente", typeof(string));
+    
+            var apellido_PaternoParameter = apellido_Paterno != null ?
+                new ObjectParameter("Apellido_Paterno", apellido_Paterno) :
+                new ObjectParameter("Apellido_Paterno", typeof(string));
+    
+            var apellido_MaternoParameter = apellido_Materno != null ?
+                new ObjectParameter("Apellido_Materno", apellido_Materno) :
+                new ObjectParameter("Apellido_Materno", typeof(string));
+    
+            var deposito_InicialParameter = deposito_Inicial != null ?
+                new ObjectParameter("Deposito_Inicial", deposito_Inicial) :
+                new ObjectParameter("Deposito_Inicial", typeof(string));
+    
+            var numero_RegistroParameter = numero_Registro != null ?
+                new ObjectParameter("Numero_Registro", numero_Registro) :
+                new ObjectParameter("Numero_Registro", typeof(string));
+    
+            var nombre_PromotorParameter = nombre_Promotor != null ?
+                new ObjectParameter("Nombre_Promotor", nombre_Promotor) :
+                new ObjectParameter("Nombre_Promotor", typeof(string));
+    
+            var bancaParameter = banca != null ?
+                new ObjectParameter("Banca", banca) :
+                new ObjectParameter("Banca", typeof(string));
+    
+            var divisionParameter = division != null ?
+                new ObjectParameter("Division", division) :
+                new ObjectParameter("Division", typeof(string));
+    
+            var plazaParameter = plaza != null ?
+                new ObjectParameter("Plaza", plaza) :
+                new ObjectParameter("Plaza", typeof(string));
+    
+            var sucursalParameter = sucursal != null ?
+                new ObjectParameter("Sucursal", sucursal) :
+                new ObjectParameter("Sucursal", typeof(string));
+    
+            var statusParameter = status != null ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(string));
+    
+            var num_SolicitudParameter = num_Solicitud.HasValue ?
+                new ObjectParameter("Num_Solicitud", num_Solicitud) :
+                new ObjectParameter("Num_Solicitud", typeof(int));
+    
+            var fechaRepc_DocParameter = fechaRepc_Doc != null ?
+                new ObjectParameter("FechaRepc_Doc", fechaRepc_Doc) :
+                new ObjectParameter("FechaRepc_Doc", typeof(string));
+    
+            var horaRepc_DocParameter = horaRepc_Doc != null ?
+                new ObjectParameter("HoraRepc_Doc", horaRepc_Doc) :
+                new ObjectParameter("HoraRepc_Doc", typeof(string));
+    
+            var fechaAnalisis_MacParameter = fechaAnalisis_Mac != null ?
+                new ObjectParameter("FechaAnalisis_Mac", fechaAnalisis_Mac) :
+                new ObjectParameter("FechaAnalisis_Mac", typeof(string));
+    
+            var horaAnalisis_MacParameter = horaAnalisis_Mac != null ?
+                new ObjectParameter("HoraAnalisis_Mac", horaAnalisis_Mac) :
+                new ObjectParameter("HoraAnalisis_Mac", typeof(string));
+    
+            var fechaFormalizadaParameter = fechaFormalizada != null ?
+                new ObjectParameter("FechaFormalizada", fechaFormalizada) :
+                new ObjectParameter("FechaFormalizada", typeof(string));
+    
+            var horaFormalizadaParameter = horaFormalizada != null ?
+                new ObjectParameter("HoraFormalizada", horaFormalizada) :
+                new ObjectParameter("HoraFormalizada", typeof(string));
+    
+            var fechaRepc_OriginalesParameter = fechaRepc_Originales != null ?
+                new ObjectParameter("FechaRepc_Originales", fechaRepc_Originales) :
+                new ObjectParameter("FechaRepc_Originales", typeof(string));
+    
+            var horaRepc_OriginalesParameter = horaRepc_Originales != null ?
+                new ObjectParameter("HoraRepc_Originales", horaRepc_Originales) :
+                new ObjectParameter("HoraRepc_Originales", typeof(string));
+    
+            var fechaAten_OriginalesParameter = fechaAten_Originales != null ?
+                new ObjectParameter("FechaAten_Originales", fechaAten_Originales) :
+                new ObjectParameter("FechaAten_Originales", typeof(string));
+    
+            var horaAten_OriginalesParameter = horaAten_Originales != null ?
+                new ObjectParameter("HoraAten_Originales", horaAten_Originales) :
+                new ObjectParameter("HoraAten_Originales", typeof(string));
+    
+            var originalesParameter = originales != null ?
+                new ObjectParameter("Originales", originales) :
+                new ObjectParameter("Originales", typeof(string));
+    
+            var deposito_Inicial_IniParameter = deposito_Inicial_Ini.HasValue ?
+                new ObjectParameter("Deposito_Inicial_Ini", deposito_Inicial_Ini) :
+                new ObjectParameter("Deposito_Inicial_Ini", typeof(decimal));
+    
+            var fecha_DesbloqueoParameter = fecha_Desbloqueo != null ?
+                new ObjectParameter("Fecha_Desbloqueo", fecha_Desbloqueo) :
+                new ObjectParameter("Fecha_Desbloqueo", typeof(string));
+    
+            var fecha_EnvioParameter = fecha_Envio != null ?
+                new ObjectParameter("Fecha_Envio", fecha_Envio) :
+                new ObjectParameter("Fecha_Envio", typeof(string));
+    
+            var fecha_concluidaParameter = fecha_concluida != null ?
+                new ObjectParameter("Fecha_concluida", fecha_concluida) :
+                new ObjectParameter("Fecha_concluida", typeof(string));
+    
+            var existeTKTParameter = existeTKT != null ?
+                new ObjectParameter("ExisteTKT", existeTKT) :
+                new ObjectParameter("ExisteTKT", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Mac_Inserta_Datos_Result>("Mac_Inserta_Datos", id_ConsultorMacParameter, id_SolicitudParameter, id_TramiteParameter, puntosParameter, circuitoParameter, cuenta_ClienteParameter, sufijo_KapitiParameter, tipo_PersonaParameter, nombre_ClienteParameter, apellido_PaternoParameter, apellido_MaternoParameter, deposito_InicialParameter, numero_RegistroParameter, nombre_PromotorParameter, bancaParameter, divisionParameter, plazaParameter, sucursalParameter, statusParameter, num_SolicitudParameter, fechaRepc_DocParameter, horaRepc_DocParameter, fechaAnalisis_MacParameter, horaAnalisis_MacParameter, fechaFormalizadaParameter, horaFormalizadaParameter, fechaRepc_OriginalesParameter, horaRepc_OriginalesParameter, fechaAten_OriginalesParameter, horaAten_OriginalesParameter, originalesParameter, deposito_Inicial_IniParameter, fecha_DesbloqueoParameter, fecha_EnvioParameter, fecha_concluidaParameter, existeTKTParameter);
+        }
+    
+        public virtual int Mac_Inserta_Seguimiento(Nullable<int> num_Solicitud, string fechaFormalizada, string horaFormalizada, string fechaRepc_Originales, string horaRepc_Originales, string fechaAten_Originales, string horaAten_Originales, string originales, string deposito_Inicial_Ini, string fecha_Desbloqueo, string fecha_Envio, string fecha_concluida)
+        {
+            var num_SolicitudParameter = num_Solicitud.HasValue ?
+                new ObjectParameter("Num_Solicitud", num_Solicitud) :
+                new ObjectParameter("Num_Solicitud", typeof(int));
+    
+            var fechaFormalizadaParameter = fechaFormalizada != null ?
+                new ObjectParameter("FechaFormalizada", fechaFormalizada) :
+                new ObjectParameter("FechaFormalizada", typeof(string));
+    
+            var horaFormalizadaParameter = horaFormalizada != null ?
+                new ObjectParameter("HoraFormalizada", horaFormalizada) :
+                new ObjectParameter("HoraFormalizada", typeof(string));
+    
+            var fechaRepc_OriginalesParameter = fechaRepc_Originales != null ?
+                new ObjectParameter("FechaRepc_Originales", fechaRepc_Originales) :
+                new ObjectParameter("FechaRepc_Originales", typeof(string));
+    
+            var horaRepc_OriginalesParameter = horaRepc_Originales != null ?
+                new ObjectParameter("HoraRepc_Originales", horaRepc_Originales) :
+                new ObjectParameter("HoraRepc_Originales", typeof(string));
+    
+            var fechaAten_OriginalesParameter = fechaAten_Originales != null ?
+                new ObjectParameter("FechaAten_Originales", fechaAten_Originales) :
+                new ObjectParameter("FechaAten_Originales", typeof(string));
+    
+            var horaAten_OriginalesParameter = horaAten_Originales != null ?
+                new ObjectParameter("HoraAten_Originales", horaAten_Originales) :
+                new ObjectParameter("HoraAten_Originales", typeof(string));
+    
+            var originalesParameter = originales != null ?
+                new ObjectParameter("Originales", originales) :
+                new ObjectParameter("Originales", typeof(string));
+    
+            var deposito_Inicial_IniParameter = deposito_Inicial_Ini != null ?
+                new ObjectParameter("Deposito_Inicial_Ini", deposito_Inicial_Ini) :
+                new ObjectParameter("Deposito_Inicial_Ini", typeof(string));
+    
+            var fecha_DesbloqueoParameter = fecha_Desbloqueo != null ?
+                new ObjectParameter("Fecha_Desbloqueo", fecha_Desbloqueo) :
+                new ObjectParameter("Fecha_Desbloqueo", typeof(string));
+    
+            var fecha_EnvioParameter = fecha_Envio != null ?
+                new ObjectParameter("Fecha_Envio", fecha_Envio) :
+                new ObjectParameter("Fecha_Envio", typeof(string));
+    
+            var fecha_concluidaParameter = fecha_concluida != null ?
+                new ObjectParameter("Fecha_concluida", fecha_concluida) :
+                new ObjectParameter("Fecha_concluida", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Mac_Inserta_Seguimiento", num_SolicitudParameter, fechaFormalizadaParameter, horaFormalizadaParameter, fechaRepc_OriginalesParameter, horaRepc_OriginalesParameter, fechaAten_OriginalesParameter, horaAten_OriginalesParameter, originalesParameter, deposito_Inicial_IniParameter, fecha_DesbloqueoParameter, fecha_EnvioParameter, fecha_concluidaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> Mac_Obtiene_FechaServidor()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("Mac_Obtiene_FechaServidor");
+        }
+    
+        public virtual int solicitud_cuenta()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("solicitud_cuenta");
+        }
+    
+        public virtual int sp_a_kyc_obt_InfGralFun(Nullable<int> cD_FUN, ObjectParameter cD_NUM_FUN, ObjectParameter nB_NOMBRE, ObjectParameter nB_BANCA, ObjectParameter nB_PLAZA, ObjectParameter nB_SUCURS)
+        {
+            var cD_FUNParameter = cD_FUN.HasValue ?
+                new ObjectParameter("CD_FUN", cD_FUN) :
+                new ObjectParameter("CD_FUN", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_a_kyc_obt_InfGralFun", cD_FUNParameter, cD_NUM_FUN, nB_NOMBRE, nB_BANCA, nB_PLAZA, nB_SUCURS);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_actualiza_bloqueado_usuario(string login, Nullable<bool> bloqueado)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var bloqueadoParameter = bloqueado.HasValue ?
+                new ObjectParameter("bloqueado", bloqueado) :
+                new ObjectParameter("bloqueado", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_actualiza_bloqueado_usuario", loginParameter, bloqueadoParameter);
+        }
+    
+        public virtual int sp_actualiza_cierre_inesperado(string login, Nullable<int> tiempo)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var tiempoParameter = tiempo.HasValue ?
+                new ObjectParameter("tiempo", tiempo) :
+                new ObjectParameter("tiempo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_actualiza_cierre_inesperado", loginParameter, tiempoParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_actualiza_conectado_usuario(string login, Nullable<bool> conect)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var conectParameter = conect.HasValue ?
+                new ObjectParameter("conect", conect) :
+                new ObjectParameter("conect", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_actualiza_conectado_usuario", loginParameter, conectParameter);
+        }
+    
+        public virtual int sp_actualiza_fecha_de_expiracion_usuario(string login, Nullable<System.DateTime> fecha_de_expiracion)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var fecha_de_expiracionParameter = fecha_de_expiracion.HasValue ?
+                new ObjectParameter("fecha_de_expiracion", fecha_de_expiracion) :
+                new ObjectParameter("fecha_de_expiracion", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_actualiza_fecha_de_expiracion_usuario", loginParameter, fecha_de_expiracionParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_actualiza_fechaexpira_usuario(string login, Nullable<bool> fechaexpira)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var fechaexpiraParameter = fechaexpira.HasValue ?
+                new ObjectParameter("fechaexpira", fechaexpira) :
+                new ObjectParameter("fechaexpira", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_actualiza_fechaexpira_usuario", loginParameter, fechaexpiraParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_actualiza_habilitado_usuario(string login, Nullable<bool> habilitado)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var habilitadoParameter = habilitado.HasValue ?
+                new ObjectParameter("habilitado", habilitado) :
+                new ObjectParameter("habilitado", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_actualiza_habilitado_usuario", loginParameter, habilitadoParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_actualiza_Perfil_sector(string perfil, Nullable<int> sector, Nullable<bool> permitido)
+        {
+            var perfilParameter = perfil != null ?
+                new ObjectParameter("perfil", perfil) :
+                new ObjectParameter("perfil", typeof(string));
+    
+            var sectorParameter = sector.HasValue ?
+                new ObjectParameter("sector", sector) :
+                new ObjectParameter("sector", typeof(int));
+    
+            var permitidoParameter = permitido.HasValue ?
+                new ObjectParameter("permitido", permitido) :
+                new ObjectParameter("permitido", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_actualiza_Perfil_sector", perfilParameter, sectorParameter, permitidoParameter);
+        }
+    
+        public virtual int sp_actualiza_perfil_usuario(string login, string perfil)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var perfilParameter = perfil != null ?
+                new ObjectParameter("perfil", perfil) :
+                new ObjectParameter("perfil", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_actualiza_perfil_usuario", loginParameter, perfilParameter);
+        }
+    
+        public virtual int sp_actualiza_resetpwd(string login, Nullable<bool> rpwd)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var rpwdParameter = rpwd.HasValue ?
+                new ObjectParameter("rpwd", rpwd) :
+                new ObjectParameter("rpwd", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_actualiza_resetpwd", loginParameter, rpwdParameter);
+        }
+    
+        public virtual int sp_actualizaconect(Nullable<int> iduser, string fechaconect, string horaconect, string fechadesconect, string horadesconect)
+        {
+            var iduserParameter = iduser.HasValue ?
+                new ObjectParameter("iduser", iduser) :
+                new ObjectParameter("iduser", typeof(int));
+    
+            var fechaconectParameter = fechaconect != null ?
+                new ObjectParameter("fechaconect", fechaconect) :
+                new ObjectParameter("fechaconect", typeof(string));
+    
+            var horaconectParameter = horaconect != null ?
+                new ObjectParameter("horaconect", horaconect) :
+                new ObjectParameter("horaconect", typeof(string));
+    
+            var fechadesconectParameter = fechadesconect != null ?
+                new ObjectParameter("fechadesconect", fechadesconect) :
+                new ObjectParameter("fechadesconect", typeof(string));
+    
+            var horadesconectParameter = horadesconect != null ?
+                new ObjectParameter("horadesconect", horadesconect) :
+                new ObjectParameter("horadesconect", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_actualizaconect", iduserParameter, fechaconectParameter, horaconectParameter, fechadesconectParameter, horadesconectParameter);
+        }
+    
+        public virtual ObjectResult<string> sp_actualizadocs(Nullable<int> status, Nullable<int> solicitud)
+        {
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var solicitudParameter = solicitud.HasValue ?
+                new ObjectParameter("solicitud", solicitud) :
+                new ObjectParameter("solicitud", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("sp_actualizadocs", statusParameter, solicitudParameter);
+        }
+    
+        public virtual int sp_actualizanuevoinicio(string login, Nullable<bool> nuevo)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var nuevoParameter = nuevo.HasValue ?
+                new ObjectParameter("nuevo", nuevo) :
+                new ObjectParameter("nuevo", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_actualizanuevoinicio", loginParameter, nuevoParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_actualizapwd(string login, string newpwd, string oldpwd)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var newpwdParameter = newpwd != null ?
+                new ObjectParameter("newpwd", newpwd) :
+                new ObjectParameter("newpwd", typeof(string));
+    
+            var oldpwdParameter = oldpwd != null ?
+                new ObjectParameter("oldpwd", oldpwd) :
+                new ObjectParameter("oldpwd", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_actualizapwd", loginParameter, newpwdParameter, oldpwdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_actualizarsolicitud(Nullable<int> numerosoli, string status)
+        {
+            var numerosoliParameter = numerosoli.HasValue ?
+                new ObjectParameter("numerosoli", numerosoli) :
+                new ObjectParameter("numerosoli", typeof(int));
+    
+            var statusParameter = status != null ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_actualizarsolicitud", numerosoliParameter, statusParameter);
+        }
+    
+        public virtual int sp_alta_mov_perfil(string perfil, string login, Nullable<int> id_mov, Nullable<int> id_sector, string permisoanterio, string permisoactual)
+        {
+            var perfilParameter = perfil != null ?
+                new ObjectParameter("perfil", perfil) :
+                new ObjectParameter("perfil", typeof(string));
+    
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var id_movParameter = id_mov.HasValue ?
+                new ObjectParameter("id_mov", id_mov) :
+                new ObjectParameter("id_mov", typeof(int));
+    
+            var id_sectorParameter = id_sector.HasValue ?
+                new ObjectParameter("id_sector", id_sector) :
+                new ObjectParameter("id_sector", typeof(int));
+    
+            var permisoanterioParameter = permisoanterio != null ?
+                new ObjectParameter("permisoanterio", permisoanterio) :
+                new ObjectParameter("permisoanterio", typeof(string));
+    
+            var permisoactualParameter = permisoactual != null ?
+                new ObjectParameter("permisoactual", permisoactual) :
+                new ObjectParameter("permisoactual", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alta_mov_perfil", perfilParameter, loginParameter, id_movParameter, id_sectorParameter, permisoanterioParameter, permisoactualParameter);
+        }
+    
+        public virtual int sp_alta_mov_usuario(string loginmodificador, string loginmodificado, string movimiento, string datosanterio, string datosctual)
+        {
+            var loginmodificadorParameter = loginmodificador != null ?
+                new ObjectParameter("loginmodificador", loginmodificador) :
+                new ObjectParameter("loginmodificador", typeof(string));
+    
+            var loginmodificadoParameter = loginmodificado != null ?
+                new ObjectParameter("loginmodificado", loginmodificado) :
+                new ObjectParameter("loginmodificado", typeof(string));
+    
+            var movimientoParameter = movimiento != null ?
+                new ObjectParameter("movimiento", movimiento) :
+                new ObjectParameter("movimiento", typeof(string));
+    
+            var datosanterioParameter = datosanterio != null ?
+                new ObjectParameter("datosanterio", datosanterio) :
+                new ObjectParameter("datosanterio", typeof(string));
+    
+            var datosctualParameter = datosctual != null ?
+                new ObjectParameter("datosctual", datosctual) :
+                new ObjectParameter("datosctual", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alta_mov_usuario", loginmodificadorParameter, loginmodificadoParameter, movimientoParameter, datosanterioParameter, datosctualParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_Alta_perfil(string nombreperfil, string sector, Nullable<bool> permitido)
+        {
+            var nombreperfilParameter = nombreperfil != null ?
+                new ObjectParameter("nombreperfil", nombreperfil) :
+                new ObjectParameter("nombreperfil", typeof(string));
+    
+            var sectorParameter = sector != null ?
+                new ObjectParameter("sector", sector) :
+                new ObjectParameter("sector", typeof(string));
+    
+            var permitidoParameter = permitido.HasValue ?
+                new ObjectParameter("permitido", permitido) :
+                new ObjectParameter("permitido", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Alta_perfil", nombreperfilParameter, sectorParameter, permitidoParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_altausuario(string nombreperfil, string iniciales, string nombre, string appaterno, string apmaterno, string login, Nullable<int> fechaexpira, string fecha_de_expiracion, Nullable<bool> habilitado, Nullable<bool> bloqueado)
+        {
+            var nombreperfilParameter = nombreperfil != null ?
+                new ObjectParameter("nombreperfil", nombreperfil) :
+                new ObjectParameter("nombreperfil", typeof(string));
+    
+            var inicialesParameter = iniciales != null ?
+                new ObjectParameter("iniciales", iniciales) :
+                new ObjectParameter("iniciales", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("nombre", nombre) :
+                new ObjectParameter("nombre", typeof(string));
+    
+            var appaternoParameter = appaterno != null ?
+                new ObjectParameter("appaterno", appaterno) :
+                new ObjectParameter("appaterno", typeof(string));
+    
+            var apmaternoParameter = apmaterno != null ?
+                new ObjectParameter("apmaterno", apmaterno) :
+                new ObjectParameter("apmaterno", typeof(string));
+    
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var fechaexpiraParameter = fechaexpira.HasValue ?
+                new ObjectParameter("fechaexpira", fechaexpira) :
+                new ObjectParameter("fechaexpira", typeof(int));
+    
+            var fecha_de_expiracionParameter = fecha_de_expiracion != null ?
+                new ObjectParameter("fecha_de_expiracion", fecha_de_expiracion) :
+                new ObjectParameter("fecha_de_expiracion", typeof(string));
+    
+            var habilitadoParameter = habilitado.HasValue ?
+                new ObjectParameter("habilitado", habilitado) :
+                new ObjectParameter("habilitado", typeof(bool));
+    
+            var bloqueadoParameter = bloqueado.HasValue ?
+                new ObjectParameter("bloqueado", bloqueado) :
+                new ObjectParameter("bloqueado", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_altausuario", nombreperfilParameter, inicialesParameter, nombreParameter, appaternoParameter, apmaternoParameter, loginParameter, fechaexpiraParameter, fecha_de_expiracionParameter, habilitadoParameter, bloqueadoParameter);
+        }
+    
+        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual ObjectResult<sp_buscarsolicitud_Result> sp_buscarsolicitud(Nullable<int> numerosoli)
+        {
+            var numerosoliParameter = numerosoli.HasValue ?
+                new ObjectParameter("numerosoli", numerosoli) :
+                new ObjectParameter("numerosoli", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_buscarsolicitud_Result>("sp_buscarsolicitud", numerosoliParameter);
+        }
+    
+        public virtual int sp_cierre_conecciones()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_cierre_conecciones");
+        }
+    
+        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_desconectar(string login)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_desconectar", loginParameter);
+        }
+    
+        public virtual int sp_DIAS_FERIADOS(string fecha)
+        {
+            var fechaParameter = fecha != null ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DIAS_FERIADOS", fechaParameter);
+        }
+    
+        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_insertaconect(Nullable<int> iduser, string equipo, string ip, string fechaconect, string horaconect)
+        {
+            var iduserParameter = iduser.HasValue ?
+                new ObjectParameter("iduser", iduser) :
+                new ObjectParameter("iduser", typeof(int));
+    
+            var equipoParameter = equipo != null ?
+                new ObjectParameter("equipo", equipo) :
+                new ObjectParameter("equipo", typeof(string));
+    
+            var ipParameter = ip != null ?
+                new ObjectParameter("ip", ip) :
+                new ObjectParameter("ip", typeof(string));
+    
+            var fechaconectParameter = fechaconect != null ?
+                new ObjectParameter("fechaconect", fechaconect) :
+                new ObjectParameter("fechaconect", typeof(string));
+    
+            var horaconectParameter = horaconect != null ?
+                new ObjectParameter("horaconect", horaconect) :
+                new ObjectParameter("horaconect", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_insertaconect", iduserParameter, equipoParameter, ipParameter, fechaconectParameter, horaconectParameter);
+        }
+    
+        public virtual int sp_insertar_observaciones(Nullable<int> id, string texto)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var textoParameter = texto != null ?
+                new ObjectParameter("texto", texto) :
+                new ObjectParameter("texto", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_insertar_observaciones", idParameter, textoParameter);
+        }
+    
+        public virtual int SP_MAC_ConcatenarOBS(Nullable<int> num_Solicitud)
+        {
+            var num_SolicitudParameter = num_Solicitud.HasValue ?
+                new ObjectParameter("Num_Solicitud", num_Solicitud) :
+                new ObjectParameter("Num_Solicitud", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MAC_ConcatenarOBS", num_SolicitudParameter);
+        }
+    
+        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_resetpwd(string login, string fecha)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var fechaParameter = fecha != null ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_resetpwd", loginParameter, fechaParameter);
+        }
+    
+        public virtual ObjectResult<sp_sectores_Result> sp_sectores()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_sectores_Result>("sp_sectores");
+        }
+    
+        public virtual int sp_seguimiento()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_seguimiento");
+        }
+    
+        public virtual int sp_TIPO_STATUS()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_TIPO_STATUS");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_ultimaconect(string login, string fecha, Nullable<int> mes)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var fechaParameter = fecha != null ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(string));
+    
+            var mesParameter = mes.HasValue ?
+                new ObjectParameter("mes", mes) :
+                new ObjectParameter("mes", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_ultimaconect", loginParameter, fechaParameter, mesParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_ultimaconect_mes(string login, string fecha)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var fechaParameter = fecha != null ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_ultimaconect_mes", loginParameter, fechaParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual ObjectResult<sp_verperfil_sector_Result> sp_verperfil_sector(string nombre)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("nombre", nombre) :
+                new ObjectParameter("nombre", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_verperfil_sector_Result>("sp_verperfil_sector", nombreParameter);
+        }
+    
+        public virtual ObjectResult<sp_verseguimientodoc_Result> sp_verseguimientodoc(Nullable<int> solicitud)
+        {
+            var solicitudParameter = solicitud.HasValue ?
+                new ObjectParameter("solicitud", solicitud) :
+                new ObjectParameter("solicitud", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_verseguimientodoc_Result>("sp_verseguimientodoc", solicitudParameter);
+        }
+    
+        public virtual int sp_verseguimientodoc_observaciones(Nullable<int> solicitud)
+        {
+            var solicitudParameter = solicitud.HasValue ?
+                new ObjectParameter("solicitud", solicitud) :
+                new ObjectParameter("solicitud", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_verseguimientodoc_observaciones", solicitudParameter);
+        }
+    
+        public virtual ObjectResult<sp_verusuario_Result> sp_verusuario(string login2)
+        {
+            var login2Parameter = login2 != null ?
+                new ObjectParameter("login2", login2) :
+                new ObjectParameter("login2", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_verusuario_Result>("sp_verusuario", login2Parameter);
+        }
     }
 }

@@ -172,6 +172,12 @@
     <Compile Include="Models\dtproperties.cs">
       <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\dt_getpropertiesbyid_Result.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dt_getpropertiesbyid_u_Result.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FUNCIONARIO.cs">
       <DependentUpon>BdFuncionarios.tt</DependentUpon>
     </Compile>
@@ -181,7 +187,25 @@
     <Compile Include="Models\log_conect.cs">
       <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Mac_Actualiza_Datos_Result.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Mac_Actualiza_Respuesta.cs" />
+    <Compile Include="Models\Mac_Cancela_Result.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mac_Consecutivo_Result.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mac_DatosCliente_Result.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mac_DatosFuncionario_Result.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mac_Inserta_Datos_Result.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Mac_Inserta_Respuesta.cs" />
     <Compile Include="Models\MOVIMIENTOS_PERFIL.cs">
       <DependentUpon>bdbmtktp01.tt</DependentUpon>
@@ -214,6 +238,21 @@
       <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SEGUIMIENTO_DOCTOS.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_buscarsolicitud_Result.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_sectores_Result.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_verperfil_sector_Result.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_verseguimientodoc_Result.cs">
+      <DependentUpon>bdbmtktp01.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_verusuario_Result.cs">
       <DependentUpon>bdbmtktp01.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
