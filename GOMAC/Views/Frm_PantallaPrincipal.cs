@@ -82,7 +82,7 @@ namespace GOMAC.Views
                 frm_nuevasolicitud = new FrmNueva_Solicitud(frml);
 
                 frm_nuevasolicitud.MdiParent = this;
-                frm_nuevasolicitud.str_consultor = "";
+                frml.consultor_selec = null;
                 frm_nuevasolicitud.Show();   
             }
         }

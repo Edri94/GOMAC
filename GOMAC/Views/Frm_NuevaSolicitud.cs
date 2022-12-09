@@ -19,9 +19,7 @@ namespace GOMAC.Views
 {
     public partial class FrmNueva_Solicitud : Form 
     {
-        public string str_consultor;
-        public int se_carga;
-        public int num_solicitud;
+        public int se_carga;       
         public List<OBSERVACIONES> lst_observaciones;
 
         private Frm_Login frmp;
@@ -181,7 +179,7 @@ namespace GOMAC.Views
             {
                 FUNCIONARIO funcionario_selec = (FUNCIONARIO)cmbNumeroFuncionario.SelectedItem;
 
-                if (str_consultor == "")
+                if (frmp.consultor_selec == null)
                 {
                     if (cmbNumeroFuncionario.Text == default_cmb)
                     {
@@ -228,7 +226,7 @@ namespace GOMAC.Views
                         }
                         else
                         {
-                            cmbBanca.SelectedIndex = 0;
+                            cmbBanca.SelectedIndex = -1;
                         }
 
 
@@ -238,7 +236,7 @@ namespace GOMAC.Views
                         }
                         else
                         {
-                            cmbDivision.SelectedIndex = 0;
+                            cmbDivision.SelectedIndex = -1;
                         }
 
 
@@ -249,8 +247,8 @@ namespace GOMAC.Views
                         }
                         else
                         {
-                            cmbSucursal.SelectedIndex = 0;
-                            cmbPlaza.SelectedIndex = 0;
+                            cmbSucursal.SelectedIndex = -1;
+                            cmbPlaza.SelectedIndex = -1;
                         }
 
 
@@ -278,7 +276,7 @@ namespace GOMAC.Views
         {
             if (cmbProducto_activo)
             {
-                if (str_consultor == "")
+                if (frmp.consultor_selec == null)
                 {
                     if (cmbProducto.SelectedText == default_cmb)
                     {
@@ -307,7 +305,7 @@ namespace GOMAC.Views
 
                 LlenaComboTipoTramite(tiposolicitud_selec);
 
-                if(str_consultor == "")
+                if(frmp.consultor_selec == null)
                 {
                     if(tiposolicitud_selec.Descripcion_Solicitud == default_cmb)
                     {
@@ -337,7 +335,7 @@ namespace GOMAC.Views
             {
                 TIPO_TRAMITE tipotramite_selec = (TIPO_TRAMITE)cmbTipoTramite.SelectedItem;
 
-                if (str_consultor == "")
+                if (frmp.consultor_selec == null)
                 {
                     if (tipotramite_selec.Descripcion_Tramite == default_cmb)
                     {
@@ -359,7 +357,7 @@ namespace GOMAC.Views
         /// <param name="e"></param>
         private void btnCancelarSolicitud_Click(object sender, EventArgs e)
         {
-            DialogResult dg = MessageBox.Show($"Esta seguro de querer cancelar la solicitud No. {txtSolicitud.Text}", "Confirmar cancelacion", MessageBoxButtons.YesNo);
+            DialogResult dg = MessageBox.Show($"Esta seguro de querer cancelar la solicitud No. {frmp.solicitud_selec.Num_Solicitud}", "Confirmar cancelacion", MessageBoxButtons.YesNo);
             if(dg == DialogResult.Yes)
             {
                 //Investigar como ejecutar un update con EntityFramework donde haya retorno de un valor...
@@ -367,16 +365,16 @@ namespace GOMAC.Views
                {
                     using(var dbContextTransaction = context.Database.BeginTransaction())
                     {
-                        int num_solicitud = Int32.Parse(txtSolicitud.Text);
+                       
                         try
                         {                
-                            SEGUIMIENTO seguimiento = context.SEGUIMIENTO.Where(w => w.Num_Solicitud == num_solicitud).Select(s => s).FirstOrDefault();
+                            SEGUIMIENTO seguimiento = context.SEGUIMIENTO.Where(w => w.Num_Solicitud == frmp.solicitud_selec.Num_Solicitud).Select(s => s).FirstOrDefault();
 
                             if (seguimiento != null)
                             {
                                 seguimiento.Status = "3";
 
-                                SEGUIMIENTO_DOCTOS seguimiento_doctos = context.SEGUIMIENTO_DOCTOS.Where(w => w.Num_Solicitud == num_solicitud).Select(s => s).FirstOrDefault();
+                                SEGUIMIENTO_DOCTOS seguimiento_doctos = context.SEGUIMIENTO_DOCTOS.Where(w => w.Num_Solicitud == frmp.solicitud_selec.Num_Solicitud).Select(s => s).FirstOrDefault();
 
                                 if (seguimiento_doctos != null)
                                 {
@@ -408,7 +406,7 @@ namespace GOMAC.Views
                         {
                             Log.Escribe(ex);
                             dbContextTransaction.Rollback();
-                            MessageBox.Show("Solicitud No. " + num_solicitud + "no pudo ser CANCELADA", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Solicitud No. " + frmp.solicitud_selec.Num_Solicitud + "no pudo ser CANCELADA", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -429,7 +427,10 @@ namespace GOMAC.Views
             {
                 if (dtpFFormalizada.Value != dtpFFormalizada.MinDate)
                 {
+                    Calendario.SelectionStart = DateTime.Now;
                     grpCalendario.Tag = 1;
+                    grpCalendario.Visible = true;
+                    Calendario.Focus();
                 }
                 else
                 {
@@ -454,7 +455,10 @@ namespace GOMAC.Views
             {
                 if (dtpFRecepcion.Value != dtpFRecepcion.MinDate)
                 {
+                    Calendario.SelectionStart = DateTime.Now;
                     grpCalendario.Tag = 2;
+                    grpCalendario.Visible = true;
+                    Calendario.Focus();
                 }
                 else
                 {
@@ -479,7 +483,10 @@ namespace GOMAC.Views
             {
                 if (dtpFAtencion.Value != dtpFAtencion.MinDate)
                 {
+                    Calendario.SelectionStart = DateTime.Now;
                     grpCalendario.Tag = 3;
+                    grpCalendario.Visible = true;
+                    Calendario.Focus();
                 }
                 else
                 {
@@ -505,7 +512,10 @@ namespace GOMAC.Views
             {
                 if (dtpDesbloqueo.Value != dtpDesbloqueo.MinDate)
                 {
+                    Calendario.SelectionStart = DateTime.Now;
                     grpCalendario.Tag = 4;
+                    grpCalendario.Visible = true;
+                    Calendario.Focus();
                 }
                 else
                 {
@@ -527,7 +537,10 @@ namespace GOMAC.Views
             {
                 if (dtpEnvio.Value != dtpEnvio.MinDate)
                 {
+                    Calendario.SelectionStart = DateTime.Now;
                     grpCalendario.Tag = 5;
+                    grpCalendario.Visible = true;
+                    Calendario.Focus();
                 }
                 else
                 {
@@ -549,7 +562,10 @@ namespace GOMAC.Views
             {
                 if (dtpFRecepDoc.Value != dtpFRecepDoc.MinDate)
                 {
+                    Calendario.SelectionStart = DateTime.Now;
                     grpCalendario.Tag = 7;
+                    grpCalendario.Visible = true;
+                    Calendario.Focus();
                 }
                 else
                 {
@@ -574,7 +590,10 @@ namespace GOMAC.Views
             {
                 if (dtpFAnalisisMac.Value != dtpFAnalisisMac.MinDate)
                 {
+                    Calendario.SelectionStart = DateTime.Now;
                     grpCalendario.Tag = 8;
+                    grpCalendario.Visible = true;
+                    Calendario.Focus();
                 }
                 else
                 {
@@ -658,7 +677,7 @@ namespace GOMAC.Views
         {
             try
             {
-                if (str_consultor == "")
+                if (frmp.consultor_selec == null)
                 {
                     if (cmbConsultorMac.Text == default_cmb)
                     {
@@ -678,9 +697,10 @@ namespace GOMAC.Views
                     if (btnGuardar.Text == "Guardar")
                     {
                         SSTabSeg.Enabled = false;
-                        int consecutivo = Mac_Consecutivo();
+                        frmp.solicitud_selec = new SEGUIMIENTO();
+                        frmp.solicitud_selec.Num_Solicitud = Mac_Consecutivo();
 
-                        if (consecutivo <= 0)
+                        if (frmp.solicitud_selec.Num_Solicitud <= 0)
                         {
                             MessageBox.Show("No se pudo definir el numero de consecutivo que se le asignara a su solicitud. " + (char)13 + "¡¡¡ No se puede generar la solicitud. !!!",
                                 "Error al Guardar",
@@ -694,7 +714,7 @@ namespace GOMAC.Views
                             txtSolicitud.Enabled = true;
                             dtpFechaCaptura.Enabled = true;
 
-                            txtSolicitud.Text = consecutivo.ToString();
+                            txtSolicitud.Text = frmp.solicitud_selec.Num_Solicitud.ToString();
                             dtpFechaCaptura.Value = DateTime.Now;
 
                             dtpEnvio.Enabled = true;
@@ -720,7 +740,7 @@ namespace GOMAC.Views
                             string plaza = cmbPlaza.Text;
                             string sucursal = cmbSucursal.Text;
                             string status = "1";
-                            int num_Solicitud = Int32.Parse(txtSolicitud.Text);
+                           
                             DateTime fechaRepc_Doc = dtpFRecepDoc.Value;
                             TimeSpan horaRepc_Doc = new TimeSpan(Int32.Parse(cmbHora1.SelectedValue.ToString()), Int32.Parse(cmbMinuto1.SelectedValue.ToString()), 0);
                             DateTime fechaAnalisis_Mac = dtpFAnalisisMac.Value;
@@ -761,7 +781,7 @@ namespace GOMAC.Views
                                 plaza,
                                 sucursal,
                                 status,
-                                num_Solicitud,
+                                frmp.solicitud_selec.Num_Solicitud,
                                 fechaRepc_Doc,
                                 horaRepc_Doc,
                                 fechaAnalisis_Mac,
@@ -834,7 +854,7 @@ namespace GOMAC.Views
                                 txtSolicitud.Enabled = false;
                                 lblStatus.Text = "En proceso";
 
-                                MessageBox.Show("El Número de folio es: " + txtSolicitud.Text, "Numero de folio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("El Número de folio es: " + frmp.solicitud_selec.Num_Solicitud, "Numero de folio", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                 DialogResult dialogResult = MessageBox.Show("¿Desea dar de alta otra solicitud?", "Nueva Solicitud", MessageBoxButtons.YesNo);
 
@@ -1011,7 +1031,7 @@ namespace GOMAC.Views
                     }
                     else if (btnGuardar.Text == "Modificar")
                     {
-                        if (MessageBox.Show($"Esta seguro de querer cancelar la solicitud No. {txtSolicitud.Text}", "Confirmar cancelacion", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show($"Esta seguro de querer cancelar la solicitud No. {frmp.solicitud_selec.Num_Solicitud}", "Confirmar cancelacion", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             if (dtpFAnalisisMac.Value != default_dtp)
                             {
@@ -1089,7 +1109,6 @@ namespace GOMAC.Views
                             string plaza = cmbPlaza.Text;
                             string sucursal = cmbSucursal.Text;
                             string status = "1";
-                            int num_Solicitud = Int32.Parse(txtSolicitud.Text);
                             DateTime fechaRepc_Doc = dtpFRecepDoc.Value;
                             TimeSpan horaRepc_Doc = new TimeSpan(Int32.Parse(cmbHora1.SelectedValue.ToString()), Int32.Parse(cmbMinuto1.SelectedValue.ToString()), 0);
                             DateTime fechaAnalisis_Mac = dtpFAnalisisMac.Value;
@@ -1130,7 +1149,7 @@ namespace GOMAC.Views
                                 plaza,
                                 sucursal,
                                 status,
-                                num_Solicitud,
+                                frmp.solicitud_selec.Num_Solicitud,
                                 fechaRepc_Doc,
                                 horaRepc_Doc,
                                 fechaAnalisis_Mac,
@@ -1184,7 +1203,7 @@ namespace GOMAC.Views
                                 foreach (DataGridViewRow fila in dtgvwObservaciones.Rows)
                                 {
                                     int insertado = 0;
-                                    OBSERVACIONES observacion = new OBSERVACIONES { Num_Solicitud = Int32.Parse(txtSolicitud.Text), Observaciones1 = fila.Cells[""].Value.ToString(), Fecha_Observ = DateTime.Now };
+                                    OBSERVACIONES observacion = new OBSERVACIONES { Num_Solicitud = frmp.solicitud_selec.Num_Solicitud, Observaciones1 = fila.Cells[""].Value.ToString(), Fecha_Observ = DateTime.Now };
 
                                     bdbmtktp01.OBSERVACIONES.Add(observacion);
 
@@ -1193,7 +1212,7 @@ namespace GOMAC.Views
 
                                 txtSolicitud.Enabled = false;
 
-                                MessageBox.Show("El No. de folio:" + txtSolicitud.Text + " Ha sido modifidado satisfactoriamente", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("El No. de folio:" + frmp.solicitud_selec.Num_Solicitud + " Ha sido modifidado satisfactoriamente", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                 //DoEvents
                                 tmrTraerDatos.Enabled = true;
@@ -1235,7 +1254,7 @@ namespace GOMAC.Views
         /// <param name="e"></param>
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            str_consultor = "";
+            frmp.consultor_selec = null;
             Limpiar();
             SSTabSeg.TabIndex = (btnLimpiar.Text == "Nuevo") ? 0 : 1;
 
@@ -1253,11 +1272,9 @@ namespace GOMAC.Views
             frm.ShowDialog();
             if(frm.observacion != "")
             {
-                int numero_solicitud = 0;
-                if(int.TryParse(txtSolicitud.Text, out numero_solicitud))
-                {
-                    lst_observaciones.Add(new OBSERVACIONES { Num_Solicitud = numero_solicitud, Fecha_Observ = DateTime.Now, Observaciones1 = frm.observacion });
-                }
+             
+                lst_observaciones.Add(new OBSERVACIONES { Num_Solicitud = frmp.solicitud_selec.Num_Solicitud, Fecha_Observ = DateTime.Now, Observaciones1 = frm.observacion });
+                
 
                 DataTable dt = new DataTable();
                 dt.Clear();
@@ -1307,9 +1324,9 @@ namespace GOMAC.Views
                 {
                     if(DepositoIni > 0)
                     {
-                        if(MessageBox.Show($"Esta seguro de querer concluir la solicitud No. {txtSolicitud.Text}", "Confirmar concluir solicitud", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if(MessageBox.Show($"Esta seguro de querer concluir la solicitud No. {frmp.solicitud_selec.Num_Solicitud}", "Confirmar concluir solicitud", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            if(FuncionesBdbmtktp01.Actualiza_Docs(Int32.Parse(txtSolicitud.Text)) > 0)
+                            if(FuncionesBdbmtktp01.Actualiza_Docs(frmp.solicitud_selec.Num_Solicitud) > 0)
                             {
                                 MessageBox.Show("Solicitud concluida satisfactoriamente", "Actualizacion hecha", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 VisibleRbFechas(false);
@@ -1318,7 +1335,7 @@ namespace GOMAC.Views
                             }
                             else
                             {
-                                MessageBox.Show("No se pudo actualizar el status de de la solicitud " + txtSolicitud.Text, "Error de actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show("No se pudo actualizar el status de de la solicitud " + frmp.solicitud_selec.Num_Solicitud, "Error de actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
 
                         }
@@ -1400,7 +1417,7 @@ namespace GOMAC.Views
 
 
 
-            if (str_consultor.Trim() == "")
+            if (frmp.consultor_selec == null)
             {
                 this.Text = "Captura de Solicitudes Sistema GO-MAC";
             }
@@ -1500,7 +1517,7 @@ namespace GOMAC.Views
                     break;
             }
 
-            if (str_consultor != "")
+            if (frmp.consultor_selec != null)
             {
                 if (lblStatus.Text == "Nueva")
                 {
@@ -1516,7 +1533,7 @@ namespace GOMAC.Views
         {
             try
             {
-                if (str_consultor == "")
+                if (frmp.consultor_selec == null)
                 {
                     int consecutivo = Mac_Consecutivo();
 
@@ -1548,12 +1565,12 @@ namespace GOMAC.Views
         {
             try
             {
-                if (str_consultor.Trim() != "")
+                if (frmp.consultor_selec != null)
                 {
                     se_carga = 0;
                     tmrTraerDatos.Enabled = false;
 
-                    txtSolicitud.Text = num_solicitud.ToString();
+                    txtSolicitud.Text = frmp.solicitud_selec.Num_Solicitud.ToString();
                     TraerDatos();
 
                     tmtValidarBoton.Enabled = true;
@@ -1647,10 +1664,13 @@ namespace GOMAC.Views
 
             txtCuenta.LostFocus += new EventHandler(this.TxtCuentaLostFocus);
             txtDepositoIni.LostFocus += new EventHandler(this.TxtDepositoIniLostFocus);
+            TxtDepositoTkt.LostFocus += new EventHandler(this.TxtDepositoTktLostFocus);
             //************************************************************************************
 
-            if (str_consultor.Trim() != "")
+            if (frmp.consultor_selec != null)
             {
+                LlenarCombos();
+
                 CargaConsulta();
 
                 if (lblStatus.Text == "Nueva")
@@ -1659,74 +1679,9 @@ namespace GOMAC.Views
                 }
 
             }
-            if(str_consultor.Trim() == "")
+            if(frmp.consultor_selec == null)
             {
-                CargarcomboHora(cmbHora1);
-                CargarcomboHora(cmbHora2);
-                CargarcomboHora(cmbHora3);
-                CargarcomboHora(cmbHora4);
-                CargarcomboHora(cmbHora5);
-
-
-                CargarcomboMinuto(cmbMinuto1);
-                CargarcomboMinuto(cmbMinuto2);
-                CargarcomboMinuto(cmbMinuto3);
-                CargarcomboMinuto(cmbMinuto4);
-                CargarcomboMinuto(cmbMinuto5);
-
-
-                LlenarFechaNumero();
-
-                funcionarios = (
-                  from f in bdFuncionarios.FUNCIONARIO
-                  join uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN on f.funcionario1 equals uor.funcionario
-                  select f
-                ).ToList();
-
-                funcionarios.Insert(0, new FUNCIONARIO
-                {
-                    funcionario1 = -1,
-                    nombre_funcionario = ".",
-                    apellido_paterno = ".",
-                    apellido_materno = ".",
-                    numero_funcionario = default_cmb
-                });
-
-                uors = (
-                    from uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN
-                    join f in bdFuncionarios.FUNCIONARIO on uor.funcionario equals f.funcionario1
-                    select uor
-                ).ToList();
-
-                uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { banca = ". . .  ", plaza = ". . .  ", division = ". . .  ", sucursal = ". . .  " });
-
-                //LlenaComboNumFunc();               
-                LlenaCombo(cmbNumeroFuncionario, funcionarios.OrderBy(o => o.numero_funcionario).ToList(), "numero_registro", "numero_funcionario");
-                //LlenaComboNombreFunc();
-                LlenaCombo(cmbPromotor, funcionarios.OrderBy(o => o.nombre_funcionario).ThenBy(o => o.apellido_paterno).ThenBy(o => o.apellido_materno).ToList(), "funcionario1", "_nombreCompleto");
-                
-
-                //LlenaComboBanca();
-                LlenaCombo(cmbBanca, uors.OrderBy(o => o.banca).Where( w => w.banca != null).ToList(), "banca", "banca");
-                //LlenaComboplaza();
-                LlenaCombo(cmbPlaza, uors.OrderBy(o => o.plaza).Where(w => w.plaza != null).ToList(), "plaza", "plaza");
-                //LlenaComboDivision();
-                LlenaCombo(cmbDivision, uors.OrderBy(o => o.division).Where(w => w.division != null).ToList(), "division", "division");
-                //LlenaComboSucursal();
-                LlenaCombo(cmbSucursal, uors.OrderBy(o => o.plaza).Where(w => w.plaza != null).ToList(), "plaza", "plaza");
-                //LlenaComboProducto();
-                List<PRODUCTOS> productos = bdCatalogos.PRODUCTOS.OrderBy(o => o.Producto).ToList();           
-                productos.Insert(0, new PRODUCTOS { Producto = ". . .  " });
-                LlenaCombo(cmbProducto, productos, "Id_Producto", "Producto");
-
-                
-                //LlenaComboTipoSolicitud();
-                LlenaCombo(cmbTipoSolicitud, bdbmtktp01.TIPO_SOLICITUD.OrderBy(o => o.Descripcion_Solicitud).ToList(), "Id_Solicitud", "Descripcion_Solicitud");
-                LlenaComboTipoTramite();
-                //LlenarComboConsultor();
-                List<CONSULTORES> consultores = bdbmtktp01.CONSULTORES.OrderBy(o => o.Iniciales_ConsultorMac).ToList();
-                consultores.Insert(0, new CONSULTORES { Iniciales_ConsultorMac = default_cmb });
-                LlenaCombo(cmbConsultorMac, consultores, "Id_ConsultorMac", "Iniciales_ConsultorMac");
+                LlenarCombos();
 
                 dtpFRecepDoc.Value = dtpFRecepDoc.MinDate;
                 dtpFAnalisisMac.Value = dtpFAnalisisMac.MinDate;
@@ -1814,7 +1769,7 @@ namespace GOMAC.Views
 
             }
 
-            if (str_consultor != "")
+            if (frmp.consultor_selec != null)
             {
                 tmrTraerDatos.Enabled = false;
 
@@ -1827,7 +1782,7 @@ namespace GOMAC.Views
                 //Frame1.MousePointer = 11
                 //FrmNombreCliente.MousePointer = 11
 
-                txtSolicitud.Text = num_solicitud.ToString();
+                txtSolicitud.Text = frmp.solicitud_selec.Num_Solicitud.ToString();
                 CargaConsulta();
 
                 //Me.MousePointer = 0
@@ -1893,6 +1848,83 @@ namespace GOMAC.Views
             dtpFechaCaptura.Enabled = false;
             txtPuntos.Enabled = false;
             dtpFechaCancelada.Enabled = false;
+        }
+
+        private void LlenarCombos()
+        {
+            try
+            {
+                CargarcomboHora(cmbHora1);
+                CargarcomboHora(cmbHora2);
+                CargarcomboHora(cmbHora3);
+                CargarcomboHora(cmbHora4);
+                CargarcomboHora(cmbHora5);
+
+
+                CargarcomboMinuto(cmbMinuto1);
+                CargarcomboMinuto(cmbMinuto2);
+                CargarcomboMinuto(cmbMinuto3);
+                CargarcomboMinuto(cmbMinuto4);
+                CargarcomboMinuto(cmbMinuto5);
+
+
+                LlenarFechaNumero();
+
+                funcionarios = (
+                  from f in bdFuncionarios.FUNCIONARIO
+                  join uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN on f.funcionario1 equals uor.funcionario
+                  select f
+                ).ToList();
+
+                funcionarios.Insert(0, new FUNCIONARIO
+                {
+                    funcionario1 = -1,
+                    nombre_funcionario = ".",
+                    apellido_paterno = ".",
+                    apellido_materno = ".",
+                    numero_funcionario = default_cmb
+                });
+
+                uors = (
+                    from uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN
+                    join f in bdFuncionarios.FUNCIONARIO on uor.funcionario equals f.funcionario1
+                    select uor
+                ).ToList();
+
+                uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { banca = ". . .  ", plaza = ". . .  ", division = ". . .  ", sucursal = ". . .  " });
+
+                //LlenaComboNumFunc();               
+                LlenaCombo(cmbNumeroFuncionario, funcionarios.OrderBy(o => o.numero_funcionario).ToList(), "numero_registro", "numero_funcionario");
+                //LlenaComboNombreFunc();
+                LlenaCombo(cmbPromotor, funcionarios.OrderBy(o => o.nombre_funcionario).ThenBy(o => o.apellido_paterno).ThenBy(o => o.apellido_materno).ToList(), "funcionario1", "_nombreCompleto");
+
+
+                //LlenaComboBanca();
+                LlenaCombo(cmbBanca, uors.OrderBy(o => o.banca).Where(w => w.banca != null).ToList(), "banca", "banca");
+                //LlenaComboplaza();
+                LlenaCombo(cmbPlaza, uors.OrderBy(o => o.plaza).Where(w => w.plaza != null).ToList(), "plaza", "plaza");
+                //LlenaComboDivision();
+                LlenaCombo(cmbDivision, uors.OrderBy(o => o.division).Where(w => w.division != null).ToList(), "division", "division");
+                //LlenaComboSucursal();
+                LlenaCombo(cmbSucursal, uors.OrderBy(o => o.plaza).Where(w => w.plaza != null).ToList(), "plaza", "plaza");
+                //LlenaComboProducto();
+                List<PRODUCTOS> productos = bdCatalogos.PRODUCTOS.OrderBy(o => o.Producto).ToList();
+                productos.Insert(0, new PRODUCTOS { Producto = ". . .  " });
+                LlenaCombo(cmbProducto, productos, "Id_Producto", "Producto");
+
+
+                //LlenaComboTipoSolicitud();
+                LlenaCombo(cmbTipoSolicitud, bdbmtktp01.TIPO_SOLICITUD.OrderBy(o => o.Descripcion_Solicitud).ToList(), "Id_Solicitud", "Descripcion_Solicitud");
+                LlenaComboTipoTramite();
+                //LlenarComboConsultor();
+                List<CONSULTORES> consultores = bdbmtktp01.CONSULTORES.OrderBy(o => o.Iniciales_ConsultorMac).ToList();
+                consultores.Insert(0, new CONSULTORES { Iniciales_ConsultorMac = default_cmb });
+                LlenaCombo(cmbConsultorMac, consultores, "Id_ConsultorMac", "Iniciales_ConsultorMac");
+            }
+            catch (Exception ex)
+            {
+                Log.Escribe(ex);
+            }
         }
 
         private void LlenaCombo<T>(ComboBox cmb, List<T> lista, string value_member, string display_member)
@@ -2080,9 +2112,9 @@ namespace GOMAC.Views
             {
                 int inttiemposervicio, intContador;
 
-                this.Text = (str_consultor.Trim() == "") ? "Captura de solicitud" : "Consulta de solicitud";
+                this.Text = (frmp.consultor_selec == null) ? "Captura de solicitud" : "Consulta de solicitud";
 
-                if (VerSeguimientoDoc(Int32.Parse(txtSolicitud.Text)) != null)
+                if (VerSeguimientoDoc(frmp.solicitud_selec.Num_Solicitud) != null)
                 {
 
                     if (seguimiento_doc.Status != "1")
@@ -2932,7 +2964,7 @@ namespace GOMAC.Views
         {
             txtCuenta_KeyPress(this, new KeyPressEventArgs((char)(Keys.Enter)));
 
-            if (str_consultor == "")
+            if (frmp.consultor_selec == null)
             {
                 if (txtCuenta.Text == "")
                 {
@@ -2970,7 +3002,7 @@ namespace GOMAC.Views
 
             if(decimal.TryParse(txtDepositoIni.Text, out deposito))
             {
-                txtDepositoIni.Text = decimal.Parse(txtDepositoIni.Text).ToString("C", format_mxn);
+                txtDepositoIni.Text = deposito.ToString("C", format_mxn);
             }   
         }
 
@@ -2995,7 +3027,13 @@ namespace GOMAC.Views
 
         public void TxtDepositoTktLostFocus(object sender, EventArgs e)
         {
-            TxtDepositoTkt.Text = decimal.Parse(TxtDepositoTkt.Text).ToString("C", format_mxn);
+            decimal deposito = 0;
+
+            if(decimal.TryParse(TxtDepositoTkt.Text,out deposito))
+            {
+                TxtDepositoTkt.Text = deposito.ToString("C", format_mxn);
+            }
+            
         }
 
         private void dtpDesbloqueo_KeyPress(object sender, KeyPressEventArgs e)
@@ -3141,16 +3179,11 @@ namespace GOMAC.Views
         {
             if (dtpConcluir.Value != dtpConcluir.MinDate)
             {
-                grpCalendario.Tag = 6;
-            }
-            else
-            {
                 DateTime fecha_servidor = DateTime.Now;
-
                 dtpConcluir.Value = fecha_servidor;
-                cmbHora1.SelectedValue = fecha_servidor.ToString("hh");
-                cmbMinuto1.SelectedValue = fecha_servidor.ToString("mm");
 
+                grpCalendario.Tag = 6;
+                grpCalendario.Visible = true;
             }
         }
 
@@ -3224,6 +3257,7 @@ namespace GOMAC.Views
             else
             {
                 txtNombre.Text = txtNombre.Text.ToUpper();
+                txtNombre.ForeColor = Color.Black;
             }
         }
 
@@ -3245,6 +3279,11 @@ namespace GOMAC.Views
                 txtApellidoP.Text = "Primer Apellido";
                 txtApellidoP.ForeColor = Color.LightGray;
             }
+            else
+            {
+                txtApellidoP.Text = txtApellidoP.Text.ToUpper();
+                txtApellidoP.ForeColor = Color.Black;
+            }
         }
 
         public void TxtApelllidoPGotFocus(object sender, EventArgs e)
@@ -3264,6 +3303,11 @@ namespace GOMAC.Views
             {
                 txtApellidoM.Text = "Segundo Apellido";
                 txtApellidoM.ForeColor = Color.LightGray;
+            }
+            else
+            {
+                txtApellidoM.Text = txtApellidoM.Text.ToUpper();
+                txtApellidoM.ForeColor = Color.Black;
             }
         }
 
@@ -3289,13 +3333,13 @@ namespace GOMAC.Views
                 SEGUIMIENTO observaciones = (
                        from s in bdbmtktp01.SEGUIMIENTO
                        join o in bdbmtktp01.OBSERVACIONES on s.Num_Solicitud equals o.Num_Solicitud
-                       where s.Num_Solicitud == Int32.Parse(txtSolicitud.Text)
+                       where s.Num_Solicitud == frmp.solicitud_selec.Num_Solicitud
                        select s
                    ).FirstOrDefault();
 
                 if (observaciones == null)
                 {
-                    MessageBox.Show("No se pudieron cargar las observaciones para la solicitud " + txtSolicitud.Text, "Error de carga.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("No se pudieron cargar las observaciones para la solicitud " + frmp.solicitud_selec.Num_Solicitud, "Error de carga.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return -1;
                 }
 

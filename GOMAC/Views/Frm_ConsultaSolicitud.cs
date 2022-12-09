@@ -19,6 +19,7 @@ namespace GOMAC.Views
         Frm_Login frmp;
         private bmtktp01Entities bdbmtktp01;
         private DataTable dt;
+        private bool dtgvw_cargado = false;
 
         public Frm_ConsultaSolicitud(Frm_Login frmp)
         {
@@ -254,6 +255,7 @@ namespace GOMAC.Views
 
                 dataGridView1.DataSource = dt;
                 dataGridView1.Refresh();
+                dtgvw_cargado = true;
             }
             catch (Exception ex)
             {
@@ -318,6 +320,44 @@ namespace GOMAC.Views
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void dataGridView1_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+           
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dtgvw_cargado)
+            {
+                int seleccionado = dataGridView1.CurrentCell.RowIndex;
+                string nombre = dataGridView1.Rows[seleccionado].Cells["Nombre Cliente"].Value.ToString();
+                int num_solicitud = (int.TryParse(dataGridView1.Rows[seleccionado].Cells["Numero Solicitud"].Value.ToString(), out num_solicitud)) ? num_solicitud : -1;
+
+                if(num_solicitud > 0)
+                {
+                    dataGridView1.Enabled = false;
+                    frmp.solicitud_selec = bdbmtktp01.SEGUIMIENTO.Where(w => w.Num_Solicitud == num_solicitud).FirstOrDefault();
+
+                    if(frmp.solicitud_selec != null)
+                    {
+                         frmp.consultor_selec = bdbmtktp01.CONSULTORES.OrderBy(o => o.Iniciales_ConsultorMac).Where(w => w.Id_ConsultorMac == frmp.solicitud_selec.Id_ConsultorMac).ToList().FirstOrDefault();
+
+                        if(frmp.consultor_selec != null)
+                        {
+                            FrmNueva_Solicitud frm = new FrmNueva_Solicitud(frmp);
+                            frm.ShowDialog();
+                        }
+                    }
+                    
+
+
+
+                }
+
+                MessageBox.Show($"{num_solicitud}consultar el cliente: {nombre}");
+            }
         }
     }
 }

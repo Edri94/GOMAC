@@ -16,7 +16,9 @@ namespace GOMAC.Views
     {       
         public int sr, tiempo_servicioa, tiempo_serviciom, tiempo_atencion, tiempo_espera, cierre_tiempo, meses_sin_conectar;
         public int activa;
-        public string str_srv, str_bd, str_usr, str_pwd, str_provider;    
+        public string str_srv, str_bd, str_usr, str_pwd, str_provider;
+        public CONSULTORES consultor_selec;
+        public SEGUIMIENTO solicitud_selec;
         public USUARIO usuario;
 
         public List<ver_perfil_sector> perfiles_sector;
