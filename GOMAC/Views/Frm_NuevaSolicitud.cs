@@ -31,7 +31,8 @@ namespace GOMAC.Views
 
         private List<FUNCIONARIO> funcionarios;
         private List<UNIDAD_ORGANIZACIONAL_RESUMEN> uors;
-        private SEGUIMIENTO seguimiento_doc;
+        private SEGUIMIENTO seguimiento;
+        private SEGUIMIENTO_DOCTOS seguimiento_doc;
 
         private string default_cmb = ". . . ";
         private DateTime default_dtp = DateTimePicker.MinimumDateTime;
@@ -730,25 +731,24 @@ namespace GOMAC.Views
                             btnGuardar.Enabled = false;
 
                             int id_ConsultorMac = frmp.usuario_loggeado.id_usuario;
-                            int id_Solicitud = cmbTipoSolicitud.SelectedIndex;
-                            int id_Tramite = cmbTipoTramite.SelectedIndex;
+                            int id_Solicitud = ((TIPO_SOLICITUD)cmbTipoSolicitud.SelectedItem).Id_Solicitud;
+                            int id_Tramite = ((TIPO_TRAMITE)cmbTipoTramite.SelectedItem).Id_Tramite;
                             int puntos = Int32.Parse(txtPuntos.Text);
                             string circuito = (rbCircuitoAuto.Checked) ? "A" : "M";
                             string cuenta_Cliente = txtCuenta.Text;
-                            string sufijo_Kapiti = cmbProducto.Text.Trim();
+                            string sufijo_Kapiti = ((PRODUCTOS)cmbProducto.SelectedItem).Producto;
                             byte tipo_Persona = (byte)((rbPersonaFisica.Checked) ? 0 : 1);
                             string nombre_Cliente = txtNombre.Text;
                             string apellido_Paterno = txtApellidoP.Text;
                             string apellido_Materno = txtApellidoM.Text;
                             decimal deposito_Inicial = decimal.Parse(TxtDepositoTkt.Text.Replace("$", ""));
-                            string numero_Registro = cmbNumeroFuncionario.Text;
+                            string numero_Registro = ((FUNCIONARIO)cmbNumeroFuncionario.SelectedItem).numero_registro;
                             string nombre_Promotor = cmbPromotor.Text;
-                            string banca = cmbBanca.Text;
-                            string division = cmbDivision.Text;
-                            string plaza = cmbPlaza.Text;
-                            string sucursal = cmbSucursal.Text;
+                            string banca = ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbBanca.SelectedItem).banca;
+                            string division = ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbDivision.SelectedItem).division;
+                            string plaza = ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbPlaza.SelectedItem).plaza;
+                            string sucursal = ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbSucursal.SelectedItem).sucursal;
                             string status = "1";
-                           
                             DateTime fechaRepc_Doc = dtpFRecepDoc.Value;
                             TimeSpan horaRepc_Doc = new TimeSpan(Int32.Parse(cmbHora1.SelectedValue.ToString()), Int32.Parse(cmbMinuto1.SelectedValue.ToString()), 0);
                             DateTime fechaAnalisis_Mac = dtpFAnalisisMac.Value;
@@ -1100,23 +1100,23 @@ namespace GOMAC.Views
                             dtpEnvio.Enabled = true;
 
                             int id_ConsultorMac = frmp.usuario_loggeado.id_usuario;
-                            int id_Solicitud = cmbTipoSolicitud.SelectedIndex;
-                            int id_Tramite = cmbTipoTramite.SelectedIndex;
+                            int id_Solicitud = ((TIPO_SOLICITUD)cmbTipoSolicitud.SelectedItem).Id_Solicitud;
+                            int id_Tramite =  ((TIPO_TRAMITE)cmbTipoTramite.SelectedItem).Id_Tramite;
                             int puntos = Int32.Parse(txtPuntos.Text);
                             string circuito = (rbCircuitoAuto.Checked) ? "A" : "M";
                             string cuenta_Cliente = txtCuenta.Text;
-                            string sufijo_Kapiti = cmbProducto.Text;
+                            string sufijo_Kapiti = ((PRODUCTOS)cmbProducto.SelectedItem).Producto;
                             byte tipo_Persona = (byte)((rbPersonaFisica.Checked) ? 0 : 1);
                             string nombre_Cliente = txtNombre.Text;
                             string apellido_Paterno = txtApellidoP.Text;
                             string apellido_Materno = txtApellidoM.Text;
                             decimal deposito_Inicial = decimal.Parse(TxtDepositoTkt.Text.Replace("$", ""));
-                            string numero_Registro = cmbNumeroFuncionario.Text;
+                            string numero_Registro = ((FUNCIONARIO)cmbNumeroFuncionario.SelectedItem).numero_registro;
                             string nombre_Promotor = cmbPromotor.Text;
-                            string banca = cmbBanca.Text;
-                            string division = cmbDivision.Text;
-                            string plaza = cmbPlaza.Text;
-                            string sucursal = cmbSucursal.Text;
+                            string banca = (((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbBanca.SelectedItem) != null)? ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbBanca.SelectedItem).banca : "";
+                            string division = (((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbDivision.SelectedItem) != null) ? ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbDivision.SelectedItem).division : ""; 
+                            string plaza = (((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbPlaza.SelectedItem) != null) ? ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbPlaza.SelectedItem).plaza : ""; 
+                            string sucursal = (((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbSucursal.SelectedItem) != null) ? ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbSucursal.SelectedItem).plaza : "";  
                             string status = "1";
                             DateTime fechaRepc_Doc = dtpFRecepDoc.Value;
                             TimeSpan horaRepc_Doc = new TimeSpan(Int32.Parse(cmbHora1.SelectedValue.ToString()), Int32.Parse(cmbMinuto1.SelectedValue.ToString()), 0);
@@ -2127,7 +2127,7 @@ namespace GOMAC.Views
                 if (VerSeguimientoDoc(frmp.solicitud_selec.Num_Solicitud) != null)
                 {
 
-                    if (seguimiento_doc.Status != "1")
+                    if (seguimiento.Status != "1")
                     {
                         btnGuardar.Visible = false;
                         btnCancelarSolicitud.Visible = false;
@@ -2155,17 +2155,17 @@ namespace GOMAC.Views
                     }
 
                     //Datos Cuenta
-                    dtpFechaCaptura.Value = (seguimiento_doc.Fecha_Captura.HasValue) ? seguimiento_doc.Fecha_Captura.Value : dtpFechaCaptura.MinDate;
+                    dtpFechaCaptura.Value = (seguimiento.Fecha_Captura.HasValue) ? seguimiento.Fecha_Captura.Value : dtpFechaCaptura.MinDate;
 
-                    //cmbConsultorMac.SelectedIndex = (seguimiento_doc.Id_ConsultorMac.HasValue) ? seguimiento_doc.Id_ConsultorMac.Value : -1;
-                    cmbConsultorMac.SelectedValue = (seguimiento_doc.Id_ConsultorMac.HasValue) ? frmp.consultor_selec.Id_ConsultorMac : default;
+                    //cmbConsultorMac.SelectedIndex = (seguimiento.Id_ConsultorMac.HasValue) ? seguimiento.Id_ConsultorMac.Value : -1;
+                    cmbConsultorMac.SelectedValue = (seguimiento.Id_ConsultorMac.HasValue) ? frmp.consultor_selec.Id_ConsultorMac : default;
 
-                    cmbTipoSolicitud.SelectedValue = (seguimiento_doc.Id_Solicitud.HasValue) ? seguimiento_doc.Id_Solicitud.Value : -1;
+                    cmbTipoSolicitud.SelectedValue = (seguimiento.Id_Solicitud.HasValue) ? seguimiento.Id_Solicitud.Value : -1;
 
                     
 
 
-                    if (seguimiento_doc.ExisteTKT.ToUpper() == "S")
+                    if (seguimiento.ExisteTKT.ToUpper() == "S")
                     {
                         rbExisteCuentaSi.Checked = true;
                     }
@@ -2174,7 +2174,7 @@ namespace GOMAC.Views
                         rbExisteCuentaNo.Checked = true;
                     }
 
-                    switch (Int32.Parse(seguimiento_doc.Status))
+                    switch (Int32.Parse(seguimiento.Status))
                     {
                         case 1:
                             dtgvwObservaciones.Enabled = true;
@@ -2270,9 +2270,9 @@ namespace GOMAC.Views
                             break;
                     }
 
-                    txtPuntos.Text = (seguimiento_doc.Puntos.HasValue) ? seguimiento_doc.Puntos.Value.ToString() : "";
+                    txtPuntos.Text = (seguimiento.Puntos.HasValue) ? seguimiento.Puntos.Value.ToString() : "";
 
-                    if (seguimiento_doc.Circuito == "A")
+                    if (seguimiento.Circuito == "A")
                     {
                         if (rbCircuitoAuto.Enabled)
                         {
@@ -2293,12 +2293,12 @@ namespace GOMAC.Views
                     grpTicket.Enabled = false;
 
                     txtCuenta.Tag = 1;
-                    txtCuenta.Text = seguimiento_doc.Cuenta_Cliente;
+                    txtCuenta.Text = seguimiento.Cuenta_Cliente;
 
-                    cmbProducto.SelectedValue = seguimiento_doc.Sufijo_Kapiti.Trim();
+                    cmbProducto.SelectedValue = seguimiento.Sufijo_Kapiti.Trim();
 
 
-                    if (seguimiento_doc.Tipo_Persona == 0)
+                    if (seguimiento.Tipo_Persona == 0)
                     {
                         //PERSONA FISICA
                         if (rbPersonaFisica.Enabled == true)
@@ -2317,34 +2317,51 @@ namespace GOMAC.Views
                         }
                     }
 
-                    txtNombre.Text = seguimiento_doc.Nombre_Cliente;
-                    txtApellidoP.Text = seguimiento_doc.Apellido_Paterno;
-                    txtApellidoM.Text = seguimiento_doc.Apellido_Materno;
+                    txtNombre.Text = seguimiento.Nombre_Cliente;
+                    txtApellidoP.Text = seguimiento.Apellido_Paterno;
+                    txtApellidoM.Text = seguimiento.Apellido_Materno;
 
-                    TxtDepositoTkt.Text = seguimiento_doc.Deposito_InicialTKT.ToString();
-                    TxtDepositoTkt.Tag = seguimiento_doc.Deposito_InicialTKT.ToString();
+                    TxtDepositoTkt.Text = seguimiento.Deposito_InicialTKT.ToString();
+                    TxtDepositoTkt.Tag = seguimiento.Deposito_InicialTKT.ToString();
 
 
                     //Datos Funcionario
-                    cmbNumeroFuncionario.SelectedValue = seguimiento_doc.Numero_Registro;
-                    cmbNumeroFuncionario.Tag = seguimiento_doc.Numero_Registro;
-                    cmbPromotor.Text = seguimiento_doc.Nombre_Promotor;
+                    foreach (FUNCIONARIO funcionario in cmbNumeroFuncionario.Items)
+                    {
+                        if (funcionario.numero_registro != null)
+                        {
+                            string v1 = seguimiento.Numero_Registro;
+                            int v2 = seguimiento.Numero_Registro.Length;
+
+                            string v3 = funcionario.numero_registro;
+                            int v4 = funcionario.numero_registro.Length;
+
+                            if (funcionario.numero_registro.Contains(seguimiento.Numero_Registro.Trim()))
+                            {
+                                Console.WriteLine($"{v3} : Long: " + v4);
+                            }
+                        }
+                    }
+                    cmbNumeroFuncionario.SelectedValue = seguimiento.Numero_Registro;
+
+                    cmbNumeroFuncionario.Tag = seguimiento.Numero_Registro;
+                    cmbPromotor.Text = seguimiento.Nombre_Promotor;
                     cmbPromotor.Enabled = false;
-                    cmbBanca.SelectedText = seguimiento_doc.Banca;
+                    cmbBanca.Text = seguimiento.Banca;
                     cmbBanca.Enabled = false;
-                    cmbDivision.SelectedText = seguimiento_doc.Division;
+                    cmbDivision.Text = seguimiento.Division;
                     cmbDivision.Enabled = false;
-                    cmbPlaza.SelectedText = seguimiento_doc.Plaza;
+                    cmbPlaza.Text = seguimiento.Plaza;
                     cmbPlaza.Enabled = false;
-                    cmbSucursal.SelectedText = seguimiento_doc.Sucursal;
+                    cmbSucursal.Text = seguimiento.Sucursal;
                     cmbSucursal.Enabled = false;
 
 
 
                     //Dato Seguimiento Documento
-                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.HasValue)
+                    if (seguimiento_doc.Repc_Doc.HasValue)
                     {
-                        if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.Value == DateTime.Parse("01-01-1900"))
+                        if (seguimiento_doc.Repc_Doc.Value == DateTime.Parse("01-01-1900"))
                         {
                             dtpFRecepDoc.Text = "";
                             cmbHora1.SelectedText = "00";
@@ -2356,9 +2373,9 @@ namespace GOMAC.Views
                         }
                         else
                         {
-                            dtpFRecepDoc.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.Value;
-                            cmbHora1.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.Value.ToString("hh");
-                            cmbMinuto1.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Doc.Value.ToString("mm");
+                            dtpFRecepDoc.Value = seguimiento_doc.Repc_Doc.Value;
+                            cmbHora1.SelectedText = seguimiento_doc.Repc_Doc.Value.ToString("hh");
+                            cmbMinuto1.SelectedText = seguimiento_doc.Repc_Doc.Value.ToString("mm");
 
                             grpOriginales.Enabled = false;
 
@@ -2381,9 +2398,9 @@ namespace GOMAC.Views
 
 
                     //Analisis_Mac
-                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.HasValue)
+                    if (seguimiento_doc.Analisis_Mac.HasValue)
                     {
-                        if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.Value == DateTime.Parse("01-01-1900"))
+                        if (seguimiento_doc.Analisis_Mac.Value == DateTime.Parse("01-01-1900"))
                         {
                             dtpFAnalisisMac.Text = "";
                             cmbHora2.SelectedText = "00";
@@ -2391,9 +2408,9 @@ namespace GOMAC.Views
                         }
                         else
                         {
-                            dtpFAnalisisMac.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.Value;
-                            cmbHora2.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.Value.ToString("hh");
-                            cmbMinuto2.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Analisis_Mac.Value.ToString("mm");
+                            dtpFAnalisisMac.Value = seguimiento_doc.Analisis_Mac.Value;
+                            cmbHora2.SelectedText = seguimiento_doc.Analisis_Mac.Value.ToString("hh");
+                            cmbMinuto2.SelectedText = seguimiento_doc.Analisis_Mac.Value.ToString("mm");
 
                             grpOriginales.Enabled = false;
                             dtpFAnalisisMac.Enabled = false;
@@ -2422,9 +2439,9 @@ namespace GOMAC.Views
                     cmbMinuto2.Enabled = false;
 
                     //Formalizada
-                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.HasValue)
+                    if (seguimiento_doc.Formalizada.HasValue)
                     {
-                        if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.Value == DateTime.Parse("01-01-1900"))
+                        if (seguimiento_doc.Formalizada.Value == DateTime.Parse("01-01-1900"))
                         {
                             dtpFFormalizada.Text = "";
                             cmbHora3.SelectedText = "00";
@@ -2432,9 +2449,9 @@ namespace GOMAC.Views
                         }
                         else
                         {
-                            dtpFFormalizada.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.Value;
-                            cmbHora3.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.Value.ToString("hh");
-                            cmbMinuto3.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Formalizada.Value.ToString("mm");
+                            dtpFFormalizada.Value = seguimiento_doc.Formalizada.Value;
+                            cmbHora3.SelectedText = seguimiento_doc.Formalizada.Value.ToString("hh");
+                            cmbMinuto3.SelectedText = seguimiento_doc.Formalizada.Value.ToString("mm");
 
                             dtpFFormalizada.Enabled = false;
                             btnFFormalizada.Visible = false;
@@ -2453,9 +2470,9 @@ namespace GOMAC.Views
 
 
                     //Repc_Originales
-                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.HasValue)
+                    if (seguimiento_doc.Repc_Originales.HasValue)
                     {
-                        if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.Value == DateTime.Parse("01-01-1900"))
+                        if (seguimiento_doc.Repc_Originales.Value == DateTime.Parse("01-01-1900"))
                         {
                             dtpFRecepcion.Text = "";
                             cmbHora4.SelectedText = "00";
@@ -2463,9 +2480,9 @@ namespace GOMAC.Views
                         }
                         else
                         {
-                            dtpFRecepcion.Text = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.Value.ToString("dd-MM-yyyy");
-                            cmbHora4.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.Value.ToString("hh");
-                            cmbMinuto4.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Repc_Originales.Value.ToString("mm");
+                            dtpFRecepcion.Text = seguimiento_doc.Repc_Originales.Value.ToString("dd-MM-yyyy");
+                            cmbHora4.SelectedText = seguimiento_doc.Repc_Originales.Value.ToString("hh");
+                            cmbMinuto4.SelectedText = seguimiento_doc.Repc_Originales.Value.ToString("mm");
 
                             dtpFRecepcion.Enabled = false;
                             btnFRecepcion.Enabled = false;
@@ -2485,9 +2502,9 @@ namespace GOMAC.Views
 
 
                     //Aten_Originales
-                    if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Aten_Originales.HasValue)
+                    if (seguimiento_doc.Aten_Originales.HasValue)
                     {
-                        if (seguimiento_doc.SEGUIMIENTO_DOCTOS.Aten_Originales.Value == DateTime.Parse("01-01-1900"))
+                        if (seguimiento_doc.Aten_Originales.Value == DateTime.Parse("01-01-1900"))
                         {
                             dtpFAtencion.Text = String.Empty;
                             cmbHora5.SelectedText = "00";
@@ -2495,9 +2512,9 @@ namespace GOMAC.Views
                         }
                         else
                         {
-                            dtpFAtencion.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Aten_Originales.Value;
-                            cmbHora5.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Aten_Originales.Value.ToString("hh");
-                            cmbMinuto5.SelectedText = seguimiento_doc.SEGUIMIENTO_DOCTOS.Aten_Originales.Value.ToString("mm");
+                            dtpFAtencion.Value = seguimiento_doc.Aten_Originales.Value;
+                            cmbHora5.SelectedText = seguimiento_doc.Aten_Originales.Value.ToString("hh");
+                            cmbMinuto5.SelectedText = seguimiento_doc.Aten_Originales.Value.ToString("mm");
 
                             dtpFAtencion.Enabled = false;
                             btnFAtencion.Enabled = false;
@@ -2530,29 +2547,29 @@ namespace GOMAC.Views
                     }
 
 
-                    TxtDepositoTkt.Text = (seguimiento_doc.Deposito_InicialTKT.HasValue) ? seguimiento_doc.Deposito_InicialTKT.Value.ToString("C", format_mxn) : "0.00";
-                    txtDepositoIni.Text = (seguimiento_doc.SEGUIMIENTO_DOCTOS.Deposito_Inicial.HasValue) ? seguimiento_doc.SEGUIMIENTO_DOCTOS.Deposito_Inicial.Value.ToString("C", format_mxn) : "0.00";
+                    TxtDepositoTkt.Text = (seguimiento.Deposito_InicialTKT.HasValue) ? seguimiento.Deposito_InicialTKT.Value.ToString("C", format_mxn) : "0.00";
+                    txtDepositoIni.Text = (seguimiento_doc.Deposito_Inicial.HasValue) ? seguimiento_doc.Deposito_Inicial.Value.ToString("C", format_mxn) : "0.00";
 
                     if (txtDepositoIni.Text == "0.00")
                     {
                         txtDepositoIni.Enabled = false;
                     }
 
-                    if (!seguimiento_doc.SEGUIMIENTO_DOCTOS.Desbloqueo_Sistemas.HasValue)
+                    if (!seguimiento_doc.Desbloqueo_Sistemas.HasValue)
                     {
                         dtpDesbloqueo.Enabled = true;
                         dtpDesbloqueo.Value = default_dtp;
                     }
                     else
                     {
-                        dtpDesbloqueo.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Desbloqueo_Sistemas.Value;
+                        dtpDesbloqueo.Value = seguimiento_doc.Desbloqueo_Sistemas.Value;
                         dtpDesbloqueo.Enabled = false;
 
                         btnDesbloqueo.Visible = false;
                     }
 
 
-                    if (!seguimiento_doc.SEGUIMIENTO_DOCTOS.Envio_Agencia.HasValue)
+                    if (!seguimiento_doc.Envio_Agencia.HasValue)
                     {
                         dtpEnvio.Value = default_dtp;
                         dtpEnvio.Enabled = false;
@@ -2560,32 +2577,32 @@ namespace GOMAC.Views
                     }
                     else
                     {
-                        dtpEnvio.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Envio_Agencia.Value;
+                        dtpEnvio.Value = seguimiento_doc.Envio_Agencia.Value;
                         dtpEnvio.Enabled = false;
                     }
 
 
-                    if (!seguimiento_doc.SEGUIMIENTO_DOCTOS.Cancelacion.HasValue)
+                    if (!seguimiento_doc.Cancelacion.HasValue)
                     {
                         dtpFechaCancelada.Value = default_dtp;
                     }
                     else
                     {
-                        dtpFechaCancelada.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Cancelacion.Value;
+                        dtpFechaCancelada.Value = seguimiento_doc.Cancelacion.Value;
                     }
 
 
-                    if (!seguimiento_doc.SEGUIMIENTO_DOCTOS.Concluida.HasValue)
+                    if (!seguimiento_doc.Concluida.HasValue)
                     {
                         dtpConcluir.Value = default_dtp;
                     }
                     else
                     {
-                        dtpConcluir.Value = seguimiento_doc.SEGUIMIENTO_DOCTOS.Concluida.Value;
+                        dtpConcluir.Value = seguimiento_doc.Concluida.Value;
                     }
 
 
-                    cmbTipoTramite.SelectedValue = seguimiento_doc.Id_Tramite;
+                    cmbTipoTramite.SelectedValue = seguimiento.Id_Tramite;
 
 
                     if (cmbTipoSolicitud.SelectedIndex != 1)
@@ -3445,22 +3462,34 @@ namespace GOMAC.Views
         {
             try
             {
-                seguimiento_doc = 
-                    (from s in bdbmtktp01.SEGUIMIENTO
-                     join sd in bdbmtktp01.SEGUIMIENTO_DOCTOS on s.Num_Solicitud equals sd.Num_Solicitud
+                seguimiento = 
+                    (from s in bdbmtktp01.SEGUIMIENTO      
                      where s.Num_Solicitud == numero_solicitud
                      select s)
                     .FirstOrDefault();
-                return seguimiento_doc;
+
+                if (seguimiento != null)
+                {
+
+                    seguimiento_doc = seguimiento.SEGUIMIENTO_DOCTOS.FirstOrDefault();
+                    if(seguimiento_doc != null)
+                    {
+                        return seguimiento;
+                    }
+                }
+                return null;
             }
             catch (Exception ex)
             {
                 Log.Escribe(ex);
-                return seguimiento_doc;
+                return null;
             }
         }
 
-       
+      
+        
+
+
 
         public int Mac_Consecutivo()
         {

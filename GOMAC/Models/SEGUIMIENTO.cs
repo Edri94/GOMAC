@@ -18,6 +18,7 @@ namespace GOMAC.Models
         public SEGUIMIENTO()
         {
             this.SEGUIMIENTO_OBSERVACIONES = new HashSet<SEGUIMIENTO_OBSERVACIONES>();
+            this.SEGUIMIENTO_DOCTOS = new HashSet<SEGUIMIENTO_DOCTOS>();
         }
     
         public int Num_Solicitud { get; set; }
@@ -45,7 +46,8 @@ namespace GOMAC.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SEGUIMIENTO_OBSERVACIONES> SEGUIMIENTO_OBSERVACIONES { get; set; }
-        public virtual SEGUIMIENTO_DOCTOS SEGUIMIENTO_DOCTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SEGUIMIENTO_DOCTOS> SEGUIMIENTO_DOCTOS { get; set; }
         public virtual TIPO_SOLICITUD TIPO_SOLICITUD { get; set; }
         public virtual TIPO_TRAMITE TIPO_TRAMITE { get; set; }
     }

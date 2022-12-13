@@ -157,6 +157,16 @@
           <ScalarProperty Name="Envio_Agencia" ColumnName="Envio_Agencia" />
           <ScalarProperty Name="Concluida" ColumnName="Concluida" />
           <ScalarProperty Name="Cancelacion" ColumnName="Cancelacion" />
+          <ScalarProperty Name="Id_SeguimientoDoc" ColumnName="Id_SeguimientoDoc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEGUIMIENTO_OBSERVACIONES">
+      <EntityTypeMapping TypeName="bmtktp01Model.SEGUIMIENTO_OBSERVACIONES">
+        <MappingFragment StoreEntitySet="SEGUIMIENTO_OBSERVACIONES">
+          <ScalarProperty Name="Num_Solicitud" ColumnName="Num_Solicitud" />
+          <ScalarProperty Name="Id_Observacion" ColumnName="Id_Observacion" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -423,14 +433,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="SEGUIMIENTO_OBSERVACIONES" TypeName="bmtktp01Model.SEGUIMIENTO_OBSERVACIONES" StoreEntitySet="SEGUIMIENTO_OBSERVACIONES">
-      <EndProperty Name="OBSERVACIONES">
-        <ScalarProperty Name="Id_Observacion" ColumnName="Id_Observacion" />
-      </EndProperty>
-      <EndProperty Name="SEGUIMIENTO">
-        <ScalarProperty Name="Num_Solicitud" ColumnName="Num_Solicitud" />
-      </EndProperty>
-    </AssociationSetMapping>
     <FunctionImportMapping FunctionImportName="dt_addtosourcecontrol" FunctionName="bmtktp01Model.Store.dt_addtosourcecontrol" />
     <FunctionImportMapping FunctionImportName="dt_addtosourcecontrol_u" FunctionName="bmtktp01Model.Store.dt_addtosourcecontrol_u" />
     <FunctionImportMapping FunctionImportName="dt_adduserobject" FunctionName="bmtktp01Model.Store.dt_adduserobject" />
@@ -645,6 +647,7 @@
           <ScalarProperty Name="Envio_Agencia" ColumnName="Envio_Agencia" />
           <ScalarProperty Name="Concluida" ColumnName="Concluida" />
           <ScalarProperty Name="Cancelacion" ColumnName="Cancelacion" />
+          <ScalarProperty Name="Id_SeguimientoDoc" ColumnName="Id_SeguimientoDoc" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

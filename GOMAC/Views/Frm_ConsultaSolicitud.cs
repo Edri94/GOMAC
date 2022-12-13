@@ -350,10 +350,6 @@ namespace GOMAC.Views
                             frm.ShowDialog();
                         }
                     }
-                    
-
-
-
                 }
 
                 MessageBox.Show($"{num_solicitud}consultar el cliente: {nombre}");

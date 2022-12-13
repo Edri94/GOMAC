@@ -159,7 +159,7 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.PERFIL_SECTOR' no tiene definid
   </EntityType>
   <EntityType Name="SEGUIMIENTO_DOCTOS">
     <Key>
-      <PropertyRef Name="Num_Solicitud" />
+      <PropertyRef Name="Id_SeguimientoDoc" />
     </Key>
     <Property Name="Num_Solicitud" Type="int" Nullable="false" />
     <Property Name="Repc_Doc" Type="datetime" />
@@ -174,16 +174,15 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.PERFIL_SECTOR' no tiene definid
     <Property Name="Envio_Agencia" Type="datetime" />
     <Property Name="Concluida" Type="datetime" />
     <Property Name="Cancelacion" Type="datetime" />
+    <Property Name="Id_SeguimientoDoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'bmtktp01.dbo.SEGUIMIENTO_OBSERVACIONES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="SEGUIMIENTO_OBSERVACIONES">
     <Key>
-      <PropertyRef Name="Num_Solicitud" />
-      <PropertyRef Name="Id_Observacion" />
+      <PropertyRef Name="ID" />
     </Key>
     <Property Name="Num_Solicitud" Type="int" Nullable="false" />
     <Property Name="Id_Observacion" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -650,7 +649,7 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
   </Association>
   <Association Name="FK_SEGUIMIENTO_DOCTOS_SEGUIMIENTO">
     <End Role="SEGUIMIENTO" Type="Self.SEGUIMIENTO" Multiplicity="1" />
-    <End Role="SEGUIMIENTO_DOCTOS" Type="Self.SEGUIMIENTO_DOCTOS" Multiplicity="0..1" />
+    <End Role="SEGUIMIENTO_DOCTOS" Type="Self.SEGUIMIENTO_DOCTOS" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="SEGUIMIENTO">
         <PropertyRef Name="Num_Solicitud" />
@@ -1186,6 +1185,7 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
     <EntitySet Name="SECTORES" EntityType="Self.SECTORES" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SEGUIMIENTO" EntityType="Self.SEGUIMIENTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SEGUIMIENTO_DOCTOS" EntityType="Self.SEGUIMIENTO_DOCTOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SEGUIMIENTO_OBSERVACIONES" EntityType="Self.SEGUIMIENTO_OBSERVACIONES" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_MOV_PERFIL" EntityType="Self.TIPO_MOV_PERFIL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_MOV_USUARIO" EntityType="Self.TIPO_MOV_USUARIO" Schema="dbo" store:Type="Tables" />
@@ -1199,12 +1199,6 @@ advertencia 6002: La tabla o vista 'bmtktp01.dbo.ver_usuarios2' no tiene definid
     [PERFIL_SECTOR].[id_sector] AS [id_sector], 
     [PERFIL_SECTOR].[permitido] AS [permitido]
     FROM [dbo].[PERFIL_SECTOR] AS [PERFIL_SECTOR]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="SEGUIMIENTO_OBSERVACIONES" EntityType="Self.SEGUIMIENTO_OBSERVACIONES" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [SEGUIMIENTO_OBSERVACIONES].[Num_Solicitud] AS [Num_Solicitud], 
-    [SEGUIMIENTO_OBSERVACIONES].[Id_Observacion] AS [Id_Observacion]
-    FROM [dbo].[SEGUIMIENTO_OBSERVACIONES] AS [SEGUIMIENTO_OBSERVACIONES]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="log_conect" EntityType="Self.log_conect" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 

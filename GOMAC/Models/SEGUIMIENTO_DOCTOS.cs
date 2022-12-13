@@ -27,6 +27,7 @@ namespace GOMAC.Models
         public Nullable<System.DateTime> Envio_Agencia { get; set; }
         public Nullable<System.DateTime> Concluida { get; set; }
         public Nullable<System.DateTime> Cancelacion { get; set; }
+        public int Id_SeguimientoDoc { get; set; }
     
         public virtual SEGUIMIENTO SEGUIMIENTO { get; set; }
     }

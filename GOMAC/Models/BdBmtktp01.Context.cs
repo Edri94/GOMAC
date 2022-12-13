@@ -39,6 +39,7 @@ namespace GOMAC.Models
         public virtual DbSet<SECTORES> SECTORES { get; set; }
         public virtual DbSet<SEGUIMIENTO> SEGUIMIENTO { get; set; }
         public virtual DbSet<SEGUIMIENTO_DOCTOS> SEGUIMIENTO_DOCTOS { get; set; }
+        public virtual DbSet<SEGUIMIENTO_OBSERVACIONES> SEGUIMIENTO_OBSERVACIONES { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TIPO_MOV_PERFIL> TIPO_MOV_PERFIL { get; set; }
         public virtual DbSet<TIPO_MOV_USUARIO> TIPO_MOV_USUARIO { get; set; }
