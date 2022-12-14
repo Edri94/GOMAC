@@ -23,14 +23,16 @@ namespace GOMAC.Views
         public List<OBSERVACIONES> lst_observaciones;
 
         private Frm_Login frmp;
+        private PantallaCarga frmc;
+
         private bmtktp01Entities bdbmtktp01;
         private CATALOGOSEntities bdCatalogos;
         private FUNCIONARIOSEntities bdFuncionarios;
         private TICKETEntities bdTickets;
         private FuncionesBdbmtktp01 bdFuncBmtktp01;
 
-        private List<FUNCIONARIO> funcionarios;
-        private List<UNIDAD_ORGANIZACIONAL_RESUMEN> uors;
+        //private List<FUNCIONARIO> funcionarios;
+        //private List<UNIDAD_ORGANIZACIONAL_RESUMEN> uors;
         private SEGUIMIENTO seguimiento;
         private SEGUIMIENTO_DOCTOS seguimiento_doc;
 
@@ -1688,7 +1690,7 @@ namespace GOMAC.Views
                 }
 
             }
-            if(frmp.consultor_selec == null)
+            if (frmp.consultor_selec == null)
             {
                 LlenarCombos();
 
@@ -1740,7 +1742,7 @@ namespace GOMAC.Views
                     case "Nueva":
                         MessageBox.Show("¡No se pudo cargar la informacion, intente nueva mente!", "Error de visualizacion de informacion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         this.Close();
-                    break;
+                        break;
                 }
             }
 
@@ -1804,7 +1806,7 @@ namespace GOMAC.Views
                 //Frame1.MousePointer = 0
                 //FrmNombreCliente.MousePointer = 0
                 tmtValidarBoton.Enabled = true;
-                
+
                 switch (lblStatus.Text)
                 {
                     case "En Proceso":
@@ -1880,56 +1882,29 @@ namespace GOMAC.Views
 
                 LlenarFechaNumero();
 
-                funcionarios = (
-                  from f in bdFuncionarios.FUNCIONARIO
-                  join uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN on f.funcionario1 equals uor.funcionario
-                  select f
-                ).ToList();
-
-                funcionarios.Insert(0, new FUNCIONARIO
-                {
-                    funcionario1 = -1,
-                    nombre_funcionario = ".",
-                    apellido_paterno = ".",
-                    apellido_materno = ".",
-                    numero_funcionario = default_cmb
-                });
-
-                uors = (
-                    from uor in bdFuncionarios.UNIDAD_ORGANIZACIONAL_RESUMEN
-                    join f in bdFuncionarios.FUNCIONARIO on uor.funcionario equals f.funcionario1
-                    select uor
-                ).ToList();
-
-                uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN { banca = ". . .  ", plaza = ". . .  ", division = ". . .  ", sucursal = ". . .  " });
-
                 //LlenaComboNumFunc();               
-                LlenaCombo(cmbNumeroFuncionario, funcionarios.OrderBy(o => o.numero_funcionario).ToList(), "numero_registro", "numero_funcionario");
+                LlenaCombo(cmbNumeroFuncionario, frmc.funcionarios.OrderBy(o => o.numero_funcionario).ToList(), "numero_registro", "numero_funcionario");
                 //LlenaComboNombreFunc();
-                LlenaCombo(cmbPromotor, funcionarios.OrderBy(o => o.nombre_funcionario).ThenBy(o => o.apellido_paterno).ThenBy(o => o.apellido_materno).ToList(), "funcionario1", "_nombreCompleto");
+                LlenaCombo(cmbPromotor, frmc.funcionarios.OrderBy(o => o.nombre_funcionario).ThenBy(o => o.apellido_paterno).ThenBy(o => o.apellido_materno).ToList(), "funcionario1", "_nombreCompleto");
 
 
                 //LlenaComboBanca();
-                LlenaCombo(cmbBanca, uors.OrderBy(o => o.banca).Where(w => w.banca != null).ToList(), "banca", "banca");
+                LlenaCombo(cmbBanca, frmc.uors.OrderBy(o => o.banca).Where(w => w.banca != null).ToList(), "banca", "banca");
                 //LlenaComboplaza();
-                LlenaCombo(cmbPlaza, uors.OrderBy(o => o.plaza).Where(w => w.plaza != null).ToList(), "plaza", "plaza");
+                LlenaCombo(cmbPlaza, frmc.uors.OrderBy(o => o.plaza).Where(w => w.plaza != null).ToList(), "plaza", "plaza");
                 //LlenaComboDivision();
-                LlenaCombo(cmbDivision, uors.OrderBy(o => o.division).Where(w => w.division != null).ToList(), "division", "division");
+                LlenaCombo(cmbDivision, frmc.uors.OrderBy(o => o.division).Where(w => w.division != null).ToList(), "division", "division");
                 //LlenaComboSucursal();
-                LlenaCombo(cmbSucursal, uors.OrderBy(o => o.plaza).Where(w => w.plaza != null).ToList(), "plaza", "plaza");
+                LlenaCombo(cmbSucursal, frmc.uors.OrderBy(o => o.plaza).Where(w => w.plaza != null).ToList(), "plaza", "plaza");
                 //LlenaComboProducto();
-                List<PRODUCTOS> productos = bdCatalogos.PRODUCTOS.OrderBy(o => o.Producto).ToList();
-                productos.Insert(0, new PRODUCTOS { Producto = ". . .  " });
-                LlenaCombo(cmbProducto, productos, "Producto", "Producto");
-
+                
+                LlenaCombo(cmbProducto, frmc.productos, "Producto", "Producto");
 
                 //LlenaComboTipoSolicitud();
                 LlenaCombo(cmbTipoSolicitud, bdbmtktp01.TIPO_SOLICITUD.OrderBy(o => o.Descripcion_Solicitud).ToList(), "Id_Solicitud", "Descripcion_Solicitud");
                 LlenaComboTipoTramite();
                 //LlenarComboConsultor();
-                List<CONSULTORES> consultores = bdbmtktp01.CONSULTORES.OrderBy(o => o.Iniciales_ConsultorMac).ToList();
-                consultores.Insert(0, new CONSULTORES { Iniciales_ConsultorMac = default_cmb });
-                LlenaCombo(cmbConsultorMac, consultores, "Id_ConsultorMac", "Iniciales_ConsultorMac");
+                LlenaCombo(cmbConsultorMac, frmc.consultores, "Id_ConsultorMac", "Iniciales_ConsultorMac");
             }
             catch (Exception ex)
             {
@@ -2055,7 +2030,21 @@ namespace GOMAC.Views
         /// <param name="e"></param>
         private void rbExisteCuentaSi_CheckedChanged(object sender, EventArgs e)
         {
-            if(rbExisteCuentaSi.Checked)
+
+            if(frmp.consultor_selec == null)
+            {
+                if(rbExisteCuentaSi.Checked == false && rbExisteCuentaNo.Checked == false)
+                {
+                    txtCuenta.Enabled = false;
+                    return;
+                }
+                else
+                {
+                    txtCuenta.Enabled = true;
+                }
+            }
+
+            if (rbExisteCuentaSi.Checked)
             {
                 cmbProducto.Enabled = false;
                 txtNombre.Enabled = false;
@@ -2065,7 +2054,7 @@ namespace GOMAC.Views
                 rbPersonaFisica.Enabled = false;
                 rbPersonaMoral.Enabled = false;
             }
-            else if(rbExisteCuentaNo.Checked)
+            else if (rbExisteCuentaNo.Checked)
             {
                 cmbProducto.Enabled = true;
                 txtNombre.Enabled = true;
@@ -2093,7 +2082,48 @@ namespace GOMAC.Views
         /// <param name="e"></param>
         private void rbExisteCuentaNo_CheckedChanged(object sender, EventArgs e)
         {
-           
+            if (frmp.consultor_selec == null)
+            {
+                if (rbExisteCuentaSi.Checked == false && rbExisteCuentaNo.Checked == false)
+                {
+                    txtCuenta.Enabled = false;
+                    return;
+                }
+                else
+                {
+                    txtCuenta.Enabled = true;
+                }
+            }
+
+            if (rbExisteCuentaSi.Checked)
+            {
+                cmbProducto.Enabled = false;
+                txtNombre.Enabled = false;
+                txtApellidoP.Enabled = false;
+                txtApellidoM.Enabled = false;
+                TxtDepositoTkt.Enabled = true;
+                rbPersonaFisica.Enabled = false;
+                rbPersonaMoral.Enabled = false;
+            }
+            else if (rbExisteCuentaNo.Checked)
+            {
+                cmbProducto.Enabled = true;
+                txtNombre.Enabled = true;
+                txtApellidoP.Enabled = true;
+                txtApellidoM.Enabled = true;
+                TxtDepositoTkt.Enabled = true;
+                rbPersonaFisica.Enabled = true;
+                rbPersonaMoral.Enabled = true;
+            }
+
+            if (txtCuenta.Enabled) txtCuenta.Focus();
+
+
+            cmbProducto.SelectedText = default_cmb;
+            txtNombre.Text = "";
+            txtApellidoP.Text = "";
+            txtApellidoM.Text = "";
+            TxtDepositoTkt.Text = "";
         }
 
         /// <summary>
@@ -3223,11 +3253,13 @@ namespace GOMAC.Views
         }
 
 
-        public FrmNueva_Solicitud(Frm_Login frmp)
+        public FrmNueva_Solicitud(Frm_Login frmp, PantallaCarga frmc)
         {      
             InitializeComponent();
           
             this.frmp = frmp;
+            this.frmc = frmc;
+
             this.bdbmtktp01 = new bmtktp01Entities();
             this.bdCatalogos = new CATALOGOSEntities();
             this.bdFuncionarios = new FUNCIONARIOSEntities();
@@ -3518,7 +3550,7 @@ namespace GOMAC.Views
                 cmbNumeroFuncionario_activo = true;
 
                 //cmbNumeroFuncionario.DataSource = funcionarios.Where(w => w.numero_funcionario.Contains(busqueda)).Select(x => x).ToList();
-                cmbNumeroFuncionario.DataSource = funcionarios
+                cmbNumeroFuncionario.DataSource = frmc.funcionarios
                     .Where(w => w.numero_funcionario.StartsWith(busqueda))
                     .OrderBy(o => o.numero_funcionario)
                     .Select(x => x)
@@ -3528,6 +3560,16 @@ namespace GOMAC.Views
                 cmbNumeroFuncionario.ValueMember = "numero_registro";
                 cmbNumeroFuncionario.Refresh();
             }
+
+        }
+
+        private void rbCircuitoAuto_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbCircuitoManual_CheckedChanged(object sender, EventArgs e)
+        {
 
         }
 

@@ -401,6 +401,7 @@ namespace GOMAC.Views
             this.rbCircuitoManual.TabStop = true;
             this.rbCircuitoManual.Text = "Manual";
             this.rbCircuitoManual.UseVisualStyleBackColor = true;
+            this.rbCircuitoManual.CheckedChanged += new System.EventHandler(this.rbCircuitoManual_CheckedChanged);
             // 
             // rbCircuitoAuto
             // 
@@ -413,6 +414,7 @@ namespace GOMAC.Views
             this.rbCircuitoAuto.TabStop = true;
             this.rbCircuitoAuto.Text = "Auto";
             this.rbCircuitoAuto.UseVisualStyleBackColor = true;
+            this.rbCircuitoAuto.CheckedChanged += new System.EventHandler(this.rbCircuitoAuto_CheckedChanged);
             // 
             // cmbTipoTramite
             // 
@@ -507,7 +509,7 @@ namespace GOMAC.Views
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage1.Size = new System.Drawing.Size(1231, 369);
+            this.tabPage1.Size = new System.Drawing.Size(1338, 444);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Datos Funcionario";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1167,7 +1169,7 @@ namespace GOMAC.Views
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage3.Size = new System.Drawing.Size(1231, 369);
+            this.tabPage3.Size = new System.Drawing.Size(1338, 444);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Observaciones";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1280,7 +1282,7 @@ namespace GOMAC.Views
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.lblStatus);
-            this.groupBox6.Location = new System.Drawing.Point(18, 845);
+            this.groupBox6.Location = new System.Drawing.Point(18, 859);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1301,7 +1303,7 @@ namespace GOMAC.Views
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(808, 859);
+            this.btnLimpiar.Location = new System.Drawing.Point(808, 873);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(112, 35);
@@ -1312,7 +1314,7 @@ namespace GOMAC.Views
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(929, 859);
+            this.btnGuardar.Location = new System.Drawing.Point(929, 873);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(112, 35);
@@ -1323,7 +1325,7 @@ namespace GOMAC.Views
             // 
             // btnCancelarSolicitud
             // 
-            this.btnCancelarSolicitud.Location = new System.Drawing.Point(1051, 859);
+            this.btnCancelarSolicitud.Location = new System.Drawing.Point(1051, 873);
             this.btnCancelarSolicitud.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCancelarSolicitud.Name = "btnCancelarSolicitud";
             this.btnCancelarSolicitud.Size = new System.Drawing.Size(174, 35);
@@ -1334,7 +1336,7 @@ namespace GOMAC.Views
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(1234, 859);
+            this.btnSalir.Location = new System.Drawing.Point(1234, 873);
             this.btnSalir.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(130, 35);
@@ -1360,7 +1362,9 @@ namespace GOMAC.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1377, 920);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ClientSize = new System.Drawing.Size(1378, 976);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnCancelarSolicitud);
             this.Controls.Add(this.btnGuardar);
@@ -1370,8 +1374,10 @@ namespace GOMAC.Views
             this.Controls.Add(this.SSTabSeg);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FrmNueva_Solicitud";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Captura de Solicitudes";

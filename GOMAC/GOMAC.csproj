@@ -376,6 +376,12 @@
     <Compile Include="Views\Frm_VistaObvservaciones.Designer.cs">
       <DependentUpon>Frm_VistaObvservaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\PantallaCarga.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PantallaCarga.Designer.cs">
+      <DependentUpon>PantallaCarga.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Views\Frm_ActualizacionSolicitud.resx">
       <DependentUpon>Frm_ActualizacionSolicitud.cs</DependentUpon>
     </EmbeddedResource>
@@ -406,6 +412,9 @@
     </Compile>
     <EmbeddedResource Include="Views\Frm_VistaObvservaciones.resx">
       <DependentUpon>Frm_VistaObvservaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PantallaCarga.resx">
+      <DependentUpon>PantallaCarga.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="Models\BdCatalogos.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

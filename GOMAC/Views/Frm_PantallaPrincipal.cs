@@ -26,7 +26,7 @@ namespace GOMAC.Views
         public NumberFormatInfo format;
 
         private Frm_Login frml;
-        private FrmNueva_Solicitud frm_nuevasolicitud;
+        private PantallaCarga frm_nuevasolicitud;
         private Frm_ConsultaSolicitud frm_consultasolicitud;
         private Frm_ActualizacionSolicitud frm_actualizacionsolicitud;
         
@@ -61,7 +61,7 @@ namespace GOMAC.Views
                     frm_consultasolicitud = null;
                 }
 
-                frm_consultasolicitud = new Frm_ConsultaSolicitud(frml);
+                frm_consultasolicitud = new Frm_ConsultaSolicitud(frml, this);
 
                 frm_consultasolicitud.MdiParent = this;
                 frm_consultasolicitud.Show();
@@ -79,11 +79,13 @@ namespace GOMAC.Views
                     frm_nuevasolicitud = null;
                 }
 
-                frm_nuevasolicitud = new FrmNueva_Solicitud(frml);
+                frm_nuevasolicitud = new PantallaCarga(frml, this);
 
-                frm_nuevasolicitud.MdiParent = this;
+                //frm_nuevasolicitud.MdiParent = this;
                 frml.consultor_selec = null;
-                frm_nuevasolicitud.Show();   
+                frm_nuevasolicitud.Height = this.Height - 33;
+                frm_nuevasolicitud.Width = this.Width;
+                frm_nuevasolicitud.ShowDialog();   
             }
         }
 

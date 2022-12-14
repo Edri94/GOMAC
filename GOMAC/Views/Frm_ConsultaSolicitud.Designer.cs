@@ -41,7 +41,7 @@ namespace GOMAC.Views
             this.rbMoral = new System.Windows.Forms.RadioButton();
             this.rbFisica = new System.Windows.Forms.RadioButton();
             this.rbTodas = new System.Windows.Forms.RadioButton();
-            this.txtAplllido2 = new System.Windows.Forms.TextBox();
+            this.txtApelllido2 = new System.Windows.Forms.TextBox();
             this.txtApellido1 = new System.Windows.Forms.TextBox();
             this.txtFolio = new System.Windows.Forms.TextBox();
             this.txtCuenta = new System.Windows.Forms.TextBox();
@@ -58,16 +58,17 @@ namespace GOMAC.Views
             this.label1 = new System.Windows.Forms.Label();
             this.cmbBanca = new System.Windows.Forms.ComboBox();
             this.cmbConsultor = new System.Windows.Forms.ComboBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.loading = new System.Windows.Forms.PictureBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.bckWrkBusquedas = new System.ComponentModel.BackgroundWorker();
             this.grpFiltros.SuspendLayout();
             this.grpRangoFechas.SuspendLayout();
             this.grpTipoPersona.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.loading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,7 +77,7 @@ namespace GOMAC.Views
             this.grpFiltros.Controls.Add(this.button1);
             this.grpFiltros.Controls.Add(this.grpRangoFechas);
             this.grpFiltros.Controls.Add(this.grpTipoPersona);
-            this.grpFiltros.Controls.Add(this.txtAplllido2);
+            this.grpFiltros.Controls.Add(this.txtApelllido2);
             this.grpFiltros.Controls.Add(this.txtApellido1);
             this.grpFiltros.Controls.Add(this.txtFolio);
             this.grpFiltros.Controls.Add(this.txtCuenta);
@@ -213,12 +214,12 @@ namespace GOMAC.Views
             this.rbTodas.Text = "Todas";
             this.rbTodas.UseVisualStyleBackColor = true;
             // 
-            // txtAplllido2
+            // txtApelllido2
             // 
-            this.txtAplllido2.Location = new System.Drawing.Point(852, 135);
-            this.txtAplllido2.Name = "txtAplllido2";
-            this.txtAplllido2.Size = new System.Drawing.Size(308, 26);
-            this.txtAplllido2.TabIndex = 8;
+            this.txtApelllido2.Location = new System.Drawing.Point(852, 135);
+            this.txtApelllido2.Name = "txtApelllido2";
+            this.txtApelllido2.Size = new System.Drawing.Size(308, 26);
+            this.txtApelllido2.TabIndex = 8;
             // 
             // txtApellido1
             // 
@@ -358,6 +359,7 @@ namespace GOMAC.Views
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.loading);
             this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Location = new System.Drawing.Point(12, 375);
             this.groupBox1.Name = "groupBox1";
@@ -365,6 +367,23 @@ namespace GOMAC.Views
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Resultado de la Busqueda";
+            // 
+            // loading
+            // 
+            this.loading.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.loading.BackColor = System.Drawing.Color.Transparent;
+            this.loading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.loading.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.loading.Image = global::GOMAC.Properties.Resources.loading;
+            this.loading.Location = new System.Drawing.Point(6, 25);
+            this.loading.Name = "loading";
+            this.loading.Size = new System.Drawing.Size(1155, 288);
+            this.loading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.loading.TabIndex = 1;
+            this.loading.TabStop = false;
+            this.loading.Visible = false;
             // 
             // dataGridView1
             // 
@@ -376,8 +395,7 @@ namespace GOMAC.Views
             this.dataGridView1.RowTemplate.Height = 28;
             this.dataGridView1.Size = new System.Drawing.Size(1155, 288);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dataGridView1_RowStateChanged);
+            this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
             // button2
             // 
@@ -399,26 +417,28 @@ namespace GOMAC.Views
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // progressBar1
+            // bckWrkBusquedas
             // 
-            this.progressBar1.Location = new System.Drawing.Point(18, 718);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(794, 43);
-            this.progressBar1.TabIndex = 4;
+            this.bckWrkBusquedas.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bckWrkBusquedas_DoWork);
+            this.bckWrkBusquedas.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bckWrkBusquedas_RunWorkerCompleted);
             // 
             // Frm_ConsultaSolicitud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1200, 775);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpFiltros);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Frm_ConsultaSolicitud";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Consulta de Solicitudes";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Frm_ConsultaSolicitud_Load);
             this.grpFiltros.ResumeLayout(false);
             this.grpFiltros.PerformLayout();
@@ -427,6 +447,7 @@ namespace GOMAC.Views
             this.grpTipoPersona.ResumeLayout(false);
             this.grpTipoPersona.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.loading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
@@ -435,12 +456,11 @@ namespace GOMAC.Views
         #endregion
 
         private System.Windows.Forms.GroupBox grpFiltros;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.GroupBox grpTipoPersona;
         private System.Windows.Forms.RadioButton rbMoral;
         private System.Windows.Forms.RadioButton rbFisica;
         private System.Windows.Forms.RadioButton rbTodas;
-        private System.Windows.Forms.TextBox txtAplllido2;
+        private System.Windows.Forms.TextBox txtApelllido2;
         private System.Windows.Forms.TextBox txtApellido1;
         private System.Windows.Forms.TextBox txtFolio;
         private System.Windows.Forms.TextBox txtCuenta;
@@ -467,7 +487,8 @@ namespace GOMAC.Views
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.CheckBox chkFechas;
+        private System.Windows.Forms.PictureBox loading;
+        private System.ComponentModel.BackgroundWorker bckWrkBusquedas;
     }
 }
