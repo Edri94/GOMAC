@@ -358,8 +358,10 @@ namespace GOMAC.Views
                         Descripcion_Status = tipo_status.Descripcion_Status
                     }).ToList();
 
+                          
                 dt = new DataTable();
-                dt.Clear();
+               
+
                 dt.Columns.Add("Numero Solicitud");
                 dt.Columns.Add("Cuenta Cliente");
                 dt.Columns.Add("Fecha Captura");
@@ -367,6 +369,7 @@ namespace GOMAC.Views
                 dt.Columns.Add("Apellido Paterno");
                 dt.Columns.Add("Apellido Materno");
                 dt.Columns.Add("Descripcion Status");
+
 
                 foreach (var item in tabla)
                 {
@@ -386,6 +389,7 @@ namespace GOMAC.Views
 
 
                 dataGridView1.Invoke(new MethodInvoker(delegate {
+                    dataGridView1.DataSource = null;
                     dataGridView1.DataSource = dt;
                     dataGridView1.Refresh();
                     dtgvw_cargado = true;
@@ -429,6 +433,7 @@ namespace GOMAC.Views
                             frm.Height = this.Height - 33;
                             frm.Width = this.Width;
                             frm.ShowDialog();
+        
                             //dataGridView1.Enabled = true;
                         }
                     }

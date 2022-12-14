@@ -749,7 +749,7 @@ namespace GOMAC.Views
                             string banca = ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbBanca.SelectedItem).banca;
                             string division = ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbDivision.SelectedItem).division;
                             string plaza = ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbPlaza.SelectedItem).plaza;
-                            string sucursal = ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbSucursal.SelectedItem).sucursal;
+                            string sucursal = ((UNIDAD_ORGANIZACIONAL_RESUMEN)cmbSucursal.SelectedItem).plaza;
                             string status = "1";
                             DateTime fechaRepc_Doc = dtpFRecepDoc.Value;
                             TimeSpan horaRepc_Doc = new TimeSpan(Int32.Parse(cmbHora1.SelectedValue.ToString()), Int32.Parse(cmbMinuto1.SelectedValue.ToString()), 0);
@@ -2346,6 +2346,11 @@ namespace GOMAC.Views
                             rbPersonaMoral.Checked = true;
                         }
                     }
+
+
+                    txtNombre.ForeColor = Color.Black;
+                    txtApellidoP.ForeColor = Color.Black;
+                    txtApellidoM.ForeColor = Color.Black;
 
                     txtNombre.Text = seguimiento.Nombre_Cliente;
                     txtApellidoP.Text = seguimiento.Apellido_Paterno;
