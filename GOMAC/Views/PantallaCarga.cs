@@ -99,6 +99,7 @@ namespace GOMAC.Views
 
                 tmrTraerDatos.Enabled = false;
                 FrmNueva_Solicitud frm = new FrmNueva_Solicitud(frml, this);
+                frm.WindowState = FormWindowState.Normal;
                 frm.MdiParent = frmp;
                 frm.Show();
                 this.Close();

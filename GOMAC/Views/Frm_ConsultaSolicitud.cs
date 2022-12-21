@@ -429,9 +429,10 @@ namespace GOMAC.Views
 
                         if (frml.consultor_selec != null)
                         {
+                            this.Hide();
                             PantallaCarga frm = new PantallaCarga(frml, frmp);
-                            frm.Height = this.Height - 33;
-                            frm.Width = this.Width;
+                            //frm.Height = this.Height - 33;
+                            //frm.Width = this.Width;
                             frm.ShowDialog();
         
                             //dataGridView1.Enabled = true;

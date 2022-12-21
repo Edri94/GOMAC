@@ -62,11 +62,30 @@ namespace GOMAC.Views
             this.Close();
         }
 
+        private void bckWrkLogin_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
+
+            this.Invoke(new MethodInvoker(delegate {
+
+                InicializaVariables();
+
+                Cargar();
+
+            }));
+            
+        }
+
         public Frm_Login()
         {
             InitializeComponent();
             crpt = new Encriptacion();
             bdbmtktp01 = new bmtktp01Entities();
+        }
+
+        private void bckWrkLogin_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+           
         }
 
         private void Frm_Login_Load(object sender, EventArgs e)
@@ -98,9 +117,15 @@ namespace GOMAC.Views
 
         private void btnConectar_Click(object sender, EventArgs e)
         {
-            InicializaVariables();
-
-            Cargar();
+            if (!bckWrkLogin.IsBusy)
+            {
+                bckWrkLogin.RunWorkerAsync();
+            }
+            else
+            {
+                MessageBox.Show("Ya hay una tarea ejecutandose. Favor de Esperar", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+          
         }
 
         private void Cargar()
@@ -248,5 +273,8 @@ namespace GOMAC.Views
                 Log.Escribe(ex);
             }
         }
+
+
+       
     }
 }

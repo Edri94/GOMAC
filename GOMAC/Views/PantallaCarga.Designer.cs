@@ -41,9 +41,9 @@ namespace GOMAC.Views
             this.loading.BackColor = System.Drawing.Color.Transparent;
             this.loading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.loading.Image = global::GOMAC.Properties.Resources.loading;
-            this.loading.Location = new System.Drawing.Point(309, 34);
+            this.loading.Location = new System.Drawing.Point(0, -1);
             this.loading.Name = "loading";
-            this.loading.Size = new System.Drawing.Size(607, 559);
+            this.loading.Size = new System.Drawing.Size(320, 320);
             this.loading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.loading.TabIndex = 0;
             this.loading.TabStop = false;
@@ -61,8 +61,8 @@ namespace GOMAC.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(1222, 635);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(75)))), ((int)(((byte)(133)))));
+            this.ClientSize = new System.Drawing.Size(320, 320);
             this.Controls.Add(this.loading);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PantallaCarga";

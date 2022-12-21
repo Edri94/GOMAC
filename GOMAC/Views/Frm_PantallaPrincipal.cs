@@ -63,6 +63,7 @@ namespace GOMAC.Views
 
                 frm_consultasolicitud = new Frm_ConsultaSolicitud(frml, this);
 
+                frm_consultasolicitud.WindowState = FormWindowState.Normal;
                 frm_consultasolicitud.MdiParent = this;
                 frm_consultasolicitud.Show();
             }
@@ -84,9 +85,9 @@ namespace GOMAC.Views
                 //frm_nuevasolicitud.MdiParent = this;
                 frml.consultor_selec = null;
 
-                frm_nuevasolicitud.Height = this.Height - (menuStrip1.Height * 3);
-                frm_nuevasolicitud.Width = this.Width;
-
+                //frm_nuevasolicitud.Height = this.Height - (menuStrip1.Height * 3);
+                //frm_nuevasolicitud.Width = this.Width;
+                frm_nuevasolicitud.WindowState = FormWindowState.Normal;
                 frm_nuevasolicitud.ShowDialog();   
             }
         }
