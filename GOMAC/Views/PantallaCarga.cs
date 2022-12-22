@@ -33,6 +33,7 @@ namespace GOMAC.Views
         public SEGUIMIENTO_DOCTOS seguimiento_doc;
         public List<PRODUCTOS> productos;
         public List<CONSULTORES> consultores;
+        public List<TIPO_SOLICITUD> tipos_solicitud;
 
         private string default_cmb = ". . . ";
         private DateTime default_dtp = DateTimePicker.MinimumDateTime;
@@ -51,6 +52,15 @@ namespace GOMAC.Views
         {
 
             Cargando(true);
+
+            //******************Consulta Tipos solicitud
+            tipos_solicitud = bdbmtktp01.TIPO_SOLICITUD.OrderBy(o => o.Descripcion_Solicitud).ToList();
+
+            tipos_solicitud.Insert(0, new TIPO_SOLICITUD
+            {
+                Descripcion_Solicitud = default_cmb
+            });
+
 
             //******************Consulta Funcionarios
             funcionarios = (
@@ -78,10 +88,10 @@ namespace GOMAC.Views
 
             uors.Insert(0, new UNIDAD_ORGANIZACIONAL_RESUMEN
             {
-                banca = ". . .  ",
-                plaza = ". . .  ",
-                division = ". . .  ",
-                sucursal = ". . .  "
+                banca = default_cmb,
+                plaza = default_cmb,
+                division = default_cmb,
+                sucursal = default_cmb
             });
 
             ////******************Consulta Productos

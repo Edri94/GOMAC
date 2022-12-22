@@ -56,17 +56,12 @@ namespace GOMAC.Views
                 string str_fecha = Calendario.SelectionRange.Start.ToShortDateString();
                 DateTime fecha_selec = Calendario.SelectionRange.Start;
 
-                if ((fecha_selec >= DateTime.Now) || Int32.Parse(grpCalendario.Tag.ToString()) == 5)
+                if ((fecha_selec <= DateTime.Now) || grpCalendario.Tag.ToString() == "5")
                 {
                     DIAS_FERIADOS dia_feriado = (from df in bdCatalogos.DIAS_FERIADOS where df.fecha == fecha_selec select df).FirstOrDefault();
 
                     if (dia_feriado == null)
-                    {
-                        MessageBox.Show("FAVOR DE SELECCIONAR UNA FECHA VALIDA", "VALIDACION DE DIAS FERIADOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    else
-                    {
+                    {            
                         if (grpCalendario.Tag != null)
                         {
                             int tag = Int32.Parse(grpCalendario.Tag.ToString());
@@ -108,11 +103,10 @@ namespace GOMAC.Views
                             grpCalendario.Tag = null;
                             grpCalendario.Visible = false;
                         }
-                        else
-                        {
-                            MessageBox.Show("Error Calendario");
-                            return;
-                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("FAVOR DE SELECCIONAR UNA FECHA VALIDA", "VALIDACION DE DIAS FERIADOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 else
@@ -124,6 +118,7 @@ namespace GOMAC.Views
             catch (Exception ex)
             {
                 Log.Escribe(ex);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -876,6 +871,7 @@ namespace GOMAC.Views
 
                                     btnLimpiar.Text = "Nuevo";
 
+                                    SSTabSeg.Enabled = true;
                                     cmbConsultorMac.Enabled = false;
                                     cmbTipoSolicitud.Enabled = false;
                                     cmbTipoTramite.Enabled = false;
@@ -896,7 +892,7 @@ namespace GOMAC.Views
                                 }
                                 else
                                 {
-                                    //SSTabSeg.Enabled = True
+                                    SSTabSeg.Enabled = true;
                                     //SSTabSeg.TabEnabled(1) = True
                                     //SSTabSeg.TabEnabled(2) = True
                                     btnGuardar.Text = "Modificar";
@@ -1036,10 +1032,13 @@ namespace GOMAC.Views
                             else
                             {
                                 MessageBox.Show("Error al ingresar la operacion " + respuesta.FechaHora_Captura, "Error!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                SSTabSeg.Enabled = true;
                             }
                             tmtValidarBoton.Enabled = true;
                         }
+                        SSTabSeg.Enabled = true;
                     }
+                    
                     else if (btnGuardar.Text == "Modificar")
                     {
                         if (MessageBox.Show($"¿Esta seguro que desea modificar la informacion del No. de folio: {frmp.solicitud_selec.Num_Solicitud}", "Alerta modificacion", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -1237,7 +1236,7 @@ namespace GOMAC.Views
 
                         }
                         tmtValidarBoton.Enabled = true;
-                        //SSTabSeg.Enabled = True
+                        SSTabSeg.Enabled = true;
                         //Me.MousePointer = vbArrow
                     }
                 }
@@ -1247,7 +1246,7 @@ namespace GOMAC.Views
                 tmrTab.Enabled = true;
 
 
-                //SSTabSeg.Enabled = true
+                SSTabSeg.Enabled = true;
                 //opersolisitud.cerrarrecordset
                 //opersolisitud.cerrarconexionsql
                 //Me.MousePointer = vbArrow
@@ -1270,6 +1269,8 @@ namespace GOMAC.Views
             SSTabSeg.TabIndex = (btnLimpiar.Text == "Nuevo") ? 0 : 1;
 
             btnLimpiar.Text = "Limpiar";
+
+            btnLimpiar.Visible = false; //[PRUEBAS]
         }
 
         /// <summary>
@@ -1860,6 +1861,8 @@ namespace GOMAC.Views
             dtpFechaCaptura.Enabled = false;
             txtPuntos.Enabled = false;
             dtpFechaCancelada.Enabled = false;
+
+            grpCalendario.Visible = false; //[PRUEBAS]
         }
 
         private void LlenarCombos()
@@ -1901,7 +1904,7 @@ namespace GOMAC.Views
                 LlenaCombo(cmbProducto, frmc.productos, "Producto", "Producto");
 
                 //LlenaComboTipoSolicitud();
-                LlenaCombo(cmbTipoSolicitud, bdbmtktp01.TIPO_SOLICITUD.OrderBy(o => o.Descripcion_Solicitud).ToList(), "Id_Solicitud", "Descripcion_Solicitud");
+                LlenaCombo(cmbTipoSolicitud, frmc.tipos_solicitud, "Id_Solicitud", "Descripcion_Solicitud");
                 LlenaComboTipoTramite();
                 //LlenarComboConsultor();
                 LlenaCombo(cmbConsultorMac, frmc.consultores, "Id_ConsultorMac", "Iniciales_ConsultorMac");
@@ -3142,6 +3145,14 @@ namespace GOMAC.Views
             cmbTipoSolicitud_activo = false; 
             cmbTipoTramite_activo = false;
 
+            btnFRecepDoc.Checked = false; //[PRUEBAS]
+            btnFAnalisisMac.Checked = false; //[PRUEBAS]
+            btnFFormalizada.Checked = false; //[PRUEBAS]
+            btnFRecepcion.Checked = false; //[PRUEBAS]
+            btnFAtencion.Checked = false; //[PRUEBAS]
+            btnDesbloqueo.Checked = false; //[PRUEBAS]
+            btnEnvio.Checked = false; //[PRUEBAS]
+
             cmbConsultorMac.SelectedText = default_cmb;
             cmbTipoSolicitud.SelectedText = default_cmb;
             cmbTipoTramite.SelectedText = default_cmb;
@@ -3153,27 +3164,47 @@ namespace GOMAC.Views
             txtPuntos.Text = String.Empty;
             rbCircuitoAuto.Checked = true;
             txtCuenta.Text = String.Empty;
-            cmbProducto.SelectedText = default_cmb;
+
+            //cmbProducto.SelectedText = default_cmb;
+            cmbProducto.SelectedIndex = 0; 
+            
             txtNombre.Text = String.Empty;
             txtApellidoP.Text = String.Empty;
             txtApellidoM.Text = String.Empty;
             TxtDepositoTkt.Text = String.Empty;
-            cmbNumeroFuncionario.SelectedText = default_cmb;
-            cmbPromotor.SelectedText = String.Empty;
-            cmbBanca.SelectedText = String.Empty;
-            cmbDivision.SelectedText = String.Empty;
-            cmbPlaza.SelectedText = String.Empty;
+            
+            //cmbNumeroFuncionario.SelectedText = default_cmb;
+            //cmbPromotor.SelectedText = String.Empty;
+            //cmbBanca.SelectedText = String.Empty;
+            //cmbDivision.SelectedText = String.Empty;
+            //cmbPlaza.SelectedText = String.Empty;
+
+            cmbNumeroFuncionario.SelectedIndex = 0;
+            cmbPromotor.SelectedIndex = 0;
+            cmbBanca.SelectedIndex = 0;
+            cmbDivision.SelectedIndex = 0;
+            cmbPlaza.SelectedIndex = 0;
+
             lblStatus.Text = String.Empty;         
-            cmbHora1.SelectedText = "00";
-            cmbHora2.SelectedText = "00";
-            cmbHora3.SelectedText = "00";
-            cmbHora4.SelectedText = "00";
-            cmbHora5.SelectedText = "00";
-            cmbMinuto1.SelectedText = "00";
-            cmbMinuto2.SelectedText = "00";
-            cmbMinuto3.SelectedText = "00";
-            cmbMinuto4.SelectedText = "00";
-            cmbMinuto5.SelectedText = "00";
+
+            lblStatus.Text = "En proceso"; //[PRUEBAS]
+
+            txtDepositoIni.Visible = true; //[PRUEBAS]  
+            btnDesbloqueo.Visible = true; //[PRUEBAS]  
+            btnDesbloqueo.Enabled = true; //[PRUEBAS]  
+
+            cmbHora1.SelectedIndex = 0;
+            cmbHora2.SelectedIndex = 0;
+            cmbHora3.SelectedIndex = 0;
+            cmbHora4.SelectedIndex = 0;
+            cmbHora5.SelectedIndex = 0;
+            cmbMinuto1.SelectedIndex = 0;
+            cmbMinuto2.SelectedIndex = 0;
+            cmbMinuto3.SelectedIndex = 0;
+            cmbMinuto4.SelectedIndex = 0;
+            cmbMinuto5.SelectedIndex = 0;
+
+            //[NOTA]: Habilitar campos de combo, verificar codigo viejo.
             dtpFFormalizada.Value = default_dtp;
             dtpFRecepDoc.Value = default_dtp;
             dtpFAnalisisMac.Value = default_dtp;
@@ -3183,7 +3214,22 @@ namespace GOMAC.Views
             dtpEnvio.Value = default_dtp;
             dtpConcluir.Value = default_dtp;
 
+           
+            dtgvwObservaciones.DataSource = null; //[PRUEBAS]
+            dtgvwObservaciones.Refresh(); //[PRUEBAS]
+            lst_observaciones = new List<OBSERVACIONES>(); //[PRUEBAS]
+
             LlenarFechaNumero();
+
+            
+
+            if(frmp.consultor_selec == null)
+            {
+                if(cmbConsultorMac.Enabled == true)
+                {
+                    cmbConsultorMac.Focus();
+                }
+            }
 
 
             //TxtNivelTiempo.text = ""
@@ -3202,6 +3248,8 @@ namespace GOMAC.Views
             cmbTipoTramite.Enabled = true;
             grpTicket.Enabled = true;
             grpTipoPersona.Enabled = true;
+
+            btnGuardar.Enabled = true; //[PRUEBAS]
 
             //If tmrTab.Tag = "" Then
             //    SSTabSeg.Tab = 0

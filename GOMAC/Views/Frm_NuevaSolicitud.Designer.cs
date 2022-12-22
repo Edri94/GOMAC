@@ -483,7 +483,7 @@ namespace GOMAC.Views
             this.SSTabSeg.Controls.Add(this.tabPage1);
             this.SSTabSeg.Controls.Add(this.tabPage2);
             this.SSTabSeg.Controls.Add(this.tabPage3);
-            this.SSTabSeg.Location = new System.Drawing.Point(18, 370);
+            this.SSTabSeg.Location = new System.Drawing.Point(18, 366);
             this.SSTabSeg.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SSTabSeg.Name = "SSTabSeg";
             this.SSTabSeg.SelectedIndex = 0;
@@ -665,6 +665,7 @@ namespace GOMAC.Views
             this.grpCalendario.TabIndex = 15;
             this.grpCalendario.TabStop = false;
             this.grpCalendario.Text = "Calendario";
+            this.grpCalendario.Visible = false;
             // 
             // Calendario
             // 
