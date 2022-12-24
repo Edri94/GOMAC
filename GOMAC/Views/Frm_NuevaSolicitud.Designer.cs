@@ -72,10 +72,6 @@ namespace GOMAC.Views
             this.cmbBanca = new System.Windows.Forms.ComboBox();
             this.cmbNumeroFuncionario = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.grpCalendario = new System.Windows.Forms.GroupBox();
-            this.Calendario = new System.Windows.Forms.MonthCalendar();
-            this.txtNivelDias = new System.Windows.Forms.TextBox();
-            this.txtNivelTiempo = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.txtDepositoIni = new System.Windows.Forms.TextBox();
             this.LblDesbloquep = new System.Windows.Forms.Label();
@@ -140,6 +136,11 @@ namespace GOMAC.Views
             this.tmrTraerDatos = new System.Windows.Forms.Timer(this.components);
             this.tmrTab = new System.Windows.Forms.Timer(this.components);
             this.tmtValidarBoton = new System.Windows.Forms.Timer(this.components);
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtNivelDias = new System.Windows.Forms.TextBox();
+            this.txtNivelTiempo = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpTipoPersona.SuspendLayout();
@@ -148,7 +149,6 @@ namespace GOMAC.Views
             this.SSTabSeg.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.grpCalendario.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.grpOriginales.SuspendLayout();
@@ -157,6 +157,7 @@ namespace GOMAC.Views
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -639,7 +640,7 @@ namespace GOMAC.Views
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.grpCalendario);
+            this.tabPage2.Controls.Add(this.groupBox8);
             this.tabPage2.Controls.Add(this.groupBox7);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.grpOriginales);
@@ -651,44 +652,6 @@ namespace GOMAC.Views
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Seguimiento Documentos";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // grpCalendario
-            // 
-            this.grpCalendario.Controls.Add(this.Calendario);
-            this.grpCalendario.Controls.Add(this.txtNivelDias);
-            this.grpCalendario.Controls.Add(this.txtNivelTiempo);
-            this.grpCalendario.Location = new System.Drawing.Point(471, 19);
-            this.grpCalendario.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpCalendario.Name = "grpCalendario";
-            this.grpCalendario.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpCalendario.Size = new System.Drawing.Size(406, 316);
-            this.grpCalendario.TabIndex = 15;
-            this.grpCalendario.TabStop = false;
-            this.grpCalendario.Text = "Calendario";
-            this.grpCalendario.Visible = false;
-            // 
-            // Calendario
-            // 
-            this.Calendario.FirstDayOfWeek = System.Windows.Forms.Day.Thursday;
-            this.Calendario.Location = new System.Drawing.Point(31, 35);
-            this.Calendario.Margin = new System.Windows.Forms.Padding(14);
-            this.Calendario.Name = "Calendario";
-            this.Calendario.TabIndex = 4;
-            this.Calendario.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.Calendario_DateSelected);
-            // 
-            // txtNivelDias
-            // 
-            this.txtNivelDias.Location = new System.Drawing.Point(41, 150);
-            this.txtNivelDias.Name = "txtNivelDias";
-            this.txtNivelDias.Size = new System.Drawing.Size(307, 26);
-            this.txtNivelDias.TabIndex = 16;
-            // 
-            // txtNivelTiempo
-            // 
-            this.txtNivelTiempo.Location = new System.Drawing.Point(41, 111);
-            this.txtNivelTiempo.Name = "txtNivelTiempo";
-            this.txtNivelTiempo.Size = new System.Drawing.Size(307, 26);
-            this.txtNivelTiempo.TabIndex = 16;
             // 
             // groupBox7
             // 
@@ -1102,6 +1065,7 @@ namespace GOMAC.Views
             this.dtpFRecepDoc.Name = "dtpFRecepDoc";
             this.dtpFRecepDoc.Size = new System.Drawing.Size(188, 26);
             this.dtpFRecepDoc.TabIndex = 10;
+            this.dtpFRecepDoc.ValueChanged += new System.EventHandler(this.dtpFRecepDoc_ValueChanged);
             // 
             // label14
             // 
@@ -1359,6 +1323,52 @@ namespace GOMAC.Views
             // 
             this.tmtValidarBoton.Tick += new System.EventHandler(this.tmtValidarBoton_Tick);
             // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label17);
+            this.groupBox8.Controls.Add(this.label7);
+            this.groupBox8.Controls.Add(this.txtNivelDias);
+            this.groupBox8.Controls.Add(this.txtNivelTiempo);
+            this.groupBox8.Location = new System.Drawing.Point(471, 11);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(406, 299);
+            this.groupBox8.TabIndex = 21;
+            this.groupBox8.TabStop = false;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(48, 52);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(120, 20);
+            this.label17.TabIndex = 24;
+            this.label17.Text = "Nivel de Tiempo";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(48, 163);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(97, 20);
+            this.label7.TabIndex = 23;
+            this.label7.Text = "Nivel de dias";
+            // 
+            // txtNivelDias
+            // 
+            this.txtNivelDias.Location = new System.Drawing.Point(52, 186);
+            this.txtNivelDias.Name = "txtNivelDias";
+            this.txtNivelDias.ReadOnly = true;
+            this.txtNivelDias.Size = new System.Drawing.Size(307, 26);
+            this.txtNivelDias.TabIndex = 21;
+            // 
+            // txtNivelTiempo
+            // 
+            this.txtNivelTiempo.Location = new System.Drawing.Point(52, 75);
+            this.txtNivelTiempo.Name = "txtNivelTiempo";
+            this.txtNivelTiempo.ReadOnly = true;
+            this.txtNivelTiempo.Size = new System.Drawing.Size(307, 26);
+            this.txtNivelTiempo.TabIndex = 22;
+            // 
             // FrmNueva_Solicitud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1399,8 +1409,6 @@ namespace GOMAC.Views
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.grpCalendario.ResumeLayout(false);
-            this.grpCalendario.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1415,6 +1423,8 @@ namespace GOMAC.Views
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1477,7 +1487,6 @@ namespace GOMAC.Views
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.DateTimePicker dtpFechaCancelada;
         private System.Windows.Forms.Button btnConcluirSolicitud;
-        private System.Windows.Forms.MonthCalendar Calendario;
         private System.Windows.Forms.ComboBox cmbMinuto5;
         private System.Windows.Forms.ComboBox cmbMinuto4;
         private System.Windows.Forms.ComboBox cmbMinuto3;
@@ -1526,9 +1535,11 @@ namespace GOMAC.Views
         private System.Windows.Forms.RadioButton btnFFormalizada;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.GroupBox grpCalendario;
         private System.Windows.Forms.RadioButton btnEnvio;
         private System.Windows.Forms.RadioButton btnDesbloqueo;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtNivelDias;
         private System.Windows.Forms.TextBox txtNivelTiempo;
     }
