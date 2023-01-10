@@ -358,7 +358,7 @@ namespace GOMAC.Views
                 DateTime fecha_servidor = DateTime.Now;
 
                 dtpFFormalizada.Value = fecha_servidor;
-                cmbHora3.SelectedValue = fecha_servidor.ToString("hh");
+                cmbHora3.SelectedValue = fecha_servidor.ToString("HH");
                 cmbMinuto3.SelectedValue = fecha_servidor.ToString("mm");
             }
         }
@@ -375,7 +375,7 @@ namespace GOMAC.Views
                 DateTime fecha_servidor = DateTime.Now;
 
                 dtpFRecepcion.Value = fecha_servidor;
-                cmbHora4.SelectedValue = fecha_servidor.ToString("hh");
+                cmbHora4.SelectedValue = fecha_servidor.ToString("HH");
                 cmbMinuto4.SelectedValue = fecha_servidor.ToString("mm");
             }
         }
@@ -393,7 +393,7 @@ namespace GOMAC.Views
                 DateTime fecha_servidor = DateTime.Now;
 
                 dtpFAtencion.Value = fecha_servidor;
-                cmbHora5.SelectedValue = fecha_servidor.ToString("hh");
+                cmbHora5.SelectedValue = fecha_servidor.ToString("HH");
                 cmbMinuto5.SelectedValue = fecha_servidor.ToString("mm");
 
                 
@@ -442,7 +442,7 @@ namespace GOMAC.Views
                 DateTime fecha_servidor = DateTime.Now;
 
                 dtpFRecepDoc.Value = fecha_servidor;
-                cmbHora1.SelectedValue = fecha_servidor.ToString("hh");
+                cmbHora1.SelectedValue = fecha_servidor.ToString("HH");
                 cmbMinuto1.SelectedValue = fecha_servidor.ToString("mm");
             }
         }
@@ -459,7 +459,7 @@ namespace GOMAC.Views
                 DateTime fecha_servidor = DateTime.Now;
 
                 dtpFAnalisisMac.Value = fecha_servidor;
-                cmbHora2.SelectedValue = fecha_servidor.ToString("hh");
+                cmbHora2.SelectedValue = fecha_servidor.ToString("HH");
                 cmbMinuto2.SelectedValue = fecha_servidor.ToString("mm");
             }
         }
@@ -472,6 +472,15 @@ namespace GOMAC.Views
         {
             try
             {
+                if(btnGuardar.Text == "Modificar")
+                {
+                    if(lst_observaciones.Count < 1)
+                    {
+                        MessageBox.Show("Favor de llenar las Observaciones", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+                }
+
                 if (cmbConsultorMac.SelectedIndex <= -1)
                 {
                     MessageBox.Show("Favor de Asignar Consultor", "Validacion de campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -914,11 +923,7 @@ namespace GOMAC.Views
 
                             if (dtpFFormalizada.Value != default_dtp)
                             {
-                                if (rbCircuitoAuto.Checked)
-                                {
-
-                                }
-                                else
+                                if (!rbCircuitoAuto.Checked)
                                 {
                                     TimeSpan hora_FAnalisisMac = new TimeSpan(Int32.Parse(cmbHora2.SelectedValue.ToString()), Int32.Parse(cmbMinuto2.SelectedValue.ToString()), 0);
                                     TimeSpan hora_FFormalizada = new TimeSpan(Int32.Parse(cmbHora3.SelectedValue.ToString()), Int32.Parse(cmbMinuto3.SelectedValue.ToString()), 0);
@@ -1045,8 +1050,12 @@ namespace GOMAC.Views
                             {
                                 if (dtpFAnalisisMac.Value != default_dtp)
                                 {
-                                    TimeSpan diferiencia = ((dtpFRecepDoc.Value.Date + (new TimeSpan(Int32.Parse(cmbHora1.SelectedValue.ToString()), Int32.Parse(cmbMinuto1.SelectedValue.ToString()), 0)))) - ((dtpFAnalisisMac.Value.Date + (new TimeSpan(Int32.Parse(cmbHora2.SelectedValue.ToString()), Int32.Parse(cmbMinuto2.SelectedValue.ToString()), 0))));
-                                    if (diferiencia.Days < 46)
+                                    DateTime fechaHoraRecepDoc = ((dtpFRecepDoc.Value.Date + (new TimeSpan(Int32.Parse(cmbHora1.SelectedValue.ToString()), Int32.Parse(cmbMinuto1.SelectedValue.ToString()), 0))));
+                                    DateTime fechaHoraAnalsisMac = ((dtpFAnalisisMac.Value.Date + (new TimeSpan(Int32.Parse(cmbHora2.SelectedValue.ToString()), Int32.Parse(cmbMinuto2.SelectedValue.ToString()), 0))));
+
+                                    double minutos_dif = fechaHoraAnalsisMac.Subtract(fechaHoraRecepDoc).TotalMinutes;
+
+                                    if (minutos_dif < 46)
                                     {
                                         txtNivelTiempo.Text = "EN TIEMPO";
                                     }
@@ -1058,8 +1067,12 @@ namespace GOMAC.Views
 
                                 if (dtpFAtencion.Value != default_dtp)
                                 {
-                                    TimeSpan diferiencia = ((dtpFRecepcion.Value.Date + (new TimeSpan(Int32.Parse(cmbHora4.SelectedValue.ToString()), Int32.Parse(cmbMinuto4.SelectedValue.ToString()), 0)))) - ((dtpFAtencion.Value.Date + (new TimeSpan(Int32.Parse(cmbHora5.SelectedValue.ToString()), Int32.Parse(cmbMinuto5.SelectedValue.ToString()), 0))));
-                                    if (diferiencia.Days < 24)
+                                    DateTime fechaHoraRecepcion = ((dtpFRecepcion.Value.Date + (new TimeSpan(Int32.Parse(cmbHora4.SelectedValue.ToString()), Int32.Parse(cmbMinuto4.SelectedValue.ToString()), 0))));
+                                    DateTime fechaHoraAtencion = ((dtpFAtencion.Value.Date + (new TimeSpan(Int32.Parse(cmbHora5.SelectedValue.ToString()), Int32.Parse(cmbMinuto5.SelectedValue.ToString()), 0))));
+
+                                    double horas_dif = fechaHoraAtencion.Subtract(fechaHoraRecepcion).TotalHours;
+
+                                    if (horas_dif < 24)
                                     {
                                         txtNivelDias.Text = "EN TIEMPO";
                                     }
