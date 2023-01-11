@@ -80,7 +80,7 @@ namespace GOMAC.Views
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.txtDepositoIni = new System.Windows.Forms.TextBox();
             this.LblDesbloquep = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
+            this.lblEnvioAgencia = new System.Windows.Forms.Label();
             this.lblDeposito = new System.Windows.Forms.Label();
             this.dtpDesbloqueo = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
@@ -120,7 +120,7 @@ namespace GOMAC.Views
             this.label15 = new System.Windows.Forms.Label();
             this.grpOriginales = new System.Windows.Forms.GroupBox();
             this.rbIncorrectos = new System.Windows.Forms.RadioButton();
-            this.rbcorrectos = new System.Windows.Forms.RadioButton();
+            this.rbCorrectos = new System.Windows.Forms.RadioButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btnVerObservacion = new System.Windows.Forms.Button();
             this.btnNuevaObservacion = new System.Windows.Forms.Button();
@@ -141,6 +141,7 @@ namespace GOMAC.Views
             this.tmrTraerDatos = new System.Windows.Forms.Timer(this.components);
             this.tmrTab = new System.Windows.Forms.Timer(this.components);
             this.tmtValidarBoton = new System.Windows.Forms.Timer(this.components);
+            this.rbOriginalesNa = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpTipoPersona.SuspendLayout();
@@ -703,7 +704,7 @@ namespace GOMAC.Views
             // 
             this.groupBox7.Controls.Add(this.txtDepositoIni);
             this.groupBox7.Controls.Add(this.LblDesbloquep);
-            this.groupBox7.Controls.Add(this.label16);
+            this.groupBox7.Controls.Add(this.lblEnvioAgencia);
             this.groupBox7.Controls.Add(this.lblDeposito);
             this.groupBox7.Controls.Add(this.dtpDesbloqueo);
             this.groupBox7.Controls.Add(this.label8);
@@ -723,35 +724,37 @@ namespace GOMAC.Views
             // 
             // txtDepositoIni
             // 
-            this.txtDepositoIni.Location = new System.Drawing.Point(69, 49);
+            this.txtDepositoIni.Location = new System.Drawing.Point(28, 45);
             this.txtDepositoIni.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtDepositoIni.Name = "txtDepositoIni";
-            this.txtDepositoIni.Size = new System.Drawing.Size(286, 26);
+            this.txtDepositoIni.Size = new System.Drawing.Size(357, 26);
             this.txtDepositoIni.TabIndex = 0;
             this.txtDepositoIni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDepositoIni_KeyPress);
+            this.txtDepositoIni.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDepositoIni_KeyUp);
             // 
             // LblDesbloquep
             // 
             this.LblDesbloquep.AutoSize = true;
-            this.LblDesbloquep.Location = new System.Drawing.Point(159, 87);
+            this.LblDesbloquep.Location = new System.Drawing.Point(138, 85);
             this.LblDesbloquep.Name = "LblDesbloquep";
             this.LblDesbloquep.Size = new System.Drawing.Size(165, 20);
             this.LblDesbloquep.TabIndex = 11;
             this.LblDesbloquep.Text = "Desbloqueo Sistemas";
+            this.LblDesbloquep.Visible = false;
             // 
-            // label16
+            // lblEnvioAgencia
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(188, 144);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(110, 20);
-            this.label16.TabIndex = 11;
-            this.label16.Text = "Envio Agencia";
+            this.lblEnvioAgencia.AutoSize = true;
+            this.lblEnvioAgencia.Location = new System.Drawing.Point(151, 142);
+            this.lblEnvioAgencia.Name = "lblEnvioAgencia";
+            this.lblEnvioAgencia.Size = new System.Drawing.Size(110, 20);
+            this.lblEnvioAgencia.TabIndex = 11;
+            this.lblEnvioAgencia.Text = "Envio Agencia";
             // 
             // lblDeposito
             // 
             this.lblDeposito.AutoSize = true;
-            this.lblDeposito.Location = new System.Drawing.Point(79, 24);
+            this.lblDeposito.Location = new System.Drawing.Point(154, 20);
             this.lblDeposito.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDeposito.Name = "lblDeposito";
             this.lblDeposito.Size = new System.Drawing.Size(105, 20);
@@ -760,10 +763,11 @@ namespace GOMAC.Views
             // 
             // dtpDesbloqueo
             // 
-            this.dtpDesbloqueo.Location = new System.Drawing.Point(98, 112);
+            this.dtpDesbloqueo.Location = new System.Drawing.Point(56, 110);
             this.dtpDesbloqueo.Name = "dtpDesbloqueo";
-            this.dtpDesbloqueo.Size = new System.Drawing.Size(258, 26);
+            this.dtpDesbloqueo.Size = new System.Drawing.Size(329, 26);
             this.dtpDesbloqueo.TabIndex = 10;
+            this.dtpDesbloqueo.Visible = false;
             this.dtpDesbloqueo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtpDesbloqueo_KeyPress);
             // 
             // label8
@@ -778,19 +782,20 @@ namespace GOMAC.Views
             // 
             // dtpConcluir
             // 
-            this.dtpConcluir.Location = new System.Drawing.Point(68, 254);
+            this.dtpConcluir.Location = new System.Drawing.Point(28, 254);
             this.dtpConcluir.Name = "dtpConcluir";
-            this.dtpConcluir.Size = new System.Drawing.Size(288, 26);
+            this.dtpConcluir.Size = new System.Drawing.Size(357, 26);
             this.dtpConcluir.TabIndex = 10;
+            this.dtpConcluir.Visible = false;
             this.dtpConcluir.ValueChanged += new System.EventHandler(this.dtpConcluir_ValueChanged);
             // 
             // btnConcluirSolicitud
             // 
             this.btnConcluirSolicitud.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConcluirSolicitud.Location = new System.Drawing.Point(68, 226);
+            this.btnConcluirSolicitud.Location = new System.Drawing.Point(28, 226);
             this.btnConcluirSolicitud.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnConcluirSolicitud.Name = "btnConcluirSolicitud";
-            this.btnConcluirSolicitud.Size = new System.Drawing.Size(288, 29);
+            this.btnConcluirSolicitud.Size = new System.Drawing.Size(357, 29);
             this.btnConcluirSolicitud.TabIndex = 5;
             this.btnConcluirSolicitud.Text = "Concluir Solicitud";
             this.btnConcluirSolicitud.UseVisualStyleBackColor = true;
@@ -799,7 +804,7 @@ namespace GOMAC.Views
             // btnEnvio
             // 
             this.btnEnvio.AutoSize = true;
-            this.btnEnvio.Location = new System.Drawing.Point(69, 167);
+            this.btnEnvio.Location = new System.Drawing.Point(28, 165);
             this.btnEnvio.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEnvio.Name = "btnEnvio";
             this.btnEnvio.Size = new System.Drawing.Size(21, 20);
@@ -811,29 +816,30 @@ namespace GOMAC.Views
             // btnDesbloqueo
             // 
             this.btnDesbloqueo.AutoSize = true;
-            this.btnDesbloqueo.Location = new System.Drawing.Point(69, 112);
+            this.btnDesbloqueo.Location = new System.Drawing.Point(28, 112);
             this.btnDesbloqueo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDesbloqueo.Name = "btnDesbloqueo";
             this.btnDesbloqueo.Size = new System.Drawing.Size(21, 20);
             this.btnDesbloqueo.TabIndex = 12;
             this.btnDesbloqueo.TabStop = true;
             this.btnDesbloqueo.UseVisualStyleBackColor = true;
+            this.btnDesbloqueo.Visible = false;
             this.btnDesbloqueo.CheckedChanged += new System.EventHandler(this.btnDesbloqueo_CheckedChanged);
             // 
             // dtpEnvio
             // 
-            this.dtpEnvio.Location = new System.Drawing.Point(98, 167);
+            this.dtpEnvio.Location = new System.Drawing.Point(56, 165);
             this.dtpEnvio.Name = "dtpEnvio";
-            this.dtpEnvio.Size = new System.Drawing.Size(258, 26);
+            this.dtpEnvio.Size = new System.Drawing.Size(329, 26);
             this.dtpEnvio.TabIndex = 10;
             this.dtpEnvio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtpEnvio_KeyPress);
             // 
             // dtpFechaCancelada
             // 
-            this.dtpFechaCancelada.Location = new System.Drawing.Point(70, 343);
+            this.dtpFechaCancelada.Location = new System.Drawing.Point(28, 343);
             this.dtpFechaCancelada.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtpFechaCancelada.Name = "dtpFechaCancelada";
-            this.dtpFechaCancelada.Size = new System.Drawing.Size(286, 26);
+            this.dtpFechaCancelada.Size = new System.Drawing.Size(357, 26);
             this.dtpFechaCancelada.TabIndex = 1;
             // 
             // groupBox3
@@ -1137,8 +1143,9 @@ namespace GOMAC.Views
             // 
             // grpOriginales
             // 
+            this.grpOriginales.Controls.Add(this.rbOriginalesNa);
             this.grpOriginales.Controls.Add(this.rbIncorrectos);
-            this.grpOriginales.Controls.Add(this.rbcorrectos);
+            this.grpOriginales.Controls.Add(this.rbCorrectos);
             this.grpOriginales.Location = new System.Drawing.Point(471, 344);
             this.grpOriginales.Name = "grpOriginales";
             this.grpOriginales.Size = new System.Drawing.Size(406, 70);
@@ -1149,7 +1156,7 @@ namespace GOMAC.Views
             // rbIncorrectos
             // 
             this.rbIncorrectos.AutoSize = true;
-            this.rbIncorrectos.Location = new System.Drawing.Point(239, 27);
+            this.rbIncorrectos.Location = new System.Drawing.Point(142, 25);
             this.rbIncorrectos.Name = "rbIncorrectos";
             this.rbIncorrectos.Size = new System.Drawing.Size(114, 24);
             this.rbIncorrectos.TabIndex = 0;
@@ -1158,17 +1165,17 @@ namespace GOMAC.Views
             this.rbIncorrectos.UseVisualStyleBackColor = true;
             this.rbIncorrectos.CheckedChanged += new System.EventHandler(this.rbIncorrectos_CheckedChanged);
             // 
-            // rbcorrectos
+            // rbCorrectos
             // 
-            this.rbcorrectos.AutoSize = true;
-            this.rbcorrectos.Location = new System.Drawing.Point(103, 27);
-            this.rbcorrectos.Name = "rbcorrectos";
-            this.rbcorrectos.Size = new System.Drawing.Size(103, 24);
-            this.rbcorrectos.TabIndex = 0;
-            this.rbcorrectos.TabStop = true;
-            this.rbcorrectos.Text = "Correctos";
-            this.rbcorrectos.UseVisualStyleBackColor = true;
-            this.rbcorrectos.CheckedChanged += new System.EventHandler(this.rbcorrectos_CheckedChanged);
+            this.rbCorrectos.AutoSize = true;
+            this.rbCorrectos.Location = new System.Drawing.Point(22, 25);
+            this.rbCorrectos.Name = "rbCorrectos";
+            this.rbCorrectos.Size = new System.Drawing.Size(103, 24);
+            this.rbCorrectos.TabIndex = 0;
+            this.rbCorrectos.TabStop = true;
+            this.rbCorrectos.Text = "Correctos";
+            this.rbCorrectos.UseVisualStyleBackColor = true;
+            this.rbCorrectos.CheckedChanged += new System.EventHandler(this.rbcorrectos_CheckedChanged);
             // 
             // tabPage3
             // 
@@ -1369,6 +1376,17 @@ namespace GOMAC.Views
             // 
             this.tmtValidarBoton.Tick += new System.EventHandler(this.tmtValidarBoton_Tick);
             // 
+            // rbOriginalesNa
+            // 
+            this.rbOriginalesNa.AutoSize = true;
+            this.rbOriginalesNa.Location = new System.Drawing.Point(273, 25);
+            this.rbOriginalesNa.Name = "rbOriginalesNa";
+            this.rbOriginalesNa.Size = new System.Drawing.Size(56, 24);
+            this.rbOriginalesNa.TabIndex = 1;
+            this.rbOriginalesNa.TabStop = true;
+            this.rbOriginalesNa.Text = "NA";
+            this.rbOriginalesNa.UseVisualStyleBackColor = true;
+            // 
             // FrmNueva_Solicitud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1515,14 +1533,14 @@ namespace GOMAC.Views
         private System.Windows.Forms.Timer tmrTraerDatos;
         private System.Windows.Forms.GroupBox grpOriginales;
         private System.Windows.Forms.RadioButton rbIncorrectos;
-        private System.Windows.Forms.RadioButton rbcorrectos;
+        private System.Windows.Forms.RadioButton rbCorrectos;
         private System.Windows.Forms.DateTimePicker dtpFAtencion;
         private System.Windows.Forms.DateTimePicker dtpFRecepcion;
         private System.Windows.Forms.DateTimePicker dtpFFormalizada;
         private System.Windows.Forms.DateTimePicker dtpFAnalisisMac;
         private System.Windows.Forms.DateTimePicker dtpFRecepDoc;
         private System.Windows.Forms.Label LblDesbloquep;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label lblEnvioAgencia;
         private System.Windows.Forms.DateTimePicker dtpEnvio;
         private System.Windows.Forms.DateTimePicker dtpDesbloqueo;
         private System.Windows.Forms.DateTimePicker dtpConcluir;
@@ -1542,5 +1560,6 @@ namespace GOMAC.Views
         private System.Windows.Forms.Label lblNvlServicio2;
         private System.Windows.Forms.TextBox txtNivelDias;
         private System.Windows.Forms.TextBox txtNivelTiempo;
+        private System.Windows.Forms.RadioButton rbOriginalesNa;
     }
 }

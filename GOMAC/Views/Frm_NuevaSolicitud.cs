@@ -38,6 +38,7 @@ namespace GOMAC.Views
 
         private string default_cmb = ". . . ";
         private DateTime default_dtp = DateTimePicker.MinimumDateTime;
+        private string default_mxn = "$0.00";
         private NumberFormatInfo format_mxn = (NumberFormatInfo)CultureInfo.CreateSpecificCulture("es-MX").NumberFormat.Clone();
         private DataTable dt_observaciones;
         private int intTab;
@@ -425,7 +426,6 @@ namespace GOMAC.Views
             if (btnEnvio.Checked)
             {
                 DateTime fecha_servidor = DateTime.Now;
-
                 dtpEnvio.Value = fecha_servidor;
             }
         }
@@ -577,8 +577,8 @@ namespace GOMAC.Views
                             txtSolicitud.Text = frmp.solicitud_selec.Num_Solicitud.ToString();
                             dtpFechaCaptura.Value = DateTime.Now;
 
-                            dtpEnvio.Enabled = true;
-                            btnCancelarSolicitud.Enabled = false;
+                            //dtpEnvio.Enabled = true;
+                            //btnCancelarSolicitud.Enabled = false;
                             btnGuardar.Enabled = false;
 
                             int id_ConsultorMac = frmp.usuario_loggeado.id_usuario;
@@ -594,7 +594,7 @@ namespace GOMAC.Views
                             string apellido_Materno = txtApellidoM.Text;
 
                             decimal deposito_Inicial = 0;
-                            TxtDepositoTkt.Text = (TxtDepositoTkt.Text == String.Empty) ? "$0.00" : TxtDepositoTkt.Text;
+                            TxtDepositoTkt.Text = (TxtDepositoTkt.Text == String.Empty) ? default_mxn : TxtDepositoTkt.Text;
                             deposito_Inicial = decimal.Parse(TxtDepositoTkt.Text.Replace("$", ""));
 
                             string numero_Registro = ((FUNCIONARIO)cmbNumeroFuncionario.SelectedItem).numero_registro;
@@ -616,10 +616,24 @@ namespace GOMAC.Views
                             TimeSpan horaAten_Originales = new TimeSpan(Int32.Parse(cmbHora5.SelectedValue.ToString()), Int32.Parse(cmbMinuto5.SelectedValue.ToString()), 0);
                             
                             string originales = "-1";
-                            originales = (rbcorrectos.Checked == true && rbIncorrectos.Checked == false) ? "0" : "1";
+
+                            if(rbCorrectos.Checked)
+                            {
+                                originales = "0";
+                            }
+                            else if(rbIncorrectos.Checked)
+                            {
+                                originales = "1";
+                            }
+                            else if (rbOriginalesNa.Checked)
+                            {
+                                originales = "";
+                            }
+
+                            originales = (rbCorrectos.Checked == true && rbIncorrectos.Checked == false) ? "0" : "1";
 
                             decimal deposito_Inicial_Ini = 0;
-                            txtDepositoIni.Text = (txtDepositoIni.Text == String.Empty) ? "$0.00" : txtDepositoIni.Text;
+                            txtDepositoIni.Text = (txtDepositoIni.Text == String.Empty) ? default_mxn : txtDepositoIni.Text;
                             deposito_Inicial_Ini = decimal.Parse(txtDepositoIni.Text.Replace("$", ""));
 
                             DateTime fecha_Desbloqueo = dtpDesbloqueo.Value;
@@ -670,7 +684,6 @@ namespace GOMAC.Views
                                 lst_observaciones
                             );
 
-                            dtpEnvio.Enabled = false;
 
                             if (respuesta.Codigo > 0)
                             {
@@ -686,21 +699,21 @@ namespace GOMAC.Views
                                     txtDepositoIni.Visible = true;
                                 }
 
-                                if (rbCircuitoAuto.Checked)
-                                {
-                                    btnDesbloqueo.Visible = true;
-                                    LblDesbloquep.Visible = true;
-                                    dtpDesbloqueo.Visible = true;
-                                }
-                                else
-                                {
-                                    btnDesbloqueo.Visible = false;
-                                    LblDesbloquep.Visible = false;
-                                    dtpDesbloqueo.Visible = false;
-                                }
+                                //if (rbCircuitoAuto.Checked)
+                                //{
+                                //    btnDesbloqueo.Visible = true;
+                                //    LblDesbloquep.Visible = true;
+                                //    dtpDesbloqueo.Visible = true;
+                                //}
+                                //else
+                                //{
+                                //    btnDesbloqueo.Visible = false;
+                                //    LblDesbloquep.Visible = false;
+                                //    dtpDesbloqueo.Visible = false;
+                                //}
 
                                 dtpFechaCaptura.Value = respuesta.FechaHora_Captura;
-                                txtDepositoIni.Text = "0.00";
+                                txtDepositoIni.Text = default_mxn;
 
 
                                 txtSolicitud.Enabled = true;
@@ -745,7 +758,7 @@ namespace GOMAC.Views
                                     txtApellidoP.Enabled = false;
                                     txtApellidoM.Enabled = false;
                                     TxtDepositoTkt.Enabled = false;
-                                    rbcorrectos.Checked = false;
+                                    rbCorrectos.Checked = false;
                                     rbIncorrectos.Checked = false;
 
                                     //DoEvents
@@ -796,7 +809,7 @@ namespace GOMAC.Views
                                         }
 
                                         grpOriginales.Enabled = true;
-                                        rbcorrectos.Enabled = true;
+                                        rbCorrectos.Enabled = true;
                                         rbIncorrectos.Enabled = true;
 
                                         btnConcluirSolicitud.Enabled = true;
@@ -845,7 +858,7 @@ namespace GOMAC.Views
                                         }
 
                                         grpOriginales.Enabled = true;
-                                        rbcorrectos.Enabled = true;
+                                        rbCorrectos.Enabled = true;
                                         rbIncorrectos.Enabled = true;
                                         btnConcluirSolicitud.Enabled = true;
 
@@ -879,7 +892,7 @@ namespace GOMAC.Views
                                     }
 
                                     grpOriginales.Enabled = true;
-                                    rbcorrectos.Enabled = true;
+                                    rbCorrectos.Enabled = true;
                                     rbIncorrectos.Enabled = true;
                                     btnConcluirSolicitud.Enabled = true;
 
@@ -952,9 +965,6 @@ namespace GOMAC.Views
 
                           
 
-
-                            dtpEnvio.Enabled = true;
-
                             int id_ConsultorMac = frmp.usuario_loggeado.id_usuario;
                             int id_Solicitud = ((TIPO_SOLICITUD)cmbTipoSolicitud.SelectedItem).Id_Solicitud;
                             int id_Tramite =  ((TIPO_TRAMITE)cmbTipoTramite.SelectedItem).Id_Tramite;
@@ -968,7 +978,7 @@ namespace GOMAC.Views
                             string apellido_Materno = txtApellidoM.Text;
 
                             decimal deposito_Inicial = 0;
-                            TxtDepositoTkt.Text = (TxtDepositoTkt.Text == String.Empty) ? "$0.00" : TxtDepositoTkt.Text;
+                            TxtDepositoTkt.Text = (TxtDepositoTkt.Text == String.Empty) ? default_mxn : TxtDepositoTkt.Text;
                             deposito_Inicial = decimal.Parse(TxtDepositoTkt.Text.Replace("$", ""));
 
                             string numero_Registro = ((FUNCIONARIO)cmbNumeroFuncionario.SelectedItem).numero_registro;
@@ -990,10 +1000,22 @@ namespace GOMAC.Views
                             TimeSpan horaAten_Originales = new TimeSpan(Int32.Parse(cmbHora5.SelectedValue.ToString()), Int32.Parse(cmbMinuto5.SelectedValue.ToString()), 0);
 
                             string originales = "-1";
-                            originales = (rbcorrectos.Checked == true && rbIncorrectos.Checked == false) ? "0" : "1";
+
+                            if (rbCorrectos.Checked)
+                            {
+                                originales = "0";
+                            }
+                            else if (rbIncorrectos.Checked)
+                            {
+                                originales = "1";
+                            }
+                            else if (rbOriginalesNa.Checked)
+                            {
+                                originales = "";
+                            }
 
                             decimal deposito_Inicial_Ini = 0;
-                            txtDepositoIni.Text = (txtDepositoIni.Text == String.Empty) ? "$0.00" : txtDepositoIni.Text;
+                            txtDepositoIni.Text = (txtDepositoIni.Text == String.Empty) ? default_mxn : txtDepositoIni.Text;
                             deposito_Inicial_Ini = decimal.Parse(txtDepositoIni.Text.Replace("$", ""));
 
                             DateTime fecha_Desbloqueo = dtpDesbloqueo.Value;
@@ -1044,7 +1066,6 @@ namespace GOMAC.Views
                                 lst_observaciones
                             );
 
-                            dtpEnvio.Enabled = true;
 
                             if (respuesta.Codigo > 0)
                             {
@@ -1191,10 +1212,9 @@ namespace GOMAC.Views
         {
             try
             {
-                string str_fecha;
-                int DepositoIni = 0;
+                Double DepositoIni = 0;
                 
-                if((rbcorrectos.Checked == true && int.TryParse(txtDepositoIni.Text, out DepositoIni) == true) || ((TIPO_SOLICITUD)cmbTipoSolicitud.SelectedItem).Id_Solicitud == 3)
+                if((rbCorrectos.Checked == true && Double.TryParse(txtDepositoIni.Text.Replace("$", ""), out DepositoIni) == true) || ((TIPO_SOLICITUD)cmbTipoSolicitud.SelectedItem).Id_Solicitud == 3)
                 {
                     if(DepositoIni > 0)
                     {
@@ -1206,6 +1226,11 @@ namespace GOMAC.Views
                                 VisibleRbFechas(false);
 
                                 tmrTraerDatos.Enabled = true;
+                                
+                                DateTime fecha_servidor = DateTime.Now;
+                                dtpConcluir.Value = fecha_servidor;
+                                dtpConcluir.Visible = true;
+                                dtpConcluir.Enabled = false;
                             }
                             else
                             {
@@ -1845,7 +1870,7 @@ namespace GOMAC.Views
             {
                 btnConcluirSolicitud.Enabled = false;
             }
-            else if(rbcorrectos.Checked == true)
+            else if(rbCorrectos.Checked == true)
             {
                 btnConcluirSolicitud.Enabled = true;
                 int DepositoIni = 0; 
@@ -2043,7 +2068,7 @@ namespace GOMAC.Views
                         dtpFRecepcion.Enabled = false;
                         txtDepositoIni.Enabled = false;
                         dtpDesbloqueo.Enabled = false;
-                        dtpEnvio.Enabled = false;
+                        //dtpEnvio.Enabled = false;
                         grpOriginales.Enabled = false;
                         btnNuevaObservacion.Enabled = false;
 
@@ -2435,15 +2460,15 @@ namespace GOMAC.Views
 
                     if (dtpFAtencion.Value == default_dtp)
                     {
-                        rbcorrectos.Enabled = false;
-                        rbcorrectos.Checked = false;
+                        rbCorrectos.Enabled = false;
+                        rbCorrectos.Checked = false;
                         rbIncorrectos.Enabled = false;
                         rbIncorrectos.Checked = false;
                     }
                     else
                     {
-                        rbcorrectos.Enabled = true;
-                        rbcorrectos.Checked = true;
+                        rbCorrectos.Enabled = true;
+                        rbCorrectos.Checked = true;
                         rbIncorrectos.Enabled = true;
                         rbIncorrectos.Checked = true;
                     }
@@ -2452,21 +2477,22 @@ namespace GOMAC.Views
                     TxtDepositoTkt.Text = (seguimiento.Deposito_InicialTKT.HasValue) ? seguimiento.Deposito_InicialTKT.Value.ToString("C", format_mxn) : "0.00";
                     txtDepositoIni.Text = (seguimiento_doc.Deposito_Inicial.HasValue) ? seguimiento_doc.Deposito_Inicial.Value.ToString("C", format_mxn) : "0.00";
 
-                    if (txtDepositoIni.Text == "0.00")
+                    if (txtDepositoIni.Text == default_mxn)
                     {
                         txtDepositoIni.Enabled = false;
                     }
 
                     if (!seguimiento_doc.Desbloqueo_Sistemas.HasValue)
                     {
+                        LblDesbloquep.Visible = true;
                         dtpDesbloqueo.Enabled = true;
                         dtpDesbloqueo.Value = default_dtp;
                     }
                     else
                     {
+                        LblDesbloquep.Visible = false;
                         dtpDesbloqueo.Value = seguimiento_doc.Desbloqueo_Sistemas.Value;
                         dtpDesbloqueo.Enabled = false;
-
                         btnDesbloqueo.Visible = false;
                     }
 
@@ -2474,13 +2500,15 @@ namespace GOMAC.Views
                     if (!seguimiento_doc.Envio_Agencia.HasValue)
                     {
                         dtpEnvio.Value = default_dtp;
-                        dtpEnvio.Enabled = false;
+                        dtpEnvio.Enabled = true;
                         btnEnvio.Visible = true;
+                        lblEnvioAgencia.Visible = true;
                     }
                     else
                     {
                         dtpEnvio.Value = seguimiento_doc.Envio_Agencia.Value;
                         dtpEnvio.Enabled = false;
+                        dtpEnvio.Visible = false;
                     }
 
 
@@ -2573,7 +2601,7 @@ namespace GOMAC.Views
                     if(((TIPO_SOLICITUD)cmbTipoSolicitud.SelectedItem).Descripcion_Solicitud != "ACTUALIZACION")
                     {
                         int DepositoIni = 0;
-                        if(rbcorrectos.Checked == true && int.TryParse(txtDepositoIni.Text, out DepositoIni))
+                        if(rbCorrectos.Checked == true && int.TryParse(txtDepositoIni.Text, out DepositoIni))
                         {
                             if(DepositoIni > 0)
                             {
@@ -2670,7 +2698,7 @@ namespace GOMAC.Views
                     }
 
                     grpOriginales.Enabled = true;
-                    rbcorrectos.Enabled = true;
+                    rbCorrectos.Enabled = true;
                     rbIncorrectos.Enabled = true;
                     btnConcluirSolicitud.Enabled = true;
 
@@ -3491,6 +3519,26 @@ namespace GOMAC.Views
         private void cmbSucursal_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtDepositoIni_KeyUp(object sender, KeyEventArgs e)
+       {
+            if((txtDepositoIni.Text.Length > 0 && txtDepositoIni.Text != default_mxn) && (rbCorrectos.Checked == true || rbIncorrectos.Checked == true))
+            {
+                LblDesbloquep.Visible = true;
+                dtpDesbloqueo.Visible = true;
+                dtpDesbloqueo.Enabled = true;
+                btnDesbloqueo.Visible = true;
+                btnDesbloqueo.Enabled = true;
+            }
+            else
+            {
+                LblDesbloquep.Visible = false;
+                dtpDesbloqueo.Visible = false;
+                dtpDesbloqueo.Enabled = false;
+                btnDesbloqueo.Visible = false;
+                btnDesbloqueo.Enabled = false;
+            }
         }
 
         private void cmbConsultorMac_SelectedIndexChanged(object sender, EventArgs e)

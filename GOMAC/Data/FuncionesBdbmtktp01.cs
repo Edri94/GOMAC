@@ -364,30 +364,32 @@ namespace GOMAC.Data
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
                 {
+                    int afectados = -1;
+
                     try
                     {
                         SEGUIMIENTO_DOCTOS seguimeinto_docto = (from sd in context.SEGUIMIENTO_DOCTOS where sd.Num_Solicitud == numero_solicitud select sd).FirstOrDefault();
+                        DateTime fecha_servidor = DateTime.Now;
+                        seguimeinto_docto.Concluida = fecha_servidor; 
+                        context.Entry(seguimeinto_docto).State = System.Data.Entity.EntityState.Modified;
+
+                        afectados = context.SaveChanges();
+
                         SEGUIMIENTO seguimiento = (from s in context.SEGUIMIENTO where s.Num_Solicitud == numero_solicitud select s).FirstOrDefault();
+                        seguimiento.Status = "2";
+                        context.Entry(seguimiento).State = System.Data.Entity.EntityState.Modified;
 
-                        context.SEGUIMIENTO_DOCTOS.Add(seguimeinto_docto);
+                        afectados = context.SaveChanges();
 
-                        int actualizados = -1;
-
-                        actualizados = context.SaveChanges();
-
-                        if (actualizados > 0)
+                        if (afectados > 0)
                         {
-                            actualizados = -1;
-
-                            context.SEGUIMIENTO.Add(seguimiento);
-                            actualizados = context.SaveChanges();
-
-                            if (actualizados > 0)
-                            {
-                                dbContextTransaction.Commit();
-                            }
+                            dbContextTransaction.Commit();
                         }
-                        return actualizados;
+                        else
+                        {
+                            dbContextTransaction.Rollback();
+                        }
+                        return afectados;
                     }
                     catch (Exception ex)
                     {
